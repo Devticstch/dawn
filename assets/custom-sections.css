@@ -1035,3 +1035,231 @@
 .cs-footer__heading {
   color: inherit;
 }
+
+/* ---------- Product sticky add-to-cart bar ---------- */
+.product-sticky-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  background: #fff;
+  color: #000;
+  box-shadow: 0 -0.2rem 1.6rem rgba(0, 0, 0, 0.08);
+  padding: 1rem 0 calc(1rem + env(safe-area-inset-bottom, 0px));
+  transform: translateY(110%);
+  transition: transform 0.3s ease;
+}
+
+.product-sticky-bar.is-visible {
+  transform: translateY(0);
+}
+
+.product-sticky-bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+}
+
+.product-sticky-bar__info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font-size: 1.5rem;
+  line-height: 1.4;
+}
+
+.product-sticky-bar__title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-sticky-bar__button {
+  flex: 0 1 53rem;
+  min-height: 4.8rem;
+  border: 0;
+  border-radius: 10rem;
+  background: #000;
+  color: #fff;
+  font: inherit;
+  font-size: 1.7rem;
+  cursor: pointer;
+  padding: 0 2.4rem;
+}
+
+.product-sticky-bar__button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media screen and (max-width: 749px) {
+  .product-sticky-bar__info {
+    display: none;
+  }
+
+  .product-sticky-bar__button {
+    flex: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-sticky-bar {
+    transition: none;
+  }
+}
+
+/* ---------- Collection header (bold) ---------- */
+.collection-hero-bold__breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 1.2rem;
+}
+
+.collection-hero-bold__breadcrumbs li + li::before {
+  content: '/';
+  margin-right: 0.6rem;
+  color: #8a8a8a;
+}
+
+.collection-hero-bold__breadcrumbs a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.collection-hero-bold__breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+.collection-hero-bold__small-title {
+  font-family: var(--font-heading-family);
+  font-weight: 800;
+  font-size: 1.8rem;
+  margin: 0.8rem 0 1.2rem;
+}
+
+.collection-hero-bold__tiles {
+  display: flex;
+  gap: 1.2rem;
+  overflow-x: auto;
+  list-style: none;
+  margin: 0 -1.6rem;
+  padding: 0 1.6rem 1.2rem;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+
+.collection-hero-bold__tiles > li {
+  flex: 0 0 14rem;
+  scroll-snap-align: start;
+}
+
+@media screen and (min-width: 750px) {
+  .collection-hero-bold__tiles {
+    margin: 0;
+    padding: 0 0 1.2rem;
+  }
+
+  .collection-hero-bold__tiles > li {
+    flex-basis: 19rem;
+  }
+}
+
+.collection-hero-bold__tile {
+  position: relative;
+  display: block;
+  aspect-ratio: 19 / 11;
+  border-radius: 1.2rem;
+  overflow: hidden;
+  background: var(--tile-bg, #eee);
+  color: var(--tile-text, #000);
+  text-decoration: none;
+}
+
+.collection-hero-bold__tile img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.collection-hero-bold__tile:hover img {
+  transform: scale(1.05);
+}
+
+.collection-hero-bold__tile-label {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.8rem;
+  font-size: 1.4rem;
+  line-height: 1.2;
+}
+
+.collection-hero-bold__intro {
+  text-align: center;
+  max-width: 96rem;
+  margin: 2.4rem auto 0;
+}
+
+.collection-hero-bold__title {
+  font-family: var(--font-heading-family);
+  font-weight: 800;
+  font-size: 2.8rem;
+  line-height: 1.15;
+  letter-spacing: 0;
+  color: inherit;
+  margin: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .collection-hero-bold__title {
+    font-size: 3.6rem;
+  }
+}
+
+.collection-hero-bold__description {
+  font-size: 1.6rem;
+  line-height: 1.35;
+  margin-top: 1.6rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.collection-hero-bold__description.is-expanded {
+  display: block;
+  -webkit-line-clamp: unset;
+}
+
+.collection-hero-bold__description p {
+  margin: 0;
+}
+
+.collection-hero-bold__more {
+  margin-top: 0.6rem;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 1.6rem;
+  cursor: pointer;
+  padding: 0.4rem;
+}
+
+.collection-hero-bold__more:hover {
+  text-decoration: underline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collection-hero-bold__tile img {
+    transition: none;
+  }
+}

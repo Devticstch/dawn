@@ -59,3 +59,100 @@ document.addEventListener('click', (event) => {
   event.preventDefault();
   closeLink.closest('.menu-drawer-container')?.querySelector(':scope > summary')?.click();
 });
+
+// Product page sticky add-to-cart bar: shows once the main buy button scrolls out of
+// view, and mirrors the main button's label/disabled state and the current price.
+if (!customElements.get('product-sticky-bar')) {
+  customElements.define(
+    'product-sticky-bar',
+    class ProductStickyBar extends HTMLElement {
+      connectedCallback() {
+        this.button = this.querySelector('.product-sticky-bar__button');
+        this.priceEl = this.querySelector('.product-sticky-bar__price');
+        this.sectionId = this.dataset.sectionId;
+        this.hidden = false;
+
+        const form = document.getElementById(this.dataset.formId);
+        if (!form) return;
+
+        this.observer = new IntersectionObserver(([entry]) => {
+          const pastButton = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+          this.classList.toggle('is-visible', pastButton);
+        });
+        this.observer.observe(form);
+
+        // Dawn re-renders the price and buy buttons on variant change; watch the whole
+        // product info column and re-sync from whatever elements are current.
+        this.sync = this.sync.bind(this);
+        const info = document.getElementById(`ProductInfo-${this.sectionId}`);
+        if (info) {
+          this.mutationObserver = new MutationObserver(this.sync);
+          this.mutationObserver.observe(info, { subtree: true, childList: true, attributes: true, attributeFilter: ['disabled'] });
+        }
+        this.sync();
+      }
+
+      disconnectedCallback() {
+        this.observer?.disconnect();
+        this.mutationObserver?.disconnect();
+      }
+
+      sync() {
+        const mainButton = document.getElementById(`ProductSubmitButton-${this.sectionId}`);
+        if (mainButton) {
+          this.button.disabled = mainButton.disabled;
+          const label = mainButton.querySelector('span')?.textContent.trim();
+          if (label) this.button.textContent = label;
+        }
+        const price = document.querySelector(`#price-${this.sectionId} .price-item--last, #price-${this.sectionId} .price-item--regular`);
+        if (price && price.textContent.trim()) this.priceEl.textContent = price.textContent.trim();
+      }
+    }
+  );
+}
+
+// Collection grid size toggle: stores the choice per browser and applies it via
+// data-grid-view on the .collection-bold wrapper (which survives filter re-renders).
+if (!customElements.get('grid-view-toggle')) {
+  customElements.define(
+    'grid-view-toggle',
+    class GridViewToggle extends HTMLElement {
+      connectedCallback() {
+        this.wrapper = this.closest('.collection-bold');
+        if (!this.wrapper) return;
+        let saved = null;
+        try {
+          saved = localStorage.getItem('collection-grid-view');
+        } catch (e) {}
+        if (saved) this.wrapper.dataset.gridView = saved;
+        this.update();
+        this.querySelectorAll('button[data-view]').forEach((button) =>
+          button.addEventListener('click', () => {
+            this.wrapper.dataset.gridView = button.dataset.view;
+            try {
+              localStorage.setItem('collection-grid-view', button.dataset.view);
+            } catch (e) {}
+            this.update();
+          })
+        );
+      }
+
+      update() {
+        this.querySelectorAll('button[data-view]').forEach((button) =>
+          button.setAttribute('aria-pressed', String(button.dataset.view === this.wrapper.dataset.gridView))
+        );
+      }
+    }
+  );
+}
+
+// "View more" toggle for clamped collection descriptions
+document.addEventListener('click', (event) => {
+  const toggle = event.target.closest('[data-clamp-toggle]');
+  if (!toggle) return;
+  const target = document.getElementById(toggle.getAttribute('aria-controls'));
+  if (!target) return;
+  const expanded = target.classList.toggle('is-expanded');
+  toggle.setAttribute('aria-expanded', String(expanded));
+  toggle.textContent = expanded ? toggle.dataset.lessLabel : toggle.dataset.moreLabel;
+});
