@@ -5,6 +5,11 @@
   - product: {Object}
 {% endcomment %}
 {%- case block.type -%}
+  {%- when 'product_type' -%}
+    {%- if product.type != blank -%}
+      <p class="product-bold__type" {{ block.shopify_attributes }}>{{ product.type | escape }}</p>
+    {%- endif -%}
+
   {%- when 'byline' -%}
     {%- if product.vendor != blank -%}
       <p class="product-bold__byline" {{ block.shopify_attributes }}>

@@ -694,7 +694,7 @@
                   {% render 'icon-with-text', block: block %}
                 {%- when 'card_break' -%}
                   {%- if section.settings.info_style == 'cards' -%}</div><div class="product-bold__card">{%- endif -%}
-                {%- when 'byline', 'more_designs', 'spec_bars', 'info_card', 'feature_grid', 'link_card' -%}
+                {%- when 'byline', 'product_type', 'more_designs', 'spec_bars', 'info_card', 'feature_grid', 'link_card' -%}
                   {% render 'product-bold-block', block: block, product: product %}
               {%- endcase -%}
             {%- endfor -%}
@@ -2167,6 +2167,17 @@
         {
           "type": "paragraph",
           "content": "Starts a new white card when Product info style is set to Cards."
+        }
+      ]
+    },
+    {
+      "type": "product_type",
+      "name": "Product type line",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Shows the product's type, e.g. \"Impact Case MagSafe Compatible\"."
         }
       ]
     },

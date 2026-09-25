@@ -10,11 +10,7 @@
           "type": "title"
         },
         "product_type": {
-          "type": "text",
-          "settings": {
-            "text": "{{ product.type }}",
-            "text_style": "body"
-          }
+          "type": "product_type"
         },
         "byline": {
           "type": "byline",
