@@ -101,37 +101,597 @@
         "accessibility_info": "Featured collections"
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "promo_strip": {
+      "type": "promo-strip",
       "settings": {
-        "collection": "all",
-        "products_to_show": 8,
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 44,
-        "padding_bottom": 36
+        "text": "<p>Unlock Exclusive Savings on Our Curated Bundles! | <a href=\"/collections/all\" title=\"Shop now\">SHOP NOW</a></p>",
+        "background": "#000000",
+        "text_color": "#ffffff"
+      }
+    },
+    "category_strip": {
+      "type": "category-strip",
+      "blocks": {
+        "category_1": {
+          "type": "category",
+          "settings": {
+            "label": "Phone Cases"
+          }
+        },
+        "category_2": {
+          "type": "category",
+          "settings": {
+            "label": "Bundle Sets"
+          }
+        },
+        "category_3": {
+          "type": "category",
+          "settings": {
+            "label": "Phone Straps"
+          }
+        },
+        "category_4": {
+          "type": "category",
+          "settings": {
+            "label": "MagSafe"
+          }
+        },
+        "category_5": {
+          "type": "category",
+          "settings": {
+            "label": "Charms"
+          }
+        },
+        "category_6": {
+          "type": "category",
+          "settings": {
+            "label": "Travel"
+          }
+        },
+        "category_7": {
+          "type": "category",
+          "settings": {
+            "label": "Screen Protector"
+          }
+        },
+        "category_8": {
+          "type": "category",
+          "settings": {
+            "label": "Earbuds Cases"
+          }
+        },
+        "category_9": {
+          "type": "category",
+          "settings": {
+            "label": "Watch Bands & Cases"
+          }
+        },
+        "category_10": {
+          "type": "category",
+          "settings": {
+            "label": "Tablet Cases"
+          }
+        },
+        "category_11": {
+          "type": "category",
+          "settings": {
+            "label": "Laptop Cases"
+          }
+        },
+        "category_12": {
+          "type": "category",
+          "settings": {
+            "label": "Accessories"
+          }
+        },
+        "category_13": {
+          "type": "category",
+          "settings": {
+            "label": "Collectibles"
+          }
+        }
+      },
+      "block_order": [
+        "category_1",
+        "category_2",
+        "category_3",
+        "category_4",
+        "category_5",
+        "category_6",
+        "category_7",
+        "category_8",
+        "category_9",
+        "category_10",
+        "category_11",
+        "category_12",
+        "category_13"
+      ],
+      "settings": {
+        "background": "#ffffff",
+        "text_color": "#000000",
+        "padding_top": 12,
+        "padding_bottom": 16
+      }
+    },
+    "reviews_highlight": {
+      "type": "reviews-highlight",
+      "blocks": {
+        "avatar_1": {
+          "type": "avatar",
+          "settings": {}
+        },
+        "avatar_2": {
+          "type": "avatar",
+          "settings": {}
+        },
+        "avatar_3": {
+          "type": "avatar",
+          "settings": {}
+        },
+        "avatar_4": {
+          "type": "avatar",
+          "settings": {}
+        },
+        "avatar_5": {
+          "type": "avatar",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "avatar_1",
+        "avatar_2",
+        "avatar_3",
+        "avatar_4",
+        "avatar_5"
+      ],
+      "settings": {
+        "heading": "Over 100,000 5★ Reviews",
+        "quote": "Their cases are incredibly protective without sacrificing style, which is a rare combination to find.",
+        "rating_text": "4.8/5 based on over 100,000+ reviews",
+        "background": "#f2f2f2",
+        "text_color": "#000000",
+        "star_color": "#f6c131",
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "bento_grid": {
+      "type": "bento-grid",
+      "blocks": {
+        "tile_1": {
+          "type": "tile",
+          "settings": {
+            "size": "wide",
+            "title": "Phone Cases",
+            "text_color": "#000000"
+          }
+        },
+        "tile_2": {
+          "type": "tile",
+          "settings": {
+            "size": "small",
+            "title": "Phone Straps",
+            "text_color": "#000000"
+          }
+        },
+        "tile_3": {
+          "type": "tile",
+          "settings": {
+            "size": "small",
+            "title": "MagSafe Compatible",
+            "text_color": "#000000"
+          }
+        },
+        "tile_4": {
+          "type": "tile",
+          "settings": {
+            "size": "small",
+            "title": "Watch Bands",
+            "text_color": "#000000"
+          }
+        },
+        "tile_5": {
+          "type": "tile",
+          "settings": {
+            "size": "small",
+            "title": "Earbuds Cases",
+            "text_color": "#000000"
+          }
+        },
+        "tile_6": {
+          "type": "tile",
+          "settings": {
+            "size": "wide",
+            "title": "Charms",
+            "text_color": "#000000"
+          }
+        },
+        "tile_7": {
+          "type": "tile",
+          "settings": {
+            "size": "wide",
+            "title": "Travel",
+            "text_color": "#000000"
+          }
+        },
+        "tile_8": {
+          "type": "tile",
+          "settings": {
+            "size": "small",
+            "title": "Tablet Cases",
+            "text_color": "#000000"
+          }
+        },
+        "tile_9": {
+          "type": "tile",
+          "settings": {
+            "size": "small",
+            "title": "Laptop Cases",
+            "text_color": "#000000"
+          }
+        },
+        "tile_10": {
+          "type": "tile",
+          "settings": {
+            "size": "small",
+            "title": "Protectors",
+            "text_color": "#000000"
+          }
+        },
+        "tile_11": {
+          "type": "tile",
+          "settings": {
+            "size": "small",
+            "title": "Signature Cases",
+            "text_color": "#000000"
+          }
+        },
+        "tile_12": {
+          "type": "tile",
+          "settings": {
+            "size": "wide",
+            "title": "Sets & Bundles",
+            "text_color": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "tile_1",
+        "tile_2",
+        "tile_3",
+        "tile_4",
+        "tile_5",
+        "tile_6",
+        "tile_7",
+        "tile_8",
+        "tile_9",
+        "tile_10",
+        "tile_11",
+        "tile_12"
+      ],
+      "settings": {
+        "heading": "Best Selling",
+        "row_height": 310,
+        "background": "#ffffff",
+        "text_color": "#000000",
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    },
+    "feature_cards": {
+      "type": "feature-cards",
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "title": "Impact Case",
+            "subtitle": "Drop-tested protection",
+            "text": "<p>Shock-absorbing corners and a raised bezel keep your phone safe from everyday drops.</p>",
+            "button_label": "Shop Now"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "title": "Bounce Case",
+            "subtitle": "Reinforced corners",
+            "text": "<p>Expanded functional corners tested against repeated drops, with protection and style.</p>",
+            "button_label": "Shop Now"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "title": "Cross-body Strap",
+            "subtitle": "Upgraded clasps",
+            "text": "<p>Rope straps with stronger lobster clasps built to carry your phone hands-free.</p>",
+            "button_label": "Shop Now"
+          }
+        },
+        "card_4": {
+          "type": "card",
+          "settings": {
+            "title": "Ring Stand Case",
+            "subtitle": "Kickstand integration",
+            "text": "<p>A precision hinge gives you a sturdy stand without compromising structure.</p>",
+            "button_label": "Shop Now"
+          }
+        },
+        "card_5": {
+          "type": "card",
+          "settings": {
+            "title": "Clear Case",
+            "subtitle": "Anti-yellowing",
+            "text": "<p>UV-resistant material fights yellowing so your clear case stays clear.</p>",
+            "button_label": "Shop Now"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3",
+        "card_4",
+        "card_5"
+      ],
+      "settings": {
+        "heading": "The Tech2c Standard",
+        "subheading": "<p>Real life happens. We've got your back, with protection that rises to meet your life.</p>",
+        "background": "#e8e8e8",
+        "text_color": "#000000",
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    },
+    "signup_banner": {
+      "type": "signup-banner",
+      "settings": {
+        "heading": "Would you like 10% off?",
+        "text": "<p>Also be the first to know about new drops and rewards.<br>Opt-in for Tech2c updates via email.</p>",
+        "button_label": "Yes, Sign Me Up",
+        "background": "#fecad6",
+        "text_color": "#000000",
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    },
+    "logo_list": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_1": {
+          "type": "logo",
+          "settings": {
+            "name": "Publication One"
+          }
+        },
+        "logo_2": {
+          "type": "logo",
+          "settings": {
+            "name": "Publication Two"
+          }
+        },
+        "logo_3": {
+          "type": "logo",
+          "settings": {
+            "name": "Publication Three"
+          }
+        },
+        "logo_4": {
+          "type": "logo",
+          "settings": {
+            "name": "Publication Four"
+          }
+        }
+      },
+      "block_order": [
+        "logo_1",
+        "logo_2",
+        "logo_3",
+        "logo_4"
+      ],
+      "settings": {
+        "heading": "As Seen In",
+        "logo_height": 40,
+        "grayscale": false,
+        "background": "#ffffff",
+        "text_color": "#000000",
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
+    },
+    "perks": {
+      "type": "perks",
+      "blocks": {
+        "perk_1": {
+          "type": "perk",
+          "settings": {
+            "icon": "trophy",
+            "text": "<p>Award Winning Design</p>"
+          }
+        },
+        "perk_2": {
+          "type": "perk",
+          "settings": {
+            "icon": "sparkle",
+            "text": "<p>Years of Innovation</p>"
+          }
+        },
+        "perk_3": {
+          "type": "perk",
+          "settings": {
+            "icon": "truck",
+            "text": "<p>Free Shipping from $40 USD</p>"
+          }
+        },
+        "perk_4": {
+          "type": "perk",
+          "settings": {
+            "icon": "return",
+            "text": "<p>10-day No Questions Asked<br>Return or Exchange</p>"
+          }
+        },
+        "perk_5": {
+          "type": "perk",
+          "settings": {
+            "icon": "secure",
+            "text": "<p>Secure Checkout</p>"
+          }
+        },
+        "perk_6": {
+          "type": "perk",
+          "settings": {
+            "icon": "warranty",
+            "text": "<p>Up to 24-Month<br>Product Warranty</p>"
+          }
+        }
+      },
+      "block_order": [
+        "perk_1",
+        "perk_2",
+        "perk_3",
+        "perk_4",
+        "perk_5",
+        "perk_6"
+      ],
+      "settings": {
+        "background": "#f2f2f2",
+        "text_color": "#000000",
+        "padding_top": 32,
+        "padding_bottom": 28
+      }
+    },
+    "community_gallery": {
+      "type": "community-gallery",
+      "blocks": {
+        "post_1": {
+          "type": "post",
+          "settings": {}
+        },
+        "post_2": {
+          "type": "post",
+          "settings": {}
+        },
+        "post_3": {
+          "type": "post",
+          "settings": {}
+        },
+        "post_4": {
+          "type": "post",
+          "settings": {}
+        },
+        "post_5": {
+          "type": "post",
+          "settings": {}
+        },
+        "post_6": {
+          "type": "post",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "post_1",
+        "post_2",
+        "post_3",
+        "post_4",
+        "post_5",
+        "post_6"
+      ],
+      "settings": {
+        "heading": "Tech2c Community",
+        "show_instagram_icon": true,
+        "subheading": "<p>Join our global collective of creators and bold individuals</p>",
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "news_carousel": {
+      "type": "news-carousel",
+      "blocks": {
+        "story_1": {
+          "type": "story",
+          "settings": {
+            "title": "Stop Chasing Trends: Quality is the Only Lasting Advantage",
+            "card_color": "#1fa35c",
+            "card_text_color": "#000000",
+            "button_label": "Learn More"
+          }
+        },
+        "story_2": {
+          "type": "story",
+          "settings": {
+            "title": "Our Standards: Built for Real Life",
+            "card_color": "#f5e063",
+            "card_text_color": "#000000",
+            "button_label": "Learn More"
+          }
+        },
+        "story_3": {
+          "type": "story",
+          "settings": {
+            "title": "The Case Guide: Top 5 Questions Everyone Asks",
+            "card_color": "#fdc8d6",
+            "card_text_color": "#000000",
+            "button_label": "Learn More"
+          }
+        },
+        "story_4": {
+          "type": "story",
+          "settings": {
+            "title": "We Won a Design Award",
+            "card_color": "#2c5dab",
+            "card_text_color": "#ffffff",
+            "button_label": "Learn More"
+          }
+        },
+        "story_5": {
+          "type": "story",
+          "settings": {
+            "title": "New Cases: Available Now",
+            "card_color": "#f25a3c",
+            "card_text_color": "#000000",
+            "button_label": "Learn More"
+          }
+        },
+        "story_6": {
+          "type": "story",
+          "settings": {
+            "title": "Minimalist Picks: Your New Everyday Staple",
+            "card_color": "#e9e3dc",
+            "card_text_color": "#000000",
+            "button_label": "Learn More"
+          }
+        }
+      },
+      "block_order": [
+        "story_1",
+        "story_2",
+        "story_3",
+        "story_4",
+        "story_5",
+        "story_6"
+      ],
+      "settings": {
+        "heading": "Tech2c News",
+        "background": "#f2f2f2",
+        "text_color": "#000000",
+        "padding_top": 36,
+        "padding_bottom": 20
       }
     }
   },
   "order": [
     "hero_carousel",
-    "featured_collection"
+    "promo_strip",
+    "category_strip",
+    "reviews_highlight",
+    "bento_grid",
+    "feature_cards",
+    "signup_banner",
+    "logo_list",
+    "perks",
+    "community_gallery",
+    "news_carousel"
   ]
 }
