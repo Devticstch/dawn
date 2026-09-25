@@ -50,3 +50,12 @@ if (!customElements.get('cs-scroller')) {
     }
   );
 }
+
+// Mega drawer close link: toggle the drawer through its own summary so Dawn's
+// HeaderDrawer runs its normal close routine (focus, scroll lock, animation).
+document.addEventListener('click', (event) => {
+  const closeLink = event.target.closest('.mega-drawer__close');
+  if (!closeLink) return;
+  event.preventDefault();
+  closeLink.closest('.menu-drawer-container')?.querySelector(':scope > summary')?.click();
+});

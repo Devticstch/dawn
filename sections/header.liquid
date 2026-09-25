@@ -12,6 +12,10 @@
   <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- endif -%}
 
+{%- if section.settings.drawer_style == 'mega' -%}
+  {{ 'component-mega-drawer.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
 {%- if section.settings.menu_type_desktop == 'mega' -%}
   <link rel="stylesheet" href="{{ 'component-mega-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- endif -%}
@@ -573,6 +577,42 @@
     },
     {
       "type": "select",
+      "id": "drawer_style",
+      "label": "Menu drawer style",
+      "options": [
+        { "value": "standard", "label": "Standard" },
+        { "value": "mega", "label": "Mega (cards, thumbnails & badges)" }
+      ],
+      "default": "standard",
+      "info": "Mega style is built from the \"Mega menu\" blocks. Add a badge by ending a menu item title with [NEW], [TOP], [SALE] or [HOT]"
+    },
+    {
+      "type": "link_list",
+      "id": "device_menu",
+      "label": "Mega menu: device selector menu",
+      "info": "Nested items become groups, e.g. Apple > iPhone 17"
+    },
+    {
+      "type": "text",
+      "id": "device_label",
+      "label": "Mega menu: device selector label",
+      "default": "For Your Device"
+    },
+    {
+      "type": "text",
+      "id": "device_placeholder",
+      "label": "Mega menu: device selector placeholder",
+      "default": "Select Device"
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "Mega menu: \"View all\" link label",
+      "default": "View all",
+      "info": "Leave empty to hide the link at the end of each submenu"
+    },
+    {
+      "type": "select",
       "id": "sticky_header_type",
       "options": [
         {
@@ -681,6 +721,51 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "mega_featured",
+      "name": "Mega menu: banner",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Recommended 700 × 220 px" },
+        { "type": "text", "id": "title", "label": "Title", "default": "NEW! Latest Cases" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "color", "id": "text_color", "label": "Title color", "default": "#000000" }
+      ]
+    },
+    {
+      "type": "mega_cards",
+      "name": "Mega menu: image cards",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Design" },
+        { "type": "link_list", "id": "menu", "label": "Menu", "info": "Card images come from the linked collections" }
+      ]
+    },
+    {
+      "type": "mega_list",
+      "name": "Mega menu: product list",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Products" },
+        { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu", "info": "Thumbnails come from the linked collections. Nested items open a submenu" },
+        { "type": "checkbox", "id": "show_images", "label": "Show thumbnails", "default": true }
+      ]
+    },
+    {
+      "type": "mega_links",
+      "name": "Mega menu: text links",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Discover" },
+        { "type": "link_list", "id": "menu", "label": "Menu" },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "options": [
+            { "value": "primary", "label": "Primary" },
+            { "value": "muted", "label": "Muted" }
+          ],
+          "default": "primary"
+        }
+      ]
     }
   ]
 }
