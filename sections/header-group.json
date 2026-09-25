@@ -1,25 +1,23 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
     "announcement-bar": {
       "type": "announcement-bar",
-      "settings": {
-        "color_scheme": "scheme-6",
-        "show_line_separator": false,
-        "show_social": false,
-        "auto_rotate": true,
-        "change_slides_speed": 5,
-        "enable_country_selector": false,
-        "enable_language_selector": false
-      },
       "blocks": {
         "announcement-1": {
           "type": "announcement",
           "settings": {
             "text": "New! The Latest Phone Cases Are Here | SHOP NOW",
-            "text_alignment": "center",
-            "color_scheme": "scheme-6",
             "link": "shopify://collections/all"
           }
         },
@@ -27,8 +25,6 @@
           "type": "announcement",
           "settings": {
             "text": "Enjoy Free Shipping Worldwide for orders $40 USD or above | T/C Apply",
-            "text_alignment": "center",
-            "color_scheme": "scheme-6",
             "link": ""
           }
         },
@@ -36,8 +32,6 @@
           "type": "announcement",
           "settings": {
             "text": "Bundle & Save: Curated Sets at Exclusive Prices",
-            "text_alignment": "center",
-            "color_scheme": "scheme-6",
             "link": "shopify://collections/all"
           }
         }
@@ -46,74 +40,34 @@
         "announcement-1",
         "announcement-2",
         "announcement-3"
-      ]
+      ],
+      "settings": {
+        "auto_rotate": true,
+        "change_slides_speed": 5,
+        "color_scheme": "scheme-6",
+        "show_line_separator": false,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
     },
     "header": {
       "type": "header",
       "settings": {
-        "color_scheme": "scheme-1",
-        "menu_color_scheme": "scheme-1",
         "logo_position": "middle-center",
+        "mobile_logo_position": "center",
         "menu": "main-menu",
         "menu_type_desktop": "drawer",
         "sticky_header_type": "always",
         "show_line_separator": false,
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1",
         "enable_country_selector": true,
         "enable_language_selector": true,
-        "mobile_logo_position": "center",
         "margin_bottom": 0,
         "padding_top": 8,
-        "padding_bottom": 8,
-        "drawer_style": "mega",
-        "device_label": "For Your Device",
-        "device_placeholder": "Select Device",
-        "view_all_label": "View all"
-      },
-      "blocks": {
-        "mega_banner": {
-          "type": "mega_featured",
-          "settings": {
-            "title": "NEW! Latest Cases",
-            "link": "shopify://collections/all",
-            "text_color": "#000000"
-          }
-        },
-        "mega_design": {
-          "type": "mega_cards",
-          "settings": {
-            "heading": "Design"
-          }
-        },
-        "mega_products": {
-          "type": "mega_list",
-          "settings": {
-            "heading": "Products",
-            "menu": "main-menu",
-            "show_images": true
-          }
-        },
-        "mega_discover": {
-          "type": "mega_links",
-          "settings": {
-            "heading": "Discover",
-            "style": "primary"
-          }
-        },
-        "mega_more": {
-          "type": "mega_links",
-          "settings": {
-            "heading": "",
-            "style": "muted"
-          }
-        }
-      },
-      "block_order": [
-        "mega_banner",
-        "mega_design",
-        "mega_products",
-        "mega_discover",
-        "mega_more"
-      ]
+        "padding_bottom": 8
+      }
     }
   },
   "order": [
