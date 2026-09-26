@@ -15,7 +15,8 @@
         "slide_1": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/fb15c6490644aff5ab6a93cfb31174dc.png",
+            "image": "shopify://shop_images/image_c89541fe-379a-4d13-90b7-3eb72e3b42b1.png",
+            "mobile_image": "shopify://shop_images/image_728681be-c9c3-4703-ad57-f56391189c37.png",
             "link": "",
             "heading": "NEW! iPhone 18 Pro",
             "subheading": "Shop daily protection\nwith drop-tested cases",
@@ -27,7 +28,8 @@
         "slide_2": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/734005e5215bc26114ba80d96302c12a.png",
+            "image": "shopify://shop_images/image_5b4b3d36-c985-49f4-8f88-eb8a56e126e9.png",
+            "mobile_image": "shopify://shop_images/image_c690e747-9903-492d-9d3b-b392244a38e0.png",
             "link": "",
             "heading": "Signature Cases",
             "subheading": "The award winning cases",
@@ -40,6 +42,8 @@
           "type": "slide",
           "disabled": true,
           "settings": {
+            "image": "shopify://shop_images/image_756445f8-0483-4cd9-9769-f32a30dc94c5.png",
+            "mobile_image": "shopify://shop_images/image_24e73aa9-2b36-47d7-9ced-f719f800ffc9.png",
             "link": "",
             "heading": "Unlimited Prints",
             "subheading": "Find your perfect case",
@@ -51,7 +55,8 @@
         "slide_4": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/fa6d7a58a81e6812d337f02653751056.jpg",
+            "image": "shopify://shop_images/image_a8c45c0d-a941-405b-8eef-d2b999b9899f.png",
+            "mobile_image": "shopify://shop_images/image_dc9714b1-ad5d-44f3-ab4e-1fbfa00d45e0.png",
             "link": "",
             "heading": "MAKE iT YOURS",
             "subheading": "Design a case that's all you",
@@ -64,6 +69,8 @@
           "type": "slide",
           "disabled": true,
           "settings": {
+            "image": "shopify://shop_images/image_95139f7f-0223-485f-9ad6-9b6052c9ec35.png",
+            "mobile_image": "shopify://shop_images/image_382f1039-9981-4af8-ae72-ca13fce5dfd7.png",
             "link": "",
             "heading": "MagSafe Accessories",
             "subheading": "Snap on and go.\nUnlock new features.",
@@ -76,6 +83,8 @@
           "type": "slide",
           "disabled": true,
           "settings": {
+            "image": "shopify://shop_images/image_0d43b130-02da-47f4-854d-f0b687f2f4eb.png",
+            "mobile_image": "shopify://shop_images/image_d376ce9b-5b14-4548-abf0-ff02b4390e36.png",
             "link": "",
             "heading": "The Protectors",
             "subheading": "The ultimate armor\nfor lens and screens",
@@ -115,79 +124,115 @@
         "category_1": {
           "type": "category",
           "settings": {
-            "label": "Phone Cases"
+            "collection": "",
+            "image": "shopify://shop_images/image.png",
+            "label": "Hard Cases",
+            "link": ""
           }
         },
         "category_2": {
           "type": "category",
           "settings": {
-            "label": "Bundle Sets"
+            "collection": "",
+            "image": "shopify://shop_images/image_0339e776-b094-4429-97ac-3c41b5c254fe.png",
+            "label": "Soft Cases",
+            "link": ""
           }
         },
         "category_3": {
           "type": "category",
           "settings": {
-            "label": "Phone Straps"
+            "collection": "",
+            "image": "shopify://shop_images/image_c307ba03-f2b0-45f2-93f8-484c3b2e9c25.png",
+            "label": "Transparent Cases",
+            "link": ""
           }
         },
         "category_4": {
           "type": "category",
           "settings": {
-            "label": "MagSafe"
+            "collection": "",
+            "image": "shopify://shop_images/image_d00a21b2-121c-47d1-a73e-317d5c687a0c.png",
+            "label": "Leather Cases",
+            "link": ""
           }
         },
         "category_5": {
           "type": "category",
           "settings": {
-            "label": "Charms"
+            "collection": "",
+            "image": "shopify://shop_images/image_f2e6eb09-d6f3-4b38-b794-5d0cd099a242.png",
+            "label": "Wallet Cases",
+            "link": ""
           }
         },
         "category_6": {
           "type": "category",
           "settings": {
-            "label": "Travel"
+            "collection": "",
+            "image": "shopify://shop_images/image_f405e1bd-00b3-4673-8cc7-7f0302d95557.png",
+            "label": "Travel",
+            "link": ""
           }
         },
         "category_7": {
           "type": "category",
           "settings": {
-            "label": "Screen Protector"
+            "collection": "",
+            "image": "shopify://shop_images/image_325dca79-f7cd-4c1f-b5bd-489ba87426a9.png",
+            "label": "Screen Protector",
+            "link": ""
           }
         },
         "category_8": {
           "type": "category",
           "settings": {
-            "label": "Earbuds Cases"
+            "collection": "",
+            "image": "shopify://shop_images/image_1511f965-72fe-4089-af73-c6db95156855.png",
+            "label": "Earbuds Cases",
+            "link": ""
           }
         },
         "category_9": {
           "type": "category",
           "settings": {
-            "label": "Watch Bands & Cases"
+            "collection": "",
+            "image": "shopify://shop_images/image_a171d354-2ace-47d1-a934-87b717b161c4.png",
+            "label": "Watch Bands & Cases",
+            "link": ""
           }
         },
         "category_10": {
           "type": "category",
           "settings": {
-            "label": "Tablet Cases"
+            "collection": "",
+            "image": "shopify://shop_images/image_b0c74b96-3539-4b9c-981a-270d0e30ae0e.png",
+            "label": "Tablet Cases",
+            "link": ""
           }
         },
         "category_11": {
           "type": "category",
           "settings": {
-            "label": "Laptop Cases"
+            "collection": "",
+            "label": "Laptop Cases",
+            "link": ""
           }
         },
         "category_12": {
           "type": "category",
           "settings": {
-            "label": "Accessories"
+            "collection": "",
+            "label": "Accessories",
+            "link": ""
           }
         },
         "category_13": {
           "type": "category",
           "settings": {
-            "label": "Collectibles"
+            "collection": "",
+            "label": "Collectibles",
+            "link": ""
           }
         }
       },
@@ -262,7 +307,9 @@
           "type": "tile",
           "settings": {
             "size": "wide",
+            "collection": "",
             "title": "Phone Cases",
+            "link": "",
             "text_color": "#000000"
           }
         },
@@ -270,7 +317,9 @@
           "type": "tile",
           "settings": {
             "size": "small",
+            "collection": "",
             "title": "Phone Straps",
+            "link": "",
             "text_color": "#000000"
           }
         },
@@ -278,7 +327,9 @@
           "type": "tile",
           "settings": {
             "size": "small",
+            "collection": "",
             "title": "MagSafe Compatible",
+            "link": "",
             "text_color": "#000000"
           }
         },
@@ -286,7 +337,9 @@
           "type": "tile",
           "settings": {
             "size": "small",
+            "collection": "",
             "title": "Watch Bands",
+            "link": "",
             "text_color": "#000000"
           }
         },
@@ -294,7 +347,9 @@
           "type": "tile",
           "settings": {
             "size": "small",
+            "collection": "",
             "title": "Earbuds Cases",
+            "link": "",
             "text_color": "#000000"
           }
         },
@@ -302,7 +357,9 @@
           "type": "tile",
           "settings": {
             "size": "wide",
+            "collection": "",
             "title": "Charms",
+            "link": "",
             "text_color": "#000000"
           }
         },
@@ -310,7 +367,9 @@
           "type": "tile",
           "settings": {
             "size": "wide",
+            "collection": "",
             "title": "Travel",
+            "link": "",
             "text_color": "#000000"
           }
         },
@@ -318,7 +377,9 @@
           "type": "tile",
           "settings": {
             "size": "small",
+            "collection": "",
             "title": "Tablet Cases",
+            "link": "",
             "text_color": "#000000"
           }
         },
@@ -326,7 +387,9 @@
           "type": "tile",
           "settings": {
             "size": "small",
+            "collection": "",
             "title": "Laptop Cases",
+            "link": "",
             "text_color": "#000000"
           }
         },
@@ -334,7 +397,9 @@
           "type": "tile",
           "settings": {
             "size": "small",
+            "collection": "",
             "title": "Protectors",
+            "link": "",
             "text_color": "#000000"
           }
         },
@@ -342,7 +407,9 @@
           "type": "tile",
           "settings": {
             "size": "small",
+            "collection": "",
             "title": "Signature Cases",
+            "link": "",
             "text_color": "#000000"
           }
         },
@@ -350,7 +417,9 @@
           "type": "tile",
           "settings": {
             "size": "wide",
+            "collection": "",
             "title": "Sets & Bundles",
+            "link": "",
             "text_color": "#000000"
           }
         }
@@ -387,7 +456,8 @@
             "title": "Impact Case",
             "subtitle": "Drop-tested protection",
             "text": "<p>Shock-absorbing corners and a raised bezel keep your phone safe from everyday drops.</p>",
-            "button_label": "Shop Now"
+            "button_label": "Shop Now",
+            "button_link": ""
           }
         },
         "card_2": {
@@ -396,7 +466,8 @@
             "title": "Bounce Case",
             "subtitle": "Reinforced corners",
             "text": "<p>Expanded functional corners tested against repeated drops, with protection and style.</p>",
-            "button_label": "Shop Now"
+            "button_label": "Shop Now",
+            "button_link": ""
           }
         },
         "card_3": {
@@ -405,7 +476,8 @@
             "title": "Cross-body Strap",
             "subtitle": "Upgraded clasps",
             "text": "<p>Rope straps with stronger lobster clasps built to carry your phone hands-free.</p>",
-            "button_label": "Shop Now"
+            "button_label": "Shop Now",
+            "button_link": ""
           }
         },
         "card_4": {
@@ -414,7 +486,8 @@
             "title": "Ring Stand Case",
             "subtitle": "Kickstand integration",
             "text": "<p>A precision hinge gives you a sturdy stand without compromising structure.</p>",
-            "button_label": "Shop Now"
+            "button_label": "Shop Now",
+            "button_link": ""
           }
         },
         "card_5": {
@@ -423,7 +496,8 @@
             "title": "Clear Case",
             "subtitle": "Anti-yellowing",
             "text": "<p>UV-resistant material fights yellowing so your clear case stays clear.</p>",
-            "button_label": "Shop Now"
+            "button_label": "Shop Now",
+            "button_link": ""
           }
         }
       },
@@ -461,25 +535,29 @@
         "logo_1": {
           "type": "logo",
           "settings": {
-            "name": "Publication One"
+            "name": "Publication One",
+            "link": ""
           }
         },
         "logo_2": {
           "type": "logo",
           "settings": {
-            "name": "Publication Two"
+            "name": "Publication Two",
+            "link": ""
           }
         },
         "logo_3": {
           "type": "logo",
           "settings": {
-            "name": "Publication Three"
+            "name": "Publication Three",
+            "link": ""
           }
         },
         "logo_4": {
           "type": "logo",
           "settings": {
-            "name": "Publication Four"
+            "name": "Publication Four",
+            "link": ""
           }
         }
       },
@@ -565,27 +643,39 @@
       "blocks": {
         "post_1": {
           "type": "post",
-          "settings": {}
+          "settings": {
+            "link": ""
+          }
         },
         "post_2": {
           "type": "post",
-          "settings": {}
+          "settings": {
+            "link": ""
+          }
         },
         "post_3": {
           "type": "post",
-          "settings": {}
+          "settings": {
+            "link": ""
+          }
         },
         "post_4": {
           "type": "post",
-          "settings": {}
+          "settings": {
+            "link": ""
+          }
         },
         "post_5": {
           "type": "post",
-          "settings": {}
+          "settings": {
+            "link": ""
+          }
         },
         "post_6": {
           "type": "post",
-          "settings": {}
+          "settings": {
+            "link": ""
+          }
         }
       },
       "block_order": [
@@ -598,6 +688,7 @@
       ],
       "settings": {
         "heading": "Tech2c Community",
+        "heading_link": "",
         "show_instagram_icon": true,
         "subheading": "<p>Join our global collective of creators and bold individuals</p>",
         "background": "#000000",
@@ -612,55 +703,67 @@
         "story_1": {
           "type": "story",
           "settings": {
+            "article": "",
             "title": "Stop Chasing Trends: Quality is the Only Lasting Advantage",
+            "link": "",
+            "button_label": "Learn More",
             "card_color": "#1fa35c",
-            "card_text_color": "#000000",
-            "button_label": "Learn More"
+            "card_text_color": "#000000"
           }
         },
         "story_2": {
           "type": "story",
           "settings": {
+            "article": "",
             "title": "Our Standards: Built for Real Life",
+            "link": "",
+            "button_label": "Learn More",
             "card_color": "#f5e063",
-            "card_text_color": "#000000",
-            "button_label": "Learn More"
+            "card_text_color": "#000000"
           }
         },
         "story_3": {
           "type": "story",
           "settings": {
+            "article": "",
             "title": "The Case Guide: Top 5 Questions Everyone Asks",
+            "link": "",
+            "button_label": "Learn More",
             "card_color": "#fdc8d6",
-            "card_text_color": "#000000",
-            "button_label": "Learn More"
+            "card_text_color": "#000000"
           }
         },
         "story_4": {
           "type": "story",
           "settings": {
+            "article": "",
             "title": "We Won a Design Award",
+            "link": "",
+            "button_label": "Learn More",
             "card_color": "#2c5dab",
-            "card_text_color": "#ffffff",
-            "button_label": "Learn More"
+            "card_text_color": "#ffffff"
           }
         },
         "story_5": {
           "type": "story",
           "settings": {
+            "article": "",
             "title": "New Cases: Available Now",
+            "link": "",
+            "button_label": "Learn More",
             "card_color": "#f25a3c",
-            "card_text_color": "#000000",
-            "button_label": "Learn More"
+            "card_text_color": "#000000"
           }
         },
         "story_6": {
           "type": "story",
           "settings": {
+            "article": "",
             "title": "Minimalist Picks: Your New Everyday Staple",
+            "link": "",
+            "button_label": "Learn More",
             "card_color": "#e9e3dc",
-            "card_text_color": "#000000",
-            "button_label": "Learn More"
+            "card_text_color": "#000000"
           }
         }
       },
