@@ -18,6 +18,21 @@
   max-width: 160rem;
 }
 
+main[data-template='index'] .cs-container {
+  max-width: none;
+  padding-inline: clamp(1.6rem, 4vw, 7.2rem);
+}
+
+main[data-template='index'] .collection--full-width .collection__title.page-width {
+  max-width: none;
+  padding-inline: clamp(1.6rem, 4vw, 7.2rem);
+}
+
+main[data-template='index'] .homepage-image-with-text-width {
+  max-width: none;
+  padding-inline: clamp(1.6rem, 4vw, 7.2rem);
+}
+
 @media screen and (min-width: 750px) {
   .cs-container {
     padding-inline: 3.2rem;

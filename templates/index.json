@@ -932,17 +932,17 @@
     "hero_carousel",
     "promo_strip",
     "category_strip",
-    "featured_best",
     "bento_grid",
+    "featured_best",
     "editorial_protection",
-    "feature_cards",
     "featured_bundle",
-    "editorial_style",
+    "featured_everyday",
+    "feature_cards",
+    "perks",
     "reviews_highlight",
     "community_gallery",
-    "featured_everyday",
     "news_carousel",
     "signup_banner",
-    "perks"
+    "editorial_style"
   ]
 }
