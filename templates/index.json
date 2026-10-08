@@ -22,81 +22,16 @@
             "button_label": "Shop now",
             "mobile_focus": "center"
           }
-        },
-        "slide_2": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/image_5b4b3d36-c985-49f4-8f88-eb8a56e126e9.png",
-            "mobile_image": "shopify://shop_images/image_c690e747-9903-492d-9d3b-b392244a38e0.png",
-            "link": "shopify://collections/all",
-            "heading": "Signature Cases",
-            "subheading": "The award winning cases",
-            "button_label": "Shop now",
-            "mobile_focus": "center"
-          }
-        },
-        "slide_3": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/image_756445f8-0483-4cd9-9769-f32a30dc94c5.png",
-            "mobile_image": "shopify://shop_images/image_24e73aa9-2b36-47d7-9ced-f719f800ffc9.png",
-            "link": "",
-            "heading": "Unlimited Prints",
-            "subheading": "Find your perfect case",
-            "mobile_focus": "center"
-          }
-        },
-        "slide_4": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/image_a8c45c0d-a941-405b-8eef-d2b999b9899f.png",
-            "mobile_image": "shopify://shop_images/image_dc9714b1-ad5d-44f3-ab4e-1fbfa00d45e0.png",
-            "link": "shopify://collections/all",
-            "heading": "MAKE iT YOURS",
-            "subheading": "Design a case that's all you",
-            "button_label": "Shop now",
-            "mobile_focus": "center"
-          }
-        },
-        "slide_5": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/image_95139f7f-0223-485f-9ad6-9b6052c9ec35.png",
-            "mobile_image": "shopify://shop_images/image_382f1039-9981-4af8-ae72-ca13fce5dfd7.png",
-            "link": "",
-            "heading": "MagSafe Accessories",
-            "subheading": "Snap on and go.\nUnlock new features.",
-            "mobile_focus": "center"
-          }
-        },
-        "slide_6": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/image_0d43b130-02da-47f4-854d-f0b687f2f4eb.png",
-            "mobile_image": "shopify://shop_images/image_d376ce9b-5b14-4548-abf0-ff02b4390e36.png",
-            "link": "",
-            "heading": "The Protectors",
-            "subheading": "The ultimate armor\nfor lens and screens",
-            "mobile_focus": "center"
-          }
         }
       },
       "block_order": [
-        "slide_1",
-        "slide_2",
-        "slide_3",
-        "slide_4",
-        "slide_5",
-        "slide_6"
+        "slide_1"
       ],
       "settings": {
-        "auto_rotate": true,
+        "auto_rotate": false,
         "change_slides_speed": 5,
         "accessibility_info": "Featured collections",
-        "overlay_opacity": 50
+        "overlay_opacity": 42
       }
     },
     "promo_strip": {
@@ -246,8 +181,8 @@
       "settings": {
         "background": "#ffffff",
         "text_color": "#000000",
-        "padding_top": 12,
-        "padding_bottom": 16
+        "padding_top": 24,
+        "padding_bottom": 28
       }
     },
     "reviews_highlight": {
@@ -292,14 +227,14 @@
         "avatar_5"
       ],
       "settings": {
-        "heading": "Over 50,000 5★ Reviews",
+        "heading": "Loved by Our Customers",
         "quote": "Their cases are incredibly protective without sacrificing style, which is a rare combination to find.",
         "rating_text": "4.8/5 based on over 100,000+ reviews",
         "background": "#f2f2f2",
         "text_color": "#000000",
         "star_color": "#f6c131",
-        "padding_top": 28,
-        "padding_bottom": 28
+        "padding_top": 56,
+        "padding_bottom": 56
       }
     },
     "bento_grid": {
@@ -453,12 +388,12 @@
         "tile_12"
       ],
       "settings": {
-        "heading": "Best Selling",
-        "row_height": 310,
+        "heading": "Explore the Collection",
+        "row_height": 360,
         "background": "#ffffff",
         "text_color": "#000000",
-        "padding_top": 36,
-        "padding_bottom": 28
+        "padding_top": 52,
+        "padding_bottom": 44
       }
     },
     "feature_cards": {
@@ -528,12 +463,12 @@
         "card_5"
       ],
       "settings": {
-        "heading": "The Tech2c Standard",
-        "subheading": "<p>Real life happens. We've got your back, with protection that rises to meet your life.</p>",
+        "heading": "Designed for Everyday Life",
+        "subheading": "<p>Thoughtful protection, practical details, and signature style across the collection.</p>",
         "background": "#e8e8e8",
         "text_color": "#000000",
-        "padding_top": 36,
-        "padding_bottom": 28
+        "padding_top": 56,
+        "padding_bottom": 52
       }
     },
     "signup_banner": {
@@ -544,8 +479,8 @@
         "button_label": "Yes, Sign Me Up",
         "background": "#fecad6",
         "text_color": "#000000",
-        "padding_top": 52,
-        "padding_bottom": 52
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "logo_list": {
@@ -653,8 +588,8 @@
       "settings": {
         "background": "#f2f2f2",
         "text_color": "#000000",
-        "padding_top": 32,
-        "padding_bottom": 28
+        "padding_top": 42,
+        "padding_bottom": 42
       }
     },
     "community_gallery": {
@@ -712,14 +647,14 @@
         "post_6"
       ],
       "settings": {
-        "heading": "Tech2c Community",
+        "heading": "See It in Real Life",
         "heading_link": "",
         "show_instagram_icon": true,
-        "subheading": "<p>Join our global collective of creators and bold individuals</p>",
-        "background": "#000000",
+        "subheading": "<p>Discover how our community styles and uses their Tech2c essentials.</p>",
+        "background": "#07111c",
         "text_color": "#ffffff",
-        "padding_top": 28,
-        "padding_bottom": 28
+        "padding_top": 52,
+        "padding_bottom": 52
       }
     },
     "news_carousel": {
@@ -807,11 +742,189 @@
         "story_6"
       ],
       "settings": {
-        "heading": "Tech2c News",
+        "heading": "Stories & Inspiration",
         "background": "#f2f2f2",
         "text_color": "#000000",
-        "padding_top": 36,
-        "padding_bottom": 20
+        "padding_top": 56,
+        "padding_bottom": 44
+      }
+    },
+    "featured_best": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "all",
+        "products_to_show": 4,
+        "title": "Best Sellers",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "outline",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 48,
+        "padding_bottom": 44
+      }
+    },
+    "editorial_protection": {
+      "type": "image-with-text",
+      "settings": {
+        "image": "shopify://shop_images/image_a6503321-424b-45a8-8380-fd031a15be65.png",
+        "height": "adapt",
+        "desktop_image_width": "large",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-2",
+        "color_scheme": "scheme-2",
+        "padding_top": 56,
+        "padding_bottom": 56
+      },
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Protection, without the bulk",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Everyday-ready designs that balance protection, comfort, and style.</p>",
+            "text_style": "body"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop cases",
+            "button_link": "/collections/all",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ]
+    },
+    "featured_bundle": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "all",
+        "products_to_show": 4,
+        "title": "Product Bundles",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "outline",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 48,
+        "padding_bottom": 44
+      }
+    },
+    "editorial_style": {
+      "type": "image-with-text",
+      "settings": {
+        "image": "shopify://shop_images/image_93efd095-f9ba-4f89-92f8-1f5a8e675338.png",
+        "height": "adapt",
+        "desktop_image_width": "large",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-3",
+        "color_scheme": "scheme-3",
+        "padding_top": 56,
+        "padding_bottom": 56
+      },
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Make it yours",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Build an everyday setup around the pieces you actually use.</p>",
+            "text_style": "body"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop the collection",
+            "button_link": "/collections/all",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ]
+    },
+    "featured_everyday": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "all",
+        "products_to_show": 4,
+        "title": "Everyday Essentials",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "outline",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 48,
+        "padding_bottom": 56
       }
     }
   },
@@ -819,13 +932,17 @@
     "hero_carousel",
     "promo_strip",
     "category_strip",
-    "reviews_highlight",
+    "featured_best",
     "bento_grid",
+    "editorial_protection",
     "feature_cards",
-    "signup_banner",
-    "logo_list",
-    "perks",
+    "featured_bundle",
+    "editorial_style",
+    "reviews_highlight",
     "community_gallery",
-    "news_carousel"
+    "featured_everyday",
+    "news_carousel",
+    "signup_banner",
+    "perks"
   ]
 }

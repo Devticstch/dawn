@@ -1263,3 +1263,126 @@
     transition: none;
   }
 }
+
+/* ---------- Homepage reference-style polish ---------- */
+.template-index .section-header {
+  margin-bottom: 0;
+}
+
+.template-index .hero-carousel {
+  min-height: min(82svh, 78rem);
+  height: min(82svh, 78rem);
+}
+
+.template-index .hero-carousel__content {
+  max-width: 160rem;
+  margin-inline: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.template-index .collection {
+  border-top: 1px solid rgba(0,0,0,.07);
+}
+
+.template-index .collection__title {
+  margin-bottom: 2.4rem;
+}
+
+.template-index .collection__title .title {
+  font-size: clamp(2.8rem, 4vw, 4.6rem);
+  letter-spacing: -0.035em;
+  margin-bottom: .8rem;
+}
+
+.template-index .product-grid .card-wrapper {
+  height: 100%;
+}
+
+.template-index .product-grid .card {
+  border-radius: 1.2rem;
+  overflow: hidden;
+  background: rgb(var(--color-background));
+}
+
+.template-index .product-grid .card__inner {
+  border-radius: 1.2rem;
+  overflow: hidden;
+}
+
+.template-index .product-grid .card__heading {
+  font-size: 1.5rem;
+  line-height: 1.3;
+}
+
+.template-index .product-grid .price {
+  font-size: 1.4rem;
+}
+
+.template-index .collection__view-all .button {
+  border-radius: 999px;
+  min-height: 4.4rem;
+  padding-inline: 2.2rem;
+}
+
+.template-index .image-with-text {
+  border-top: 1px solid rgba(0,0,0,.07);
+}
+
+.template-index .image-with-text__media {
+  border-radius: 1.6rem;
+  overflow: hidden;
+}
+
+.template-index .image-with-text__content {
+  padding: clamp(3rem, 5vw, 7rem);
+}
+
+.template-index .image-with-text__heading {
+  letter-spacing: -0.04em;
+}
+
+.template-index .image-with-text .button {
+  border-radius: 999px;
+  padding-inline: 2.4rem;
+}
+
+@media screen and (max-width: 749px) {
+  .template-index .hero-carousel {
+    min-height: 62svh;
+    height: 62svh;
+  }
+
+  .template-index .hero-carousel__content {
+    padding: 0 2rem 3.2rem;
+  }
+
+  .template-index .hero-carousel__heading {
+    font-size: clamp(3.8rem, 15vw, 5.6rem);
+  }
+
+  .template-index .collection__title {
+    padding-inline: 1.6rem;
+  }
+
+  .template-index .collection--full-width .product-grid {
+    padding-inline: 1.6rem;
+  }
+
+  .template-index .product-grid {
+    column-gap: 1rem;
+    row-gap: 2.2rem;
+  }
+
+  .template-index .image-with-text__media {
+    border-radius: 1rem;
+  }
+
+  .template-index .image-with-text__content {
+    padding: 3rem 2rem 4rem;
+  }
+
+  .template-index .cs-container {
+    padding-inline: 1.6rem;
+  }
+}
