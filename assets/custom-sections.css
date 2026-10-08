@@ -571,7 +571,7 @@ main[data-template='index'] .perks__grid {
 
 @media screen and (max-width: 749px) {
   main[data-template='index'] .hero-carousel {
-    height: clamp(42rem, 74svh, 62rem);
+    height: calc(clamp(42rem, 74svh, 62rem) + 140px);
   }
 
   main[data-template='index'] .hero-carousel__content {

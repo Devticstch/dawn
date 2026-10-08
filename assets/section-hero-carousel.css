@@ -276,7 +276,7 @@
 }
 
 main[data-template='index'] .hero-carousel {
-  height: clamp(54rem, 72svh, 86rem);
+  height: calc(clamp(54rem, 72svh, 86rem) + 140px);
   min-height: 0;
 }
 
@@ -298,6 +298,6 @@ main[data-template='index'] .hero-carousel__slide.is-active .hero-carousel__cta 
 
 @media screen and (max-width: 749px) {
   main[data-template='index'] .hero-carousel {
-    height: clamp(42rem, 74svh, 62rem);
+    height: calc(clamp(42rem, 74svh, 62rem) + 140px);
   }
 }
