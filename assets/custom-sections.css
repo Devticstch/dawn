@@ -541,6 +541,14 @@ main[data-template='index'] .collection--full-width .slider-component-full-width
   padding-inline: 0;
 }
 
+main[data-template='index'] .collection--placeholder-products .card__media {
+  background: #f5f5f5 var(--best-seller-placeholder) center / contain no-repeat;
+}
+
+main[data-template='index'] .collection--placeholder-products .card__media .media img {
+  display: none;
+}
+
 main[data-template='index'] .bento-grid__tile .cs-media img {
   transform: none;
   transition: none;
