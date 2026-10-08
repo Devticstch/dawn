@@ -36,6 +36,19 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  {%- if section.id == 'featured_best' -%}
+    #collection-{{ section.id }} .card__media .media {
+      background-image: url('{{ 'category-placeholder.png' | asset_url }}');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    #collection-{{ section.id }} .card__media .media img {
+      opacity: 0;
+    }
+  {%- endif -%}
 {%- endstyle -%}
 
 {%- liquid
