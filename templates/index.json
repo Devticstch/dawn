@@ -51,6 +51,7 @@
             "collection": "",
             "image": "shopify://shop_images/image.png",
             "label": "Hard Cases",
+            "group": "phone_case",
             "link": ""
           }
         },
@@ -60,6 +61,7 @@
             "collection": "",
             "image": "shopify://shop_images/image_0339e776-b094-4429-97ac-3c41b5c254fe.png",
             "label": "Soft Cases",
+            "group": "phone_case",
             "link": ""
           }
         },
@@ -69,6 +71,7 @@
             "collection": "",
             "image": "shopify://shop_images/image_c307ba03-f2b0-45f2-93f8-484c3b2e9c25.png",
             "label": "Transparent Cases",
+            "group": "phone_case",
             "link": ""
           }
         },
@@ -78,6 +81,7 @@
             "collection": "",
             "image": "shopify://shop_images/image_d00a21b2-121c-47d1-a73e-317d5c687a0c.png",
             "label": "Leather Cases",
+            "group": "phone_case",
             "link": ""
           }
         },
@@ -87,6 +91,7 @@
             "collection": "",
             "image": "shopify://shop_images/image_f2e6eb09-d6f3-4b38-b794-5d0cd099a242.png",
             "label": "Wallet Cases",
+            "group": "phone_case",
             "link": ""
           }
         },
@@ -96,6 +101,7 @@
             "collection": "",
             "image": "shopify://shop_images/image_f405e1bd-00b3-4673-8cc7-7f0302d95557.png",
             "label": "Travel",
+            "group": "accessories",
             "link": ""
           }
         },
@@ -105,6 +111,7 @@
             "collection": "",
             "image": "shopify://shop_images/image_325dca79-f7cd-4c1f-b5bd-489ba87426a9.png",
             "label": "Screen Protector",
+            "group": "accessories",
             "link": ""
           }
         },
@@ -114,6 +121,7 @@
             "collection": "",
             "image": "shopify://shop_images/image_1511f965-72fe-4089-af73-c6db95156855.png",
             "label": "Earbuds Cases",
+            "group": "accessories",
             "link": ""
           }
         },
@@ -123,6 +131,7 @@
             "collection": "",
             "image": "shopify://shop_images/image_a171d354-2ace-47d1-a934-87b717b161c4.png",
             "label": "Watch Bands & Cases",
+            "group": "accessories",
             "link": ""
           }
         },
@@ -132,6 +141,7 @@
             "collection": "",
             "image": "shopify://shop_images/image_b0c74b96-3539-4b9c-981a-270d0e30ae0e.png",
             "label": "Tablet Cases",
+            "group": "accessories",
             "link": ""
           }
         },
@@ -141,6 +151,7 @@
             "collection": "",
             "image": "shopify://shop_images/image_cec00ebe-81b5-4e64-9023-bbd39ec6165a.png",
             "label": "Laptop Cases",
+            "group": "accessories",
             "link": ""
           }
         },
@@ -150,6 +161,7 @@
             "collection": "",
             "image": "shopify://shop_images/image_5cf08b37-8d04-4243-82b6-5fb606a8049a.png",
             "label": "Accessories",
+            "group": "accessories",
             "link": ""
           }
         },
@@ -159,6 +171,7 @@
             "collection": "",
             "image": "shopify://shop_images/image_36d35520-c09f-40a6-8518-3d75b2b11521.png",
             "label": "Collectibles",
+            "group": "accessories",
             "link": ""
           }
         }
@@ -179,7 +192,12 @@
         "category_13"
       ],
       "settings": {
-        "heading": "Shop by category",
+        "phone_case_heading": "Phone Case",
+        "phone_case_image": "shopify://shop_images/image_f77b7b9e-4a80-49aa-8bb2-e1466ca6b9db.png",
+        "phone_case_link": "/collections/all",
+        "accessories_heading": "Accessories",
+        "accessories_image": "shopify://shop_images/image_5cf08b37-8d04-4243-82b6-5fb606a8049a.png",
+        "accessories_link": "/collections/all",
         "background": "#ffffff",
         "text_color": "#000000",
         "padding_top": 24,
