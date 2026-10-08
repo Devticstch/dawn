@@ -96,8 +96,8 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 1.6rem;
-  padding-bottom: 5.6rem;
-  padding-right: 6rem;
+  /* Same side gutters as the full-width header so the logo and text line up */
+  padding: 0 6rem 5.6rem 2rem;
 }
 
 @media screen and (min-width: 750px) {
@@ -105,6 +105,12 @@
     gap: 2rem;
     padding-bottom: 8rem;
     padding-right: 10rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .hero-carousel__content {
+    padding-left: 5rem;
   }
 }
 
@@ -197,7 +203,7 @@
 .hero-carousel__dots {
   position: absolute;
   top: 50%;
-  right: 1.2rem;
+  right: 0;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
@@ -207,7 +213,7 @@
 
 @media screen and (min-width: 750px) {
   .hero-carousel__dots {
-    right: 3.2rem;
+    right: 2.8rem;
   }
 }
 
