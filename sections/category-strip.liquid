@@ -9,11 +9,9 @@
         case group
           when 'phone_case'
             assign panel_heading = section.settings.phone_case_heading
-            assign panel_image = section.settings.phone_case_image
             assign panel_link = section.settings.phone_case_link
           when 'accessories'
             assign panel_heading = section.settings.accessories_heading
-            assign panel_image = section.settings.accessories_image
             assign panel_link = section.settings.accessories_link
         endcase
       -%}
@@ -29,15 +27,15 @@
               <a class="category-panel__button" href="{{ panel_link }}">Shop all</a>
             {%- endif -%}
           </div>
-          {%- if panel_image != blank -%}
-            <div class="category-panel__feature-image">
-              {{
-                panel_image
-                | image_url: width: 1200
-                | image_tag: loading: 'lazy', widths: '450, 650, 900, 1200', sizes: '(min-width: 1200px) 28vw, (min-width: 750px) 35vw, 65vw', alt: panel_heading
-              }}
-            </div>
-          {%- endif -%}
+          <div class="category-panel__feature-image">
+            <img
+              src="{{ 'category-placeholder.png' | asset_url }}"
+              alt="{{ panel_heading | escape }}"
+              width="1024"
+              height="768"
+              loading="lazy"
+            >
+          </div>
         </div>
         <ul class="category-panel__categories" role="list">
           {%- for block in section.blocks -%}
@@ -45,7 +43,6 @@
               {%- liquid
                 assign collection = block.settings.collection
                 assign label = block.settings.label | default: collection.title
-                assign image = block.settings.image | default: collection.featured_image
                 assign link = block.settings.link | default: collection.url
               -%}
               <li class="category-panel__category" {{ block.shopify_attributes }}>
@@ -55,15 +52,13 @@
                   <div class="category-panel__category-link">
                 {%- endif -%}
                   <span class="category-panel__category-image">
-                    {%- if image != blank -%}
-                      {{
-                        image
-                        | image_url: width: 240
-                        | image_tag: loading: 'lazy', widths: '120, 180, 240', sizes: '(min-width: 750px) 5vw, 14vw', alt: label
-                      }}
-                    {%- else -%}
-                      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                    {%- endif -%}
+                    <img
+                      src="{{ 'category-placeholder.png' | asset_url }}"
+                      alt="{{ label | escape }}"
+                      width="1024"
+                      height="768"
+                      loading="lazy"
+                    >
                   </span>
                   <span class="category-panel__category-label">{{ label | escape }}</span>
                 {%- if link != blank -%}
