@@ -179,6 +179,7 @@
         "category_13"
       ],
       "settings": {
+        "heading": "Shop by category",
         "background": "#ffffff",
         "text_color": "#000000",
         "padding_top": 24,
@@ -929,13 +930,13 @@
     }
   },
   "order": [
-    "hero_carousel",
     "promo_strip",
+    "hero_carousel",
     "category_strip",
-    "bento_grid",
     "featured_best",
     "editorial_protection",
     "featured_bundle",
+    "bento_grid",
     "featured_everyday",
     "feature_cards",
     "perks",
