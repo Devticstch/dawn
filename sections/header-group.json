@@ -44,7 +44,7 @@
       "settings": {
         "auto_rotate": true,
         "change_slides_speed": 5,
-        "color_scheme": "scheme-5",
+        "color_scheme": "scheme-6",
         "show_line_separator": false,
         "show_social": false,
         "enable_country_selector": false,
@@ -54,7 +54,7 @@
     "header": {
       "type": "header",
       "settings": {
-        "logo_position": "middle-left",
+        "logo_position": "middle-center",
         "mobile_logo_position": "center",
         "menu": "main-menu",
         "menu_type_desktop": "drawer",
@@ -70,9 +70,7 @@
         "drawer_style": "mega",
         "device_label": "For Your Device",
         "device_placeholder": "Select Device",
-        "view_all_label": "View All",
-        "modern_style": true,
-        "modern_accent": "#2457f5"
+        "view_all_label": "View All"
       },
       "blocks": {
         "mega_banner": {

@@ -22,8 +22,7 @@
         "text_color": "#000000",
         "padding_top": 40,
         "padding_bottom": 40
-      },
-      "disabled": true
+      }
     },
     "footer": {
       "type": "footer-bold",
@@ -69,9 +68,9 @@
         "show_social": true,
         "social_heading": "Let's be friends",
         "rating_text": "<p>Rated <strong>Excellent</strong> ★★★★★ by our customers</p>",
-        "background": "#2457f5",
+        "background": "#000000",
         "text_color": "#ffffff",
-        "accent_color": "#0b1f5c"
+        "accent_color": "#2c5dab"
       }
     }
   },
