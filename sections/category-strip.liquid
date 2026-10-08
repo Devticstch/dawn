@@ -38,35 +38,37 @@
           </div>
         </div>
         <ul class="category-panel__categories" role="list">
+          {%- assign category_count = 0 -%}
           {%- for block in section.blocks -%}
-            {%- if block.settings.group == group -%}
+            {%- if block.settings.group == group and category_count < 4 -%}
               {%- liquid
+                assign category_count = category_count | plus: 1
                 assign collection = block.settings.collection
                 assign label = block.settings.label | default: collection.title
                 assign link = block.settings.link | default: collection.url
               -%}
-              <li class="category-panel__category" {{ block.shopify_attributes }}>
-                {%- if link != blank -%}
-                  <a class="category-panel__category-link" href="{{ link }}">
-                {%- else -%}
-                  <div class="category-panel__category-link">
-                {%- endif -%}
-                  <span class="category-panel__category-image">
-                    <img
-                      src="{{ 'category-placeholder.png' | asset_url }}"
-                      alt="{{ label | escape }}"
-                      width="1024"
-                      height="768"
-                      loading="lazy"
-                    >
-                  </span>
-                  <span class="category-panel__category-label">{{ label | escape }}</span>
-                {%- if link != blank -%}
-                  </a>
-                {%- else -%}
-                  </div>
-                {%- endif -%}
-              </li>
+                <li class="category-panel__category" {{ block.shopify_attributes }}>
+                  {%- if link != blank -%}
+                    <a class="category-panel__category-link" href="{{ link }}">
+                  {%- else -%}
+                    <div class="category-panel__category-link">
+                  {%- endif -%}
+                    <span class="category-panel__category-image">
+                      <img
+                        src="{{ 'category-placeholder.png' | asset_url }}"
+                        alt="{{ label | escape }}"
+                        width="1024"
+                        height="768"
+                        loading="lazy"
+                      >
+                    </span>
+                    <span class="category-panel__category-label">{{ label | escape }}</span>
+                  {%- if link != blank -%}
+                    </a>
+                  {%- else -%}
+                    </div>
+                  {%- endif -%}
+                </li>
             {%- endif -%}
           {%- endfor -%}
         </ul>
