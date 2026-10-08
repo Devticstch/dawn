@@ -150,7 +150,10 @@
   {% if header_tag == 'sticky-header' %}
     data-sticky-type="{{ section.settings.sticky_header_type }}"
   {% endif %}
-  class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}"
+  class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}{% if section.settings.modern_style %} header-wrapper--modern{% endif %}"
+  {% if section.settings.modern_style %}
+    style="--hm-accent: {{ section.settings.modern_accent }};"
+  {% endif %}
 >
   {%- liquid
     assign social_links = false
@@ -640,6 +643,19 @@
       "id": "show_line_separator",
       "default": true,
       "label": "t:sections.header.settings.show_line_separator.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "modern_style",
+      "default": false,
+      "label": "Modern rounded style",
+      "info": "Round icon buttons, accent cart badge and a frosted sticky bar"
+    },
+    {
+      "type": "color",
+      "id": "modern_accent",
+      "default": "#2457F5",
+      "label": "Modern style accent"
     },
     {
       "type": "header",
