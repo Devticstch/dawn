@@ -140,17 +140,82 @@
 
 {% liquid
   assign header_tag = 'div'
+  assign sticky_type = section.settings.sticky_header_type
 
   if section.settings.sticky_header_type != 'none'
     assign header_tag = 'sticky-header'
   endif
+
+  assign transparent_header = false
+  if section.settings.transparent_on_home and request.page_type == 'index'
+    assign transparent_header = true
+    assign header_tag = 'sticky-header'
+    assign sticky_type = 'on-scroll-up'
+  endif
 %}
+
+{%- if transparent_header -%}
+  {%- style -%}
+    /* Homepage only: header overlays the first section, turns frosted once scrolled */
+    #MainContent > .shopify-section:first-child {
+      margin-top: calc(-1 * var(--transparent-header-height, 0px));
+    }
+
+    .header-wrapper--transparent,
+    .header-wrapper--transparent.gradient {
+      background: none;
+    }
+
+    .header-wrapper--transparent::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: rgba(var(--color-background), 0.82);
+      -webkit-backdrop-filter: blur(1.6rem) saturate(1.6);
+      backdrop-filter: blur(1.6rem) saturate(1.6);
+      box-shadow: 0 0.1rem 0 rgba(var(--color-foreground), 0.08), 0 1rem 3rem rgba(0, 0, 0, 0.06);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .header-wrapper--transparent .header__heading-logo,
+    .header-wrapper--transparent .header__icon,
+    .header-wrapper--transparent .header__heading-link .h2 {
+      transition: color 0.35s ease, filter 0.35s ease;
+    }
+
+    /* Solid while scrolled, or while a drawer, search or dropdown is open */
+    .section-header:is(.scrolled-past-header, .menu-open) .header-wrapper--transparent::before,
+    .header-wrapper--transparent:is(:focus-within, :has([aria-expanded='true']))::before {
+      opacity: 1;
+    }
+
+    .section-header:not(.scrolled-past-header, .menu-open)
+      .header-wrapper--transparent:not(:focus-within, :has([aria-expanded='true'])) {
+      --color-foreground: 255, 255, 255;
+      box-shadow: inset 0 -0.1rem 0 rgba(255, 255, 255, 0.18);
+    }
+
+    .section-header:not(.scrolled-past-header, .menu-open)
+      .header-wrapper--transparent:not(:focus-within, :has([aria-expanded='true']))
+      .header__heading-logo {
+      filter: brightness(0) invert(1) drop-shadow(0 0.1rem 0.4rem rgba(0, 0, 0, 0.25));
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .header-wrapper--transparent::before {
+        transition: none;
+      }
+    }
+  {%- endstyle -%}
+{%- endif -%}
 
 <{{ header_tag }}
   {% if header_tag == 'sticky-header' %}
-    data-sticky-type="{{ section.settings.sticky_header_type }}"
+    data-sticky-type="{{ sticky_type }}"
   {% endif %}
-  class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}"
+  class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}{% if transparent_header %} header-wrapper--transparent{% endif %}"
 >
   {%- liquid
     assign social_links = false
@@ -322,6 +387,22 @@
     </div>
   </header>
 </{{ header_tag }}>
+
+{%- if transparent_header -%}
+  <script>
+    // Exact (fractional) header height, set before <main> renders so the overlaid section neither shifts nor shows a gap
+    (() => {
+      const section = document.currentScript.parentElement;
+      const setHeight = () =>
+        document.documentElement.style.setProperty(
+          '--transparent-header-height',
+          `${section.getBoundingClientRect().height}px`
+        );
+      setHeight();
+      new ResizeObserver(setHeight).observe(section);
+    })();
+  </script>
+{%- endif -%}
 
 {%- if settings.cart_type == 'notification' -%}
   {%- render 'cart-notification',
@@ -634,6 +715,13 @@
       ],
       "default": "on-scroll-up",
       "label": "t:sections.header.settings.sticky_header_type.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "transparent_on_home",
+      "default": false,
+      "label": "Transparent header on homepage",
+      "info": "Overlays the first homepage section with a white logo and icons. On the homepage the header hides on scroll down and reappears with a frosted background on scroll up. Other pages are unaffected."
     },
     {
       "type": "checkbox",

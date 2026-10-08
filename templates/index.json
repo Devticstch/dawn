@@ -17,12 +17,11 @@
           "settings": {
             "image": "shopify://shop_images/image_c89541fe-379a-4d13-90b7-3eb72e3b42b1.png",
             "mobile_image": "shopify://shop_images/image_728681be-c9c3-4703-ad57-f56391189c37.png",
-            "link": "",
+            "link": "shopify://collections/all",
             "heading": "NEW! iPhone 18 Pro",
             "subheading": "Shop daily protection\nwith drop-tested cases",
-            "tag_background": "#f6e163",
-            "heading_color": "#2c5dab",
-            "text_color": "#000000"
+            "button_label": "Shop now",
+            "mobile_focus": "center"
           }
         },
         "slide_2": {
@@ -30,12 +29,11 @@
           "settings": {
             "image": "shopify://shop_images/image_5b4b3d36-c985-49f4-8f88-eb8a56e126e9.png",
             "mobile_image": "shopify://shop_images/image_c690e747-9903-492d-9d3b-b392244a38e0.png",
-            "link": "",
+            "link": "shopify://collections/all",
             "heading": "Signature Cases",
             "subheading": "The award winning cases",
-            "tag_background": "#ffffff",
-            "heading_color": "#000000",
-            "text_color": "#000000"
+            "button_label": "Shop now",
+            "mobile_focus": "center"
           }
         },
         "slide_3": {
@@ -47,9 +45,7 @@
             "link": "",
             "heading": "Unlimited Prints",
             "subheading": "Find your perfect case",
-            "tag_background": "#c9e3ff",
-            "heading_color": "#1a1a1a",
-            "text_color": "#000000"
+            "mobile_focus": "center"
           }
         },
         "slide_4": {
@@ -57,12 +53,11 @@
           "settings": {
             "image": "shopify://shop_images/image_a8c45c0d-a941-405b-8eef-d2b999b9899f.png",
             "mobile_image": "shopify://shop_images/image_dc9714b1-ad5d-44f3-ab4e-1fbfa00d45e0.png",
-            "link": "",
+            "link": "shopify://collections/all",
             "heading": "MAKE iT YOURS",
             "subheading": "Design a case that's all you",
-            "tag_background": "#ff5fa2",
-            "heading_color": "#ffffff",
-            "text_color": "#ffffff"
+            "button_label": "Shop now",
+            "mobile_focus": "center"
           }
         },
         "slide_5": {
@@ -74,9 +69,7 @@
             "link": "",
             "heading": "MagSafe Accessories",
             "subheading": "Snap on and go.\nUnlock new features.",
-            "tag_background": "#000000",
-            "heading_color": "#ffffff",
-            "text_color": "#ffffff"
+            "mobile_focus": "center"
           }
         },
         "slide_6": {
@@ -88,9 +81,7 @@
             "link": "",
             "heading": "The Protectors",
             "subheading": "The ultimate armor\nfor lens and screens",
-            "tag_background": "#b8f24b",
-            "heading_color": "#000000",
-            "text_color": "#000000"
+            "mobile_focus": "center"
           }
         }
       },
@@ -105,9 +96,8 @@
       "settings": {
         "auto_rotate": true,
         "change_slides_speed": 5,
-        "height_desktop": 580,
-        "height_mobile": 125,
-        "accessibility_info": "Featured collections"
+        "accessibility_info": "Featured collections",
+        "overlay_opacity": 50
       }
     },
     "promo_strip": {

@@ -59,6 +59,7 @@
         "menu": "main-menu",
         "menu_type_desktop": "drawer",
         "sticky_header_type": "always",
+        "transparent_on_home": true,
         "show_line_separator": false,
         "color_scheme": "scheme-1",
         "menu_color_scheme": "scheme-1",

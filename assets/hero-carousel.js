@@ -3,55 +3,72 @@ if (!customElements.get('hero-carousel')) {
     'hero-carousel',
     class HeroCarousel extends HTMLElement {
       connectedCallback() {
-        this.track = this.querySelector('.hero-carousel__track');
         this.slides = Array.from(this.querySelectorAll('.hero-carousel__slide'));
         this.dots = Array.from(this.querySelectorAll('.hero-carousel__dot'));
         this.index = 0;
+        this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        this.update();
         if (this.slides.length < 2) return;
 
-        this.speed = parseInt(this.dataset.speed, 10) || 5000;
-        this.autoplay =
-          this.dataset.autoplay === 'true' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        this.speed = parseInt(this.dataset.speed, 10) || 6000;
+        this.autoplay = this.dataset.autoplay === 'true' && !this.reducedMotion;
 
         this.dots.forEach((dot) => dot.addEventListener('click', () => this.goTo(parseInt(dot.dataset.index, 10))));
 
-        this.addEventListener('mouseenter', () => this.stop());
-        this.addEventListener('mouseleave', () => this.play());
+        // Mouse only: touch devices emulate hover and would stall autoplay after a tap
+        this.addEventListener('pointerenter', (event) => {
+          if (event.pointerType !== 'mouse') return;
+          this.hovered = true;
+          this.stop();
+        });
+        this.addEventListener('pointerleave', (event) => {
+          if (event.pointerType !== 'mouse') return;
+          this.hovered = false;
+          this.play();
+        });
         this.addEventListener('focusin', () => this.stop());
         this.addEventListener('focusout', () => this.play());
-        document.addEventListener('visibilitychange', () => (document.hidden ? this.stop() : this.play()));
+        this.onVisibilityChange = () => (document.hidden ? this.stop() : this.play());
+        document.addEventListener('visibilitychange', this.onVisibilityChange);
 
         this.initSwipe();
-        this.update();
         this.play();
 
         if (Shopify.designMode) {
           this.addEventListener('shopify:block:select', (event) => {
+            this.autoplay = false;
             this.stop();
             this.goTo(this.slides.indexOf(event.target));
           });
-          this.addEventListener('shopify:block:deselect', () => this.play());
         }
       }
 
       disconnectedCallback() {
         this.stop();
+        document.removeEventListener('visibilitychange', this.onVisibilityChange);
       }
 
       goTo(index) {
         const count = this.slides.length;
         this.index = ((index % count) + count) % count;
         this.update();
+        this.play();
       }
 
       update() {
-        this.track.style.transform = `translateX(-${this.index * 100}%)`;
         this.slides.forEach((slide, i) => {
           const active = i === this.index;
+          slide.classList.toggle('is-active', active);
           slide.toggleAttribute('inert', !active);
           slide.setAttribute('aria-hidden', String(!active));
           const video = slide.querySelector('video');
-          if (video) active ? video.play().catch(() => {}) : video.pause();
+          if (!video) return;
+          if (active && !this.reducedMotion) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
         });
         this.dots.forEach((dot, i) => {
           const active = i === this.index;
@@ -61,52 +78,43 @@ if (!customElements.get('hero-carousel')) {
       }
 
       play() {
-        if (!this.autoplay) return;
         this.stop();
-        this.timer = setInterval(() => this.goTo(this.index + 1), this.speed);
+        if (!this.autoplay || this.hovered || this.matches(':focus-within')) return;
+        this.timer = setTimeout(() => this.goTo(this.index + 1), this.speed);
       }
 
       stop() {
-        clearInterval(this.timer);
+        clearTimeout(this.timer);
       }
 
       initSwipe() {
         let startX = 0;
+        let startY = 0;
         let deltaX = 0;
-        let dragging = false;
+        let tracking = false;
 
-        this.track.addEventListener('pointerdown', (event) => {
+        this.addEventListener('pointerdown', (event) => {
           if (event.pointerType === 'mouse') return;
-          dragging = true;
+          tracking = true;
           startX = event.clientX;
+          startY = event.clientY;
           deltaX = 0;
-          this.stop();
-          this.track.classList.add('is-dragging');
         });
 
-        this.track.addEventListener('pointermove', (event) => {
-          if (!dragging) return;
+        this.addEventListener('pointerup', (event) => {
+          if (!tracking) return;
+          tracking = false;
           deltaX = event.clientX - startX;
-          this.track.style.transform = `translateX(calc(-${this.index * 100}% + ${deltaX}px))`;
+          const deltaY = event.clientY - startY;
+          if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY)) {
+            this.goTo(this.index + (deltaX < 0 ? 1 : -1));
+          }
         });
 
-        const end = () => {
-          if (!dragging) return;
-          dragging = false;
-          this.track.classList.remove('is-dragging');
-          if (Math.abs(deltaX) > 50) {
-            this.goTo(this.index + (deltaX < 0 ? 1 : -1));
-          } else {
-            this.update();
-          }
-          this.play();
-        };
+        this.addEventListener('pointercancel', () => (tracking = false));
 
-        this.track.addEventListener('pointerup', end);
-        this.track.addEventListener('pointercancel', end);
-
-        // A swipe shouldn't also follow the slide's link
-        this.track.addEventListener(
+        // A swipe that ends on the button shouldn't also follow its link
+        this.addEventListener(
           'click',
           (event) => {
             if (Math.abs(deltaX) > 10) event.preventDefault();
