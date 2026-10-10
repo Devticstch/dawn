@@ -722,24 +722,6 @@
       "info": "Mega style is built from the \"Mega menu\" blocks. Add a badge by ending a menu item title with [NEW], [TOP], [SALE] or [HOT]"
     },
     {
-      "type": "link_list",
-      "id": "device_menu",
-      "label": "Mega menu: device selector menu",
-      "info": "Nested items become groups, e.g. Apple > iPhone 17"
-    },
-    {
-      "type": "text",
-      "id": "device_label",
-      "label": "Mega menu: device selector label",
-      "default": "For Your Device"
-    },
-    {
-      "type": "text",
-      "id": "device_placeholder",
-      "label": "Mega menu: device selector placeholder",
-      "default": "Select Device"
-    },
-    {
       "type": "text",
       "id": "view_all_label",
       "label": "Mega menu: \"View all\" link label",
@@ -863,6 +845,16 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "mega_device",
+      "name": "Mega menu: device picker",
+      "limit": 1,
+      "settings": [
+        { "type": "link_list", "id": "menu", "label": "Menu", "info": "Nested items become groups, e.g. Apple > iPhone 17" },
+        { "type": "text", "id": "label", "label": "Label", "default": "For Your Device" },
+        { "type": "text", "id": "placeholder", "label": "Placeholder", "default": "Select Device" }
+      ]
     },
     {
       "type": "mega_featured",

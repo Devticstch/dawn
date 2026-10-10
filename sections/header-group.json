@@ -69,8 +69,6 @@
         "padding_top": 8,
         "padding_bottom": 8,
         "drawer_style": "mega",
-        "device_label": "For Your Device",
-        "device_placeholder": "Select Device",
         "view_all_label": "View All"
       },
       "blocks": {

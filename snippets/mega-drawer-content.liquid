@@ -4,9 +4,10 @@
   (details/summary) behavior for the sliding submenus.
 {% endcomment %}
 {%- liquid
+  assign device_block = section.blocks | where: 'type', 'mega_device' | first
   assign has_mega_blocks = false
   for block in section.blocks
-    if block.type contains 'mega_'
+    if block.type contains 'mega_' and block.type != 'mega_device'
       assign has_mega_blocks = true
       break
     endif
@@ -40,13 +41,13 @@
     {%- endif -%}
   </div>
 
-  {%- if section.settings.device_menu != blank -%}
-    <div class="mega-drawer__device">
-      <label for="MegaDrawerDevice">{{ section.settings.device_label | escape }}</label>
+  {%- if device_block.settings.menu != blank -%}
+    <div class="mega-drawer__device" {{ device_block.shopify_attributes }}>
+      <label for="MegaDrawerDevice">{{ device_block.settings.label | escape }}</label>
       <div class="mega-drawer__select">
         <select id="MegaDrawerDevice" onchange="if (this.value) window.location.href = this.value;">
-          <option value="">{{ section.settings.device_placeholder | escape }}</option>
-          {%- for link in section.settings.device_menu.links -%}
+          <option value="">{{ device_block.settings.placeholder | escape }}</option>
+          {%- for link in device_block.settings.menu.links -%}
             {%- if link.links.size > 0 -%}
               <optgroup label="{{ link.title | escape }}">
                 {%- for child in link.links -%}
