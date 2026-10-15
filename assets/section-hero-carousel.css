@@ -18,30 +18,26 @@
   list-style: none;
 }
 
-/* Slides are stacked and cross-fade */
+/* Slides are stacked. Like the reference, the switch is instant: the new image zooms out
+   from 1.3 and the text fades up, staggered 75ms apart (DESIGN-SYSTEM.md, motion) */
 .hero-carousel__slide {
   position: absolute;
   inset: 0;
-  opacity: 0;
   visibility: hidden;
-  transition: opacity 0.9s ease, visibility 0s linear 0.9s;
 }
 
 .hero-carousel__slide.is-active {
-  opacity: 1;
+  z-index: 1;
   visibility: visible;
-  transition: opacity 0.9s ease;
 }
 
 .hero-carousel__media {
   position: absolute;
   inset: 0;
-  transform: scale(1.06);
-  transition: transform 1.6s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .hero-carousel__slide.is-active .hero-carousel__media {
-  transform: scale(1);
+  animation: hero-zoom-out 0.5s cubic-bezier(0, 0, 0.3, 1) 0.3s both;
 }
 
 .hero-carousel__media picture {
@@ -71,7 +67,7 @@
   fill: rgba(255, 255, 255, 0.35);
 }
 
-/* Shade the top (behind the header) and bottom (behind the text) */
+/* Shade the top (behind the header and description) and bottom (behind the heading) */
 .hero-carousel__media::after {
   content: '';
   position: absolute;
@@ -87,101 +83,169 @@
   pointer-events: none;
 }
 
+/* Reference img-banner-3: mobile stacks everything at the bottom 147px above the heading;
+   from 768px the description and button sit 204px from the top and the heading at the bottom */
 .hero-carousel__content {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 14.7rem;
+  padding: 0 2.3rem 4rem;
+}
+
+.hero-carousel__box {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1.6rem;
-  /* Same side gutters as the full-width header so the logo and text line up */
-  padding: 0 6rem 5.6rem 2rem;
+  gap: 2.4rem;
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 768px) {
   .hero-carousel__content {
-    gap: 2rem;
-    padding-bottom: 8rem;
-    padding-right: 10rem;
+    justify-content: space-between;
+    gap: 2.4rem;
+    padding-top: 20.4rem;
+  }
+
+  .hero-carousel__box {
+    gap: 2.3rem;
   }
 }
 
-@media screen and (min-width: 990px) {
+@media screen and (min-width: 1400px) {
   .hero-carousel__content {
-    padding-left: 5rem;
+    padding-inline: 3.8rem;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .hero-carousel__content {
+    padding-top: 34.4rem;
   }
 }
 
 .hero-carousel__heading {
   margin: 0;
-  max-width: 14ch;
   color: #fff;
-  font-family: var(--font-heading-family);
-  font-weight: 700;
-  font-size: clamp(4rem, 12vw, 5.6rem);
-  line-height: 0.98;
-  letter-spacing: -0.02em;
+  font-size: 7.2rem;
+  line-height: 0.99;
+  letter-spacing: -0.284rem;
+  overflow-wrap: break-word;
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 992px) {
   .hero-carousel__heading {
-    font-size: clamp(5.6rem, 7.5vw, 11.2rem);
+    font-size: 10rem;
+    line-height: 1.04;
+    letter-spacing: -0.4rem;
   }
 }
 
-/* Text reveal: each word rises out of its own clipped line while un-tilting */
-.hero-carousel__word {
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: top;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
+@media screen and (min-width: 1200px) {
+  .hero-carousel__heading {
+    font-size: 12rem;
+    letter-spacing: -0.2rem;
+  }
 }
 
-.hero-carousel__word > span {
-  display: inline-block;
-  transform-origin: 0 100%;
+@media screen and (min-width: 1400px) {
+  .hero-carousel__heading {
+    font-size: 14rem;
+  }
 }
 
-.hero-carousel__slide.is-active .hero-carousel__word > span {
-  animation: hero-word-rise 0.9s cubic-bezier(0.2, 0.75, 0.2, 1) both;
-  animation-delay: calc(0.25s + var(--i, 0) * 0.08s);
+@media screen and (min-width: 1600px) {
+  .hero-carousel__heading {
+    font-size: 16rem;
+    letter-spacing: -0.6rem;
+  }
+}
+
+@media screen and (min-width: 1700px) {
+  .hero-carousel__heading {
+    font-size: 17rem;
+  }
+}
+
+@media screen and (min-width: 1900px) {
+  .hero-carousel__heading {
+    font-size: 19.3rem;
+    letter-spacing: -0.5rem;
+  }
 }
 
 .hero-carousel__text {
+  width: 30.6rem;
+  max-width: 100%;
   margin: 0;
-  max-width: 44rem;
+  /* Reference uses 50% white over a dark video; brighter photos here need more contrast */
   color: rgba(255, 255, 255, 0.88);
-  font-size: 1.5rem;
-  line-height: 1.5;
+  text-shadow: 0 0.1rem 1.2rem rgba(0, 0, 0, 0.45);
+  font-family: var(--font-nav-family, inherit);
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.018rem;
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 992px) {
   .hero-carousel__text {
-    font-size: 1.8rem;
+    width: 41.8rem;
+    font-size: 2rem;
+    letter-spacing: -0.02rem;
   }
 }
 
+/* Reference primary large button: 50px (58px from 768px), accent pill */
 .hero-carousel__cta {
-  --color-button: 255, 255, 255;
-  --color-button-text: 0, 0, 0;
-  --alpha-button-background: 1;
+  display: inline-flex;
+  align-items: center;
+  height: 5rem;
+  padding: 0 2.1rem;
+  border-radius: 10rem;
+  background: var(--hero-accent, #0f61ff);
+  color: #fff;
+  font-family: var(--font-nav-family, inherit);
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: filter 0.2s ease;
 }
 
-.hero-carousel__slide.is-active .hero-carousel__text,
+.hero-carousel__cta:hover {
+  filter: brightness(0.9);
+}
+
+.hero-carousel__cta:focus-visible {
+  outline: 0.2rem solid #fff;
+  outline-offset: 0.3rem;
+}
+
+@media screen and (min-width: 768px) {
+  .hero-carousel__cta {
+    height: 5.8rem;
+    font-size: 1.6rem;
+  }
+}
+
+.hero-carousel__slide.is-active :is(.hero-carousel__text, .hero-carousel__cta, .hero-carousel__heading) {
+  animation: hero-fade-up 0.5s cubic-bezier(0, 0, 0.3, 1) 0.375s both;
+}
+
 .hero-carousel__slide.is-active .hero-carousel__cta {
-  animation: hero-fade-up 0.8s cubic-bezier(0.2, 0.75, 0.2, 1) 0.6s both;
+  animation-delay: 0.45s;
 }
 
-.hero-carousel__slide.is-active .hero-carousel__cta {
-  animation-delay: 0.75s;
+.hero-carousel__slide.is-active .hero-carousel__heading {
+  animation-delay: 0.525s;
 }
 
-@keyframes hero-word-rise {
+@keyframes hero-zoom-out {
   from {
-    transform: translateY(105%) rotate(6deg);
+    transform: scale(1.3);
   }
   to {
     transform: none;
@@ -191,7 +255,7 @@
 @keyframes hero-fade-up {
   from {
     opacity: 0;
-    transform: translateY(1.6rem);
+    transform: translateY(3rem);
   }
   to {
     opacity: 1;
@@ -199,31 +263,47 @@
   }
 }
 
-/* Vertical dot navigation; the active dot stretches into a bar */
+/* Vertical sticks, 35% from the top: 5 x 12 (active 5 x 28, accent), 10 apart.
+   Buttons stay 44px wide for touch, so the right offset is the reference's minus 14.5px */
 .hero-carousel__dots {
   position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
+  top: 35%;
+  right: 0.15rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 1;
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 992px) {
   .hero-carousel__dots {
-    right: 2.8rem;
+    right: 1.75rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .hero-carousel__dots {
+    right: 3.35rem;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .hero-carousel__dots {
+    right: 4.15rem;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .hero-carousel__dots {
+    right: 5.95rem;
   }
 }
 
 .hero-carousel__dot {
   display: flex;
-  align-items: center;
   justify-content: center;
   width: 4.4rem;
-  height: 2.8rem;
-  padding: 0;
+  padding: 0.5rem 0;
   border: 0;
   background: none;
   cursor: pointer;
@@ -232,22 +312,16 @@
 .hero-carousel__dot::before {
   content: '';
   display: block;
-  width: 0.4rem;
-  height: 0.8rem;
+  width: 0.5rem;
+  height: 1.2rem;
   border-radius: 1rem;
-  background: #fff;
-  opacity: 0.5;
-  box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.3);
-  transition: height 0.4s ease, opacity 0.4s ease;
-}
-
-.hero-carousel__dot:hover::before {
-  opacity: 0.85;
+  background: #f6f6f6;
+  transition: height 0.3s, background-color 0.3s;
 }
 
 .hero-carousel__dot.is-active::before {
-  height: 2.4rem;
-  opacity: 1;
+  height: 2.8rem;
+  background: var(--hero-accent, #0f61ff);
 }
 
 .hero-carousel__dot:focus-visible {
@@ -257,20 +331,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-carousel__slide,
-  .hero-carousel__slide.is-active,
-  .hero-carousel__media,
   .hero-carousel__dot::before {
     transition: none;
   }
 
-  .hero-carousel__media {
-    transform: none;
-  }
-
-  .hero-carousel__slide.is-active .hero-carousel__word > span,
-  .hero-carousel__slide.is-active .hero-carousel__text,
-  .hero-carousel__slide.is-active .hero-carousel__cta {
+  .hero-carousel__slide.is-active .hero-carousel__media,
+  .hero-carousel__slide.is-active :is(.hero-carousel__text, .hero-carousel__cta, .hero-carousel__heading) {
     animation: none;
   }
 }
@@ -278,22 +344,6 @@
 main[data-template='index'] .hero-carousel {
   height: calc(clamp(54rem, 72svh, 86rem) + 140px);
   min-height: 0;
-}
-
-main[data-template='index'] .hero-carousel__media,
-main[data-template='index'] .hero-carousel__slide,
-main[data-template='index'] .hero-carousel__slide.is-active {
-  transform: none;
-  transition: none;
-}
-
-main[data-template='index'] .hero-carousel__word > span,
-main[data-template='index'] .hero-carousel__slide.is-active .hero-carousel__word > span,
-main[data-template='index'] .hero-carousel__slide.is-active .hero-carousel__text,
-main[data-template='index'] .hero-carousel__slide.is-active .hero-carousel__cta {
-  animation: none;
-  transform: none;
-  opacity: 1;
 }
 
 @media screen and (max-width: 749px) {

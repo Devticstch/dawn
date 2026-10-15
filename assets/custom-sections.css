@@ -1179,15 +1179,18 @@ a.category-panel__category-link:hover {
 
 /* ---------- Image banner with button ---------- */
 /* Full-bleed image with a centred pill (reuses .feature-showcase__button); reference: 16:9 desktop, 3:2 mobile */
+/* Fixed background: the image is pinned to the viewport and the media box acts as a window onto it.
+   clip-path (not overflow) is what clips a fixed child; also works on iOS, unlike background-attachment: fixed */
 .image-button__media {
   position: relative;
   aspect-ratio: 3 / 2;
   overflow: hidden;
+  clip-path: inset(0);
   background: rgba(30, 30, 30, 0.1);
 }
 
 .image-button__image {
-  position: absolute;
+  position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
@@ -1745,18 +1748,6 @@ main[data-template='index'] .perks__grid {
 }
 
 @media screen and (max-width: 749px) {
-  main[data-template='index'] .hero-carousel {
-    height: calc(clamp(42rem, 74svh, 62rem) + 140px);
-  }
-
-  main[data-template='index'] .hero-carousel__content {
-    padding: 0 2rem 3.2rem;
-  }
-
-  main[data-template='index'] .hero-carousel__heading {
-    font-size: clamp(3.8rem, 15vw, 5.6rem);
-  }
-
   main[data-template='index'] .bento-grid__tile {
     border-radius: 1rem;
   }
@@ -2615,18 +2606,6 @@ main[data-template='index'] .perks__grid {
   margin-bottom: 0;
 }
 
-.template-index .hero-carousel {
-  min-height: min(82svh, 78rem);
-  height: min(82svh, 78rem);
-}
-
-.template-index .hero-carousel__content {
-  max-width: 160rem;
-  margin-inline: auto;
-  width: 100%;
-  box-sizing: border-box;
-}
-
 .template-index .collection {
   border-top: 1px solid rgba(0,0,0,.07);
 }
@@ -2729,19 +2708,6 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
 }
 
 @media screen and (max-width: 749px) {
-  .template-index .hero-carousel {
-    min-height: 62svh;
-    height: 62svh;
-  }
-
-  .template-index .hero-carousel__content {
-    padding: 0 2rem 3.2rem;
-  }
-
-  .template-index .hero-carousel__heading {
-    font-size: clamp(3.8rem, 15vw, 5.6rem);
-  }
-
   .template-index .collection__title {
     padding-inline: 1.6rem;
   }

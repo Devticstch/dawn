@@ -7,13 +7,15 @@
   style="--cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px; --fs-accent: {{ section.settings.accent_color }};"
 >
   <div class="image-button__media">
+    {%- comment -%} Not lazy: Chrome never lazy-loads the fixed image inside the clip-path window; low priority keeps it behind the hero {%- endcomment -%}
     {%- if image != blank -%}
       {{
         image
         | image_url: width: 2400
         | image_tag:
           class: 'image-button__image',
-          loading: 'lazy',
+          loading: 'eager',
+          fetchpriority: 'low',
           widths: '750, 1100, 1500, 1920, 2400',
           sizes: '100vw',
           alt: image.alt
@@ -25,7 +27,7 @@
         alt=""
         width="1920"
         height="1080"
-        loading="lazy"
+        fetchpriority="low"
       >
     {%- endif -%}
     {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}

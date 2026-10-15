@@ -2,8 +2,16 @@
 <script src="{{ 'hero-carousel.js' | asset_url }}" defer="defer"></script>
 
 {%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+
   #HeroCarousel-{{ section.id }} {
     --hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --hero-accent: {{ section.settings.accent_color }};
+  }
+
+  #HeroCarousel-{{ section.id }} .hero-carousel__heading {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+    font-weight: {{ section.settings.heading_font.weight }};
   }
 {%- endstyle -%}
 
@@ -99,23 +107,20 @@
           {%- endif -%}
         </div>
 
+        {%- comment -%} Reference layout: description and button at the top, large heading at the bottom {%- endcomment -%}
         <div class="hero-carousel__content">
+          <div class="hero-carousel__box">
+            {%- if block.settings.subheading != blank -%}
+              <p class="hero-carousel__text">{{ block.settings.subheading | escape | newline_to_br }}</p>
+            {%- endif -%}
+            {%- if block.settings.button_label != blank and block.settings.link != blank -%}
+              <a href="{{ block.settings.link }}" class="hero-carousel__cta">
+                {{- block.settings.button_label | escape -}}
+              </a>
+            {%- endif -%}
+          </div>
           {%- if block.settings.heading != blank -%}
-            {%- assign words = block.settings.heading | split: ' ' -%}
-            <{{ heading_tag }} class="hero-carousel__heading">
-              {%- for word in words -%}
-                <span class="hero-carousel__word"><span style="--i: {{ forloop.index0 }};">{{ word | escape }}</span></span>
-                {%- unless forloop.last %} {% endunless -%}
-              {%- endfor -%}
-            </{{ heading_tag }}>
-          {%- endif -%}
-          {%- if block.settings.subheading != blank -%}
-            <p class="hero-carousel__text">{{ block.settings.subheading | escape | newline_to_br }}</p>
-          {%- endif -%}
-          {%- if block.settings.button_label != blank and block.settings.link != blank -%}
-            <a href="{{ block.settings.link }}" class="button hero-carousel__cta">
-              {{- block.settings.button_label | escape -}}
-            </a>
+            <{{ heading_tag }} class="hero-carousel__heading">{{ block.settings.heading | escape }}</{{ heading_tag }}>
           {%- endif -%}
         </div>
       </li>
@@ -180,6 +185,18 @@
       "id": "accessibility_info",
       "label": "Carousel description (for screen readers)",
       "default": "Featured collections"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "instrument_sans_n6"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Button and active dot color",
+      "default": "#0F61FF"
     }
   ],
   "blocks": [
