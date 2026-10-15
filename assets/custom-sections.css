@@ -244,9 +244,11 @@ main[data-template='index'] .homepage-image-with-text-width {
 /* Two grey panels with four categories each; sizes follow the reference design */
 main[data-template='index'] .category-strip .cs-container,
 main[data-template='index'] .best-sellers .cs-container,
-main[data-template='index'] .feature-showcase .cs-container {
+main[data-template='index'] .feature-showcase .cs-container,
+main[data-template='index'] .fpt .cs-container {
   /* Reference side margin: 105px at 1440px wide, 164px at 1893px */
-  padding-inline: clamp(2.2rem, 13vw - 8.25rem, 30rem);
+  --cs-gutter: clamp(2.2rem, 13vw - 8.25rem, 30rem);
+  padding-inline: var(--cs-gutter);
 }
 
 .category-panels {
@@ -912,6 +914,259 @@ a.category-panel__category-link:hover {
   }
 
   .feature-showcase__button {
+    font-size: 1.5rem;
+  }
+}
+
+/* ---------- Featured product tabs ---------- */
+/* Large product-name tabs over one featured product; sizes follow the reference design */
+.fpt {
+  /* The glow and the full-bleed title row must not widen the page */
+  overflow-x: clip;
+}
+
+.fpt__inner {
+  display: block;
+}
+
+.fpt__eyebrow {
+  margin: 0 0 2.1rem;
+  font-family: var(--font-nav-family, inherit);
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 2.24rem;
+  letter-spacing: -0.01em;
+  color: rgb(var(--color-foreground));
+}
+
+/* Full-bleed row: earlier titles stay visible in the left gutter, like the reference */
+.fpt__titles {
+  margin-inline: calc(-1 * var(--cs-gutter, 1.6rem));
+  padding-inline: var(--cs-gutter, 1.6rem);
+  overflow: hidden;
+}
+
+.fpt__titles-track {
+  position: relative;
+  display: flex;
+  gap: 5rem;
+  width: max-content;
+  transition: transform 0.5s ease;
+}
+
+.fpt__title {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: rgb(var(--color-foreground));
+  font-size: 5.4rem;
+  line-height: 1.1;
+  letter-spacing: -0.067em;
+  white-space: nowrap;
+  cursor: pointer;
+  opacity: 0.17;
+  transition: opacity 0.3s ease;
+}
+
+.fpt__title[aria-selected='true'] {
+  opacity: 1;
+}
+
+.fpt__title:hover {
+  opacity: 0.4;
+}
+
+.fpt__title[aria-selected='true']:hover {
+  opacity: 1;
+}
+
+.fpt__panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.fpt__panel[hidden] {
+  display: none;
+}
+
+/* No z-index here: the image must blend with the titles and glow behind it */
+.fpt__media {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-top: 3.4rem;
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+
+.fpt__glow {
+  position: absolute;
+  inset: -10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--fpt-accent-rgb), 0.5) 0%, rgba(var(--fpt-accent-rgb), 0.18) 38%, rgba(var(--fpt-accent-rgb), 0) 68%);
+}
+
+/* Multiply melts white photo backgrounds into the glow and the titles behind */
+.fpt__image {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.fpt__placeholder {
+  fill: rgba(var(--color-foreground), 0.25);
+}
+
+.fpt__box {
+  margin-top: 5.3rem;
+  padding: 3.5rem 2.4rem 2.4rem;
+  border-radius: 1.4rem;
+  background: var(--fpt-box-bg);
+  font-family: var(--font-nav-family, inherit);
+  color: rgb(var(--color-foreground));
+  text-align: center;
+}
+
+.fpt__price {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 2.556rem;
+  letter-spacing: -0.01em;
+}
+
+.fpt__description {
+  display: -webkit-box;
+  margin: 0.8rem 0 0;
+  overflow: hidden;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 2.13rem;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.fpt__specs {
+  margin: 2.4rem 0 0;
+  text-align: start;
+}
+
+.fpt__spec {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  min-height: 5.1rem;
+  border-top: 0.1rem solid rgba(var(--color-foreground), 0.06);
+}
+
+.fpt__spec:last-child {
+  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.06);
+}
+
+.fpt__spec dt {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: rgba(var(--color-foreground), 0.65);
+}
+
+.fpt__spec dd {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-align: end;
+}
+
+.fpt__spec dd a {
+  color: inherit;
+}
+
+.fpt__form {
+  margin: 0;
+}
+
+.fpt__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 5.3rem;
+  margin-top: 2.2rem;
+  padding: 0 2.4rem;
+  border: 0;
+  border-radius: 10rem;
+  background: var(--fpt-accent);
+  color: #fff;
+  font-family: inherit;
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.fpt__button:hover {
+  filter: brightness(0.9);
+}
+
+.fpt__button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+@media screen and (min-width: 750px) {
+  .fpt__title {
+    font-size: 7.6rem;
+  }
+
+  .fpt__media {
+    max-width: 60rem;
+    margin-inline: auto;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .fpt__titles-track {
+    gap: 4.9rem;
+  }
+
+  .fpt__title {
+    font-size: clamp(7.6rem, 6.95vw, 10rem);
+    line-height: 1.04;
+    letter-spacing: -0.06em;
+  }
+
+  .fpt__panel {
+    display: grid;
+    grid-template-columns: minmax(36rem, 51.2rem) minmax(0, 1fr);
+    column-gap: 2rem;
+    align-items: start;
+    margin-top: 11.7rem;
+  }
+
+  .fpt__box {
+    grid-area: 1 / 1;
+    margin-top: 0;
+    padding: 3.3rem 7rem;
+  }
+
+  .fpt__media {
+    grid-area: 1 / 2;
+    justify-self: center;
+    max-width: 72.5rem;
+    margin-top: -32.1rem;
+  }
+
+  .fpt__button {
+    height: 5.4rem;
     font-size: 1.5rem;
   }
 }

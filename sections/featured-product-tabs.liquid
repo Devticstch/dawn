@@ -1,0 +1,221 @@
+{%- style -%}
+  {{ section.settings.title_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .fpt__title {
+    font-family: {{ section.settings.title_font.family }}, {{ section.settings.title_font.fallback_families }};
+    font-weight: {{ section.settings.title_font.weight }};
+  }
+{%- endstyle -%}
+
+{%- assign products = section.settings.collection.products -%}
+
+<div
+  class="fpt cs-section"
+  style="--cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px; --fpt-box-bg: {{ section.settings.box_background }}; --fpt-accent: {{ section.settings.accent_color }}; --fpt-accent-rgb: {{ section.settings.accent_color.red }}, {{ section.settings.accent_color.green }}, {{ section.settings.accent_color.blue }};"
+>
+  <featured-product-tabs class="cs-container fpt__inner">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="fpt__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+
+    <div class="fpt__titles">
+      <div class="fpt__titles-track" role="tablist" aria-label="{{ section.settings.eyebrow | default: section.settings.collection.title | escape }}">
+        {%- for product in products limit: section.settings.products_to_show -%}
+          <button
+            type="button"
+            class="fpt__title"
+            role="tab"
+            id="FptTab-{{ section.id }}-{{ forloop.index }}"
+            aria-controls="FptPanel-{{ section.id }}-{{ forloop.index }}"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            {% unless forloop.first %}
+              tabindex="-1"
+            {% endunless %}
+          >
+            {{- product.title | escape -}}
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- for product in products limit: section.settings.products_to_show -%}
+      {%- liquid
+        assign variant = product.selected_or_first_available_variant
+        assign on_sale = false
+        if product.compare_at_price > product.price
+          assign on_sale = true
+        endif
+      -%}
+      <div
+        class="fpt__panel"
+        role="tabpanel"
+        id="FptPanel-{{ section.id }}-{{ forloop.index }}"
+        aria-labelledby="FptTab-{{ section.id }}-{{ forloop.index }}"
+        {% unless forloop.first %}
+          hidden
+        {% endunless %}
+      >
+        <div class="fpt__media" aria-hidden="true">
+          <span class="fpt__glow"></span>
+          {%- if product.featured_media -%}
+            {{
+              product.featured_media
+              | image_url: width: 1400
+              | image_tag:
+                class: 'fpt__image',
+                loading: 'lazy',
+                widths: '400, 700, 1000, 1400',
+                sizes: '(min-width: 990px) 50vw, 92vw',
+                alt: ''
+            }}
+          {%- else -%}
+            {%- assign placeholder_index = forloop.index0 | modulo: 6 | plus: 1 -%}
+            {{ 'product-' | append: placeholder_index | placeholder_svg_tag: 'fpt__image fpt__placeholder' }}
+          {%- endif -%}
+        </div>
+
+        <div class="fpt__box">
+          <p class="fpt__price">
+            {%- if on_sale -%}
+              <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
+            {%- endif -%}
+            <span>
+              {%- if product.price_varies -%}
+                {{ 'products.product.price.from_price_html' | t: price: product.price_min | money }}
+              {%- else -%}
+                {{ product.price | money }}
+              {%- endif -%}
+            </span>
+            {%- if on_sale -%}
+              <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+              <s>{{ product.compare_at_price | money }}</s>
+            {%- endif -%}
+          </p>
+
+          {%- if product.description != blank -%}
+            <p class="fpt__description">{{ product.description | strip_html | truncatewords: 40 }}</p>
+          {%- endif -%}
+
+          <dl class="fpt__specs">
+            {%- if product.vendor != blank and section.settings.vendor_label != blank -%}
+              <div class="fpt__spec">
+                <dt>{{ section.settings.vendor_label | escape }}</dt>
+                <dd>{{ product.vendor | link_to_vendor }}</dd>
+              </div>
+            {%- endif -%}
+            {%- if product.type != blank and section.settings.type_label != blank -%}
+              <div class="fpt__spec">
+                <dt>{{ section.settings.type_label | escape }}</dt>
+                <dd>{{ product.type | escape }}</dd>
+              </div>
+            {%- endif -%}
+            {%- if variant.weight > 0 and section.settings.weight_label != blank -%}
+              <div class="fpt__spec">
+                <dt>{{ section.settings.weight_label | escape }}</dt>
+                <dd>{{ variant.weight | weight_with_unit: variant.weight_unit }}</dd>
+              </div>
+            {%- endif -%}
+          </dl>
+
+          {%- if product.available == false -%}
+            <button type="button" class="fpt__button" disabled>{{ 'products.product.sold_out' | t }}</button>
+          {%- elsif product.has_only_default_variant -%}
+            {%- form 'product', product, class: 'fpt__form' -%}
+              <input type="hidden" name="id" value="{{ variant.id }}">
+              <button type="submit" class="fpt__button">{{ 'products.product.add_to_cart' | t }}</button>
+            {%- endform -%}
+          {%- else -%}
+            <a href="{{ product.url }}" class="fpt__button">{{ 'products.product.choose_options' | t }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </featured-product-tabs>
+</div>
+
+{% javascript %}
+  // Product-name tabs: selecting a title shows its panel and slides the title row so the active
+  // title sits at the row start (centred on small screens). Arrow keys and touch swipes move between titles.
+  class FeaturedProductTabs extends HTMLElement {
+    connectedCallback() {
+      this.tabs = [...this.querySelectorAll('[role="tab"]')];
+      this.track = this.querySelector('.fpt__titles-track');
+      this.tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => this.select(index));
+        tab.addEventListener('keydown', (event) => {
+          const step = { ArrowRight: 1, ArrowLeft: -1 }[event.key];
+          if (!step) return;
+          event.preventDefault();
+          const next = (index + step + this.tabs.length) % this.tabs.length;
+          this.select(next);
+          this.tabs[next].focus();
+        });
+      });
+      // Touch: swipe left or right to change product (titles beyond the screen edge are not tappable)
+      this.addEventListener('touchstart', (event) => {
+        this.touchStart = event.touches[0];
+      }, { passive: true });
+      this.addEventListener('touchend', (event) => {
+        const end = event.changedTouches[0];
+        const dx = end.clientX - this.touchStart.clientX;
+        const dy = end.clientY - this.touchStart.clientY;
+        if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+        const current = this.tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true');
+        this.select((current + (dx < 0 ? 1 : -1) + this.tabs.length) % this.tabs.length);
+      }, { passive: true });
+      this.align = this.align.bind(this);
+      this.observer = new ResizeObserver(this.align);
+      this.observer.observe(this);
+    }
+
+    disconnectedCallback() {
+      this.observer.disconnect();
+    }
+
+    select(index) {
+      this.tabs.forEach((tab, i) => {
+        const active = i === index;
+        tab.setAttribute('aria-selected', active);
+        tab.tabIndex = active ? 0 : -1;
+        document.getElementById(tab.getAttribute('aria-controls')).hidden = !active;
+      });
+      this.align();
+    }
+
+    align() {
+      const active = this.tabs.find((tab) => tab.getAttribute('aria-selected') === 'true');
+      if (!active) return;
+      const centred = window.matchMedia('(max-width: 749px)').matches;
+      const row = this.track.parentElement;
+      const gutter = parseFloat(getComputedStyle(row).paddingLeft);
+      const offset = centred ? active.offsetLeft + gutter - (row.clientWidth - active.offsetWidth) / 2 : active.offsetLeft;
+      this.track.style.transform = `translateX(${-offset}px)`;
+    }
+  }
+
+  customElements.define('featured-product-tabs', FeaturedProductTabs);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Featured product tabs",
+  "tag": "section",
+  "class": "section section-featured-product-tabs",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "FEATURED" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 2, "max": 8, "step": 1, "default": 4 },
+    { "type": "header", "content": "Details" },
+    { "type": "text", "id": "vendor_label", "label": "Brand label", "default": "Brand", "info": "Leave empty to hide the row" },
+    { "type": "text", "id": "type_label", "label": "Type label", "default": "Type", "info": "Leave empty to hide the row" },
+    { "type": "text", "id": "weight_label", "label": "Weight label", "default": "Weight", "info": "Shown when the variant has a weight. Leave empty to hide the row" },
+    { "type": "header", "content": "Style" },
+    { "type": "font_picker", "id": "title_font", "label": "Product name font", "default": "instrument_sans_n6" },
+    { "type": "color", "id": "box_background", "label": "Details box background", "default": "#F6F6F6" },
+    { "type": "color", "id": "accent_color", "label": "Button and glow color", "default": "#0F61FF" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 100 }
+  ],
+  "presets": [{ "name": "Featured product tabs" }]
+}
+{% endschema %}
