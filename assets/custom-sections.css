@@ -246,8 +246,9 @@ main[data-template='index'] .category-strip .cs-container,
 main[data-template='index'] .best-sellers .cs-container,
 main[data-template='index'] .feature-showcase .cs-container,
 main[data-template='index'] .fpt .cs-container {
-  /* Reference side margin: 105px at 1440px wide, 164px at 1893px */
-  --cs-gutter: clamp(2.2rem, 13vw - 8.25rem, 30rem);
+  /* Reference container (DESIGN-SYSTEM.md 2.1): max 1920px, gutter 22px at 800px wide rising to 164px at 1900px */
+  --cs-gutter: clamp(2.2rem, 12.909vw - 8.127rem, 16.4rem);
+  max-width: 192rem;
   padding-inline: var(--cs-gutter);
 }
 
@@ -343,9 +344,11 @@ main[data-template='index'] .fpt .cs-container {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 13.1rem;
+  gap: 2rem;
   margin: 0 -3.2rem;
   padding: 0 3.2rem;
   overflow-x: auto;
+  scroll-padding-inline: 3.2rem;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   list-style: none;
@@ -364,9 +367,10 @@ main[data-template='index'] .fpt .cs-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.7rem;
+  /* Reference item: 19px top, 21px image-to-label, 33px below the label */
+  gap: 2.1rem;
   height: 100%;
-  padding: 1.8rem;
+  padding: 1.9rem 1.8rem 3.3rem;
   color: color-mix(in srgb, var(--cs-text) 75%, transparent);
   font-family: var(--font-nav-family, inherit);
   text-align: center;
@@ -423,6 +427,7 @@ a.category-panel__category-link:hover {
   .category-panel__categories {
     grid-auto-flow: row;
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
     margin: 0;
     padding: 0;
     overflow: visible;
@@ -642,7 +647,7 @@ a.category-panel__category-link:hover {
 .best-sellers__progress {
   width: 7.5rem;
   height: 0.5rem;
-  margin: 3.6rem auto 0;
+  margin: 3.8rem auto 0;
   overflow: hidden;
   border-radius: 1rem;
   background: rgba(var(--color-foreground), 0.08);

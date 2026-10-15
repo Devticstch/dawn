@@ -138,8 +138,13 @@
   /* Full-width bar: logo left, centred inline menu, icons right */
   .header.page-width {
     max-width: none;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 2.2rem;
+    padding-right: 2.2rem;
+  }
+
+  /* Sticky header slides in and out like the reference (DESIGN-SYSTEM.md 3.2) */
+  .section-header.animate {
+    transition: top 0.5s cubic-bezier(0.31, 0.41, 0.38, 0.96);
   }
 
   {%- liquid
@@ -190,6 +195,11 @@
     flex-shrink: 0;
   }
 
+  .header-nav .list-menu--inline > li > .header__menu-item:hover,
+  .header-nav .list-menu--inline > li > header-menu > details > .header__menu-item:hover {
+    color: var(--header-accent);
+  }
+
   /* Menu badges: the item's Badge setting, or titles like "Phone Cases [NEW]" (see mega-drawer-title) */
   .header__inline-menu .mega-drawer__badge {
     display: inline-block;
@@ -218,8 +228,8 @@
     }
 
     .header__icons .header__icon .icon:not(.icon-cart, .icon-cart-empty) {
-      width: 1.8rem;
-      height: 1.8rem;
+      width: 1.6rem;
+      height: 1.6rem;
     }
   }
 
@@ -229,8 +239,12 @@
   }
 
   .header__icon--cart .cart-count-bubble {
+    width: 1.6rem;
+    height: 1.6rem;
     background-color: var(--header-accent);
     color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
   }
 
   @media screen and (max-width: 989px) {
@@ -273,8 +287,27 @@
 
     .header--mobile-left header-drawer {
       margin-right: 0;
-      padding: 0.5rem 1.4rem 0.5rem 0;
+      padding: 0.5rem 1.8rem 0.5rem 0;
       border-radius: 0 2.35rem 2.35rem 0;
+    }
+
+    /* Reference pill: 46px tall (36px icons), 22px below the announcement bar, header 68px */
+    .header--mobile-left {
+      padding-top: 2.2rem;
+      padding-bottom: 0;
+    }
+
+    .header--mobile-left .header__icons .header__icon,
+    .header--mobile-left .header__icons .header__icon .svg-wrapper,
+    .header--mobile-left .header__icons .header__icon--cart .icon,
+    .header--mobile-left .header__icon--menu {
+      width: 3.6rem;
+      height: 3.6rem;
+    }
+
+    .header--mobile-left .header__icons .header__icon,
+    .header--mobile-left .header__icon--menu {
+      color: rgba(30, 30, 30, 0.75);
     }
   }
 
