@@ -1176,6 +1176,39 @@ a.category-panel__category-link:hover {
   }
 }
 
+/* ---------- Image banner with button ---------- */
+/* Full-bleed image with a centred pill (reuses .feature-showcase__button); reference: 16:9 desktop, 3:2 mobile */
+.image-button__media {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: rgba(30, 30, 30, 0.1);
+}
+
+.image-button__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Reference mobile button: 105 x 42, 14px, centred 20px above the middle */
+@media screen and (max-width: 749px) {
+  .image-button .feature-showcase__button {
+    top: calc(50% - 2rem);
+    height: 4.2rem;
+    padding: 0 1.9rem;
+    font-size: 1.4rem;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .image-button__media {
+    aspect-ratio: 16 / 9;
+  }
+}
+
 /* ---------- Reviews highlight ---------- */
 .reviews-highlight {
   text-align: center;
