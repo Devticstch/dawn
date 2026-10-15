@@ -47,24 +47,6 @@
     },
     "header": {
       "type": "header",
-      "settings": {
-        "logo_position": "middle-left",
-        "mobile_logo_position": "left",
-        "menu": "main-menu",
-        "menu_type_desktop": "dropdown",
-        "sticky_header_type": "always",
-        "transparent_on_home": true,
-        "show_line_separator": false,
-        "color_scheme": "scheme-1",
-        "menu_color_scheme": "scheme-1",
-        "enable_country_selector": true,
-        "enable_language_selector": true,
-        "margin_bottom": 0,
-        "padding_top": 8,
-        "padding_bottom": 8,
-        "drawer_style": "mega",
-        "view_all_label": "View All"
-      },
       "blocks": {
         "nav_new": {
           "type": "menu_item",
@@ -72,10 +54,10 @@
             "title": "New & Featured",
             "link": "/collections/all?sort_by=created-descending",
             "intro_heading": "Category",
-            "promo_theme_image": "menu-promo.jpg",
             "promo_heading": "New Arrivals",
             "promo_button_label": "Explore more",
-            "promo_link": "/collections/all?sort_by=created-descending"
+            "promo_link": "/collections/all?sort_by=created-descending",
+            "promo_theme_image": "menu-promo.jpg"
           }
         },
         "card_new_1": {
@@ -132,14 +114,14 @@
           "type": "menu_item",
           "settings": {
             "title": "Best sellers",
-            "badge": "50% OFF",
             "link": "/collections/all?sort_by=best-selling",
+            "badge": "50% OFF",
             "intro_heading": "Category",
             "intro_text": "Protect your phone in style. From minimalist to drop-proof cases, we have your back.",
-            "promo_theme_image": "menu-promo.jpg",
             "promo_heading": "New Arrivals",
             "promo_button_label": "Explore more",
-            "promo_link": "/collections/all?sort_by=created-descending"
+            "promo_link": "/collections/all?sort_by=created-descending",
+            "promo_theme_image": "menu-promo.jpg"
           }
         },
         "card_best_1": {
@@ -184,10 +166,10 @@
             "link": "/collections",
             "intro_heading": "Devices",
             "intro_text": "Protect your phone in style. From minimalist to drop-proof cases, we have your back.",
-            "promo_theme_image": "menu-promo.jpg",
             "promo_heading": "New Arrivals",
             "promo_button_label": "Explore more",
-            "promo_link": "/collections/all?sort_by=created-descending"
+            "promo_link": "/collections/all?sort_by=created-descending",
+            "promo_theme_image": "menu-promo.jpg"
           }
         },
         "col_dev_iphone": {
@@ -263,7 +245,25 @@
         "col_dev_airpods",
         "nav_about",
         "nav_blog"
-      ]
+      ],
+      "settings": {
+        "logo_position": "middle-left",
+        "mobile_logo_position": "left",
+        "menu": "main-menu",
+        "menu_type_desktop": "dropdown",
+        "drawer_style": "mega",
+        "view_all_label": "View All",
+        "sticky_header_type": "always",
+        "transparent_on_home": true,
+        "show_line_separator": false,
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1",
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "margin_bottom": 0,
+        "padding_top": 8,
+        "padding_bottom": 8
+      }
     }
   },
   "order": [
