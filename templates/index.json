@@ -975,6 +975,49 @@
         "padding_bottom": 56
       }
     },
+    "info_cards": {
+      "type": "info-cards",
+      "blocks": {
+        "card_shipping": {
+          "type": "card",
+          "settings": {
+            "theme_image": "info-shipping.jpg",
+            "heading": "Shipping\nand Return",
+            "button_label": "View now",
+            "link": "/policies/shipping-policy"
+          }
+        },
+        "card_store": {
+          "type": "card",
+          "settings": {
+            "theme_image": "info-store.jpg",
+            "heading": "Our Store",
+            "button_label": "View now",
+            "link": "/pages/about-us"
+          }
+        },
+        "card_warranty": {
+          "type": "card",
+          "settings": {
+            "theme_image": "info-warranty.jpg",
+            "heading": "Warranty Policy",
+            "button_label": "View now",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_shipping",
+        "card_store",
+        "card_warranty"
+      ],
+      "settings": {
+        "padding_top": 92,
+        "padding_bottom": 63,
+        "padding_top_mobile": 62,
+        "padding_bottom_mobile": 43
+      }
+    },
     "featured_tabs": {
       "type": "featured-product-tabs",
       "settings": {
@@ -1005,6 +1048,7 @@
     "image_banner_cases",
     "featured_bundle",
     "featured_tabs",
+    "info_cards",
     "bento_grid",
     "featured_everyday",
     "feature_cards",

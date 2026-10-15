@@ -246,7 +246,8 @@ main[data-template='index'] .category-strip .cs-container,
 main[data-template='index'] .best-sellers .cs-container,
 main[data-template='index'] .feature-showcase .cs-container,
 main[data-template='index'] .fpt .cs-container,
-main[data-template='index'] .pb .cs-container {
+main[data-template='index'] .pb .cs-container,
+main[data-template='index'] .ic .cs-container {
   /* Reference container (DESIGN-SYSTEM.md 2.1): max 1920px, gutter 22px at 800px wide rising to 164px at 1900px */
   --cs-gutter: clamp(2.2rem, 12.909vw - 8.127rem, 16.4rem);
   max-width: 192rem;
@@ -1525,6 +1526,146 @@ a.category-panel__category-link:hover {
   }
 }
 
+/* ---------- Info cards ---------- */
+/* Three image cards linking to store info; reference custom section measured 2026-10-15:
+   1440: two 601 x 292 cards stacked on the left, one 601 x 612 on the right, 28px gaps, radius 20,
+   heading 42px at 33 / 42px inset, "View now" fades in on hover while the image zooms to 1.05.
+   390: stacked 16:9 cards 14px apart, heading 24px at 26 / 31px inset, button always visible */
+.ic__grid {
+  display: grid;
+  gap: 1.4rem;
+}
+
+.ic__card {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 2rem;
+  background: rgba(30, 30, 30, 0.1);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* The reference has no shade; these photos are lighter, so the heading corner is darkened slightly */
+.ic__card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(160deg, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0) 55%);
+  pointer-events: none;
+}
+
+.ic__image {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.ic__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2.6rem 3.1rem;
+}
+
+.ic__heading {
+  margin: 0;
+  color: #fff;
+  font-size: 2.4rem;
+  line-height: 1.2;
+}
+
+/* Mobile keeps short headings on one line, like the reference */
+.ic__heading br {
+  display: none;
+}
+
+.ic__button {
+  display: inline-flex;
+  align-items: center;
+  height: 4.2rem;
+  margin-top: 2.1rem;
+  padding: 0 1.8rem;
+  font-size: 1.4rem;
+}
+
+.ic__card:focus-visible {
+  outline: 0.2rem solid var(--btn-accent, #0f61ff);
+  outline-offset: 0.3rem;
+}
+
+@media screen and (min-width: 768px) {
+  .ic__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.8rem;
+  }
+
+  .ic__card {
+    aspect-ratio: 1564 / 760;
+  }
+
+  .ic__card:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    aspect-ratio: auto;
+  }
+
+  .ic__content {
+    padding: 3.3rem 4.2rem;
+  }
+
+  .ic__heading br {
+    display: inline;
+  }
+
+  .ic__button {
+    height: 5rem;
+    padding: 0 2.4rem;
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .ic__heading {
+    font-size: 3.1rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .ic__heading {
+    font-size: 4.2rem;
+  }
+}
+
+@media screen and (min-width: 768px) and (hover: hover) {
+  .ic__card .ic__button {
+    opacity: 0;
+    transition: opacity 0.5s, color 0.5s var(--btn-ease), border-color 0.5s var(--btn-ease);
+  }
+
+  .ic__card:is(:hover, :focus-visible) .ic__button {
+    opacity: 1;
+  }
+
+  .ic__card:hover .ic__image {
+    transform: scale(1.05);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ic__image,
+  .ic__card .ic__button {
+    transition: none;
+  }
+}
+
 /* ---------- Reviews highlight ---------- */
 .reviews-highlight {
   text-align: center;
@@ -2697,7 +2838,8 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
     .fpt__button,
     .pb__button,
     .hero-carousel__cta,
-    .product-sticky-bar__button
+    .product-sticky-bar__button,
+    .ic__button
   ) {
   --btn-bg: var(--btn-accent, #0f61ff);
   --btn-fg: #fff;
@@ -2733,7 +2875,8 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
 .fpt__button,
 .pb__button,
 .hero-carousel__cta,
-.product-sticky-bar__button {
+.product-sticky-bar__button,
+.ic__button {
   position: relative;
 }
 
@@ -2748,7 +2891,8 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
     .fpt__button,
     .pb__button,
     .hero-carousel__cta,
-    .product-sticky-bar__button
+    .product-sticky-bar__button,
+    .ic__button
   )::before {
   content: '';
   position: absolute;
@@ -2783,7 +2927,8 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
     .fpt__button,
     .pb__button,
     .hero-carousel__cta,
-    .product-sticky-bar__button
+    .product-sticky-bar__button,
+    .ic__button
   ):not(:disabled, [aria-disabled='true'], .disabled, .loading):hover {
   border-color: var(--btn-hover-border, var(--btn-border));
   color: var(--btn-fill-fg);
@@ -2799,7 +2944,8 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
     .fpt__button,
     .pb__button,
     .hero-carousel__cta,
-    .product-sticky-bar__button
+    .product-sticky-bar__button,
+    .ic__button
   ):not(:disabled, [aria-disabled='true'], .disabled, .loading):hover::before {
   top: 0;
   height: 100%;
@@ -2834,7 +2980,8 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
       .fpt__button,
       .pb__button,
       .hero-carousel__cta,
-      .product-sticky-bar__button
+      .product-sticky-bar__button,
+      .ic__button
     ),
   :is(
       .button,
@@ -2846,7 +2993,8 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
       .fpt__button,
       .pb__button,
       .hero-carousel__cta,
-      .product-sticky-bar__button
+      .product-sticky-bar__button,
+      .ic__button
     )::before {
     transition: none;
   }

@@ -1,0 +1,100 @@
+{%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .ic__heading {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+    font-weight: {{ section.settings.heading_font.weight }};
+  }
+{%- endstyle -%}
+
+<div
+  class="ic cs-section"
+  style="--cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top_mobile }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px; --btn-accent: {{ section.settings.accent_color }};"
+>
+  <div class="cs-container">
+    <div class="ic__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign card_tag = 'div'
+          if block.settings.link != blank
+            assign card_tag = 'a'
+          endif
+        -%}
+        <{{ card_tag }}
+          {% if card_tag == 'a' %}
+            href="{{ block.settings.link }}"
+          {% endif %}
+          class="ic__card"
+          {{ block.shopify_attributes }}
+        >
+          {%- if block.settings.image != blank -%}
+            {{
+              block.settings.image
+              | image_url: width: 1600
+              | image_tag:
+                class: 'ic__image',
+                loading: 'lazy',
+                widths: '600, 900, 1200, 1600',
+                sizes: '(min-width: 768px) 45vw, 100vw',
+                alt: ''
+            }}
+          {%- elsif block.settings.theme_image != blank -%}
+            <img
+              class="ic__image"
+              src="{{ block.settings.theme_image | asset_url }}"
+              alt=""
+              width="1600"
+              height="900"
+              loading="lazy"
+            >
+          {%- endif -%}
+          <span class="ic__content">
+            {%- if block.settings.heading != blank -%}
+              <h2 class="ic__heading">{{ block.settings.heading | escape | newline_to_br }}</h2>
+            {%- endif -%}
+            {%- if card_tag == 'a' and block.settings.button_label != blank -%}
+              <span class="ic__button">{{ block.settings.button_label | escape }}</span>
+            {%- endif -%}
+          </span>
+        </{{ card_tag }}>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Info cards",
+  "tag": "section",
+  "class": "section section-info-cards",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "paragraph", "content": "Desktop: the first and third cards stack on the left, the second card is tall on the right" },
+    { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "instrument_sans_n6" },
+    { "type": "color", "id": "accent_color", "label": "Button color", "default": "#0F61FF" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 92 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 63 },
+    { "type": "range", "id": "padding_top_mobile", "label": "Top padding (mobile)", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 62 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "Bottom padding (mobile)", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 43 }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "theme_image", "label": "Theme image", "info": "File name from the theme assets, used when no image is selected" },
+        { "type": "textarea", "id": "heading", "label": "Heading", "default": "Card heading", "info": "Line breaks apply from tablet width up" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "View now", "info": "Shown on hover on desktop, always on mobile" },
+        { "type": "url", "id": "link", "label": "Link", "info": "The card and its button are only clickable when a link is set" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Info cards",
+      "blocks": [{ "type": "card" }, { "type": "card" }, { "type": "card" }]
+    }
+  ]
+}
+{% endschema %}

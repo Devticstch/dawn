@@ -381,20 +381,21 @@
       transition: color 0.35s ease, filter 0.35s ease;
     }
 
-    /* Solid while scrolled, or while the drawer or search is open; menu panels keep it transparent */
+    /* Solid while scrolled, or while the drawer or search is open; menu panels keep it transparent.
+       Only <summary> toggles count: the drawer markup has static aria-expanded="true" back buttons */
     .section-header:is(.scrolled-past-header, .menu-open) .header-wrapper--transparent::before,
-    .header-wrapper--transparent:is(:focus-within, :has([aria-expanded='true']:not(.header-nav summary)))::before {
+    .header-wrapper--transparent:is(:focus-within, :has(summary[aria-expanded='true']:not(.header-nav summary)))::before {
       opacity: 1;
     }
 
     .section-header:not(.scrolled-past-header, .menu-open)
-      .header-wrapper--transparent:not(:focus-within, :has([aria-expanded='true']:not(.header-nav summary))) {
+      .header-wrapper--transparent:not(:focus-within, :has(summary[aria-expanded='true']:not(.header-nav summary))) {
       --color-foreground: 255, 255, 255;
       box-shadow: inset 0 -0.1rem 0 rgba(229, 229, 229, 0.5);
     }
 
     .section-header:not(.scrolled-past-header, .menu-open)
-      .header-wrapper--transparent:not(:focus-within, :has([aria-expanded='true']:not(.header-nav summary)))
+      .header-wrapper--transparent:not(:focus-within, :has(summary[aria-expanded='true']:not(.header-nav summary)))
       .header__heading-logo {
       filter: brightness(0) invert(1);
     }
