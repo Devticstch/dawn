@@ -1,0 +1,211 @@
+{%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .best-sellers__heading,
+  #shopify-section-{{ section.id }} .bs-card__title {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+  }
+
+  #shopify-section-{{ section.id }} .best-sellers__heading {
+    font-weight: {{ section.settings.heading_font.weight }};
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign collection = section.settings.collection
+  assign color_option_names = 'color,colour'
+-%}
+
+<div
+  class="best-sellers cs-section"
+  style="--cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px; --bs-card-bg: {{ section.settings.card_background }}; --bs-badge: {{ section.settings.badge_color }}; --bs-accent: {{ section.settings.accent_color }};"
+>
+  <div class="cs-container">
+    {%- if section.settings.title != blank -%}
+      <h2 class="best-sellers__heading">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+
+    <best-sellers-slider class="best-sellers__slider">
+      <ul class="best-sellers__track" role="list">
+        {%- for product in collection.products limit: section.settings.products_to_show -%}
+          {%- liquid
+            assign compare_at = product.compare_at_price
+            assign on_sale = false
+            if compare_at > product.price
+              assign on_sale = true
+              assign discount = compare_at | minus: product.price | times: 100.0 | divided_by: compare_at | round
+            endif
+
+            assign color_option = nil
+            for option in product.options_with_values
+              assign option_name = option.name | downcase
+              if color_option_names contains option_name
+                assign color_option = option
+                break
+              endif
+            endfor
+          -%}
+          <li class="best-sellers__slide">
+            <div class="bs-card">
+              <a href="{{ product.url }}" class="bs-card__media" tabindex="-1" aria-hidden="true">
+                {%- if product.featured_media -%}
+                  {{
+                    product.featured_media
+                    | image_url: width: 600
+                    | image_tag:
+                      class: 'bs-card__image',
+                      loading: 'lazy',
+                      widths: '300, 450, 600',
+                      sizes: '(min-width: 990px) 22vw, (min-width: 750px) 31vw, 45vw',
+                      alt: ''
+                  }}
+                  {%- if product.media.size > 1 -%}
+                    {{
+                      product.media[1]
+                      | image_url: width: 600
+                      | image_tag:
+                        class: 'bs-card__image bs-card__image--hover',
+                        loading: 'lazy',
+                        widths: '300, 450, 600',
+                        sizes: '(min-width: 990px) 22vw, (min-width: 750px) 31vw, 45vw',
+                        alt: ''
+                    }}
+                  {%- endif -%}
+                {%- else -%}
+                  {%- assign placeholder_index = forloop.index0 | modulo: 6 | plus: 1 -%}
+                  {{ 'product-' | append: placeholder_index | placeholder_svg_tag: 'bs-card__image bs-card__placeholder' }}
+                {%- endif -%}
+              </a>
+
+              {%- if product.available == false -%}
+                <span class="bs-card__badge bs-card__badge--sold-out">{{ 'products.product.sold_out' | t }}</span>
+              {%- elsif on_sale -%}
+                <span class="bs-card__badge">{{ 'products.product.on_sale' | t }} {{ discount }}%</span>
+              {%- endif -%}
+
+              <div class="bs-card__actions">
+                {%- if product.available and product.has_only_default_variant -%}
+                  {%- form 'product', product, class: 'bs-card__form' -%}
+                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                    <button type="submit" class="bs-card__action" aria-label="{{ 'products.product.add_to_cart' | t }}: {{ product.title | escape }}">
+                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M8 3v10M3 8h10"/></svg>
+                    </button>
+                  {%- endform -%}
+                {%- elsif product.available -%}
+                  <a href="{{ product.url }}" class="bs-card__action" aria-label="{{ 'products.product.choose_options' | t }}: {{ product.title | escape }}">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M8 3v10M3 8h10"/></svg>
+                  </a>
+                {%- endif -%}
+                <a href="{{ product.url }}" class="bs-card__action" aria-label="{{ 'products.product.view_full_details' | t }}: {{ product.title | escape }}">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true" focusable="false"><path d="M1.5 8S4 3.5 8 3.5 14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8Z"/><circle cx="8" cy="8" r="2"/></svg>
+                </a>
+              </div>
+
+              <div class="bs-card__info">
+                <h3 class="bs-card__title">
+                  <a href="{{ product.url }}">{{ product.title | escape }}</a>
+                </h3>
+                <div class="bs-card__price">
+                  {%- if on_sale -%}
+                    <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+                    <s class="bs-card__compare">{{ compare_at | money }}</s>
+                    <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
+                  {%- endif -%}
+                  <span>
+                    {%- if product.price_varies -%}
+                      {{ 'products.product.price.from_price_html' | t: price: product.price_min | money }}
+                    {%- else -%}
+                      {{ product.price | money }}
+                    {%- endif -%}
+                  </span>
+                </div>
+
+                {%- if section.settings.show_swatches and color_option.values.size > 1 -%}
+                  <ul class="bs-card__swatches" role="list" aria-label="{{ color_option.name | escape }}">
+                    {%- for value in color_option.values limit: 5 -%}
+                      {%- liquid
+                        if value.swatch.color
+                          assign swatch_background = value.swatch.color
+                        elsif value.swatch.image
+                          assign swatch_background = value.swatch.image | image_url: width: 50 | prepend: 'url(' | append: ')'
+                        else
+                          assign swatch_background = value | downcase | remove: ' '
+                        endif
+                        assign swatch_url = value.variant.url | default: product.url
+                      -%}
+                      <li>
+                        <a
+                          href="{{ swatch_url }}"
+                          class="bs-card__swatch"
+                          style="--swatch: {{ swatch_background }};"
+                          aria-label="{{ value | escape }}"
+                          title="{{ value | escape }}"
+                        ></a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </div>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <div class="best-sellers__progress" aria-hidden="true" hidden>
+        <span class="best-sellers__progress-bar"></span>
+      </div>
+    </best-sellers-slider>
+  </div>
+</div>
+
+{% javascript %}
+  // Moves the progress bar with the horizontal scroll; hidden when every card fits.
+  class BestSellersSlider extends HTMLElement {
+    connectedCallback() {
+      this.track = this.querySelector('.best-sellers__track');
+      this.progress = this.querySelector('.best-sellers__progress');
+      this.bar = this.querySelector('.best-sellers__progress-bar');
+      this.update = this.update.bind(this);
+      this.track.addEventListener('scroll', this.update, { passive: true });
+      this.observer = new ResizeObserver(this.update);
+      this.observer.observe(this.track);
+    }
+
+    disconnectedCallback() {
+      this.track.removeEventListener('scroll', this.update);
+      this.observer.disconnect();
+    }
+
+    update() {
+      const { scrollLeft, scrollWidth, clientWidth } = this.track;
+      const overflow = scrollWidth - clientWidth;
+      this.progress.hidden = overflow <= 1;
+      if (overflow <= 1) return;
+      const share = clientWidth / scrollWidth;
+      this.bar.style.width = `${share * 100}%`;
+      this.bar.style.transform = `translateX(${(scrollLeft / overflow) * ((1 - share) / share) * 100}%)`;
+    }
+  }
+
+  customElements.define('best-sellers-slider', BestSellersSlider);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Best sellers",
+  "tag": "section",
+  "class": "section section-best-sellers",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Heading", "default": "Best Sellers" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 4, "max": 12, "step": 1, "default": 8 },
+    { "type": "checkbox", "id": "show_swatches", "label": "Show color swatches", "default": true, "info": "Uses the product option named Color or Colour" },
+    { "type": "font_picker", "id": "heading_font", "label": "Heading and product title font", "default": "instrument_sans_n6" },
+    { "type": "color", "id": "card_background", "label": "Card background", "default": "#F6F6F6" },
+    { "type": "color", "id": "badge_color", "label": "Sale badge color", "default": "#DA1E28" },
+    { "type": "color", "id": "accent_color", "label": "Buttons and progress bar color", "default": "#0F61FF" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 44 }
+  ],
+  "presets": [{ "name": "Best sellers" }]
+}
+{% endschema %}
