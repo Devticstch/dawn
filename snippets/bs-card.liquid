@@ -1,0 +1,144 @@
+{%- comment -%}
+  Reference-style product card (DESIGN-SYSTEM.md 5.1), shared by Best Sellers and Product Bundles.
+  The parent element sets --bs-card-bg, --bs-badge and --bs-accent.
+  Accepts:
+  - product: {Object}
+  - index: {Number} position in the list, picks the placeholder image when the product has no media
+  - show_swatches: {Boolean} color swatches from the option named Color or Colour
+  - action: {String} 'cart' (default): "+" adds to cart or opens the product when it has options;
+    'bundle': "+" adds the first available variant to the section's bundle box
+{%- endcomment -%}
+{%- liquid
+  assign compare_at = product.compare_at_price
+  assign on_sale = false
+  if compare_at > product.price
+    assign on_sale = true
+    assign discount = compare_at | minus: product.price | times: 100.0 | divided_by: compare_at | round
+  endif
+
+  assign color_option = nil
+  for option in product.options_with_values
+    assign option_name = option.name | downcase
+    if option_name == 'color' or option_name == 'colour'
+      assign color_option = option
+      break
+    endif
+  endfor
+
+  assign variant = product.selected_or_first_available_variant
+  assign plus_icon = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M8 3v10M3 8h10"/></svg>'
+-%}
+<div class="bs-card">
+  <a href="{{ product.url }}" class="bs-card__media" tabindex="-1" aria-hidden="true">
+    {%- if product.featured_media -%}
+      {{
+        product.featured_media
+        | image_url: width: 600
+        | image_tag:
+          class: 'bs-card__image',
+          loading: 'lazy',
+          widths: '300, 450, 600',
+          sizes: '(min-width: 990px) 22vw, (min-width: 750px) 31vw, 45vw',
+          alt: ''
+      }}
+      {%- if product.media.size > 1 -%}
+        {{
+          product.media[1]
+          | image_url: width: 600
+          | image_tag:
+            class: 'bs-card__image bs-card__image--hover',
+            loading: 'lazy',
+            widths: '300, 450, 600',
+            sizes: '(min-width: 990px) 22vw, (min-width: 750px) 31vw, 45vw',
+            alt: ''
+        }}
+      {%- endif -%}
+    {%- else -%}
+      {%- assign placeholder_index = index | modulo: 6 | plus: 1 -%}
+      {{ 'product-' | append: placeholder_index | placeholder_svg_tag: 'bs-card__image bs-card__placeholder' }}
+    {%- endif -%}
+  </a>
+
+  {%- if product.available == false -%}
+    <span class="bs-card__badge bs-card__badge--sold-out">{{ 'products.product.sold_out' | t }}</span>
+  {%- elsif on_sale -%}
+    <span class="bs-card__badge">{{ 'products.product.on_sale' | t }} {{ discount }}%</span>
+  {%- endif -%}
+
+  <div class="bs-card__actions">
+    {%- if action == 'bundle' and product.available -%}
+      <button
+        type="button"
+        class="bs-card__action"
+        data-bundle-add
+        data-variant-id="{{ variant.id }}"
+        data-title="{{ product.title | escape }}"
+        data-price="{{ variant.price }}"
+        data-image="{% if product.featured_media %}{{ product.featured_media | image_url: width: 120 }}{% endif %}"
+        aria-label="{{ 'products.product.add_to_cart' | t }}: {{ product.title | escape }}"
+      >
+        {{- plus_icon -}}
+      </button>
+    {%- elsif product.available and product.has_only_default_variant -%}
+      {%- form 'product', product, class: 'bs-card__form' -%}
+        <input type="hidden" name="id" value="{{ variant.id }}">
+        <button type="submit" class="bs-card__action" aria-label="{{ 'products.product.add_to_cart' | t }}: {{ product.title | escape }}">
+          {{- plus_icon -}}
+        </button>
+      {%- endform -%}
+    {%- elsif product.available -%}
+      <a href="{{ product.url }}" class="bs-card__action" aria-label="{{ 'products.product.choose_options' | t }}: {{ product.title | escape }}">
+        {{- plus_icon -}}
+      </a>
+    {%- endif -%}
+    <a href="{{ product.url }}" class="bs-card__action" aria-label="{{ 'products.product.view_full_details' | t }}: {{ product.title | escape }}">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true" focusable="false"><path d="M1.5 8S4 3.5 8 3.5 14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8Z"/><circle cx="8" cy="8" r="2"/></svg>
+    </a>
+  </div>
+
+  <div class="bs-card__info">
+    <h3 class="bs-card__title">
+      <a href="{{ product.url }}">{{ product.title | escape }}</a>
+    </h3>
+    <div class="bs-card__price">
+      {%- if on_sale -%}
+        <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+        <s class="bs-card__compare">{{ compare_at | money }}</s>
+        <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
+      {%- endif -%}
+      <span>
+        {%- if product.price_varies -%}
+          {{ 'products.product.price.from_price_html' | t: price: product.price_min | money }}
+        {%- else -%}
+          {{ product.price | money }}
+        {%- endif -%}
+      </span>
+    </div>
+
+    {%- if show_swatches and color_option.values.size > 1 -%}
+      <ul class="bs-card__swatches" role="list" aria-label="{{ color_option.name | escape }}">
+        {%- for value in color_option.values limit: 5 -%}
+          {%- liquid
+            if value.swatch.color
+              assign swatch_background = value.swatch.color
+            elsif value.swatch.image
+              assign swatch_background = value.swatch.image | image_url: width: 50 | prepend: 'url(' | append: ')'
+            else
+              assign swatch_background = value | downcase | remove: ' '
+            endif
+            assign swatch_url = value.variant.url | default: product.url
+          -%}
+          <li>
+            <a
+              href="{{ swatch_url }}"
+              class="bs-card__swatch"
+              style="--swatch: {{ swatch_background }};"
+              aria-label="{{ value | escape }}"
+              title="{{ value | escape }}"
+            ></a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</div>
