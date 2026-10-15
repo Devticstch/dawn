@@ -26,8 +26,7 @@
         "slide_2": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/image_5b4b3d36-c985-49f4-8f88-eb8a56e126e9.png",
-            "mobile_image": "shopify://shop_images/image_c690e747-9903-492d-9d3b-b392244a38e0.png",
+            "image": "shopify://shop_images/banner-22.png",
             "link": "shopify://collections/all",
             "heading": "Signature Cases",
             "subheading": "The award winning cases",
@@ -50,8 +49,7 @@
         "slide_4": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/image_a8c45c0d-a941-405b-8eef-d2b999b9899f.png",
-            "mobile_image": "shopify://shop_images/image_dc9714b1-ad5d-44f3-ab4e-1fbfa00d45e0.png",
+            "image": "shopify://shop_images/banner-33.png",
             "link": "shopify://collections/all",
             "heading": "MAKE iT YOURS",
             "subheading": "Design a case that's all you",

@@ -2,7 +2,7 @@
   display: block;
   position: relative;
   height: 100vh;
-  height: 100svh;
+  height: 100dvh;
   min-height: 52rem;
   overflow: hidden;
   touch-action: pan-y;
@@ -338,16 +338,5 @@
   .hero-carousel__slide.is-active .hero-carousel__media,
   .hero-carousel__slide.is-active :is(.hero-carousel__text, .hero-carousel__cta, .hero-carousel__heading) {
     animation: none;
-  }
-}
-
-main[data-template='index'] .hero-carousel {
-  height: calc(clamp(54rem, 72svh, 86rem) + 140px);
-  min-height: 0;
-}
-
-@media screen and (max-width: 749px) {
-  main[data-template='index'] .hero-carousel {
-    height: calc(clamp(42rem, 74svh, 62rem) + 140px);
   }
 }

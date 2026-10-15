@@ -355,7 +355,7 @@
 
 {%- if transparent_header -%}
   {%- style -%}
-    /* Homepage only: header overlays the first section, turns solid once scrolled */
+    /* Homepage only: header overlays the first section as frosted glass, turns solid once scrolled */
     #MainContent > .shopify-section:first-child {
       margin-top: calc(-1 * var(--transparent-header-height, 0px));
     }
@@ -373,6 +373,19 @@
       background: rgb(var(--color-background));
       opacity: 0;
       transition: opacity 0.35s ease;
+    }
+
+    /* Glass layer under the solid layer. On a pseudo-element because backdrop-filter on the wrapper
+       would become the containing block of the fixed menu drawer and panels */
+    .header-wrapper--transparent::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background: rgba(255, 255, 255, 0.08);
+      -webkit-backdrop-filter: blur(1.6rem) saturate(1.4);
+      backdrop-filter: blur(1.6rem) saturate(1.4);
+      pointer-events: none;
     }
 
     .header-wrapper--transparent .header__heading-logo,
