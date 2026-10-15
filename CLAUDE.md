@@ -15,6 +15,17 @@ prompt never needs to repeat them; a prompt that does not mention a rule has not
 - Shopify may manage or generate platform endpoints and files. Do not create custom sitemap, robots, security, SEO, or AI-crawler files when Shopify already provides or controls them. Confirm the supported Shopify mechanism first, and ask before making platform-level changes.
 - Do not ask the user to share storefront passwords or secrets in chat. Prefer authenticated Shopify CLI sessions and supported preview access; if a credential is required, explain how the user can provide it securely through the local environment. Never print or store the credential.
 
+## Design reference: xo-futurer
+
+The storefront design follows the reference site https://xo-futurer.myshopify.com/ (theme "Futurer"). `DESIGN-SYSTEM.md` in the repository root records its measured design rules.
+
+- Before designing or changing any storefront section, read `DESIGN-SYSTEM.md`: the global tokens and the component entry that matches the task.
+- Inspect the matching reference section live in a browser before writing code, at 1440px and 390px wide at minimum plus any breakpoint the change affects. Measure computed styles instead of estimating from screenshots, and record the values you rely on.
+- Follow the rules in `DESIGN-SYSTEM.md`: container and side gutters, type scale, colors, radii, buttons, spacing, breakpoints, and interactions. Where this theme already has an equivalent token, setting, or component, reuse it instead of adding a second one.
+- If the live reference and `DESIGN-SYSTEM.md` disagree, measure again, follow the live reference, and update `DESIGN-SYSTEM.md` in the same change with the date of the measurement.
+- Never copy the reference's code, product photos, logos, or product claims (specifications, ratings, certifications). Recreate the design with this theme's code and use the store's own content; text or facts that are not the store's need owner approval.
+- A new or redesigned section is not complete until it has been compared visually with the reference: screenshots of both at the same viewport widths (at least 1440px and 390px), measured differences resolved or listed, and hover, dropdown, sticky, and responsive states checked where the section has them. Report the comparison result. If the Tech2C storefront cannot be rendered (for example behind password protection), state that under "Not verified" instead of claiming a match.
+
 - **Must / never:** not done until the rule holds. **Should:** default; explain any deviation in
   one line.
 - Examples are illustrations; never copy an example value into the project.
