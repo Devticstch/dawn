@@ -12,7 +12,87 @@
   if section.blocks.size > 0
     assign announcement_bar = true
   endif
+  assign marquee = false
+  if section.settings.marquee and announcement_bar
+    assign marquee = true
+  endif
 -%}
+
+{%- if marquee -%}
+  <style>
+    .utility-bar__grid--marquee.page-width {
+      max-width: none;
+      padding: 0;
+    }
+
+    .announcement-marquee {
+      display: block;
+      overflow: hidden;
+    }
+
+    .announcement-marquee__track {
+      display: flex;
+      width: max-content;
+      animation: announcement-marquee var(--marquee-duration) linear infinite;
+    }
+
+    .announcement-marquee:hover .announcement-marquee__track,
+    .announcement-marquee:focus-within .announcement-marquee__track {
+      animation-play-state: paused;
+    }
+
+    .announcement-marquee__group {
+      display: flex;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .announcement-marquee__item {
+      display: flex;
+      align-items: center;
+      padding: 1.15rem 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      line-height: 2.4rem;
+      white-space: nowrap;
+      color: rgb(var(--color-foreground));
+    }
+
+    .announcement-marquee__item::after {
+      content: '•' / '';
+      margin: 0 2rem;
+    }
+
+    .announcement-marquee__item a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    @keyframes announcement-marquee {
+      to {
+        transform: translateX(var(--marquee-shift));
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .announcement-marquee__track {
+        width: auto;
+        animation: none;
+      }
+
+      .announcement-marquee__group {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .announcement-marquee__group[aria-hidden='true'] {
+        display: none;
+      }
+    }
+  </style>
+{%- endif -%}
 
 {% if social_icons %}
   {{ 'component-list-social.css' | asset_url | stylesheet_tag }}
@@ -21,11 +101,35 @@
 <div
   class="utility-bar color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator and section.blocks.size > 0 %} utility-bar--bottom-border{% elsif section.settings.show_line_separator and section.settings.show_social and social_icons%} utility-bar--bottom-border-social-only{% endif %}{% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header-localization{% endif %}"
 >
-  <div class="page-width utility-bar__grid{% if announcement_bar and language_country_selector or section.settings.show_social and social_icons %} utility-bar__grid--3-col{% elsif language_country_selector or section.settings.show_social and social_icons %} utility-bar__grid--2-col{% endif %}">
+  <div class="page-width utility-bar__grid{% if announcement_bar and language_country_selector or section.settings.show_social and social_icons %} utility-bar__grid--3-col{% elsif language_country_selector or section.settings.show_social and social_icons %} utility-bar__grid--2-col{% elsif marquee %} utility-bar__grid--marquee{% endif %}">
     {%- if section.settings.show_social and social_icons -%}
       {%- render 'social-icons' -%}
     {%- endif -%}
-    {%- if section.blocks.size == 1 -%}
+    {%- if marquee -%}
+      <announcement-marquee
+        class="announcement-marquee"
+        role="region"
+        aria-label="{{ 'sections.announcements.announcement_bar' | t }}"
+        tabindex="0"
+        data-speed="{{ section.settings.marquee_speed }}"
+      >
+        <div class="announcement-marquee__track">
+          <ul class="announcement-marquee__group" role="list">
+            {%- for block in section.blocks -%}
+              {%- if block.settings.text != blank -%}
+                <li class="announcement-marquee__item" {{ block.shopify_attributes }}>
+                  {%- if block.settings.link != blank -%}
+                    <a href="{{ block.settings.link }}" class="focus-inset">{{ block.settings.text | escape }}</a>
+                  {%- else -%}
+                    {{ block.settings.text | escape }}
+                  {%- endif -%}
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+      </announcement-marquee>
+    {%- elsif section.blocks.size == 1 -%}
       <div
         class="announcement-bar{% if section.settings.show_social %} announcement-bar--one-announcement{% endif %}"
         role="region"
@@ -162,6 +266,42 @@
   </div>
 </div>
 
+{% javascript %}
+  class AnnouncementMarquee extends HTMLElement {
+    connectedCallback() {
+      this.track = this.querySelector('.announcement-marquee__track');
+      this.group = this.track.firstElementChild;
+      this.observer = new ResizeObserver(() => this.fill());
+      this.observer.observe(this);
+      this.observer.observe(this.group);
+    }
+
+    disconnectedCallback() {
+      this.observer.disconnect();
+    }
+
+    // Copies cover the bar width plus one group, so shifting by one group width loops seamlessly.
+    fill() {
+      const groupWidth = this.group.offsetWidth;
+      if (!groupWidth) return;
+
+      const needed = Math.ceil(this.offsetWidth / groupWidth) + 1;
+      while (this.track.children.length < needed) {
+        const copy = this.group.cloneNode(true);
+        copy.setAttribute('aria-hidden', 'true');
+        copy.querySelectorAll('[data-shopify-editor-block]').forEach((el) => el.removeAttribute('data-shopify-editor-block'));
+        copy.querySelectorAll('a').forEach((link) => link.setAttribute('tabindex', '-1'));
+        this.track.append(copy);
+      }
+
+      this.style.setProperty('--marquee-shift', `-${groupWidth}px`);
+      this.style.setProperty('--marquee-duration', `${groupWidth / Number(this.dataset.speed)}s`);
+    }
+  }
+
+  customElements.define('announcement-marquee', AnnouncementMarquee);
+{% endjavascript %}
+
 {% schema %}
 {
   "name": "t:sections.announcement-bar.name",
@@ -171,6 +311,22 @@
     "groups": ["header"]
   },
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "marquee",
+      "label": "Scrolling marquee",
+      "info": "Scrolls all announcements in a continuous line instead of a slideshow",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed",
+      "min": 20,
+      "max": 200,
+      "step": 10,
+      "label": "Marquee speed (pixels per second)",
+      "default": 50
+    },
     {
       "type": "checkbox",
       "id": "auto_rotate",

@@ -134,10 +134,42 @@
     padding-right: 2rem;
   }
 
+  .section-header {
+    --header-accent: {{ section.settings.accent_color }};
+  }
+
   .header__inline-menu .list-menu--inline > li > .header__menu-item,
   .header__inline-menu .list-menu--inline > li > header-menu > details > .header__menu-item {
     color: rgb(var(--color-foreground));
+    font-weight: 500;
+  }
+
+  .header__submenu .header__menu-item {
+    font-weight: 500;
+  }
+
+  /* Menu badges come from titles like "Best sellers [50% OFF]" (see mega-drawer-title) */
+  .header__inline-menu .mega-drawer__badge {
+    display: inline-block;
+    margin-left: 0.6rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 10rem;
+    font-size: 1.2rem;
     font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0;
+    text-decoration: none;
+    vertical-align: middle;
+  }
+
+  :where(.header__inline-menu .mega-drawer__badge) {
+    background: var(--header-accent);
+    color: #fff;
+  }
+
+  .header__icon--cart .cart-count-bubble {
+    background-color: var(--header-accent);
+    color: #fff;
   }
 
   @media screen and (max-width: 989px) {
@@ -248,7 +280,7 @@
     .section-header:not(.scrolled-past-header, .menu-open)
       .header-wrapper--transparent:not(:focus-within, :has([aria-expanded='true'])) {
       --color-foreground: 255, 255, 255;
-      box-shadow: inset 0 -0.1rem 0 rgba(255, 255, 255, 0.18);
+      box-shadow: inset 0 -0.1rem 0 rgba(255, 255, 255, 0.4);
     }
 
     .section-header:not(.scrolled-past-header, .menu-open)
@@ -780,6 +812,13 @@
       "id": "menu_color_scheme",
       "label": "t:sections.header.settings.menu_color_scheme.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "info": "Cart count bubble and menu badges",
+      "default": "#0F61FF"
     },
     {
       "type": "header",

@@ -418,7 +418,7 @@
   line-height: 1;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  background: #000;
+  background: var(--header-accent, #000);
   color: #fff;
 }
 
