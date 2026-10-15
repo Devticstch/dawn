@@ -1,3 +1,12 @@
+{%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .category-panel__heading {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+    font-weight: {{ section.settings.heading_font.weight }};
+  }
+{%- endstyle -%}
+
 <div
   class="category-strip cs-section"
   style="--cs-bg: {{ section.settings.background }}; --cs-text: {{ section.settings.text_color }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px;"
@@ -10,9 +19,11 @@
           when 'phone_case'
             assign panel_heading = section.settings.phone_case_heading
             assign panel_link = section.settings.phone_case_link
+            assign panel_image = section.settings.phone_case_image
           when 'accessories'
             assign panel_heading = section.settings.accessories_heading
             assign panel_link = section.settings.accessories_link
+            assign panel_image = section.settings.accessories_image
         endcase
       -%}
       <section class="category-panel" aria-labelledby="CategoryPanelHeading-{{ section.id }}-{{ group }}">
@@ -27,15 +38,19 @@
               <a class="category-panel__button" href="{{ panel_link }}">Shop all</a>
             {%- endif -%}
           </div>
-          <div class="category-panel__feature-image">
-            <img
-              src="{{ 'category-placeholder.png' | asset_url }}"
-              alt="{{ panel_heading | escape }}"
-              width="1024"
-              height="768"
-              loading="lazy"
-            >
-          </div>
+          {%- if panel_image != blank -%}
+            <div class="category-panel__feature-image">
+              {{
+                panel_image
+                | image_url: width: 900
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '450, 700, 900',
+                  sizes: '(min-width: 750px) 30vw, 75vw',
+                  alt: panel_image.alt
+              }}
+            </div>
+          {%- endif -%}
         </div>
         <ul class="category-panel__categories" role="list">
           {%- assign category_count = 0 -%}
@@ -46,6 +61,7 @@
                 assign collection = block.settings.collection
                 assign label = block.settings.label | default: collection.title
                 assign link = block.settings.link | default: collection.url
+                assign category_image = block.settings.image | default: collection.featured_image
               -%}
                 <li class="category-panel__category" {{ block.shopify_attributes }}>
                   {%- if link != blank -%}
@@ -53,15 +69,15 @@
                   {%- else -%}
                     <div class="category-panel__category-link">
                   {%- endif -%}
-                    <span class="category-panel__category-image">
-                      <img
-                        src="{{ 'category-placeholder.png' | asset_url }}"
-                        alt="{{ label | escape }}"
-                        width="1024"
-                        height="768"
-                        loading="lazy"
-                      >
-                    </span>
+                    {%- if category_image != blank -%}
+                      <span class="category-panel__category-image">
+                        {{
+                          category_image
+                          | image_url: width: 192
+                          | image_tag: loading: 'lazy', widths: '96, 144, 192', sizes: '48px', alt: ''
+                        }}
+                      </span>
+                    {%- endif -%}
                     <span class="category-panel__category-label">{{ label | escape }}</span>
                   {%- if link != blank -%}
                     </a>
@@ -115,6 +131,12 @@
       "type": "url",
       "id": "accessories_link",
       "label": "Accessories panel link"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Panel heading font",
+      "default": "instrument_sans_n6"
     },
     {
       "type": "color",
