@@ -284,15 +284,8 @@
   min-width: 0;
   min-height: 5rem;
   padding: 0 2.4rem;
-  font-family: inherit;
   font-size: 1.5rem;
-  font-weight: var(--font-nav-weight);
-  letter-spacing: 0;
-  --buttons-radius: 10rem;
-  --buttons-radius-outset: 10rem;
-  --color-button: var(--header-accent-rgb);
-  --color-button-text: 255, 255, 255;
-  border-radius: 10rem;
+  --btn-accent: rgb(var(--header-accent-rgb));
 }
 
 .header-nav__promo-caption {

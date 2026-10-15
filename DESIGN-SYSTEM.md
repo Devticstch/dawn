@@ -341,9 +341,20 @@ items.
 | Icon, square | 40 × 40 | bg `#0F61FF`, radius 6px |
 | Tag pill | 28px tall | bg `rgba(15,97,255,0.1)`, text `#0F61FF`, radius 25px |
 
-**Hover:** a white `::before` layer slides across the button over `0.5s cubic-bezier(.25,.74,.22,.99)`
-(delay 0.05s), with the label sliding in a second copy [M partially]. The final hovered colors were not
-captured (see limitations). Buttons carry a hidden loading spinner for add-to-cart.
+**Hover** [M, measured 2026-10-15]: a `::before` fill layer, as wide as the button with a dome top
+(`border-radius: 50% 50% 0 0`), rises from below the button to cover it and squares off:
+`top`/`height` over `0.5s cubic-bezier(.25,.74,.22,.99)` delay 0.05s, `border-radius` delay 0.22s; the
+button clips it (`overflow: hidden`).
+
+| Variant | Normal | Hovered |
+| --- | --- | --- |
+| Primary | bg `#0F61FF`, label white, border `#0F61FF` | fill white, label `#0F61FF`, border `#0F61FF` |
+| Secondary | bg white, label `#0F61FF`, border `rgba(15,97,255,0.4)` | fill `#0F61FF`, label white, border `#0F61FF` |
+
+The label swaps colour with a text-shadow slide: the label is transparent with shadows
+`<label colour> 0 0 0, transparent 0 30px 0`, which become `transparent 0 -30px 0, <hover colour> 0 0 0`.
+Sizes: small 15px / 21.3, padding 13.5px 16px (50px tall); medium 16px / 22.4, padding 17px 20px (58px).
+Buttons carry a hidden loading spinner for add-to-cart.
 
 ---
 
@@ -446,7 +457,7 @@ Two columns, 28px gap.
 ### 7.2 Hover [M][S]
 
 - Menu items and mega-menu links: color to `#0F61FF`, no underline.
-- Buttons: sliding fill layer (section 4).
+- Buttons: rising fill layer and colour swap (section 4).
 - Product cards: second image, action buttons (section 5.1).
 - Text links with underline animate `background-size` over 0.4s.
 
@@ -497,7 +508,7 @@ Two columns, 28px gap.
 
 Interactions tested: mega menus (3 panels), simple dropdown, mobile drawer and submenu, search
 panel, cart drawer (empty), sticky header (scroll down and up), product-card hover, button hover
-(partly), marquee speed, scroll-reveal start state, footer.
+(primary and secondary), marquee speed, scroll-reveal start state, footer.
 
 **Not verified:**
 
@@ -509,8 +520,6 @@ panel, cart drawer (empty), sticky header (scroll down and up), product-card hov
 - **Cart drawer with items**, quick-view modal, product variant switching, collection filters drawer,
   product page at 768px: not inspected.
 - **Dark mode** toggle: not tested.
-- **Button hover end state:** the fill layer was measured, but the hovered colors were not captured
-  reliably; confirm visually before reusing.
 - **Product-card hover mechanism:** the swap and buttons were seen on screenshots; the exact CSS
   states were not isolated.
 - **Two builder stylesheets** (`xo-builder.base.css` on cdn.shopify.com and

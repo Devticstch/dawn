@@ -292,31 +292,11 @@
 .product--bold .product-form__submit,
 .product--bold .shopify-payment-button__button--unbranded {
   min-height: 5rem;
-  border-radius: 10rem;
   font-size: 1.8rem;
-  letter-spacing: 0;
-  background: #000;
-  color: #fff;
-}
-
-.product--bold .product-form__submit::after,
-.product--bold .shopify-payment-button__button--unbranded::after {
-  box-shadow: none;
-}
-
-.product--bold .product-form__submit[disabled] {
-  background: #000;
-  color: #fff;
-  opacity: 1;
 }
 
 .product--bold .product-form__buttons {
   max-width: none;
-}
-
-.product--bold .product-form__submit.button--secondary {
-  background: #000;
-  color: #fff;
 }
 
 .product--bold .product-form__quantity .quantity {
