@@ -1,0 +1,36 @@
+{%- comment -%}
+  Image card from a header "Image card" block. Without an uploaded image it uses the image of
+  the collection named like the card title, if that collection exists.
+  Accepts:
+  - card: {Object} the menu_card block
+  - style: {String} 'row' (desktop list), 'tile' (desktop grid) or 'drawer' (mobile menu)
+{%- endcomment -%}
+{%- liquid
+  capture card_url
+    render 'header-nav-url', title: card.settings.title, url: card.settings.link
+  endcapture
+  assign handle = card.settings.title | handleize
+  assign image = card.settings.image | default: collections[handle].featured_image
+
+  if style == 'drawer'
+    assign link_class = 'mega-drawer__row mega-drawer__row--plain'
+    assign media_class = 'mega-drawer__thumb'
+    assign title_class = 'mega-drawer__row-title'
+  else
+    assign link_class = 'header-nav__card header-nav__card--' | append: style
+    assign media_class = 'header-nav__card-media'
+    assign title_class = 'header-nav__card-title'
+  endif
+-%}
+{%- if card.settings.title != blank and card_url != blank -%}
+  <li {{ card.shopify_attributes }}>
+    <a href="{{ card_url }}" class="{{ link_class }}">
+      {%- if image != blank -%}
+        <span class="{{ media_class }}">
+          {{- image | image_url: width: 240 | image_tag: loading: 'lazy', widths: '120, 240', sizes: '120px', alt: '' -}}
+        </span>
+      {%- endif -%}
+      <span class="{{ title_class }}">{{ card.settings.title | escape }}</span>
+    </a>
+  </li>
+{%- endif -%}

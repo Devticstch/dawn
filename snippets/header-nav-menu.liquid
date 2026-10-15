@@ -1,0 +1,172 @@
+{% comment %}
+  Desktop header menu built from the header's "Menu item" blocks. The "Link column" and
+  "Image card" blocks that follow a menu item form its full-width dropdown panel.
+
+  Usage:
+  {% render 'header-nav-menu' %}
+{% endcomment %}
+<nav class="header__inline-menu header-nav" aria-label="{{ 'sections.header.menu' | t }}">
+  <ul class="list-menu list-menu--inline" role="list">
+    {%- for item in section.blocks -%}
+      {%- liquid
+        if item.type != 'menu_item' or item.settings.title == blank
+          continue
+        endif
+
+        capture item_url
+          render 'header-nav-url', title: item.settings.title, url: item.settings.link
+        endcapture
+        if item.settings.link != blank and item_url == blank
+          continue
+        endif
+
+        assign label = item.settings.title
+        if item.settings.badge != blank
+          assign label = label | append: ' [' | append: item.settings.badge | append: ']'
+        endif
+
+        assign next = forloop.index
+        assign column_count = 0
+        assign card_count = 0
+        for child in section.blocks offset: next
+          if child.type == 'menu_item'
+            break
+          elsif child.type == 'menu_column'
+            assign column_count = column_count | plus: 1
+          elsif child.type == 'menu_card'
+            assign card_count = card_count | plus: 1
+          endif
+        endfor
+        assign has_intro = false
+        if item.settings.intro_heading != blank or item.settings.intro_text != blank
+          assign has_intro = true
+        endif
+        if column_count > 0 and card_count > 0
+          assign has_intro = true
+        endif
+      -%}
+      <li class="header-nav__item" {{ item.shopify_attributes }}>
+        {%- if column_count > 0 or card_count > 0 -%}
+          <header-menu>
+            <details id="Details-HeaderNav-{{ item.id }}" class="mega-menu">
+              <summary
+                class="header__menu-item list-menu__item link focus-inset"
+                data-href="{{ item_url }}"
+              >
+                <span>{% render 'mega-drawer-title', title: label %}</span>
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </summary>
+              <div
+                class="mega-menu__content header-nav__panel color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
+                tabindex="-1"
+              >
+                {%- if has_intro -%}
+                  <div class="header-nav__intro">
+                    {%- if item.settings.intro_heading != blank -%}
+                      <p class="header-nav__intro-heading">{{ item.settings.intro_heading | escape }}</p>
+                    {%- endif -%}
+                    {%- if item.settings.intro_text != blank -%}
+                      <p class="header-nav__intro-text">{{ item.settings.intro_text | escape }}</p>
+                    {%- endif -%}
+                    {%- if column_count > 0 and card_count > 0 -%}
+                      <ul class="header-nav__cards" role="list">
+                        {%- for child in section.blocks offset: next -%}
+                          {%- if child.type == 'menu_item' -%}{%- break -%}{%- endif -%}
+                          {%- if child.type == 'menu_card' -%}
+                            {%- render 'header-nav-card', card: child, style: 'row' -%}
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </ul>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+
+                <div class="header-nav__main">
+                  {%- if column_count > 0 -%}
+                    {%- for child in section.blocks offset: next -%}
+                      {%- if child.type == 'menu_item' -%}{%- break -%}{%- endif -%}
+                      {%- if child.type != 'menu_column' -%}{%- continue -%}{%- endif -%}
+                      {%- capture column_url -%}
+                        {%- render 'header-nav-url', title: child.settings.heading, url: child.settings.link -%}
+                      {%- endcapture -%}
+                      {%- assign lines = child.settings.links | newline_to_br | split: '<br />' -%}
+                      <div class="header-nav__column" {{ child.shopify_attributes }}>
+                        {%- if child.settings.heading != blank -%}
+                          <p class="header-nav__column-heading">{{ child.settings.heading | escape }}</p>
+                        {%- endif -%}
+                        <ul class="header-nav__links" role="list">
+                          {%- for line in lines -%}
+                            {%- assign parts = line | split: '|' -%}
+                            {%- assign link_title = parts.first | strip -%}
+                            {%- if link_title == blank -%}{%- continue -%}{%- endif -%}
+                            {%- assign link_url = parts[1] | strip -%}
+                            {%- capture href -%}
+                              {%- render 'header-nav-url', title: link_title, url: link_url -%}
+                            {%- endcapture -%}
+                            {%- if href == blank -%}{%- continue -%}{%- endif -%}
+                            <li>
+                              <a href="{{ href }}" class="header-nav__link">
+                                {%- render 'mega-drawer-title', title: link_title -%}
+                              </a>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                        {%- if child.settings.show_view_all and column_url != blank and section.settings.view_all_label != blank -%}
+                          <a href="{{ column_url }}" class="header-nav__view-all">
+                            {{- section.settings.view_all_label | escape -}}
+                            <span class="svg-wrapper" aria-hidden="true">{% render 'cs-icon', icon: 'chevron-right' %}</span>
+                          </a>
+                        {%- endif -%}
+                      </div>
+                    {%- endfor -%}
+                  {%- else -%}
+                    <ul class="header-nav__tiles" role="list">
+                      {%- for child in section.blocks offset: next -%}
+                        {%- if child.type == 'menu_item' -%}{%- break -%}{%- endif -%}
+                        {%- if child.type == 'menu_card' -%}
+                          {%- render 'header-nav-card', card: child, style: 'tile' -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+                </div>
+
+                {%- if item.settings.promo_image != blank -%}
+                  {%- capture promo_url -%}
+                    {%- if item.settings.promo_link != blank -%}
+                      {%- render 'header-nav-url', title: item.settings.promo_heading, url: item.settings.promo_link -%}
+                    {%- endif -%}
+                  {%- endcapture -%}
+                  <div class="header-nav__promo">
+                    <div class="header-nav__promo-media">
+                      {{
+                        item.settings.promo_image
+                        | image_url: width: 800
+                        | image_tag: loading: 'lazy', widths: '400, 800', sizes: '320px', alt: item.settings.promo_image.alt
+                      }}
+                      {%- if item.settings.promo_heading != blank -%}
+                        <p class="header-nav__promo-heading">{{ item.settings.promo_heading | escape }}</p>
+                      {%- endif -%}
+                      {%- if item.settings.promo_button_label != blank and promo_url != blank -%}
+                        <a href="{{ promo_url }}" class="button header-nav__promo-button">
+                          {{- item.settings.promo_button_label | escape -}}
+                        </a>
+                      {%- endif -%}
+                    </div>
+                    {%- if item.settings.promo_caption != blank -%}
+                      <p class="header-nav__promo-caption">{{ item.settings.promo_caption | escape }}</p>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              </div>
+            </details>
+          </header-menu>
+        {%- else -%}
+          <a href="{{ item_url }}" class="header__menu-item list-menu__item link link--text focus-inset">
+            <span>{% render 'mega-drawer-title', title: label %}</span>
+          </a>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</nav>

@@ -1,0 +1,136 @@
+{%- comment -%}
+  Mobile drawer version of the block-built header menu (see header-nav-menu). Items with
+  columns or cards open a sliding submenu, columns open a second level; both use Dawn's MenuDrawer.
+{%- endcomment -%}
+<ul class="mega-drawer__list" role="list">
+  {%- for item in section.blocks -%}
+    {%- liquid
+      if item.type != 'menu_item' or item.settings.title == blank
+        continue
+      endif
+
+      capture item_url
+        render 'header-nav-url', title: item.settings.title, url: item.settings.link
+      endcapture
+      if item.settings.link != blank and item_url == blank
+        continue
+      endif
+
+      assign label = item.settings.title
+      if item.settings.badge != blank
+        assign label = label | append: ' [' | append: item.settings.badge | append: ']'
+      endif
+
+      assign next = forloop.index
+      assign has_children = false
+      if section.blocks[next].type == 'menu_column' or section.blocks[next].type == 'menu_card'
+        assign has_children = true
+      endif
+    -%}
+    <li {{ item.shopify_attributes }}>
+      {%- if has_children -%}
+        <details id="MegaDrawer-nav-{{ item.id }}">
+          <summary class="mega-drawer__row menu-drawer__menu-item">
+            <span class="mega-drawer__row-title">{% render 'mega-drawer-title', title: label %}</span>
+            <span class="mega-drawer__chevron" aria-hidden="true">{% render 'cs-icon', icon: 'chevron-right' %}</span>
+          </summary>
+          <div class="menu-drawer__submenu mega-drawer__submenu has-submenu motion-reduce" tabindex="-1">
+            <button class="menu-drawer__close-button mega-drawer__back" aria-expanded="true">
+              {% render 'cs-icon', icon: 'chevron-left' %}
+              {% render 'mega-drawer-title', title: label %}
+            </button>
+            {%- if item.settings.intro_heading != blank -%}
+              <h2 class="mega-drawer__heading">{{ item.settings.intro_heading | escape }}</h2>
+            {%- endif -%}
+            <ul class="mega-drawer__list mega-drawer__list--sub" role="list" tabindex="-1">
+              {%- for child in section.blocks offset: next -%}
+                {%- if child.type == 'menu_item' -%}{%- break -%}{%- endif -%}
+                {%- if child.type == 'menu_card' -%}
+                  {%- render 'header-nav-card', card: child, style: 'drawer' -%}
+                {%- elsif child.type == 'menu_column' and child.settings.heading != blank -%}
+                  {%- capture column_url -%}
+                    {%- render 'header-nav-url', title: child.settings.heading, url: child.settings.link -%}
+                  {%- endcapture -%}
+                  {%- assign lines = child.settings.links | newline_to_br | split: '<br />' -%}
+                  <li {{ child.shopify_attributes }}>
+                    <details id="MegaDrawer-nav-{{ child.id }}">
+                      <summary class="mega-drawer__row menu-drawer__menu-item">
+                        <span class="mega-drawer__row-title">{{ child.settings.heading | escape }}</span>
+                        <span class="mega-drawer__chevron" aria-hidden="true">{% render 'cs-icon', icon: 'chevron-right' %}</span>
+                      </summary>
+                      <div class="menu-drawer__submenu mega-drawer__submenu has-submenu motion-reduce" tabindex="-1">
+                        <button class="menu-drawer__close-button mega-drawer__back" aria-expanded="true">
+                          {% render 'cs-icon', icon: 'chevron-left' %}
+                          {{ child.settings.heading | escape }}
+                        </button>
+                        <ul class="mega-drawer__list mega-drawer__list--sub" role="list" tabindex="-1">
+                          {%- for line in lines -%}
+                            {%- assign parts = line | split: '|' -%}
+                            {%- assign link_title = parts.first | strip -%}
+                            {%- if link_title == blank -%}{%- continue -%}{%- endif -%}
+                            {%- assign link_url = parts[1] | strip -%}
+                            {%- capture href -%}
+                              {%- render 'header-nav-url', title: link_title, url: link_url -%}
+                            {%- endcapture -%}
+                            {%- if href == blank -%}{%- continue -%}{%- endif -%}
+                            <li>
+                              <a href="{{ href }}" class="mega-drawer__row mega-drawer__row--plain">
+                                <span class="mega-drawer__row-title">{% render 'mega-drawer-title', title: link_title %}</span>
+                              </a>
+                            </li>
+                          {%- endfor -%}
+                          {%- if child.settings.show_view_all and column_url != blank and section.settings.view_all_label != blank -%}
+                            <li>
+                              <a href="{{ column_url }}" class="mega-drawer__row mega-drawer__row--all">
+                                {{- section.settings.view_all_label | escape -}}
+                              </a>
+                            </li>
+                          {%- endif -%}
+                        </ul>
+                      </div>
+                    </details>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+              {%- if section.settings.view_all_label != blank -%}
+                <li>
+                  <a href="{{ item_url }}" class="mega-drawer__row mega-drawer__row--all">
+                    {{- section.settings.view_all_label | escape -}}
+                  </a>
+                </li>
+              {%- endif -%}
+            </ul>
+            {%- if item.settings.promo_image != blank -%}
+              {%- capture promo_url -%}
+                {%- if item.settings.promo_link != blank -%}
+                  {%- render 'header-nav-url', title: item.settings.promo_heading, url: item.settings.promo_link -%}
+                {%- endif -%}
+              {%- endcapture -%}
+              <a
+                {% if promo_url != blank %}
+                  href="{{ promo_url }}"
+                {% else %}
+                  role="link" aria-disabled="true"
+                {% endif %}
+                class="mega-drawer__featured"
+              >
+                {{
+                  item.settings.promo_image
+                  | image_url: width: 700
+                  | image_tag: loading: 'lazy', widths: '350, 700', sizes: '330px', alt: item.settings.promo_image.alt
+                }}
+                {%- if item.settings.promo_heading != blank -%}
+                  <span class="mega-drawer__featured-title">{{ item.settings.promo_heading | escape }}</span>
+                {%- endif -%}
+              </a>
+            {%- endif -%}
+          </div>
+        </details>
+      {%- else -%}
+        <a href="{{ item_url }}" class="mega-drawer__row menu-drawer__menu-item">
+          <span class="mega-drawer__row-title">{% render 'mega-drawer-title', title: label %}</span>
+        </a>
+      {%- endif -%}
+    </li>
+  {%- endfor -%}
+</ul>

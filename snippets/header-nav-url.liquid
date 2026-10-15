@@ -1,0 +1,42 @@
+{%- comment -%}
+  Outputs the URL for a header menu entry built from blocks, so an entry never links to a missing page.
+  - Blank URL: the collection whose handle matches the title, otherwise a product search for the title.
+  - Collection URL whose collection is missing: a product search for the title.
+  - Page or blog URL whose page or blog is missing: nothing (callers hide the entry).
+  Accepts:
+  - title: {String} entry label
+  - url: {String} entry URL (optional)
+{%- endcomment -%}
+{%- liquid
+  assign encoded_title = title | url_encode
+  assign search_url = routes.search_url | append: '?type=product&q=' | append: encoded_title
+  assign path = url | split: '?' | first
+
+  if url == blank
+    assign handle = title | handleize
+    if collections[handle].id != blank
+      echo collections[handle].url
+    else
+      echo search_url
+    endif
+  elsif path contains '/collections/'
+    assign handle = path | split: '/collections/' | last | split: '/' | first
+    if handle == 'all' or collections[handle].id != blank
+      echo url
+    else
+      echo search_url
+    endif
+  elsif path contains '/pages/'
+    assign handle = path | split: '/pages/' | last
+    if pages[handle].id != blank
+      echo url
+    endif
+  elsif path contains '/blogs/'
+    assign handle = path | split: '/blogs/' | last | split: '/' | first
+    if blogs[handle].id != blank
+      echo url
+    endif
+  else
+    echo url
+  endif
+-%}

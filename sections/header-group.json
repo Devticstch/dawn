@@ -66,49 +66,176 @@
         "view_all_label": "View All"
       },
       "blocks": {
-        "mega_banner": {
-          "type": "mega_featured",
+        "nav_new": {
+          "type": "menu_item",
           "settings": {
-            "title": "NEW! Latest Cases",
-            "link": "shopify://collections/all",
-            "text_color": "#000000"
+            "title": "New & Featured",
+            "link": "/collections/all?sort_by=created-descending"
           }
         },
-        "mega_design": {
-          "type": "mega_cards",
+        "card_new_1": {
+          "type": "menu_card",
           "settings": {
-            "heading": "Design"
+            "title": "iPhone"
           }
         },
-        "mega_products": {
-          "type": "mega_list",
+        "card_new_2": {
+          "type": "menu_card",
           "settings": {
-            "heading": "Products",
-            "menu": "main-menu",
-            "show_images": true
+            "title": "Samsung"
           }
         },
-        "mega_discover": {
-          "type": "mega_links",
+        "card_new_3": {
+          "type": "menu_card",
           "settings": {
-            "heading": "Discover",
-            "style": "primary"
+            "title": "Xiaomi"
           }
         },
-        "mega_more": {
-          "type": "mega_links",
+        "card_new_4": {
+          "type": "menu_card",
           "settings": {
-            "heading": "",
-            "style": "muted"
+            "title": "Case Apple Watch"
+          }
+        },
+        "card_new_5": {
+          "type": "menu_card",
+          "settings": {
+            "title": "Case AirPods"
+          }
+        },
+        "col_new_iphone": {
+          "type": "menu_column",
+          "settings": {
+            "heading": "iPhone",
+            "links": "iPhone 16 Pro Max\niPhone 16 Pro\niPhone 16 Plus\niPhone 15 Pro Max\niPhone 15 Pro\niPhone 15\niPhone 14 Pro Max\niPhone 14 Pro\niPhone 14"
+          }
+        },
+        "col_new_feature": {
+          "type": "menu_column",
+          "settings": {
+            "heading": "Feature",
+            "links": "iPhone\nSamsung\nXiaomi\nCase Apple Watch\nCase AirPods",
+            "show_view_all": false
+          }
+        },
+        "nav_best": {
+          "type": "menu_item",
+          "settings": {
+            "title": "Best sellers",
+            "badge": "50% OFF",
+            "link": "/collections/all?sort_by=best-selling"
+          }
+        },
+        "card_best_1": {
+          "type": "menu_card",
+          "settings": {
+            "title": "iPhone"
+          }
+        },
+        "card_best_2": {
+          "type": "menu_card",
+          "settings": {
+            "title": "Samsung"
+          }
+        },
+        "card_best_3": {
+          "type": "menu_card",
+          "settings": {
+            "title": "Xiaomi"
+          }
+        },
+        "card_best_4": {
+          "type": "menu_card",
+          "settings": {
+            "title": "Case Apple Watch"
+          }
+        },
+        "card_best_5": {
+          "type": "menu_card",
+          "settings": {
+            "title": "Case AirPods"
+          }
+        },
+        "nav_devices": {
+          "type": "menu_item",
+          "settings": {
+            "title": "Shop by devices",
+            "link": "/collections"
+          }
+        },
+        "col_dev_iphone": {
+          "type": "menu_column",
+          "settings": {
+            "heading": "iPhone",
+            "links": "iPhone 16 Pro Max\niPhone 16 Pro\niPhone 16 Plus\niPhone 15 Pro Max\niPhone 15 Pro"
+          }
+        },
+        "col_dev_samsung": {
+          "type": "menu_column",
+          "settings": {
+            "heading": "Samsung",
+            "links": "Galaxy Z Fold 6\nGalaxy Z Flip 6\nGalaxy S25\nGalaxy S24+\nGalaxy S24"
+          }
+        },
+        "col_dev_xiaomi": {
+          "type": "menu_column",
+          "settings": {
+            "heading": "Xiaomi",
+            "links": "Xiaomi 15\nXiaomi 14\nXiaomi 13"
+          }
+        },
+        "col_dev_watch": {
+          "type": "menu_column",
+          "settings": {
+            "heading": "Apple Watch",
+            "links": "Apple Watch Ultra 2\nApple Watch 9\nApple Watch 8\nApple Watch 7"
+          }
+        },
+        "col_dev_airpods": {
+          "type": "menu_column",
+          "settings": {
+            "heading": "AirPods",
+            "links": "AirPods Pro\nAirPods Max\nAirPods Gen 4\nAirPods Gen 3\nAirPods Gen 2"
+          }
+        },
+        "nav_about": {
+          "type": "menu_item",
+          "settings": {
+            "title": "About us",
+            "link": "/pages/about-us"
+          }
+        },
+        "nav_blog": {
+          "type": "menu_item",
+          "settings": {
+            "title": "Blog",
+            "link": "/blogs/news"
           }
         }
       },
       "block_order": [
-        "mega_banner",
-        "mega_design",
-        "mega_products",
-        "mega_discover",
-        "mega_more"
+        "nav_new",
+        "card_new_1",
+        "card_new_2",
+        "card_new_3",
+        "card_new_4",
+        "card_new_5",
+        "col_new_iphone",
+        "col_new_feature",
+        "nav_best",
+        "card_best_1",
+        "card_best_2",
+        "card_best_3",
+        "card_best_4",
+        "card_best_5",
+        "nav_devices",
+        "col_dev_iphone",
+        "col_dev_samsung",
+        "col_dev_xiaomi",
+        "col_dev_watch",
+        "col_dev_airpods",
+        "nav_about",
+        "nav_blog"
       ]
     }
   },

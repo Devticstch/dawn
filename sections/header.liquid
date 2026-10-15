@@ -16,7 +16,15 @@
   {{ 'component-mega-drawer.css' | asset_url | stylesheet_tag }}
 {%- endif -%}
 
-{%- if section.settings.menu_type_desktop == 'mega' -%}
+{%- liquid
+  assign nav_items = section.blocks | where: 'type', 'menu_item'
+  assign has_menu = false
+  if section.settings.menu != blank or nav_items.size > 0
+    assign has_menu = true
+  endif
+-%}
+
+{%- if section.settings.menu_type_desktop == 'mega' or nav_items.size > 0 -%}
   <link rel="stylesheet" href="{{ 'component-mega-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- endif -%}
 
@@ -136,6 +144,7 @@
 
   .section-header {
     --header-accent: {{ section.settings.accent_color }};
+    --header-accent-rgb: {{ section.settings.accent_color.red }}, {{ section.settings.accent_color.green }}, {{ section.settings.accent_color.blue }};
   }
 
   .header__inline-menu .list-menu--inline > li > .header__menu-item,
@@ -319,14 +328,14 @@
       assign language_selector = true
     endif
   -%}
-  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if country_selector or language_selector %} header--has-localizations{% endif %}">
+  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if has_menu %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if country_selector or language_selector %} header--has-localizations{% endif %}">
     {%- liquid
       assign render_search_left = false
-      if section.settings.logo_position == 'top-center' or section.settings.menu == blank or shop.customer_accounts_enabled
+      if section.settings.logo_position == 'top-center' or has_menu == false or shop.customer_accounts_enabled
         assign render_search_left = true
       endif
 
-      if section.settings.menu != blank
+      if has_menu
         render 'header-drawer', show_country_selector: country_selector, show_language_selector: language_selector, show_social_links: social_links
       endif
 
@@ -369,8 +378,12 @@
     {%- endif -%}
 
     {%- liquid
-      if section.settings.menu != blank
-        if section.settings.menu_type_desktop == 'dropdown'
+      if has_menu
+        if section.settings.menu_type_desktop == 'drawer'
+          # The drawer replaces the inline menu on desktop.
+        elsif nav_items.size > 0
+          render 'header-nav-menu'
+        elsif section.settings.menu_type_desktop == 'dropdown'
           render 'header-dropdown-menu'
         elsif section.settings.menu_type_desktop != 'drawer'
           render 'header-mega-menu'
@@ -627,6 +640,40 @@
   );
 
   customElements.define('sticky-header', StickyHeader);
+
+  // Block-built menu (header-nav-menu): panels open on mouse hover, and a mouse click on a
+  // top-level label follows its link. Keyboard and touch keep Dawn's click-to-toggle.
+  (() => {
+    let closeTimer;
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const itemOf = (node) => node instanceof Element && node.closest('.header-nav__item');
+    const setOpen = (item, open) => {
+      const details = item.querySelector('details');
+      if (!details || details.open === open) return;
+      details.open = open;
+      details.querySelector('summary').setAttribute('aria-expanded', open);
+    };
+
+    document.addEventListener('pointerover', (event) => {
+      const item = event.pointerType === 'mouse' && itemOf(event.target);
+      if (!item) return;
+      clearTimeout(closeTimer);
+      document.querySelectorAll('.header-nav__item').forEach((other) => setOpen(other, other === item));
+    });
+
+    document.addEventListener('pointerout', (event) => {
+      const item = event.pointerType === 'mouse' && itemOf(event.target);
+      if (!item || item.contains(event.relatedTarget)) return;
+      closeTimer = setTimeout(() => setOpen(item, false), 200);
+    });
+
+    document.addEventListener('click', (event) => {
+      const summary = event.target instanceof Element && event.target.closest('.header-nav__item summary[data-href]');
+      if (!summary || !summary.dataset.href || event.detail === 0 || !finePointer.matches) return;
+      event.preventDefault();
+      window.location.href = summary.dataset.href;
+    });
+  })();
 {% endjavascript %}
 
 <script type="application/ld+json">
@@ -673,7 +720,7 @@
 {
   "name": "t:sections.header.name",
   "class": "section-header",
-  "max_blocks": 6,
+  "max_blocks": 50,
   "settings": [
     {
       "type": "select",
@@ -884,6 +931,61 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "menu_item",
+      "name": "Menu item",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Link column and Image card blocks placed after this item form its dropdown panel. When menu items exist they replace the Menu setting on desktop and in the mobile drawer (Menu drawer style: Mega)."
+        },
+        { "type": "text", "id": "title", "label": "Title" },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Blank: the collection named like the title, otherwise a product search. Items linking to a missing page or blog are hidden."
+        },
+        { "type": "text", "id": "badge", "label": "Badge", "info": "Shown as a pill next to the title, e.g. 50% OFF" },
+        { "type": "header", "content": "Dropdown panel" },
+        { "type": "text", "id": "intro_heading", "label": "Intro heading" },
+        { "type": "textarea", "id": "intro_text", "label": "Intro text" },
+        { "type": "image_picker", "id": "promo_image", "label": "Promo image", "info": "The promo shows only when an image is set" },
+        { "type": "text", "id": "promo_heading", "label": "Promo heading" },
+        { "type": "text", "id": "promo_button_label", "label": "Promo button label" },
+        { "type": "url", "id": "promo_link", "label": "Promo link" },
+        { "type": "text", "id": "promo_caption", "label": "Promo caption" }
+      ]
+    },
+    {
+      "type": "menu_column",
+      "name": "Menu: link column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading" },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Heading link",
+          "info": "Used by \"View all\". Blank: the collection named like the heading, otherwise a product search."
+        },
+        {
+          "type": "textarea",
+          "id": "links",
+          "label": "Links",
+          "info": "One per line. Add a link after |, e.g. iPhone 16 | /collections/iphone-16. Without one: the collection named like the title, otherwise a product search."
+        },
+        { "type": "checkbox", "id": "show_view_all", "label": "Show \"View all\" link", "default": true }
+      ]
+    },
+    {
+      "type": "menu_card",
+      "name": "Menu: image card",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "url", "id": "link", "label": "Link", "info": "Blank: the collection named like the title, otherwise a product search" },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Blank: the image of the collection named like the title" }
+      ]
     },
     {
       "type": "mega_device",

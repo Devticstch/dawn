@@ -5,6 +5,7 @@
 {% endcomment %}
 {%- liquid
   assign device_block = section.blocks | where: 'type', 'mega_device' | first
+  assign nav_items = section.blocks | where: 'type', 'menu_item'
   assign has_mega_blocks = false
   for block in section.blocks
     if block.type contains 'mega_' and block.type != 'mega_device'
@@ -66,7 +67,11 @@
 
   <div class="mega-drawer__stage">
     <nav class="mega-drawer__scroll menu-drawer__navigation has-submenu" aria-label="{{ 'sections.header.menu' | t }}">
-      {%- if has_mega_blocks -%}
+      {%- if nav_items.size > 0 -%}
+        <div class="mega-drawer__group">
+          {%- render 'header-nav-drawer' -%}
+        </div>
+      {%- elsif has_mega_blocks -%}
         {%- for block in section.blocks -%}
           {%- case block.type -%}
             {%- when 'mega_featured' -%}
