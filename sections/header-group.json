@@ -17,31 +17,25 @@
         "announcement-1": {
           "type": "announcement",
           "settings": {
-            "text": "New! The Latest Phone Cases Are Here | SHOP NOW",
-            "link": "shopify://collections/all"
+            "text": "Super sales",
+            "link": ""
           }
         },
         "announcement-2": {
           "type": "announcement",
           "settings": {
-            "text": "Enjoy Free Shipping Worldwide for orders $40 USD or above | T/C Apply",
+            "text": "Up to 50% OFF",
             "link": ""
-          }
-        },
-        "announcement-3": {
-          "type": "announcement",
-          "settings": {
-            "text": "Bundle & Save: Curated Sets at Exclusive Prices",
-            "link": "shopify://collections/all"
           }
         }
       },
       "block_order": [
         "announcement-1",
-        "announcement-2",
-        "announcement-3"
+        "announcement-2"
       ],
       "settings": {
+        "marquee": true,
+        "marquee_speed": 50,
         "auto_rotate": true,
         "change_slides_speed": 5,
         "color_scheme": "scheme-6",
