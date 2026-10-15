@@ -70,37 +70,47 @@
           "type": "menu_item",
           "settings": {
             "title": "New & Featured",
-            "link": "/collections/all?sort_by=created-descending"
+            "link": "/collections/all?sort_by=created-descending",
+            "intro_heading": "Category",
+            "promo_theme_image": "menu-promo.jpg",
+            "promo_heading": "New Arrivals",
+            "promo_button_label": "Explore more",
+            "promo_link": "/collections/all?sort_by=created-descending"
           }
         },
         "card_new_1": {
           "type": "menu_card",
           "settings": {
-            "title": "iPhone"
+            "title": "iPhone",
+            "theme_image": "menu-iphone.png"
           }
         },
         "card_new_2": {
           "type": "menu_card",
           "settings": {
-            "title": "Samsung"
+            "title": "Samsung",
+            "theme_image": "menu-samsung.png"
           }
         },
         "card_new_3": {
           "type": "menu_card",
           "settings": {
-            "title": "Xiaomi"
+            "title": "Xiaomi",
+            "theme_image": "menu-xiaomi.png"
           }
         },
         "card_new_4": {
           "type": "menu_card",
           "settings": {
-            "title": "Case Apple Watch"
+            "title": "Case Apple Watch",
+            "theme_image": "menu-apple-watch.png"
           }
         },
         "card_new_5": {
           "type": "menu_card",
           "settings": {
-            "title": "Case AirPods"
+            "title": "Case AirPods",
+            "theme_image": "menu-airpods.png"
           }
         },
         "col_new_iphone": {
@@ -123,44 +133,61 @@
           "settings": {
             "title": "Best sellers",
             "badge": "50% OFF",
-            "link": "/collections/all?sort_by=best-selling"
+            "link": "/collections/all?sort_by=best-selling",
+            "intro_heading": "Category",
+            "intro_text": "Protect your phone in style. From minimalist to drop-proof cases, we have your back.",
+            "promo_theme_image": "menu-promo.jpg",
+            "promo_heading": "New Arrivals",
+            "promo_button_label": "Explore more",
+            "promo_link": "/collections/all?sort_by=created-descending"
           }
         },
         "card_best_1": {
           "type": "menu_card",
           "settings": {
-            "title": "iPhone"
+            "title": "iPhone",
+            "theme_image": "menu-iphone.png"
           }
         },
         "card_best_2": {
           "type": "menu_card",
           "settings": {
-            "title": "Samsung"
+            "title": "Samsung",
+            "theme_image": "menu-samsung.png"
           }
         },
         "card_best_3": {
           "type": "menu_card",
           "settings": {
-            "title": "Xiaomi"
+            "title": "Xiaomi",
+            "theme_image": "menu-xiaomi.png"
           }
         },
         "card_best_4": {
           "type": "menu_card",
           "settings": {
-            "title": "Case Apple Watch"
+            "title": "Case Apple Watch",
+            "theme_image": "menu-apple-watch.png"
           }
         },
         "card_best_5": {
           "type": "menu_card",
           "settings": {
-            "title": "Case AirPods"
+            "title": "Case AirPods",
+            "theme_image": "menu-airpods.png"
           }
         },
         "nav_devices": {
           "type": "menu_item",
           "settings": {
             "title": "Shop by devices",
-            "link": "/collections"
+            "link": "/collections",
+            "intro_heading": "Devices",
+            "intro_text": "Protect your phone in style. From minimalist to drop-proof cases, we have your back.",
+            "promo_theme_image": "menu-promo.jpg",
+            "promo_heading": "New Arrivals",
+            "promo_button_label": "Explore more",
+            "promo_link": "/collections/all?sort_by=created-descending"
           }
         },
         "col_dev_iphone": {

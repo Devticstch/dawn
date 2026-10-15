@@ -1,6 +1,6 @@
 {%- comment -%}
-  Image card from a header "Image card" block. Without an uploaded image it uses the image of
-  the collection named like the card title, if that collection exists.
+  Image card from a header "Image card" block. Image order: the uploaded image, the image of the
+  collection named like the card title, then the block's theme asset image.
   Accepts:
   - card: {Object} the menu_card block
   - style: {String} 'row' (desktop list), 'tile' (desktop grid) or 'drawer' (mobile menu)
@@ -13,7 +13,7 @@
   assign image = card.settings.image | default: collections[handle].featured_image
 
   if style == 'drawer'
-    assign link_class = 'mega-drawer__row mega-drawer__row--plain'
+    assign link_class = 'mega-drawer__row mega-drawer__row--plain mega-drawer__row--card'
     assign media_class = 'mega-drawer__thumb'
     assign title_class = 'mega-drawer__row-title'
   else
@@ -28,6 +28,10 @@
       {%- if image != blank -%}
         <span class="{{ media_class }}">
           {{- image | image_url: width: 240 | image_tag: loading: 'lazy', widths: '120, 240', sizes: '120px', alt: '' -}}
+        </span>
+      {%- elsif card.settings.theme_image != blank -%}
+        <span class="{{ media_class }}">
+          <img src="{{ card.settings.theme_image | asset_url }}" alt="" width="400" height="400" loading="lazy">
         </span>
       {%- endif -%}
       <span class="{{ title_class }}">{{ card.settings.title | escape }}</span>

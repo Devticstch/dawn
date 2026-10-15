@@ -142,33 +142,85 @@
     padding-right: 2rem;
   }
 
+  {%- liquid
+    assign nav_font_regular = settings.type_nav_font | font_modify: 'weight', '400'
+  -%}
+  {{ settings.type_nav_font | font_face: font_display: 'swap' }}
+  {{ nav_font_regular | font_face: font_display: 'swap' }}
+
+  /* Shared with the announcement bar section */
+  :root {
+    --font-nav-family: {{ settings.type_nav_font.family }}, {{ settings.type_nav_font.fallback_families }};
+    --font-nav-weight: {{ settings.type_nav_font.weight }};
+  }
+
   .section-header {
     --header-accent: {{ section.settings.accent_color }};
     --header-accent-rgb: {{ section.settings.accent_color.red }}, {{ section.settings.accent_color.green }}, {{ section.settings.accent_color.blue }};
+    font-family: var(--font-nav-family);
+    letter-spacing: 0;
   }
 
   .header__inline-menu .list-menu--inline > li > .header__menu-item,
   .header__inline-menu .list-menu--inline > li > header-menu > details > .header__menu-item {
     color: rgb(var(--color-foreground));
-    font-weight: 500;
+    font-weight: var(--font-nav-weight);
   }
 
   .header__submenu .header__menu-item {
-    font-weight: 500;
+    font-weight: var(--font-nav-weight);
   }
 
-  /* Menu badges come from titles like "Best sellers [50% OFF]" (see mega-drawer-title) */
+  /* Block-built menu: 14px labels 18px apart, caret then badge, no underline */
+  .header-nav .header__menu-item {
+    gap: 0.4rem;
+    padding: 1.2rem 0.9rem;
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
+
+  .header-nav .header__menu-item span,
+  .header-nav details[open] > .header__menu-item,
+  .header-nav .header__menu-item:hover span {
+    text-decoration: none;
+  }
+
+  .header-nav .header__menu-item .icon-caret {
+    position: static;
+    flex-shrink: 0;
+  }
+
+  /* Menu badges: the item's Badge setting, or titles like "Phone Cases [NEW]" (see mega-drawer-title) */
   .header__inline-menu .mega-drawer__badge {
     display: inline-block;
     margin-left: 0.6rem;
-    padding: 0.4rem 0.8rem;
-    border-radius: 10rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 1.4rem;
     font-size: 1.2rem;
-    font-weight: 600;
-    line-height: 1;
+    font-weight: var(--font-nav-weight);
+    line-height: 1.68rem;
     letter-spacing: 0;
+    text-transform: none;
     text-decoration: none;
     vertical-align: middle;
+  }
+
+  .header-nav .header__menu-item > .mega-drawer__badge {
+    margin-left: 0;
+  }
+
+  @media screen and (min-width: 990px) {
+    .header__icons .header__icon,
+    .header__icons .header__icon .svg-wrapper,
+    .header__icons .header__icon--cart .icon {
+      width: 3.6rem;
+      height: 3.6rem;
+    }
+
+    .header__icons .header__icon .icon:not(.icon-cart, .icon-cart-empty) {
+      width: 1.8rem;
+      height: 1.8rem;
+    }
   }
 
   :where(.header__inline-menu .mega-drawer__badge) {
@@ -204,6 +256,25 @@
     /* The cart is no longer the last item, so drop its edge-alignment offset */
     .header--mobile-left .header__icon--cart {
       margin-right: 0;
+    }
+
+    /* Icons and menu toggle sit together in one white pill */
+    .header--mobile-left .header__icons,
+    .header--mobile-left header-drawer {
+      --color-foreground: 30, 30, 30;
+      background: rgb(var(--color-background));
+      box-shadow: 0 3.4rem 10.4rem rgba(0, 0, 0, 0.1);
+    }
+
+    .header--mobile-left .header__icons {
+      padding: 0.5rem 0 0.5rem 0.8rem;
+      border-radius: 2.35rem 0 0 2.35rem;
+    }
+
+    .header--mobile-left header-drawer {
+      margin-right: 0;
+      padding: 0.5rem 1.4rem 0.5rem 0;
+      border-radius: 0 2.35rem 2.35rem 0;
     }
   }
 
@@ -251,7 +322,7 @@
 
 {%- if transparent_header -%}
   {%- style -%}
-    /* Homepage only: header overlays the first section, turns frosted once scrolled */
+    /* Homepage only: header overlays the first section, turns solid once scrolled */
     #MainContent > .shopify-section:first-child {
       margin-top: calc(-1 * var(--transparent-header-height, 0px));
     }
@@ -266,10 +337,7 @@
       position: absolute;
       inset: 0;
       z-index: -1;
-      background: rgba(var(--color-background), 0.82);
-      -webkit-backdrop-filter: blur(1.6rem) saturate(1.6);
-      backdrop-filter: blur(1.6rem) saturate(1.6);
-      box-shadow: 0 0.1rem 0 rgba(var(--color-foreground), 0.08), 0 1rem 3rem rgba(0, 0, 0, 0.06);
+      background: rgb(var(--color-background));
       opacity: 0;
       transition: opacity 0.35s ease;
     }
@@ -280,22 +348,22 @@
       transition: color 0.35s ease, filter 0.35s ease;
     }
 
-    /* Solid while scrolled, or while a drawer, search or dropdown is open */
+    /* Solid while scrolled, or while the drawer or search is open; menu panels keep it transparent */
     .section-header:is(.scrolled-past-header, .menu-open) .header-wrapper--transparent::before,
-    .header-wrapper--transparent:is(:focus-within, :has([aria-expanded='true']))::before {
+    .header-wrapper--transparent:is(:focus-within, :has([aria-expanded='true']:not(.header-nav summary)))::before {
       opacity: 1;
     }
 
     .section-header:not(.scrolled-past-header, .menu-open)
-      .header-wrapper--transparent:not(:focus-within, :has([aria-expanded='true'])) {
+      .header-wrapper--transparent:not(:focus-within, :has([aria-expanded='true']:not(.header-nav summary))) {
       --color-foreground: 255, 255, 255;
-      box-shadow: inset 0 -0.1rem 0 rgba(255, 255, 255, 0.4);
+      box-shadow: inset 0 -0.1rem 0 rgba(229, 229, 229, 0.5);
     }
 
     .section-header:not(.scrolled-past-header, .menu-open)
-      .header-wrapper--transparent:not(:focus-within, :has([aria-expanded='true']))
+      .header-wrapper--transparent:not(:focus-within, :has([aria-expanded='true']:not(.header-nav summary)))
       .header__heading-logo {
-      filter: brightness(0) invert(1) drop-shadow(0 0.1rem 0.4rem rgba(0, 0, 0, 0.25));
+      filter: brightness(0) invert(1);
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -951,7 +1019,8 @@
         { "type": "header", "content": "Dropdown panel" },
         { "type": "text", "id": "intro_heading", "label": "Intro heading" },
         { "type": "textarea", "id": "intro_text", "label": "Intro text" },
-        { "type": "image_picker", "id": "promo_image", "label": "Promo image", "info": "The promo shows only when an image is set" },
+        { "type": "image_picker", "id": "promo_image", "label": "Promo image", "info": "The promo shows only when an image or theme image is set" },
+        { "type": "text", "id": "promo_theme_image", "label": "Promo theme image", "info": "File name from the theme assets, used when no promo image is selected" },
         { "type": "text", "id": "promo_heading", "label": "Promo heading" },
         { "type": "text", "id": "promo_button_label", "label": "Promo button label" },
         { "type": "url", "id": "promo_link", "label": "Promo link" },
@@ -984,7 +1053,8 @@
       "settings": [
         { "type": "text", "id": "title", "label": "Title" },
         { "type": "url", "id": "link", "label": "Link", "info": "Blank: the collection named like the title, otherwise a product search" },
-        { "type": "image_picker", "id": "image", "label": "Image", "info": "Blank: the image of the collection named like the title" }
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Blank: the image of the collection named like the title, then the theme image" },
+        { "type": "text", "id": "theme_image", "label": "Theme image", "info": "File name from the theme assets, e.g. menu-iphone.png" }
       ]
     },
     {

@@ -51,17 +51,25 @@
     .announcement-marquee__item {
       display: flex;
       align-items: center;
-      padding: 1.15rem 0;
+      padding: 1.28rem 0;
+      font-family: var(--font-nav-family, inherit);
       font-size: 1.6rem;
-      font-weight: 600;
-      line-height: 2.4rem;
+      font-weight: var(--font-nav-weight, 500);
+      line-height: 2.24rem;
+      letter-spacing: -0.01em;
       white-space: nowrap;
       color: rgb(var(--color-foreground));
     }
 
+    /* Dot separator */
     .announcement-marquee__item::after {
-      content: '•' / '';
-      margin: 0 2rem;
+      content: '';
+      flex-shrink: 0;
+      width: 0.6rem;
+      height: 0.6rem;
+      margin: 0 1.8rem;
+      border-radius: 50%;
+      background: currentColor;
     }
 
     .announcement-marquee__item a {

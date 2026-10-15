@@ -20,9 +20,17 @@
           continue
         endif
 
-        assign label = item.settings.title
+        assign badge = ''
         if item.settings.badge != blank
-          assign label = label | append: ' [' | append: item.settings.badge | append: ']'
+          assign badge_class = item.settings.badge | handleize
+          assign badge_text = item.settings.badge | escape
+          capture badge
+            echo '<span class="mega-drawer__badge mega-drawer__badge--'
+            echo badge_class
+            echo '">'
+            echo badge_text
+            echo '</span>'
+          endcapture
         endif
 
         assign next = forloop.index
@@ -53,8 +61,9 @@
                 class="header__menu-item list-menu__item link focus-inset"
                 data-href="{{ item_url }}"
               >
-                <span>{% render 'mega-drawer-title', title: label %}</span>
+                <span>{{ item.settings.title | escape }}</span>
                 {{- 'icon-caret.svg' | inline_asset_content -}}
+                {{- badge -}}
               </summary>
               <div
                 class="mega-menu__content header-nav__panel color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
@@ -131,7 +140,7 @@
                   {%- endif -%}
                 </div>
 
-                {%- if item.settings.promo_image != blank -%}
+                {%- if item.settings.promo_image != blank or item.settings.promo_theme_image != blank -%}
                   {%- capture promo_url -%}
                     {%- if item.settings.promo_link != blank -%}
                       {%- render 'header-nav-url', title: item.settings.promo_heading, url: item.settings.promo_link -%}
@@ -139,11 +148,15 @@
                   {%- endcapture -%}
                   <div class="header-nav__promo">
                     <div class="header-nav__promo-media">
-                      {{
-                        item.settings.promo_image
-                        | image_url: width: 800
-                        | image_tag: loading: 'lazy', widths: '400, 800', sizes: '320px', alt: item.settings.promo_image.alt
-                      }}
+                      {%- if item.settings.promo_image != blank -%}
+                        {{
+                          item.settings.promo_image
+                          | image_url: width: 800
+                          | image_tag: loading: 'lazy', widths: '400, 800', sizes: '320px', alt: item.settings.promo_image.alt
+                        }}
+                      {%- else -%}
+                        <img src="{{ item.settings.promo_theme_image | asset_url }}" alt="" width="800" height="600" loading="lazy">
+                      {%- endif -%}
                       {%- if item.settings.promo_heading != blank -%}
                         <p class="header-nav__promo-heading">{{ item.settings.promo_heading | escape }}</p>
                       {%- endif -%}
@@ -163,7 +176,8 @@
           </header-menu>
         {%- else -%}
           <a href="{{ item_url }}" class="header__menu-item list-menu__item link link--text focus-inset">
-            <span>{% render 'mega-drawer-title', title: label %}</span>
+            <span>{{ item.settings.title | escape }}</span>
+            {{- badge -}}
           </a>
         {%- endif -%}
       </li>
