@@ -781,50 +781,46 @@
       }
     },
     "editorial_protection": {
-      "type": "image-with-text",
+      "type": "feature-showcase",
       "settings": {
         "image": "shopify://shop_images/image_a6503321-424b-45a8-8380-fd031a15be65.png",
-        "height": "adapt",
-        "desktop_image_width": "large",
-        "layout": "image_first",
-        "image_behavior": "none",
-        "content_layout": "no-overlap",
-        "desktop_content_position": "middle",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "section_color_scheme": "scheme-2",
-        "color_scheme": "scheme-2",
-        "padding_top": 56,
-        "padding_bottom": 56
+        "eyebrow": "SPECIAL FEATURES",
+        "overlay_small": "Super",
+        "overlay_large": "Slim",
+        "heading": "Protection, without the bulk",
+        "secondary_theme_image": "feature-cases-flatlay.jpg",
+        "button_label": "Shop cases",
+        "button_link": "/collections/all",
+        "padding_top": 0,
+        "padding_bottom": 100
       },
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "feature_protection": {
+          "type": "feature",
           "settings": {
-            "heading": "Protection, without the bulk",
-            "heading_size": "h1"
+            "icon": "warranty",
+            "title": "Protection"
           }
         },
-        "text": {
-          "type": "text",
+        "feature_comfort": {
+          "type": "feature",
           "settings": {
-            "text": "<p>Everyday-ready designs that balance protection, comfort, and style.</p>",
-            "text_style": "body"
+            "icon": "heart",
+            "title": "Comfort"
           }
         },
-        "button": {
-          "type": "button",
+        "feature_style": {
+          "type": "feature",
           "settings": {
-            "button_label": "Shop cases",
-            "button_link": "/collections/all",
-            "button_style_secondary": false
+            "icon": "sparkle",
+            "title": "Style"
           }
         }
       },
       "block_order": [
-        "heading",
-        "text",
-        "button"
+        "feature_protection",
+        "feature_comfort",
+        "feature_style"
       ]
     },
     "featured_bundle": {
