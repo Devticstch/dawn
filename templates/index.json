@@ -97,14 +97,6 @@
         "overlay_opacity": 40
       }
     },
-    "promo_strip": {
-      "type": "promo-strip",
-      "settings": {
-        "text": "<p>Unlock Exclusive Savings on Our Curated Bundles! | <a href=\"/collections/all\" title=\"Shop now\">SHOP NOW</a></p>",
-        "background": "#000000",
-        "text_color": "#ffffff"
-      }
-    },
     "category_strip": {
       "type": "category-strip",
       "blocks": {
@@ -1040,7 +1032,6 @@
     }
   },
   "order": [
-    "promo_strip",
     "hero_carousel",
     "category_strip",
     "featured_best",
