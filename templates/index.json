@@ -994,7 +994,7 @@
             "theme_image": "info-warranty.jpg",
             "heading": "Warranty Policy",
             "button_label": "View now",
-            "link": ""
+            "link": "/pages/contact"
           }
         }
       },
