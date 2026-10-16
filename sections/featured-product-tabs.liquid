@@ -22,12 +22,17 @@
   </filter>
 </svg>
 
-{%- assign products = section.settings.collection.products -%}
+{%- liquid
+  assign products = section.settings.collection.products
+  assign product_count = products.size | at_most: section.settings.products_to_show
+-%}
 
 <div
   class="fpt cs-section"
   style="--cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px; --fpt-box-bg: {{ section.settings.box_background }}; --fpt-accent: {{ section.settings.accent_color }}; --fpt-accent-rgb: {{ section.settings.accent_color.red }}, {{ section.settings.accent_color.green }}, {{ section.settings.accent_color.blue }};"
 >
+  {%- comment -%} Desktop: a tall scroll scene with the content stuck to the top; scrolling changes the product {%- endcomment -%}
+  <div class="fpt__scene" style="--fpt-count: {{ product_count }};">
   <featured-product-tabs class="cs-container fpt__inner">
     {%- if section.settings.eyebrow != blank -%}
       <p class="fpt__eyebrow">{{ section.settings.eyebrow | escape }}</p>
@@ -53,6 +58,7 @@
       </div>
     </div>
 
+    <div class="fpt__panels">
     {%- for product in products limit: section.settings.products_to_show -%}
       {%- liquid
         assign variant = product.selected_or_first_available_variant
@@ -60,6 +66,7 @@
         if product.compare_at_price > product.price
           assign on_sale = true
         endif
+        assign atom_index = 2
       -%}
       <div
         class="fpt__panel"
@@ -90,7 +97,7 @@
         </div>
 
         <div class="fpt__box">
-          <p class="fpt__price">
+          <p class="fpt__price fpt__atom" style="--atom-i: 0;">
             {%- if on_sale -%}
               <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
             {%- endif -%}
@@ -108,24 +115,26 @@
           </p>
 
           {%- if product.description != blank -%}
-            <p class="fpt__description">{{ product.description | strip_html | truncatewords: 40 }}</p>
+            <p class="fpt__description fpt__atom" style="--atom-i: 1;">{{ product.description | strip_html | truncatewords: 40 }}</p>
           {%- endif -%}
 
           <dl class="fpt__specs">
             {%- if product.vendor != blank and section.settings.vendor_label != blank -%}
-              <div class="fpt__spec">
+              <div class="fpt__spec fpt__atom" style="--atom-i: {{ atom_index }};">
                 <dt>{{ section.settings.vendor_label | escape }}</dt>
                 <dd>{{ product.vendor | link_to_vendor }}</dd>
               </div>
+              {%- assign atom_index = atom_index | plus: 1 -%}
             {%- endif -%}
             {%- if product.type != blank and section.settings.type_label != blank -%}
-              <div class="fpt__spec">
+              <div class="fpt__spec fpt__atom" style="--atom-i: {{ atom_index }};">
                 <dt>{{ section.settings.type_label | escape }}</dt>
                 <dd>{{ product.type | escape }}</dd>
               </div>
+              {%- assign atom_index = atom_index | plus: 1 -%}
             {%- endif -%}
             {%- if variant.weight > 0 and section.settings.weight_label != blank -%}
-              <div class="fpt__spec">
+              <div class="fpt__spec fpt__atom" style="--atom-i: {{ atom_index }};">
                 <dt>{{ section.settings.weight_label | escape }}</dt>
                 <dd>{{ variant.weight | weight_with_unit: variant.weight_unit }}</dd>
               </div>
@@ -145,25 +154,32 @@
         </div>
       </div>
     {%- endfor -%}
+    </div>
   </featured-product-tabs>
+  </div>
 </div>
 
 {% javascript %}
   // Product-name tabs: selecting a title shows its panel and slides the title row so the active
   // title sits at the row start (centred on small screens). Arrow keys and touch swipes move between titles.
+  // Desktop without reduced motion (the same media query as the CSS): a scroll scene like the reference.
+  // Each product owns an equal share of the scroll; panels stay stacked and animate between states.
   class FeaturedProductTabs extends HTMLElement {
     connectedCallback() {
       this.tabs = [...this.querySelectorAll('[role="tab"]')];
+      this.panels = this.tabs.map((tab) => document.getElementById(tab.getAttribute('aria-controls')));
       this.track = this.querySelector('.fpt__titles-track');
+      this.scene = this.closest('.fpt__scene');
+      this.sceneMedia = window.matchMedia('(min-width: 992px) and (prefers-reduced-motion: no-preference)');
       this.tabs.forEach((tab, index) => {
-        tab.addEventListener('click', () => this.select(index));
+        tab.addEventListener('click', () => this.go(index));
         tab.addEventListener('keydown', (event) => {
           const step = { ArrowRight: 1, ArrowLeft: -1 }[event.key];
           if (!step) return;
           event.preventDefault();
           const next = (index + step + this.tabs.length) % this.tabs.length;
-          this.select(next);
-          this.tabs[next].focus();
+          this.go(next);
+          this.tabs[next].focus({ preventScroll: true });
         });
       });
       // Touch: swipe left or right to change product (titles beyond the screen edge are not tappable)
@@ -171,20 +187,62 @@
         this.touchStart = event.touches[0];
       }, { passive: true });
       this.addEventListener('touchend', (event) => {
+        if (this.isScene) return;
         const end = event.changedTouches[0];
         const dx = end.clientX - this.touchStart.clientX;
         const dy = end.clientY - this.touchStart.clientY;
         if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
-        const current = this.tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true');
-        this.select((current + (dx < 0 ? 1 : -1) + this.tabs.length) % this.tabs.length);
+        this.select((this.current() + (dx < 0 ? 1 : -1) + this.tabs.length) % this.tabs.length);
       }, { passive: true });
       this.align = this.align.bind(this);
       this.observer = new ResizeObserver(this.align);
       this.observer.observe(this);
+
+      this.onScroll = this.onScroll.bind(this);
+      this.setMode = this.setMode.bind(this);
+      window.addEventListener('scroll', this.onScroll, { passive: true });
+      this.sceneMedia.addEventListener('change', this.setMode);
+      this.setMode();
     }
 
     disconnectedCallback() {
       this.observer.disconnect();
+      window.removeEventListener('scroll', this.onScroll);
+      this.sceneMedia.removeEventListener('change', this.setMode);
+    }
+
+    current() {
+      return this.tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true');
+    }
+
+    setMode() {
+      this.isScene = Boolean(this.scene) && this.tabs.length > 1 && this.sceneMedia.matches;
+      this.classList.toggle('is-scene', this.isScene);
+      this.select(Math.max(this.current(), 0));
+      this.onScroll();
+    }
+
+    // Scene: a title click or arrow key scrolls to the middle of that product's share of the scene
+    go(index) {
+      if (!this.isScene) return this.select(index);
+      const { top, distance } = this.sceneBounds();
+      window.scrollTo({ top: top + ((index + 0.5) / this.tabs.length) * distance, behavior: 'smooth' });
+    }
+
+    sceneBounds() {
+      const rect = this.scene.getBoundingClientRect();
+      return { top: rect.top + window.scrollY, distance: rect.height - this.offsetHeight };
+    }
+
+    onScroll() {
+      if (!this.isScene || this.frame) return;
+      this.frame = requestAnimationFrame(() => {
+        this.frame = null;
+        const { top, distance } = this.sceneBounds();
+        const progress = Math.min(Math.max((window.scrollY - top) / distance, 0), 1);
+        const index = Math.min(Math.floor(progress * this.tabs.length), this.tabs.length - 1);
+        if (index !== this.current()) this.select(index);
+      });
     }
 
     select(index) {
@@ -192,7 +250,12 @@
         const active = i === index;
         tab.setAttribute('aria-selected', active);
         tab.tabIndex = active ? 0 : -1;
-        document.getElementById(tab.getAttribute('aria-controls')).hidden = !active;
+        const panel = this.panels[i];
+        // Scene: every panel stays rendered so the outgoing product can animate away
+        panel.hidden = !this.isScene && !active;
+        panel.inert = this.isScene && !active;
+        if (this.isScene) panel.dataset.state = active ? 'active' : i < index ? 'past' : 'future';
+        else delete panel.dataset.state;
       });
       this.align();
     }

@@ -1157,6 +1157,87 @@ a.category-panel__category-link:hover {
   }
 }
 
+/* Scroll scene (desktop, motion allowed), measured on the reference 2026-10-16: 100vh plus 50vh per
+   product (300vh for four) with the content stuck to the top; each product owns an equal share of the
+   scroll. Titles slide in 0.3s; the outgoing product spins to 180deg and shrinks while the next spins
+   in from -120deg and grows (1s); price, description and spec rows fade 2rem, 75ms apart from 0.1s (0.5s) */
+@media screen and (min-width: 992px) and (prefers-reduced-motion: no-preference) {
+  .fpt.cs-section {
+    padding-top: 0;
+  }
+
+  .fpt__scene {
+    height: calc(100vh + var(--fpt-count, 1) * 50vh);
+  }
+
+  .fpt__scene .fpt__inner {
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+    padding-top: var(--cs-pad-top, 0px);
+  }
+
+  .fpt__panels {
+    display: grid;
+  }
+
+  .fpt__panels > .fpt__panel {
+    grid-area: 1 / 1;
+  }
+
+  .fpt__inner.is-scene .fpt__titles-track {
+    transition-duration: 0.3s;
+  }
+
+  /* The outgoing panel stays visible for its exit animation, then hides */
+  .fpt__inner.is-scene .fpt__panel {
+    transition: visibility 0s 1s;
+  }
+
+  .fpt__inner.is-scene .fpt__panel[data-state='active'] {
+    transition: none;
+  }
+
+  .fpt__inner.is-scene .fpt__panel:not([data-state='active']) {
+    visibility: hidden;
+  }
+
+  .fpt__inner.is-scene .fpt__panel:not([data-state='active']) :is(.fpt__glow, .fpt__button) {
+    visibility: hidden;
+  }
+
+  .fpt__inner.is-scene .fpt__panel:not([data-state='active']) .fpt__box {
+    background: transparent;
+  }
+
+  .fpt__inner.is-scene .fpt__image {
+    transition: transform 1s cubic-bezier(0.23, 0.78, 0.19, 0.99);
+  }
+
+  .fpt__inner.is-scene .fpt__panel[data-state='future'] .fpt__image {
+    transform: rotate(-120deg) scale(0);
+  }
+
+  .fpt__inner.is-scene .fpt__panel[data-state='past'] .fpt__image {
+    transform: rotate(180deg) scale(0);
+  }
+
+  .fpt__inner.is-scene .fpt__atom {
+    transition: opacity 0.5s cubic-bezier(0.23, 0.78, 0.19, 0.99), transform 0.5s cubic-bezier(0.23, 0.78, 0.19, 0.99);
+    transition-delay: calc(0.1s + var(--atom-i, 0) * 0.075s);
+  }
+
+  .fpt__inner.is-scene .fpt__panel[data-state='future'] .fpt__atom {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+
+  .fpt__inner.is-scene .fpt__panel[data-state='past'] .fpt__atom {
+    opacity: 0;
+    transform: translateY(-2rem);
+  }
+}
+
 /* ---------- Image banner with button ---------- */
 /* Full-bleed image with a centred pill (reuses .feature-showcase__button); reference: 16:9 desktop, 3:2 mobile */
 /* Fixed background: the image is pinned to the viewport and the media box acts as a window onto it.
