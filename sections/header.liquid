@@ -391,6 +391,11 @@
   assign transparent_header = false
   if section.settings.transparent_on_home and request.page_type == 'index'
     assign transparent_header = true
+  endif
+  if section.settings.transparent_on_collection and request.page_type == 'collection'
+    assign transparent_header = true
+  endif
+  if transparent_header
     assign header_tag = 'sticky-header'
     assign sticky_type = 'on-scroll-up'
   endif
@@ -401,7 +406,7 @@
     assign scheme_text = section.settings.color_scheme.settings.text
   -%}
   {%- style -%}
-    /* Homepage only: the header overlays the first section */
+    /* Homepage and collection pages: the header overlays the first section (hero / collection banner) */
     #MainContent > .shopify-section:first-child {
       margin-top: calc(-1 * var(--transparent-header-height, 0px));
     }
@@ -958,6 +963,13 @@
       "default": false,
       "label": "Overlay first section on homepage",
       "info": "The transparent header sits over the top of the first homepage section with white text and logo. It hides on scroll down and reappears on scroll up."
+    },
+    {
+      "type": "checkbox",
+      "id": "transparent_on_collection",
+      "default": true,
+      "label": "Overlay first section on collection pages",
+      "info": "Same as above, over the collection banner. Turn off if the collection template does not start with a banner."
     },
     {
       "type": "checkbox",

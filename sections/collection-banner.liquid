@@ -1,0 +1,69 @@
+{%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} :is(.cb__title, .cb__count) {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign image = section.settings.image | default: collection.image
+  if collection.products_count
+    assign product_count = collection.products_count
+  else
+    assign product_count = collection.all_products_count
+  endif
+-%}
+
+{%- comment -%} Reference page heading: full-width image, white collection title with the product count, bottom-left {%- endcomment -%}
+<div class="cb">
+  <div class="cb__media{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+    {%- if image != blank -%}
+      {{
+        image
+        | image_url: width: 2400
+        | image_tag:
+          class: 'cb__image cs-zoom-out',
+          widths: '750, 1100, 1500, 1920, 2400',
+          sizes: '100vw',
+          fetchpriority: 'high',
+          alt: ''
+      }}
+    {%- elsif section.settings.theme_image != blank -%}
+      <img
+        class="cb__image cs-zoom-out"
+        src="{{ section.settings.theme_image | asset_url }}"
+        alt=""
+        width="1920"
+        height="1080"
+        fetchpriority="high"
+      >
+    {%- endif -%}
+  </div>
+  <div class="cb__content">
+    <h1 class="cb__title">
+      {{- collection.title | escape -}}
+      {%- if section.settings.show_count and product_count > 0 -%}
+        <span class="cb__count">({{ product_count }})</span>
+      {%- endif -%}
+    </h1>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection banner",
+  "tag": "section",
+  "class": "section section-collection-banner",
+  "enabled_on": {
+    "templates": ["collection"]
+  },
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Falls back to the collection image, then the theme image" },
+    { "type": "text", "id": "theme_image", "label": "Theme image", "info": "File name from the theme assets" },
+    { "type": "checkbox", "id": "show_count", "label": "Show product count", "default": true },
+    { "type": "font_picker", "id": "heading_font", "label": "Title font", "default": "instrument_sans_n6" }
+  ],
+  "presets": [{ "name": "Collection banner" }]
+}
+{% endschema %}
