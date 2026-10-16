@@ -1107,7 +1107,16 @@
           "type": "textarea",
           "id": "links",
           "label": "Links",
-          "info": "One per line. Add a link after |, e.g. iPhone 16 | /collections/iphone-16. Without one: the collection named like the title, otherwise a product search."
+          "info": "One per line. Add a link after |, e.g. iPhone 16 | /collections/iphone-16. Without one: the collection named like the title, otherwise a product search. Leave empty to list store products automatically, newest first: from the heading's collection, otherwise products mentioning the heading."
+        },
+        {
+          "type": "range",
+          "id": "product_limit",
+          "label": "Automatic products to show",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "default": 9
         },
         { "type": "checkbox", "id": "show_view_all", "label": "Show \"View all\" link", "default": true }
       ]

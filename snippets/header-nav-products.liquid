@@ -1,0 +1,46 @@
+{%- comment -%}
+  Product links for a header "Link column" block whose Links box is empty: one "Title | URL" line
+  per product, newest first, in the same format as typed links. Products come from the collection
+  the heading links to or is named like; without one, from all products whose title, type or tags
+  mention the heading.
+  Accepts:
+  - column: {Object} the menu_column block
+{%- endcomment -%}
+{%- capture newline %}
+{% endcapture -%}
+{%- liquid
+  assign limit = column.settings.product_limit | default: 9
+  assign handle = column.settings.heading | handleize
+  assign path = column.settings.link | split: '?' | first
+  if path contains '/collections/'
+    assign handle = path | split: '/collections/' | last | split: '/' | first
+  endif
+
+  assign source = collections[handle]
+  assign term = ''
+  if source.id == blank
+    assign source = collections.all
+    assign term = column.settings.heading | downcase | strip
+  endif
+
+  # ponytail: outside paginate Liquid sees the first 50 products of a collection; give the column a collection if the store grows past that
+  assign products = source.products | sort: 'created_at' | reverse
+  assign count = 0
+  for product in products
+    if count >= limit
+      break
+    endif
+    if term != blank
+      assign tags = product.tags | join: ' '
+      assign haystack = product.title | append: ' ' | append: product.type | append: ' ' | append: tags | downcase
+      unless haystack contains term
+        continue
+      endunless
+    endif
+    echo product.title | replace: '|', '-'
+    echo ' | '
+    echo product.url
+    echo newline
+    assign count = count | plus: 1
+  endfor
+-%}

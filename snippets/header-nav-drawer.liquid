@@ -46,7 +46,11 @@
                   {%- capture column_url -%}
                     {%- render 'header-nav-url', title: child.settings.heading, url: child.settings.link -%}
                   {%- endcapture -%}
-                  {%- assign lines = child.settings.links | newline_to_br | split: '<br />' -%}
+                  {%- assign links = child.settings.links -%}
+                  {%- if links == blank -%}
+                    {%- capture links -%}{%- render 'header-nav-products', column: child -%}{%- endcapture -%}
+                  {%- endif -%}
+                  {%- assign lines = links | newline_to_br | split: '<br />' -%}
                   <li {{ child.shopify_attributes }}>
                     <details id="MegaDrawer-nav-{{ child.id }}">
                       <summary class="mega-drawer__row menu-drawer__menu-item">

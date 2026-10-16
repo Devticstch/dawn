@@ -77,8 +77,7 @@
         "col_new_iphone": {
           "type": "menu_column",
           "settings": {
-            "heading": "iPhone",
-            "links": "iPhone 16 Pro Max\niPhone 16 Pro\niPhone 16 Plus\niPhone 15 Pro Max\niPhone 15 Pro\niPhone 15\niPhone 14 Pro Max\niPhone 14 Pro\niPhone 14"
+            "heading": "iPhone"
           }
         },
         "col_new_feature": {
