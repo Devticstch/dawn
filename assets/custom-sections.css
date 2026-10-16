@@ -975,9 +975,12 @@ a.category-panel__category-link:hover {
   display: none;
 }
 
-/* No z-index here: the image must blend with the titles and glow behind it */
+/* Like the reference, the product sits in front of the title row and hides it where they overlap.
+   isolation keeps the multiply blend below inside the media (photo with its glow), off the titles */
 .fpt__media {
   position: relative;
+  z-index: 1;
+  isolation: isolate;
   display: block;
   width: 100%;
   margin-top: 3.4rem;
@@ -1108,6 +1111,12 @@ a.category-panel__category-link:hover {
 }
 
 @media screen and (min-width: 990px) {
+  /* Reference: the title row starts 90px below the top of the product image (offset only, layout unchanged) */
+  .fpt__titles {
+    position: relative;
+    top: -1rem;
+  }
+
   .fpt__titles-track {
     gap: 4.9rem;
   }
@@ -1126,7 +1135,10 @@ a.category-panel__category-link:hover {
     margin-top: 11.7rem;
   }
 
+  /* Keeps the box above the product glow, as before the product was raised over the titles */
   .fpt__box {
+    position: relative;
+    z-index: 2;
     grid-area: 1 / 1;
     margin-top: 0;
     padding: 3.3rem 7rem;

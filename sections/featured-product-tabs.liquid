@@ -5,7 +5,22 @@
     font-family: {{ section.settings.title_font.family }}, {{ section.settings.title_font.fallback_families }};
     font-weight: {{ section.settings.title_font.weight }};
   }
+
+  #shopify-section-{{ section.id }} .fpt__image {
+    filter: url('#FptWhiteKey-{{ section.id }}');
+  }
 {%- endstyle -%}
+
+{%- comment -%}
+  The product sits in front of the title row. Photos shot on white would hide the titles with their white
+  background, so near-white pixels are made transparent (cut-out photos are unaffected)
+{%- endcomment -%}
+<svg class="visually-hidden" aria-hidden="true" focusable="false" width="0" height="0">
+  <filter id="FptWhiteKey-{{ section.id }}" color-interpolation-filters="sRGB">
+    <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -12 -12 -12 0 35.6" />
+    <feComposite in2="SourceGraphic" operator="in" />
+  </filter>
+</svg>
 
 {%- assign products = section.settings.collection.products -%}
 
