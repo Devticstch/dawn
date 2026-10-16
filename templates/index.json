@@ -518,6 +518,7 @@
     },
     "info_cards": {
       "type": "info-cards",
+      "disabled": true,
       "blocks": {
         "card_shipping": {
           "type": "card",
