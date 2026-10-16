@@ -26,7 +26,7 @@
             assign panel_image = section.settings.accessories_image
         endcase
       -%}
-      <section class="category-panel" aria-labelledby="CategoryPanelHeading-{{ section.id }}-{{ group }}">
+      <section class="category-panel{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}" data-cascade aria-labelledby="CategoryPanelHeading-{{ section.id }}-{{ group }}">
         <div class="category-panel__feature">
           <div class="category-panel__intro">
             {%- if panel_heading != blank -%}

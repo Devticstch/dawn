@@ -21,13 +21,13 @@
 >
   <div class="cs-container">
     {%- if section.settings.title != blank -%}
-      <h2 class="best-sellers__heading">{{ section.settings.title | escape }}</h2>
+      <h2 class="best-sellers__heading{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}">{{ section.settings.title | escape }}</h2>
     {%- endif -%}
 
     <best-sellers-slider class="best-sellers__slider">
       <ul class="best-sellers__track" role="list">
         {%- for product in collection.products limit: section.settings.products_to_show -%}
-          <li class="best-sellers__slide">
+          <li class="best-sellers__slide{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}" data-cascade>
             {%- render 'bs-card', product: product, index: forloop.index0, show_swatches: section.settings.show_swatches, action: 'cart' -%}
           </li>
         {%- endfor -%}

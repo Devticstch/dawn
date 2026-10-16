@@ -24,7 +24,8 @@
           {% if card_tag == 'a' %}
             href="{{ block.settings.link }}"
           {% endif %}
-          class="ic__card"
+          class="ic__card{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}"
+          data-cascade
           {{ block.shopify_attributes }}
         >
           {%- if block.settings.image != blank -%}
@@ -32,7 +33,7 @@
               block.settings.image
               | image_url: width: 1600
               | image_tag:
-                class: 'ic__image',
+                class: 'ic__image cs-zoom-out',
                 loading: 'lazy',
                 widths: '600, 900, 1200, 1600',
                 sizes: '(min-width: 768px) 45vw, 100vw',
@@ -40,7 +41,7 @@
             }}
           {%- elsif block.settings.theme_image != blank -%}
             <img
-              class="ic__image"
+              class="ic__image cs-zoom-out"
               src="{{ block.settings.theme_image | asset_url }}"
               alt=""
               width="1600"

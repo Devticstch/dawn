@@ -4,7 +4,7 @@
 >
   <div class="cs-container">
     {%- if section.settings.heading != blank -%}
-      <div class="cs-header-row">
+      <div class="cs-header-row{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}">
         <h2 class="cs-heading">{{ section.settings.heading | escape }}</h2>
       </div>
     {%- endif -%}
@@ -19,8 +19,8 @@
             assign link = block.settings.link | default: article.url
           -%}
           <li
-            class="news-card"
-            style="--card-bg: {{ block.settings.card_color }}; --card-text: {{ block.settings.card_text_color }};"
+            class="news-card{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}"
+            style="--card-bg: {{ block.settings.card_color }}; --card-text: {{ block.settings.card_text_color }}; --animation-order: {{ forloop.index0 | modulo: 4 }};"
             {{ block.shopify_attributes }}
           >
             <div class="cs-media">

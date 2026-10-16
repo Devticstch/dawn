@@ -3,7 +3,7 @@
   style="--cs-bg: {{ section.settings.background }}; --cs-text: {{ section.settings.text_color }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px;"
 >
   <div class="cs-container">
-    <div class="cs-header-row">
+    <div class="cs-header-row{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}">
       {%- if section.settings.heading != blank -%}
         <h2 class="cs-heading community__title">
           {%- if section.settings.show_instagram_icon -%}
@@ -24,7 +24,7 @@
     <cs-scroller id="Scroller-{{ section.id }}" class="cs-scroller">
       <ul class="cs-scroller__track" role="list">
         {%- for block in section.blocks -%}
-          <li {{ block.shopify_attributes }}>
+          <li{% if settings.animations_reveal_on_scroll %} class="scroll-trigger cs-reveal" data-cascade{% endif %} {{ block.shopify_attributes }}>
             <a
               {% if block.settings.link != blank %}
                 href="{{ block.settings.link }}"

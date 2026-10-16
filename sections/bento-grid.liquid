@@ -4,7 +4,7 @@
 >
   <div class="cs-container">
     {%- if section.settings.heading != blank -%}
-      <div class="cs-header-row">
+      <div class="cs-header-row{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}">
         <h2 class="cs-heading">{{ section.settings.heading | escape }}</h2>
       </div>
     {%- endif -%}
@@ -28,7 +28,8 @@
           {% else %}
             role="link" aria-disabled="true"
           {% endif %}
-          class="bento-grid__tile{% if block.settings.size == 'wide' %} bento-grid__tile--wide{% endif %}"
+          class="bento-grid__tile{% if block.settings.size == 'wide' %} bento-grid__tile--wide{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}"
+          data-cascade
           style="--tile-text: {{ block.settings.text_color }};"
           {{ block.shopify_attributes }}
         >

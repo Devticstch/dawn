@@ -2,7 +2,7 @@
   class="signup-banner cs-section"
   style="--cs-bg: {{ section.settings.background }}; --cs-text: {{ section.settings.text_color }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px;"
 >
-  <div class="cs-container">
+  <div class="cs-container{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}">
     {%- if section.settings.heading != blank -%}
       <h2 class="cs-heading">{{ section.settings.heading | escape }}</h2>
     {%- endif -%}

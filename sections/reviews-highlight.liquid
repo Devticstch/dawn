@@ -4,11 +4,11 @@
 >
   <div class="cs-container">
     {%- if section.settings.heading != blank -%}
-      <h2 class="cs-heading">{{ section.settings.heading | escape }}</h2>
+      <h2 class="cs-heading{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}" data-cascade>{{ section.settings.heading | escape }}</h2>
     {%- endif -%}
 
     {%- if section.blocks.size > 0 -%}
-      <div class="reviews-highlight__avatars">
+      <div class="reviews-highlight__avatars{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}" data-cascade>
         {%- for block in section.blocks -%}
           <div class="reviews-highlight__avatar cs-media" {{ block.shopify_attributes }}>
             {%- if block.settings.image != blank -%}
@@ -30,7 +30,7 @@
     {%- endif -%}
 
     {%- if section.settings.rating_text != blank -%}
-      <div class="reviews-highlight__rating">
+      <div class="reviews-highlight__rating{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}" data-cascade>
         <span class="cs-stars" aria-hidden="true">
           {%- for i in (1..5) -%}
             {% render 'cs-icon', icon: 'star' %}

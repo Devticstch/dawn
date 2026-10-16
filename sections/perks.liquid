@@ -5,7 +5,7 @@
   <div class="cs-container">
     <ul class="perks__grid" role="list">
       {%- for block in section.blocks -%}
-        <li class="perks__item" {{ block.shopify_attributes }}>
+        <li class="perks__item{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}" data-cascade {{ block.shopify_attributes }}>
           <span class="perks__icon">
             {%- if block.settings.custom_icon != blank -%}
               {{ block.settings.custom_icon | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}

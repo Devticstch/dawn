@@ -2999,3 +2999,47 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
     transition: none;
   }
 }
+
+/* ---------- Scroll motion (DESIGN-SYSTEM.md 1.6, 7.3) ---------- */
+/* Reference scroll reveal, measured 2026-10-16: blocks rise 42px and fade in over 0.5s
+   cubic-bezier(0,0,.3,1), 75ms apart; large images settle from a zoom over 1.5s. Driven by Dawn's
+   animations.js (scroll-trigger / --offscreen / data-cascade) and its "Reveal sections on scroll" setting.
+   Fill mode "backwards" leaves no transform behind, so finished elements are exactly as before. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .scroll-trigger.cs-reveal {
+    opacity: 0.01;
+  }
+
+  .scroll-trigger:not(.scroll-trigger--offscreen).cs-reveal {
+    opacity: 1;
+    animation: cs-reveal 0.5s var(--ease-out-slow) backwards;
+    animation-delay: calc(var(--animation-order, 0) * 75ms);
+  }
+
+  .scroll-trigger:not(.scroll-trigger--offscreen) .cs-zoom-out {
+    animation: cs-zoom-out 1.5s var(--ease-out-slow) backwards;
+  }
+
+  .scroll-trigger.scroll-trigger--design-mode.cs-reveal,
+  .scroll-trigger:not(.scroll-trigger--offscreen).scroll-trigger--cancel.cs-reveal {
+    opacity: 1;
+    animation: none;
+  }
+
+  @keyframes cs-reveal {
+    from {
+      opacity: 0.01;
+      transform: translateY(4.2rem);
+    }
+  }
+
+  @keyframes cs-zoom-out {
+    from {
+      transform: scale(1.3);
+    }
+  }
+}

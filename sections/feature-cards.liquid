@@ -4,7 +4,7 @@
 >
   <div class="cs-container">
     {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
-      <div class="cs-header-row">
+      <div class="cs-header-row{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}">
         <div>
           {%- if section.settings.heading != blank -%}
             <h2 class="cs-heading">{{ section.settings.heading | escape }}</h2>
@@ -20,7 +20,7 @@
   <cs-scroller id="Scroller-{{ section.id }}" class="cs-scroller">
     <ul class="cs-scroller__track" role="list">
       {%- for block in section.blocks -%}
-        <li class="feature-card" {{ block.shopify_attributes }}>
+        <li class="feature-card{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}" data-cascade {{ block.shopify_attributes }}>
           <div class="cs-media">
             {%- if block.settings.video != blank -%}
               {{

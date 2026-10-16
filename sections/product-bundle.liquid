@@ -19,7 +19,7 @@
 >
   <div class="cs-container">
     {%- if section.settings.title != blank -%}
-      <h2 class="pb__heading">{{ section.settings.title | escape }}</h2>
+      <h2 class="pb__heading{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}">{{ section.settings.title | escape }}</h2>
     {%- endif -%}
 
     <product-bundle
@@ -32,7 +32,7 @@
     >
       <ul class="pb__grid" role="list">
         {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
-          <li>
+          <li class="{% if settings.animations_reveal_on_scroll %}scroll-trigger cs-reveal{% endif %}" data-cascade>
             {%- render 'bs-card', product: product, index: forloop.index0, show_swatches: section.settings.show_swatches, action: 'bundle' -%}
           </li>
         {%- endfor -%}
