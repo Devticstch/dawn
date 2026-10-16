@@ -166,6 +166,51 @@
     letter-spacing: 0;
   }
 
+  {%- liquid
+    assign header_background = section.settings.background_color
+    assign scheme_text = section.settings.color_scheme.settings.text
+    assign header_text = scheme_text
+    assign white_contrast = header_background | color_contrast: '#FFFFFF'
+    assign scheme_contrast = header_background | color_contrast: scheme_text
+    if white_contrast > scheme_contrast
+      assign header_text = '#FFFFFF'
+    endif
+    assign accent_contrast = section.settings.accent_color | color_contrast: header_background
+  -%}
+
+  /* Background colour setting, on every page. Text and icons take white or the scheme text colour,
+     whichever contrasts more with it */
+  .header-wrapper,
+  .header-wrapper.gradient {
+    background: {{ header_background }};
+    --color-foreground: {{ header_text | color_extract: 'red' }}, {{ header_text | color_extract: 'green' }}, {{ header_text | color_extract: 'blue' }};
+    {%- comment -%} Accent states in the bar fall back to the text colour when the accent would vanish on the background {%- endcomment -%}
+    {%- if accent_contrast < 3 %}
+      --header-bar-accent: rgba(var(--color-foreground), 0.75);
+      --header-bar-badge: {{ header_text }};
+      --header-bar-badge-text: {{ header_background }};
+    {%- else %}
+      --header-bar-accent: var(--header-accent);
+      --header-bar-badge: var(--header-accent);
+      --header-bar-badge-text: #fff;
+    {%- endif %}
+  }
+
+  {%- if header_text == '#FFFFFF' %}
+    .header__heading-logo-wrapper .header__heading-logo {
+      filter: brightness(0) invert(1);
+    }
+  {%- endif %}
+
+  /* Overlays opened from the bar without a colour scheme of their own keep the scheme text colour */
+  .header-wrapper :is(.search-modal, .disclosure__list-wrapper) {
+    --color-foreground: {{ scheme_text.red }}, {{ scheme_text.green }}, {{ scheme_text.blue }};
+  }
+
+  shopify-account.header__icon {
+    --shopify-account-color-text: {{ scheme_text }};
+  }
+
   .header__inline-menu .list-menu--inline > li > .header__menu-item,
   .header__inline-menu .list-menu--inline > li > header-menu > details > .header__menu-item {
     color: rgb(var(--color-foreground));
@@ -197,7 +242,7 @@
 
   .header-nav .list-menu--inline > li > .header__menu-item:hover,
   .header-nav .list-menu--inline > li > header-menu > details > .header__menu-item:hover {
-    color: var(--header-accent);
+    color: var(--header-bar-accent);
   }
 
   /* Menu badges: the item's Badge setting, or titles like "Phone Cases [NEW]" (see mega-drawer-title) */
@@ -234,15 +279,15 @@
   }
 
   :where(.header__inline-menu .mega-drawer__badge) {
-    background: var(--header-accent);
-    color: #fff;
+    background: var(--header-bar-badge);
+    color: var(--header-bar-badge-text);
   }
 
   .header__icon--cart .cart-count-bubble {
     width: 1.6rem;
     height: 1.6rem;
-    background-color: var(--header-accent);
-    color: #fff;
+    background-color: var(--header-bar-badge);
+    color: var(--header-bar-badge-text);
     font-size: 1rem;
     font-weight: 500;
   }
@@ -355,55 +400,9 @@
 
 {%- if transparent_header -%}
   {%- style -%}
-    /* Homepage only: header overlays the first section transparently, turns solid once scrolled */
+    /* Homepage only: the header (in its background colour) overlays the first section */
     #MainContent > .shopify-section:first-child {
       margin-top: calc(-1 * var(--transparent-header-height, 0px));
-    }
-
-    .header-wrapper--transparent,
-    .header-wrapper--transparent.gradient {
-      background: none;
-    }
-
-    .header-wrapper--transparent::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background: rgb(var(--color-background));
-      opacity: 0;
-      transition: opacity 0.35s ease;
-    }
-
-    .header-wrapper--transparent .header__heading-logo,
-    .header-wrapper--transparent .header__icon,
-    .header-wrapper--transparent .header__heading-link .h2 {
-      transition: color 0.35s ease, filter 0.35s ease;
-    }
-
-    /* Solid while scrolled, or while the drawer or search is open; menu panels keep it transparent.
-       Only <summary> toggles count: the drawer markup has static aria-expanded="true" back buttons */
-    .section-header:is(.scrolled-past-header, .menu-open) .header-wrapper--transparent::before,
-    .header-wrapper--transparent:is(:focus-within, :has(summary[aria-expanded='true']:not(.header-nav summary)))::before {
-      opacity: 1;
-    }
-
-    .section-header:not(.scrolled-past-header, .menu-open)
-      .header-wrapper--transparent:not(:focus-within, :has(summary[aria-expanded='true']:not(.header-nav summary))) {
-      --color-foreground: 255, 255, 255;
-      box-shadow: inset 0 -0.1rem 0 rgba(229, 229, 229, 0.5);
-    }
-
-    .section-header:not(.scrolled-past-header, .menu-open)
-      .header-wrapper--transparent:not(:focus-within, :has(summary[aria-expanded='true']:not(.header-nav summary)))
-      .header__heading-logo {
-      filter: brightness(0) invert(1);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .header-wrapper--transparent::before {
-        transition: none;
-      }
     }
   {%- endstyle -%}
 {%- endif -%}
@@ -412,7 +411,7 @@
   {% if header_tag == 'sticky-header' %}
     data-sticky-type="{{ sticky_type }}"
   {% endif %}
-  class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}{% if transparent_header %} header-wrapper--transparent{% endif %}"
+  class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}"
 >
   {%- liquid
     assign social_links = false
@@ -937,8 +936,15 @@
       "type": "checkbox",
       "id": "transparent_on_home",
       "default": false,
-      "label": "Transparent header on homepage",
-      "info": "Overlays the first homepage section with a white logo and icons. On the homepage the header hides on scroll down and reappears with a frosted background on scroll up. Other pages are unaffected."
+      "label": "Overlay first section on homepage",
+      "info": "The header sits over the top of the first homepage section, in its background colour. It hides on scroll down and reappears on scroll up."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#0F61FF",
+      "info": "Used on every page. Text and icons switch to white or the color scheme's text color, whichever reads better"
     },
     {
       "type": "checkbox",
