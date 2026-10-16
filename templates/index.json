@@ -448,67 +448,6 @@
         "padding_bottom": 32
       }
     },
-    "perks": {
-      "type": "perks",
-      "blocks": {
-        "perk_1": {
-          "type": "perk",
-          "settings": {
-            "icon": "trophy",
-            "text": "<p>Award Winning Design</p>"
-          }
-        },
-        "perk_2": {
-          "type": "perk",
-          "settings": {
-            "icon": "sparkle",
-            "text": "<p>Years of Innovation</p>"
-          }
-        },
-        "perk_3": {
-          "type": "perk",
-          "settings": {
-            "icon": "truck",
-            "text": "<p>Free Shipping from $40 USD</p>"
-          }
-        },
-        "perk_4": {
-          "type": "perk",
-          "settings": {
-            "icon": "return",
-            "text": "<p>10-day No Questions Asked<br>Return or Exchange</p>"
-          }
-        },
-        "perk_5": {
-          "type": "perk",
-          "settings": {
-            "icon": "secure",
-            "text": "<p>Secure Checkout</p>"
-          }
-        },
-        "perk_6": {
-          "type": "perk",
-          "settings": {
-            "icon": "warranty",
-            "text": "<p>Up to 24-Month<br>Product Warranty</p>"
-          }
-        }
-      },
-      "block_order": [
-        "perk_1",
-        "perk_2",
-        "perk_3",
-        "perk_4",
-        "perk_5",
-        "perk_6"
-      ],
-      "settings": {
-        "background": "#f2f2f2",
-        "text_color": "#000000",
-        "padding_top": 40,
-        "padding_bottom": 40
-      }
-    },
     "featured_best": {
       "type": "best-sellers",
       "settings": {
@@ -650,7 +589,6 @@
     "featured_bundle",
     "featured_tabs",
     "info_cards",
-    "perks",
     "reviews_scatter",
     "reviews_highlight",
     "logo_list"

@@ -1,61 +1,42 @@
+{%- liquid
+  assign country_selector = false
+  if section.settings.enable_country_selector and localization.available_countries.size > 1
+    assign country_selector = true
+  endif
+  assign language_selector = false
+  if section.settings.enable_language_selector and localization.available_languages.size > 1
+    assign language_selector = true
+  endif
+  assign social_links = false
+  if settings.social_twitter_link != blank or settings.social_facebook_link != blank or settings.social_pinterest_link != blank or settings.social_instagram_link != blank or settings.social_youtube_link != blank or settings.social_vimeo_link != blank or settings.social_tiktok_link != blank or settings.social_tumblr_link != blank or settings.social_snapchat_link != blank
+    assign social_links = true
+  endif
+  assign logo = section.settings.brand_image | default: settings.logo
+-%}
+
+{%- comment -%} Reference footer (DESIGN-SYSTEM.md 7.4): blue band, logo and intro, link columns, a large email field, bottom bar {%- endcomment -%}
 <footer
   class="cs-footer"
-  style="--cs-bg: {{ section.settings.background }}; --cs-text: {{ section.settings.text_color }}; --cs-accent: {{ section.settings.accent_color }}; --footer-cols: {{ section.blocks.size | at_least: 1 }};"
+  style="--cs-bg: {{ section.settings.background }}; --cs-text: {{ section.settings.text_color }}; --footer-cols: {{ section.blocks.size | at_least: 1 }};"
 >
-  <div class="cs-container">
-    <div class="cs-footer__grid">
-      <div class="cs-footer__col cs-footer__col--brand">
-        {%- if section.settings.brand_image != blank or section.settings.brand_text != blank -%}
-          <div class="cs-footer__brand">
-            {%- if section.settings.brand_image != blank -%}
-              {{
-                section.settings.brand_image
-                | image_url: width: 240
-                | image_tag: loading: 'lazy', widths: '120, 240', sizes: '120px'
-              }}
-            {%- endif -%}
-            {%- if section.settings.brand_text != blank -%}
-              <div>{{ section.settings.brand_text }}</div>
-            {%- endif -%}
-          </div>
-        {%- endif -%}
-
-        {%- if section.settings.newsletter_enable -%}
-          <h2 class="cs-footer__heading">{{ section.settings.newsletter_heading | escape }}</h2>
-          {%- form 'customer', id: 'FooterBoldNewsletter' -%}
-            <input type="hidden" name="contact[tags]" value="newsletter">
-            {%- if form.posted_successfully? -%}
-              <p class="cs-footer__message" role="status">{{ 'newsletter.success' | t }}</p>
-            {%- else -%}
-              <div class="cs-footer__newsletter">
-                <label class="visually-hidden" for="FooterBoldEmail">{{ 'newsletter.label' | t }}</label>
-                <input
-                  id="FooterBoldEmail"
-                  type="email"
-                  name="contact[email]"
-                  autocomplete="email"
-                  required
-                  placeholder="{{ section.settings.newsletter_placeholder | escape }}"
-                  {% if form.errors %}
-                    aria-invalid="true" aria-describedby="FooterBoldError"
-                  {% endif %}
-                >
-                <button type="submit">{{ section.settings.newsletter_button | escape }}</button>
-              </div>
-              {%- if form.errors -%}
-                <p id="FooterBoldError" class="cs-footer__message" role="alert">
-                  {{ form.errors.translated_fields.email | capitalize }}
-                  {{ form.errors.messages.email }}
-                </p>
-              {%- endif -%}
-            {%- endif -%}
-          {%- endform -%}
-          {%- if section.settings.newsletter_legal != blank -%}
-            <div class="cs-footer__legal">{{ section.settings.newsletter_legal }}</div>
+  <div class="cs-footer__inner">
+    <div class="cs-footer__top">
+      <div class="cs-footer__brand">
+        <a href="{{ routes.root_url }}" class="cs-footer__logo">
+          {%- if logo != blank -%}
+            {{
+              logo
+              | image_url: width: 340
+              | image_tag: loading: 'lazy', widths: '170, 340', sizes: '170px', alt: shop.name, class: 'cs-footer__logo-image'
+            }}
+          {%- else -%}
+            <span class="cs-footer__logo-text">{{ shop.name | escape }}</span>
           {%- endif -%}
+        </a>
+        {%- if section.settings.brand_text != blank -%}
+          <div class="cs-footer__intro">{{ section.settings.brand_text }}</div>
         {%- endif -%}
-
-        {%- if section.settings.show_social -%}
+        {%- if section.settings.show_social and social_links -%}
           <div class="cs-footer__social">
             {%- if section.settings.social_heading != blank -%}
               <h2 class="cs-footer__heading">{{ section.settings.social_heading | escape }}</h2>
@@ -65,64 +46,149 @@
         {%- endif -%}
       </div>
 
-      {%- for block in section.blocks -%}
-        {%- assign menu = block.settings.menu -%}
-        <nav
-          class="cs-footer__col"
-          aria-label="{{ block.settings.heading | default: menu.title | escape }}"
-          {{ block.shopify_attributes }}
-        >
-          {%- if block.settings.heading != blank -%}
-            <h2 class="cs-footer__heading">{{ block.settings.heading | escape }}</h2>
-          {%- endif -%}
-          {%- if menu != blank -%}
-            <ul class="cs-footer__links" role="list">
-              {%- for link in menu.links -%}
-                {%- if link.links.size > 0 -%}
-                  <li class="cs-footer__group-title">
-                    <a href="{{ link.url }}">{{ link.title | escape }}</a>
-                  </li>
-                  {%- for child in link.links -%}
-                    <li>
-                      <a
-                        href="{{ child.url }}"
-                        {% if child.current %}
-                          aria-current="page"
-                        {% endif %}
-                        >{{ child.title | escape }}</a
-                      >
-                    </li>
+      {%- if section.blocks.size > 0 -%}
+        <div class="cs-footer__nav">
+          {%- for block in section.blocks -%}
+            {%- assign menu = block.settings.menu -%}
+            <nav
+              class="cs-footer__col"
+              aria-label="{{ block.settings.heading | default: menu.title | escape }}"
+              {{ block.shopify_attributes }}
+            >
+              {%- if block.settings.heading != blank -%}
+                <h2 class="cs-footer__heading">{{ block.settings.heading | escape }}</h2>
+              {%- endif -%}
+              {%- if menu != blank -%}
+                <ul class="cs-footer__links" role="list">
+                  {%- for link in menu.links -%}
+                    {%- if link.links.size > 0 -%}
+                      <li class="cs-footer__group-title">
+                        <a href="{{ link.url }}" class="cs-footer__link">{{ link.title | escape }}</a>
+                      </li>
+                      {%- for child in link.links -%}
+                        <li>
+                          <a
+                            href="{{ child.url }}"
+                            class="cs-footer__link"
+                            {% if child.current %}
+                              aria-current="page"
+                            {% endif %}
+                            >{{ child.title | escape }}</a
+                          >
+                        </li>
+                      {%- endfor -%}
+                    {%- else -%}
+                      <li>
+                        <a
+                          href="{{ link.url }}"
+                          class="cs-footer__link"
+                          {% if link.current %}
+                            aria-current="page"
+                          {% endif %}
+                          >{{ link.title | escape }}</a
+                        >
+                      </li>
+                    {%- endif -%}
                   {%- endfor -%}
-                {%- else -%}
-                  <li>
-                    <a
-                      href="{{ link.url }}"
-                      {% if link.current %}
-                        aria-current="page"
-                      {% endif %}
-                      >{{ link.title | escape }}</a
-                    >
-                  </li>
-                {%- endif -%}
-              {%- endfor -%}
-            </ul>
-          {%- endif -%}
-        </nav>
-      {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </nav>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
     </div>
 
-    {%- if section.settings.rating_text != blank -%}
-      <div class="cs-footer__rating">{{ section.settings.rating_text }}</div>
+    {%- if section.settings.newsletter_enable -%}
+      <div class="cs-footer__signup">
+        {%- form 'customer', id: 'FooterBoldNewsletter' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          {%- if form.posted_successfully? -%}
+            <p class="cs-footer__message" role="status">{{ 'newsletter.success' | t }}</p>
+          {%- else -%}
+            <div class="cs-footer__field">
+              <label class="visually-hidden" for="FooterBoldEmail">
+                {%- if section.settings.newsletter_heading != blank -%}
+                  {{- section.settings.newsletter_heading | escape -}}
+                {%- else -%}
+                  {{- 'newsletter.label' | t -}}
+                {%- endif -%}
+              </label>
+              <input
+                id="FooterBoldEmail"
+                type="email"
+                name="contact[email]"
+                autocomplete="email"
+                required
+                placeholder="{{ section.settings.newsletter_placeholder | escape }}"
+                {% if form.errors %}
+                  aria-invalid="true" aria-describedby="FooterBoldError"
+                {% endif %}
+              >
+              <button type="submit" class="cs-footer__submit" aria-label="{{ section.settings.newsletter_button | escape }}">
+                {%- for i in (1..2) -%}
+                  <span class="cs-footer__submit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false"><path d="m10 7 5 5-5 5"/></svg></span>
+                {%- endfor -%}
+              </button>
+            </div>
+            {%- if form.errors -%}
+              <p id="FooterBoldError" class="cs-footer__message" role="alert">
+                {{ form.errors.translated_fields.email | capitalize }}
+                {{ form.errors.messages.email }}
+              </p>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endform -%}
+        {%- if section.settings.newsletter_legal != blank -%}
+          <div class="cs-footer__legal">{{ section.settings.newsletter_legal }}</div>
+        {%- endif -%}
+      </div>
     {%- endif -%}
 
     <div class="cs-footer__bottom">
-      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name | link_to: routes.root_url }}</span>
-      {%- if shop.privacy_policy != blank -%}
-        <a href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title | escape }}</a>
-      {%- endif -%}
-      {%- if shop.terms_of_service != blank -%}
-        <a href="{{ shop.terms_of_service.url }}">{{ shop.terms_of_service.title | escape }}</a>
-      {%- endif -%}
+      <div class="cs-footer__bottom-left">
+        <p class="cs-footer__copyright">
+          &copy; {{ 'now' | date: '%Y' }} - {{ shop.name | link_to: routes.root_url, class: 'cs-footer__link' }} - {{ powered_by_link }}
+        </p>
+        {%- if shop.privacy_policy != blank or shop.terms_of_service != blank -%}
+          <ul class="cs-footer__policies" role="list">
+            {%- if shop.privacy_policy != blank -%}
+              <li><a href="{{ shop.privacy_policy.url }}" class="cs-footer__link">{{ shop.privacy_policy.title | escape }}</a></li>
+            {%- endif -%}
+            {%- if shop.terms_of_service != blank -%}
+              <li><a href="{{ shop.terms_of_service.url }}" class="cs-footer__link">{{ shop.terms_of_service.title | escape }}</a></li>
+            {%- endif -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      <div class="cs-footer__bottom-right">
+        {%- if section.settings.show_payment and shop.enabled_payment_types.size > 0 -%}
+          <div class="cs-footer__payment">
+            <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
+            <ul class="cs-footer__payment-list" role="list">
+              {%- for type in shop.enabled_payment_types -%}
+                <li>{{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}</li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+        {%- if language_selector -%}
+          <localization-form class="cs-footer__localization">
+            {%- form 'localization', id: 'FooterLanguageForm', class: 'localization-form' -%}
+              <h2 class="visually-hidden" id="FooterLanguageLabel">{{ 'localization.language_label' | t }}</h2>
+              {%- render 'language-localization', localPosition: 'FooterLanguage' -%}
+            {%- endform -%}
+          </localization-form>
+        {%- endif -%}
+        {%- if country_selector -%}
+          <localization-form class="cs-footer__localization">
+            {%- form 'localization', id: 'FooterCountryForm', class: 'localization-form' -%}
+              <h2 class="visually-hidden" id="FooterCountryLabel">{{ 'localization.country_label' | t }}</h2>
+              {%- render 'country-localization', localPosition: 'FooterCountry' -%}
+            {%- endform -%}
+          </localization-form>
+        {%- endif -%}
+      </div>
     </div>
   </div>
 </footer>
@@ -144,12 +210,13 @@
     {
       "type": "image_picker",
       "id": "brand_image",
-      "label": "Brand badge"
+      "label": "Logo",
+      "info": "Shown in white. Uses the store logo when empty"
     },
     {
       "type": "richtext",
       "id": "brand_text",
-      "label": "Brand text",
+      "label": "Intro text",
       "default": "<p>Protect your phone in style</p>"
     },
     {
@@ -165,7 +232,7 @@
     {
       "type": "text",
       "id": "newsletter_heading",
-      "label": "Heading",
+      "label": "Field label (for screen readers)",
       "default": "Newsletter"
     },
     {
@@ -177,7 +244,7 @@
     {
       "type": "text",
       "id": "newsletter_button",
-      "label": "Button label",
+      "label": "Submit button label (for screen readers)",
       "default": "SIGN UP"
     },
     {
@@ -205,13 +272,27 @@
     },
     {
       "type": "header",
-      "content": "Bottom"
+      "content": "Bottom bar"
     },
     {
-      "type": "richtext",
-      "id": "rating_text",
-      "label": "Rating line",
-      "default": "<p>Rated <strong>Excellent</strong> ★★★★★ by our customers</p>"
+      "type": "checkbox",
+      "id": "show_payment",
+      "label": "Show payment icons",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_language_selector",
+      "label": "Show language selector",
+      "default": true,
+      "info": "Shown when the store has more than one language"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_country_selector",
+      "label": "Show country/region selector",
+      "default": true,
+      "info": "Shown when the store sells to more than one country"
     },
     {
       "type": "header",
@@ -221,19 +302,13 @@
       "type": "color",
       "id": "background",
       "label": "Background",
-      "default": "#000000"
+      "default": "#0F61FF"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Text color",
       "default": "#FFFFFF"
-    },
-    {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Signup button color",
-      "default": "#2C5DAB"
     }
   ],
   "blocks": [
@@ -251,7 +326,7 @@
           "id": "menu",
           "label": "Menu",
           "default": "footer",
-          "info": "Nested menu items show as bold group titles, like \"Apple\" and \"Samsung\""
+          "info": "Nested menu items show as group titles"
         }
       ]
     }
