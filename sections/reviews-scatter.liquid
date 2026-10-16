@@ -1,0 +1,297 @@
+{%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .rs__heading {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+    font-weight: {{ section.settings.heading_font.weight }};
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign review_count = 0
+  for block in section.blocks
+    if block.settings.quote != blank
+      assign review_count = review_count | plus: 1
+    endif
+  endfor
+-%}
+
+<div
+  class="rs cs-section"
+  style="--cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom }}px; --rs-accent: {{ section.settings.accent_color }};"
+>
+  <div class="cs-container">
+    <reviews-scatter class="rs__inner{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}">
+      <div class="rs__head">
+        {%- if section.settings.heading != blank -%}
+          {%- comment -%} Letters animate in one by one; screen readers get the plain heading {%- endcomment -%}
+          <h2 class="rs__heading" aria-label="{{ section.settings.heading | escape }}">
+            {%- assign words = section.settings.heading | split: ' ' -%}
+            {%- assign char_index = 0 -%}
+            {%- for word in words -%}
+              <span class="rs__word" aria-hidden="true">
+                {%- assign chars = word | split: '' -%}
+                {%- for char in chars -%}
+                  <span class="rs__char" style="--i: {{ char_index }};">{{ char | escape }}</span>
+                  {%- assign char_index = char_index | plus: 1 -%}
+                {%- endfor -%}
+              </span>
+              {%- unless forloop.last %} {% endunless -%}
+            {%- endfor -%}
+          </h2>
+        {%- endif -%}
+        {%- if review_count > 1 -%}
+          <div class="rs__nav">
+            <button type="button" class="rs__arrow rs__arrow--prev" data-rs-prev aria-label="{{ 'sections.slideshow.previous_slideshow' | t }}">
+              {%- for i in (1..2) -%}
+                <span class="rs__arrow-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false"><path d="m14 7-5 5 5 5"/></svg></span>
+              {%- endfor -%}
+            </button>
+            <button type="button" class="rs__arrow rs__arrow--next" data-rs-next aria-label="{{ 'sections.slideshow.next_slideshow' | t }}">
+              {%- for i in (1..2) -%}
+                <span class="rs__arrow-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false"><path d="m10 7 5 5-5 5"/></svg></span>
+              {%- endfor -%}
+            </button>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- assign review_index = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign has_review = false
+          if block.settings.quote != blank
+            assign has_review = true
+            assign review_index = review_index | plus: 1
+          endif
+          assign item_tag = 'div'
+          if has_review
+            assign item_tag = 'button'
+          endif
+        -%}
+        {%- comment -%} Photos without a quote are decorative and not selectable {%- endcomment -%}
+        <{{ item_tag }}
+          {% if has_review %}
+            type="button"
+            data-review
+            data-quote="{{ block.settings.quote | escape }}"
+            data-author="{{ block.settings.author | escape }}"
+            aria-label="{{ 'sections.slideshow.load_slide' | t }} {{ review_index }} {{ 'general.slider.of' | t }} {{ review_count }}"
+          {% else %}
+            aria-hidden="true"
+          {% endif %}
+          class="rs__item rs__item--{{ block.settings.size }}"
+          style="--top: {{ block.settings.top }}%; --left: {{ block.settings.left }}%; --top-mobile: {{ block.settings.top_mobile }}%; --left-mobile: {{ block.settings.left_mobile }}%;"
+          data-parallax="{{ block.settings.parallax }}"
+          {{ block.shopify_attributes }}
+        >
+          <span class="rs__parallax">
+            <span class="rs__magnet">
+              <span class="rs__image">
+                {%- if block.settings.image != blank -%}
+                  {{
+                    block.settings.image
+                    | image_url: width: 300
+                    | image_tag: loading: 'lazy', widths: '100, 200, 300', sizes: '(min-width: 992px) 123px, 96px', alt: ''
+                  }}
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </span>
+            </span>
+          </span>
+        </{{ item_tag }}>
+      {%- endfor -%}
+
+      {%- if review_count > 0 -%}
+        <div class="rs__card" aria-live="polite">
+          <div class="rs__slide">
+            <p class="rs__text" data-rs-text></p>
+            <p class="rs__author" data-rs-author></p>
+          </div>
+          <div class="rs__slide" aria-hidden="true">
+            <p class="rs__text" data-rs-text></p>
+            <p class="rs__author" data-rs-author></p>
+          </div>
+        </div>
+      {%- endif -%}
+    </reviews-scatter>
+  </div>
+</div>
+
+{% javascript %}
+  // Scattered customer photos with one review card that follows the active photo (reference "testimonial 9").
+  // Desktop: photos drift with scroll (parallax) and lean towards the pointer (magnetic); both skip reduced motion.
+  class ReviewsScatter extends HTMLElement {
+    connectedCallback() {
+      this.reviews = [...this.querySelectorAll('[data-review]')];
+      this.card = this.querySelector('.rs__card');
+      if (!this.card) return;
+      this.slides = this.card.querySelectorAll('.rs__slide');
+      this.cardMedia = window.matchMedia('(min-width: 768px)');
+      this.motionMedia = window.matchMedia('(min-width: 992px) and (hover: hover) and (prefers-reduced-motion: no-preference)');
+
+      this.addEventListener('click', (event) => {
+        const item = event.target.closest('[data-review]');
+        if (item) this.show(this.reviews.indexOf(item));
+        else if (event.target.closest('[data-rs-prev]')) this.show(this.index - 1);
+        else if (event.target.closest('[data-rs-next]')) this.show(this.index + 1);
+      });
+
+      this.place = this.place.bind(this);
+      this.onScroll = this.onScroll.bind(this);
+      this.onPointer = this.onPointer.bind(this);
+      this.resetMagnets = this.resetMagnets.bind(this);
+      window.addEventListener('resize', this.place);
+      window.addEventListener('scroll', this.onScroll, { passive: true });
+      window.addEventListener('pointermove', this.onPointer, { passive: true });
+      document.documentElement.addEventListener('pointerleave', this.resetMagnets);
+
+      // Start on the largest photo with a review, like the reference
+      const sizes = ['large', 'medium', 'small'];
+      const first = sizes.map((size) => this.reviews.findIndex((r) => r.classList.contains(`rs__item--${size}`))).find((i) => i >= 0);
+      this.show(first ?? 0, false);
+      this.onScroll();
+    }
+
+    disconnectedCallback() {
+      window.removeEventListener('resize', this.place);
+      window.removeEventListener('scroll', this.onScroll);
+      window.removeEventListener('pointermove', this.onPointer);
+      document.documentElement.removeEventListener('pointerleave', this.resetMagnets);
+    }
+
+    fill(slide, item) {
+      slide.querySelector('[data-rs-text]').textContent = item.dataset.quote;
+      const author = slide.querySelector('[data-rs-author]');
+      author.textContent = item.dataset.author;
+      author.hidden = !item.dataset.author;
+    }
+
+    show(index, animate = true) {
+      const count = this.reviews.length;
+      this.index = ((index % count) + count) % count;
+      const item = this.reviews[this.index];
+      this.reviews.forEach((review) => {
+        review.toggleAttribute('data-active', review === item);
+        review.setAttribute('aria-pressed', String(review === item));
+      });
+
+      if (!animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        this.fill(this.slides[0], item);
+      } else {
+        // The incoming review waits beside the current one; both slide left, then they swap
+        this.fill(this.slides[1], item);
+        this.card.removeAttribute('data-animating');
+        void this.card.offsetWidth;
+        this.card.setAttribute('data-animating', '');
+        clearTimeout(this.swap);
+        this.swap = setTimeout(() => {
+          this.fill(this.slides[0], item);
+          this.card.removeAttribute('data-animating');
+        }, 310);
+      }
+      this.place();
+    }
+
+    // Card corner meets the photo: to the right if it fits in the window, else left; above if there is room, else below
+    place() {
+      const item = this.reviews[this.index];
+      if (!item || !this.cardMedia.matches) return this.card.removeAttribute('data-placement');
+      const box = this.getBoundingClientRect();
+      const cardWidth = this.card.offsetWidth;
+      const right = box.left + item.offsetLeft + item.offsetWidth + cardWidth <= document.documentElement.clientWidth;
+      const top = item.offsetTop - this.card.offsetHeight >= 0;
+      this.card.style.setProperty('--top', `${item.offsetTop}px`);
+      this.card.style.setProperty('--left', `${item.offsetLeft}px`);
+      this.card.style.setProperty('--width', `${item.offsetWidth}px`);
+      this.card.style.setProperty('--height', `${item.offsetHeight}px`);
+      this.card.setAttribute('data-placement', `${top ? 'top' : 'bottom'}-${right ? 'right' : 'left'}`);
+    }
+
+    // Each photo moves from +distance to -distance while the section crosses the viewport
+    onScroll() {
+      if (this.scrollFrame) return;
+      this.scrollFrame = requestAnimationFrame(() => {
+        this.scrollFrame = null;
+        const rect = this.getBoundingClientRect();
+        const enabled = this.motionMedia.matches;
+        const progress = Math.min(Math.max((window.innerHeight - rect.top) / (window.innerHeight + rect.height), 0), 1);
+        this.querySelectorAll('.rs__item').forEach((item) => {
+          const y = enabled ? Number(item.dataset.parallax) * (1 - 2 * progress) : 0;
+          item.querySelector('.rs__parallax').style.transform = y ? `translateY(${y.toFixed(1)}px)` : '';
+        });
+      });
+    }
+
+    // Photos lean towards the pointer: 77 * d / (d + 51) px within 2000px (measured on the reference)
+    onPointer(event) {
+      if (event.pointerType !== 'mouse' || !this.motionMedia.matches) return;
+      this.pointer = [event.clientX, event.clientY];
+      if (this.pointerFrame) return;
+      this.pointerFrame = requestAnimationFrame(() => {
+        this.pointerFrame = null;
+        const [x, y] = this.pointer;
+        this.querySelectorAll('.rs__item').forEach((item) => {
+          const rect = item.querySelector('.rs__parallax').getBoundingClientRect();
+          const dx = x - (rect.left + rect.width / 2);
+          const dy = y - (rect.top + rect.height / 2);
+          const distance = Math.hypot(dx, dy);
+          const pull = distance && distance < 2000 ? (77 * distance) / (distance + 51) / distance : 0;
+          item.querySelector('.rs__magnet').style.transform = pull ? `translate(${(dx * pull).toFixed(1)}px, ${(dy * pull).toFixed(1)}px)` : '';
+        });
+      });
+    }
+
+    resetMagnets() {
+      this.querySelectorAll('.rs__magnet').forEach((magnet) => (magnet.style.transform = ''));
+    }
+  }
+
+  customElements.define('reviews-scatter', ReviewsScatter);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Reviews scatter",
+  "tag": "section",
+  "class": "section section-reviews-scatter",
+  "max_blocks": 7,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Loved by Our Customers" },
+    { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "instrument_sans_n6" },
+    { "type": "color", "id": "accent_color", "label": "Arrow button color", "default": "#0F61FF" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 2, "unit": "px", "default": 50 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 2, "unit": "px", "default": 50 }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Customer photo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "textarea", "id": "quote", "label": "Review", "info": "Use a real customer review. Photos without a review are shown but cannot be selected" },
+        { "type": "text", "id": "author", "label": "Customer name" },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "Photo size",
+          "options": [
+            { "value": "small", "label": "Small" },
+            { "value": "medium", "label": "Medium" },
+            { "value": "large", "label": "Large" }
+          ],
+          "default": "medium"
+        },
+        { "type": "header", "content": "Position" },
+        { "type": "range", "id": "top", "label": "Desktop: from top", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 50 },
+        { "type": "range", "id": "left", "label": "Desktop: from left", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 50 },
+        { "type": "range", "id": "top_mobile", "label": "Mobile: from top", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 50 },
+        { "type": "range", "id": "left_mobile", "label": "Mobile: from left", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 50 },
+        { "type": "range", "id": "parallax", "label": "Scroll drift", "min": 0, "max": 200, "step": 10, "unit": "px", "default": 100, "info": "Desktop only" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Reviews scatter" }]
+}
+{% endschema %}
