@@ -14,17 +14,57 @@
 <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 
 {%- comment -%}
-  Shopify's related-product recommendations as the store's product cards (bs-card, like Best Sellers).
-  Dawn's <product-recommendations> loads this section again with the product id once it nears the viewport;
-  nothing shows until there are recommendations.
+  Related products as the store's product cards (bs-card, like Best Sellers). The page renders other products
+  from this product's collection (else the whole store) straight away; Dawn's <product-recommendations> then
+  loads Shopify's recommendations and swaps them in when there are any. An empty recommendations response
+  leaves the first list in place.
 {%- endcomment -%}
+{%- liquid
+  assign source = nil
+  if recommendations.performed
+    if recommendations.products_count > 0
+      assign source = recommendations.products
+    endif
+  else
+    for collection in product.collections
+      if collection.handle != 'all' and collection.products_count > 1
+        assign source = collection.products
+        break
+      endif
+    endfor
+    if source == nil
+      # ponytail: outside paginate Liquid sees the first 50 products of a collection; enough for a related list
+      assign source = collections.all.products
+    endif
+  endif
+
+  capture cards
+    assign count = 0
+    for item in source
+      if item.id == product.id
+        continue
+      endif
+      if count >= section.settings.products_to_show
+        break
+      endif
+      assign count = count | plus: 1
+      echo '<li class="ymal__item'
+      if settings.animations_reveal_on_scroll
+        echo ' scroll-trigger cs-reveal'
+      endif
+      echo '" style="--animation-order: ' | append: count | append: ';">'
+      render 'bs-card', product: item, index: count, show_swatches: section.settings.show_swatches, action: 'cart'
+      echo '</li>'
+    endfor
+  endcapture
+-%}
 <product-recommendations
   class="ymal"
   data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.products_to_show }}&intent=related"
   data-section-id="{{ section.id }}"
   data-product-id="{{ product.id }}"
 >
-  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+  {%- if cards != blank -%}
     <div
       class="cs-section"
       style="--cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px; --bs-card-bg: {{ section.settings.card_background }}; --bs-badge: {{ section.settings.badge_color }}; --bs-accent: {{ section.settings.accent_color }};"
@@ -35,13 +75,7 @@
             {{- section.settings.title | escape -}}
           </h2>
         {%- endif -%}
-        <ul class="ymal__grid" role="list">
-          {%- for recommendation in recommendations.products -%}
-            <li class="ymal__item{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}" style="--animation-order: {{ forloop.index }};">
-              {%- render 'bs-card', product: recommendation, index: forloop.index0, show_swatches: section.settings.show_swatches, action: 'cart' -%}
-            </li>
-          {%- endfor -%}
-        </ul>
+        <ul class="ymal__grid" role="list">{{ cards }}</ul>
       </div>
     </div>
   {%- endif -%}
@@ -58,7 +92,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Products come from Shopify's product recommendations for the product being viewed. Manage them with the Search & Discovery app."
+      "content": "Shows Shopify's product recommendations for the product being viewed (manage them with the Search & Discovery app). Until there are any, it shows other products from the product's collection, or from the whole store."
     },
     { "type": "text", "id": "title", "label": "Heading", "default": "You may also like" },
     { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 2, "max": 10, "step": 1, "default": 4 },
