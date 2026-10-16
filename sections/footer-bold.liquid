@@ -58,7 +58,32 @@
               {%- if block.settings.heading != blank -%}
                 <h2 class="cs-footer__heading">{{ block.settings.heading | escape }}</h2>
               {%- endif -%}
-              {%- if menu != blank -%}
+              {%- if block.settings.links != blank -%}
+                {%- comment -%} Typed links: "Title | URL" per line, resolved like the header menu (header-nav-url) {%- endcomment -%}
+                {%- assign lines = block.settings.links | newline_to_br | split: '<br />' -%}
+                <ul class="cs-footer__links" role="list">
+                  {%- for line in lines -%}
+                    {%- assign parts = line | split: '|' -%}
+                    {%- assign link_title = parts.first | strip -%}
+                    {%- if link_title == blank -%}{%- continue -%}{%- endif -%}
+                    {%- assign link_url = parts[1] | strip -%}
+                    {%- capture href -%}
+                      {%- render 'header-nav-url', title: link_title, url: link_url -%}
+                    {%- endcapture -%}
+                    {%- if href == blank -%}{%- continue -%}{%- endif -%}
+                    <li>
+                      <a
+                        href="{{ href }}"
+                        class="cs-footer__link"
+                        {% if href == request.path %}
+                          aria-current="page"
+                        {% endif %}
+                        >{{ link_title | escape }}</a
+                      >
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- elsif menu != blank -%}
                 <ul class="cs-footer__links" role="list">
                   {%- for link in menu.links -%}
                     {%- if link.links.size > 0 -%}
@@ -327,6 +352,12 @@
           "label": "Menu",
           "default": "footer",
           "info": "Nested menu items show as group titles"
+        },
+        {
+          "type": "textarea",
+          "id": "links",
+          "label": "Links",
+          "info": "Used instead of the menu when filled. One per line, with a link after |, e.g. Shop | /collections/all. Without one: the collection named like the title, otherwise a product search. Links to missing pages are hidden."
         }
       ]
     }

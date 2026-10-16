@@ -149,13 +149,6 @@
             "title": "About us",
             "link": "/pages/about-us"
           }
-        },
-        "nav_blog": {
-          "type": "menu_item",
-          "settings": {
-            "title": "Blog",
-            "link": "/blogs/news"
-          }
         }
       },
       "block_order": [
@@ -170,8 +163,7 @@
         "nav_devices",
         "col_dev_iphone",
         "col_dev_samsung",
-        "nav_about",
-        "nav_blog"
+        "nav_about"
       ],
       "settings": {
         "logo_position": "middle-left",

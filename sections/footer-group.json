@@ -17,33 +17,21 @@
         "menu_1": {
           "type": "menu",
           "settings": {
-            "menu": "footer"
+            "heading": "Home",
+            "links": "Overview | /\nShop | /collections/all\nCollections | /collections\nAbout us | /pages/about-us\nContact | /pages/contact"
           }
         },
         "menu_2": {
           "type": "menu",
           "settings": {
-            "heading": "Device"
-          }
-        },
-        "menu_3": {
-          "type": "menu",
-          "settings": {
-            "heading": "About Tech2c"
-          }
-        },
-        "menu_4": {
-          "type": "menu",
-          "settings": {
-            "heading": "Get Help"
+            "heading": "Collections",
+            "links": "iPhone\nSamsung\nNew Arrivals | /collections/all?sort_by=created-descending\nBest Sellers | /collections/all?sort_by=best-selling"
           }
         }
       },
       "block_order": [
         "menu_1",
-        "menu_2",
-        "menu_3",
-        "menu_4"
+        "menu_2"
       ],
       "settings": {
         "brand_text": "<p><strong>Tech2c</strong><br>Protect your phone in style</p>",
