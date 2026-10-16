@@ -1,0 +1,75 @@
+{%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .best-sellers__heading,
+  #shopify-section-{{ section.id }} .bs-card__title {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+  }
+
+  #shopify-section-{{ section.id }} .best-sellers__heading {
+    font-weight: {{ section.settings.heading_font.weight }};
+  }
+{%- endstyle -%}
+
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+{%- comment -%}
+  Shopify's related-product recommendations as the store's product cards (bs-card, like Best Sellers).
+  Dawn's <product-recommendations> loads this section again with the product id once it nears the viewport;
+  nothing shows until there are recommendations.
+{%- endcomment -%}
+<product-recommendations
+  class="ymal"
+  data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.products_to_show }}&intent=related"
+  data-section-id="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+>
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    <div
+      class="cs-section"
+      style="--cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px; --bs-card-bg: {{ section.settings.card_background }}; --bs-badge: {{ section.settings.badge_color }}; --bs-accent: {{ section.settings.accent_color }};"
+    >
+      <div class="cs-container">
+        {%- if section.settings.title != blank -%}
+          <h2 class="best-sellers__heading{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}">
+            {{- section.settings.title | escape -}}
+          </h2>
+        {%- endif -%}
+        <ul class="ymal__grid" role="list">
+          {%- for recommendation in recommendations.products -%}
+            <li class="ymal__item{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}" style="--animation-order: {{ forloop.index }};">
+              {%- render 'bs-card', product: recommendation, index: forloop.index0, show_swatches: section.settings.show_swatches, action: 'cart' -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+  {%- endif -%}
+</product-recommendations>
+
+{% schema %}
+{
+  "name": "You may also like",
+  "tag": "section",
+  "class": "section section-you-may-also-like",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Products come from Shopify's product recommendations for the product being viewed. Manage them with the Search & Discovery app."
+    },
+    { "type": "text", "id": "title", "label": "Heading", "default": "You may also like" },
+    { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 2, "max": 10, "step": 1, "default": 4 },
+    { "type": "checkbox", "id": "show_swatches", "label": "Show color swatches", "default": true, "info": "Uses the product option named Color or Colour" },
+    { "type": "font_picker", "id": "heading_font", "label": "Heading and product title font", "default": "instrument_sans_n6" },
+    { "type": "color", "id": "card_background", "label": "Card background", "default": "#F6F6F6" },
+    { "type": "color", "id": "badge_color", "label": "Sale badge color", "default": "#DA1E28" },
+    { "type": "color", "id": "accent_color", "label": "Buttons color", "default": "#0F61FF" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 44 }
+  ],
+  "presets": [{ "name": "You may also like" }]
+}
+{% endschema %}

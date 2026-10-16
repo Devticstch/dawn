@@ -249,7 +249,8 @@ main[data-template='index'] .fpt .cs-container,
 main[data-template='index'] .pb .cs-container,
 main[data-template='index'] .ic .cs-container,
 main[data-template='index'] .rs .cs-container,
-main[data-template='product'] .rs .cs-container {
+main[data-template='product'] .rs .cs-container,
+main[data-template='product'] .ymal .cs-container {
   /* Reference container (DESIGN-SYSTEM.md 2.1): max 1920px, gutter 22px at 800px wide rising to 164px at 1900px */
   --cs-gutter: clamp(2.2rem, 12.909vw - 8.127rem, 16.4rem);
   max-width: 192rem;
@@ -4066,5 +4067,39 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
 @media screen and (min-width: 1200px) {
   .pa__heading {
     font-size: 4.2rem;
+  }
+}
+
+/* ---------- You may also like (product page) ---------- */
+/* Shopify recommendations as the store's product cards: 2 per row up to 989px, 4 from 990px; 10px / 20px gaps
+   (DESIGN-SYSTEM.md 2.2 and 2.4) */
+.ymal {
+  display: block;
+  /* Not zero-height, so Dawn's IntersectionObserver reliably sees it before it loads */
+  min-height: 0.1rem;
+}
+
+.ymal__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ymal__item {
+  min-width: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .ymal__grid {
+    gap: 2rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .ymal__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
