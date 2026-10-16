@@ -174,11 +174,8 @@
         <p class="cs-footer__copyright">
           &copy; {{ 'now' | date: '%Y' }} - {{ shop.name | link_to: routes.root_url, class: 'cs-footer__link' }} - {{ powered_by_link }}
         </p>
-        {%- if shop.privacy_policy != blank or shop.terms_of_service != blank -%}
+        {%- if shop.terms_of_service != blank -%}
           <ul class="cs-footer__policies" role="list">
-            {%- if shop.privacy_policy != blank -%}
-              <li><a href="{{ shop.privacy_policy.url }}" class="cs-footer__link">{{ shop.privacy_policy.title | escape }}</a></li>
-            {%- endif -%}
             {%- if shop.terms_of_service != blank -%}
               <li><a href="{{ shop.terms_of_service.url }}" class="cs-footer__link">{{ shop.terms_of_service.title | escape }}</a></li>
             {%- endif -%}
