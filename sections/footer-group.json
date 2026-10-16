@@ -34,8 +34,8 @@
         "menu_2"
       ],
       "settings": {
-        "brand_text": "<p><strong>Tech2c</strong><br>Protect your phone in style</p>",
-        "newsletter_enable": true,
+        "brand_text": "<p><strong>Tech2c</strong><br>Protect your phone in style. Tech2c brings together phone cases and accessories for iPhone and Samsung that balance everyday protection with clean, modern design, so your phone stays safe and still looks like yours.</p>",
+        "newsletter_enable": false,
         "newsletter_heading": "Newsletter",
         "newsletter_placeholder": "Enter your email",
         "newsletter_button": "SIGN UP",
