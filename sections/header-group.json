@@ -74,27 +74,6 @@
             "theme_image": "menu-samsung.png"
           }
         },
-        "card_new_3": {
-          "type": "menu_card",
-          "settings": {
-            "title": "Xiaomi",
-            "theme_image": "menu-xiaomi.png"
-          }
-        },
-        "card_new_4": {
-          "type": "menu_card",
-          "settings": {
-            "title": "Case Apple Watch",
-            "theme_image": "menu-apple-watch.png"
-          }
-        },
-        "card_new_5": {
-          "type": "menu_card",
-          "settings": {
-            "title": "Case AirPods",
-            "theme_image": "menu-airpods.png"
-          }
-        },
         "col_new_iphone": {
           "type": "menu_column",
           "settings": {
@@ -106,7 +85,7 @@
           "type": "menu_column",
           "settings": {
             "heading": "Feature",
-            "links": "iPhone\nSamsung\nXiaomi\nCase Apple Watch\nCase AirPods",
+            "links": "iPhone\nSamsung",
             "show_view_all": false
           }
         },
@@ -138,27 +117,6 @@
             "theme_image": "menu-samsung.png"
           }
         },
-        "card_best_3": {
-          "type": "menu_card",
-          "settings": {
-            "title": "Xiaomi",
-            "theme_image": "menu-xiaomi.png"
-          }
-        },
-        "card_best_4": {
-          "type": "menu_card",
-          "settings": {
-            "title": "Case Apple Watch",
-            "theme_image": "menu-apple-watch.png"
-          }
-        },
-        "card_best_5": {
-          "type": "menu_card",
-          "settings": {
-            "title": "Case AirPods",
-            "theme_image": "menu-airpods.png"
-          }
-        },
         "nav_devices": {
           "type": "menu_item",
           "settings": {
@@ -186,27 +144,6 @@
             "links": "Galaxy Z Fold 6\nGalaxy Z Flip 6\nGalaxy S25\nGalaxy S24+\nGalaxy S24"
           }
         },
-        "col_dev_xiaomi": {
-          "type": "menu_column",
-          "settings": {
-            "heading": "Xiaomi",
-            "links": "Xiaomi 15\nXiaomi 14\nXiaomi 13"
-          }
-        },
-        "col_dev_watch": {
-          "type": "menu_column",
-          "settings": {
-            "heading": "Apple Watch",
-            "links": "Apple Watch Ultra 2\nApple Watch 9\nApple Watch 8\nApple Watch 7"
-          }
-        },
-        "col_dev_airpods": {
-          "type": "menu_column",
-          "settings": {
-            "heading": "AirPods",
-            "links": "AirPods Pro\nAirPods Max\nAirPods Gen 4\nAirPods Gen 3\nAirPods Gen 2"
-          }
-        },
         "nav_about": {
           "type": "menu_item",
           "settings": {
@@ -226,23 +163,14 @@
         "nav_new",
         "card_new_1",
         "card_new_2",
-        "card_new_3",
-        "card_new_4",
-        "card_new_5",
         "col_new_iphone",
         "col_new_feature",
         "nav_best",
         "card_best_1",
         "card_best_2",
-        "card_best_3",
-        "card_best_4",
-        "card_best_5",
         "nav_devices",
         "col_dev_iphone",
         "col_dev_samsung",
-        "col_dev_xiaomi",
-        "col_dev_watch",
-        "col_dev_airpods",
         "nav_about",
         "nav_blog"
       ],

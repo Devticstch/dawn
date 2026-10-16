@@ -23,35 +23,11 @@
             "label": "Samsung",
             "theme_image": "menu-samsung.png"
           }
-        },
-        "category_xiaomi": {
-          "type": "category",
-          "settings": {
-            "label": "Xiaomi",
-            "theme_image": "menu-xiaomi.png"
-          }
-        },
-        "category_apple_watch": {
-          "type": "category",
-          "settings": {
-            "label": "Case Apple Watch",
-            "theme_image": "menu-apple-watch.png"
-          }
-        },
-        "category_airpods": {
-          "type": "category",
-          "settings": {
-            "label": "Case AirPods",
-            "theme_image": "menu-airpods.png"
-          }
         }
       },
       "block_order": [
         "category_iphone",
-        "category_samsung",
-        "category_xiaomi",
-        "category_apple_watch",
-        "category_airpods"
+        "category_samsung"
       ],
       "settings": {
         "heading": "Shop by Category",
