@@ -156,3 +156,76 @@ document.addEventListener('click', (event) => {
   toggle.setAttribute('aria-expanded', String(expanded));
   toggle.textContent = expanded ? toggle.dataset.lessLabel : toggle.dataset.moreLabel;
 });
+
+// Smooth wheel scrolling like the reference (measured 2026-10-16): the page glides to the wheel target,
+// closing 10% of the distance per 60fps frame, so one notch settles in about 0.9s.
+// Touch, keyboard, scrollbar, zoom, horizontal wheel, scrollable panels and locked pages stay native.
+(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const root = document.documentElement;
+  let target = window.scrollY;
+  let current = target;
+  let lastSet = target;
+  let lastTime = 0;
+  let frame = null;
+
+  const isLocked = () => [root, document.body].some((element) => getComputedStyle(element).overflowY === 'hidden');
+
+  // A scrollable element under the pointer that can still move this way keeps the wheel
+  const canScrollInside = (element, deltaY) => {
+    for (; element && element !== document.body && element !== root; element = element.parentElement) {
+      const { overflowY } = getComputedStyle(element);
+      if ((overflowY === 'auto' || overflowY === 'scroll') && element.scrollHeight > element.clientHeight) {
+        if (deltaY < 0 ? element.scrollTop > 0 : element.scrollTop + element.clientHeight < element.scrollHeight - 1) return true;
+      }
+    }
+    return false;
+  };
+
+  const stop = () => {
+    if (frame) cancelAnimationFrame(frame);
+    frame = null;
+    lastTime = 0;
+  };
+
+  const step = (time) => {
+    const elapsed = lastTime ? Math.min(time - lastTime, 100) : 1000 / 60;
+    lastTime = time;
+    current += (target - current) * (1 - Math.pow(0.9, elapsed / (1000 / 60)));
+    if (Math.abs(target - current) < 0.5) current = target;
+    lastSet = current;
+    window.scrollTo({ top: current, behavior: 'instant' });
+    if (current === target) stop();
+    else frame = requestAnimationFrame(step);
+  };
+
+  window.addEventListener(
+    'wheel',
+    (event) => {
+      if (event.defaultPrevented || event.ctrlKey || event.shiftKey) return;
+      if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+      if (isLocked() || canScrollInside(event.target, event.deltaY)) return;
+
+      event.preventDefault();
+      if (!frame) current = target = window.scrollY;
+      const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1;
+      const max = root.scrollHeight - window.innerHeight;
+      target = Math.max(0, Math.min(max, target + event.deltaY * unit));
+      if (!frame) frame = requestAnimationFrame(step);
+    },
+    { passive: false }
+  );
+
+  // Keyboard, scrollbar, anchor links or scripts moved the page: follow them instead of pulling it back
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (frame && Math.abs(window.scrollY - lastSet) > 2) {
+        stop();
+        current = target = window.scrollY;
+      }
+    },
+    { passive: true }
+  );
+})();
