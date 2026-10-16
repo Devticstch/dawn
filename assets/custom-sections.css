@@ -3945,10 +3945,10 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   margin: 0;
   color: rgb(30, 30, 30);
   font-family: var(--font-nav-family, inherit);
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 500;
   line-height: 1.4;
-  letter-spacing: 0;
+  letter-spacing: -0.016rem;
 }
 
 .pa__heading {
