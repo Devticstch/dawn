@@ -133,14 +133,14 @@
           "type": "menu_column",
           "settings": {
             "heading": "iPhone",
-            "links": "iPhone 16 Pro Max\niPhone 16 Pro\niPhone 16 Plus\niPhone 15 Pro Max\niPhone 15 Pro"
+            "product_limit": 5
           }
         },
         "col_dev_samsung": {
           "type": "menu_column",
           "settings": {
             "heading": "Samsung",
-            "links": "Galaxy Z Fold 6\nGalaxy Z Flip 6\nGalaxy S25\nGalaxy S24+\nGalaxy S24"
+            "product_limit": 5
           }
         },
         "nav_about": {
