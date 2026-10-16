@@ -1452,6 +1452,18 @@
         "info": "t:settings_schema.cart.settings.cart_drawer.collection.info"
       },
       {
+        "type": "number",
+        "id": "cart_free_shipping_threshold",
+        "label": "Free shipping threshold",
+        "info": "Order total in your store currency that ships free. Shows a progress bar in the cart drawer; leave empty to hide it"
+      },
+      {
+        "type": "font_picker",
+        "id": "cart_drawer_heading_font",
+        "label": "Cart drawer title font",
+        "default": "instrument_sans_n6"
+      },
+      {
         "type": "color_scheme",
         "id": "cart_color_scheme",
         "label": "t:sections.all.colors.label",

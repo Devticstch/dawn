@@ -80,12 +80,17 @@
         {{- plus_icon -}}
       </button>
     {%- elsif product.available and product.has_only_default_variant -%}
-      {%- form 'product', product, class: 'bs-card__form' -%}
-        <input type="hidden" name="id" value="{{ variant.id }}">
-        <button type="submit" class="bs-card__action" aria-label="{{ 'products.product.add_to_cart' | t }}: {{ product.title | escape }}">
-          {{- plus_icon -}}
-        </button>
-      {%- endform -%}
+      {%- comment -%} Dawn's product-form adds without leaving the page and opens the cart drawer (needs product-form.js) {%- endcomment -%}
+      <product-form class="bs-card__form" data-section-id="{{ section.id }}">
+        {%- form 'product', product, novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+          <input type="hidden" name="id" value="{{ variant.id }}">
+          <button type="submit" name="add" class="bs-card__action" aria-label="{{ 'products.product.add_to_cart' | t }}: {{ product.title | escape }}">
+            {{- plus_icon -}}
+            <span class="visually-hidden">{{ 'products.product.add_to_cart' | t }}</span>
+            {%- render 'loading-spinner' -%}
+          </button>
+        {%- endform -%}
+      </product-form>
     {%- elsif product.available -%}
       <a href="{{ product.url }}" class="bs-card__action" aria-label="{{ 'products.product.choose_options' | t }}: {{ product.title | escape }}">
         {{- plus_icon -}}

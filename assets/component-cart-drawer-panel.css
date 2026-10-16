@@ -1,0 +1,391 @@
+/* Cart drawer matched to the reference (DESIGN-SYSTEM.md 3.7): 540px white panel sliding in from the right
+   over a black 0.4 backdrop, free shipping bar, image + details line items, note, total and a button pair.
+   Loaded after component-cart-drawer.css and overrides Dawn's drawer. */
+
+cart-drawer {
+  --cd-text: #1e1e1e;
+  --cd-muted: rgba(30, 30, 30, 0.75);
+  --cd-line: #e5e5e5;
+  --cd-ease: cubic-bezier(0.25, 0.74, 0.22, 0.99);
+  --cd-duration: 0.4s;
+}
+
+/* ---------- Backdrop and panel ---------- */
+cart-drawer.drawer {
+  background: transparent;
+  transition: visibility var(--cd-duration) ease;
+}
+
+cart-drawer .cart-drawer .cart-drawer__overlay {
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity var(--cd-duration) ease;
+}
+
+cart-drawer.active .cart-drawer__overlay {
+  opacity: 1;
+}
+
+cart-drawer .cart-drawer .drawer__inner {
+  width: 54rem;
+  max-width: 100vw;
+  padding: 0 2rem;
+  border: 0;
+  background: #fff;
+  color: var(--cd-text);
+  font-family: var(--font-nav-family, inherit);
+  letter-spacing: 0;
+  transition: transform var(--cd-duration) var(--cd-ease);
+}
+
+@media screen and (min-width: 750px) {
+  cart-drawer .cart-drawer .drawer__inner {
+    padding: 0 4rem;
+  }
+}
+
+/* Round close button following the pointer over the backdrop (mouse only) */
+.cart-drawer__cursor {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  cart-drawer .cart-drawer .cart-drawer__overlay {
+    cursor: none;
+  }
+
+  .cart-drawer__cursor {
+    position: absolute;
+    top: -2rem;
+    left: -2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--cd-text);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform var(--cd-duration) var(--cd-ease), opacity 0.3s ease;
+  }
+
+  .cart-drawer__cursor.is-visible {
+    opacity: 1;
+  }
+
+  .cart-drawer__cursor svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+}
+
+/* ---------- Header ---------- */
+cart-drawer .cart-drawer .drawer__header {
+  align-items: center;
+  padding: 2.4rem 0 1.6rem;
+  border-bottom: 0.1rem solid var(--cd-line);
+}
+
+cart-drawer .cart-drawer .drawer__heading,
+cart-drawer .cart-drawer .cart__empty-text {
+  margin: 0;
+  color: var(--cd-text);
+  font-family: var(--cart-heading-font, var(--font-heading-family));
+  font-weight: var(--cart-heading-weight, 600);
+  font-size: 3.1rem;
+  line-height: 1.3;
+  letter-spacing: -0.093rem;
+}
+
+cart-drawer .cart-drawer .drawer__close {
+  color: var(--cd-text);
+}
+
+/* Icon centred where the reference has it: 42px from the top, 17px in from the panel padding */
+cart-drawer .cart-drawer .drawer__header .drawer__close {
+  top: 2rem;
+  right: -0.5rem;
+}
+
+cart-drawer .cart-drawer .drawer__close .svg-wrapper {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+/* ---------- Free shipping ---------- */
+.cart-drawer__shipping {
+  padding: 1.6rem 0;
+  border-bottom: 0.1rem solid var(--cd-line);
+}
+
+.cart-drawer__shipping-text {
+  margin: 0 0 1rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.42;
+}
+
+.cart-drawer__shipping-bar {
+  height: 0.4rem;
+  overflow: hidden;
+  border-radius: 0.6rem;
+  background: rgba(30, 30, 30, 0.1);
+}
+
+.cart-drawer__shipping-bar span {
+  display: block;
+  height: 100%;
+  border-radius: 0.6rem;
+  background: #0f61ff;
+  transition: width var(--cd-duration) var(--cd-ease);
+}
+
+/* ---------- Line items ---------- */
+cart-drawer .cart-drawer .cart-items thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+cart-drawer .cart-drawer .cart-item {
+  position: relative;
+  grid-template: auto auto / 8.7rem minmax(0, 1fr);
+  column-gap: 2rem;
+  row-gap: 1rem;
+  margin: 0;
+  padding: 1.6rem 4.4rem 1.6rem 0;
+}
+
+cart-drawer .cart-drawer .cart-items td {
+  padding: 0;
+}
+
+cart-drawer .cart-drawer .cart-item > td + td {
+  padding-left: 0;
+}
+
+cart-drawer .cart-drawer .cart-item__media {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  width: 8.7rem;
+}
+
+cart-drawer .cart-drawer .cart-item__image {
+  width: 8.7rem;
+  height: 10.8rem;
+  max-width: none;
+  border-radius: 1rem;
+  object-fit: contain;
+}
+
+cart-drawer .cart-drawer .cart-item__details {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+cart-drawer .cart-drawer .cart-item__name {
+  color: var(--cd-text);
+  font-family: inherit;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.42;
+  letter-spacing: 0;
+  text-decoration: none;
+}
+
+cart-drawer .cart-drawer .cart-item__name:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+cart-drawer .cart-drawer .cart-item__details > * + * {
+  margin-top: 0;
+}
+
+cart-drawer .cart-drawer .product-option,
+cart-drawer .cart-drawer .cart-item__details dl {
+  margin: 0;
+  color: var(--cd-text);
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.42;
+  letter-spacing: 0;
+}
+
+cart-drawer .cart-drawer .cart-item__old-price {
+  color: var(--cd-muted);
+}
+
+/* The reference shows the unit price only */
+cart-drawer .cart-drawer .cart-item__totals {
+  display: none;
+}
+
+cart-drawer .cart-drawer .cart-items .cart-item__quantity {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+cart-drawer .cart-drawer .cart-item__quantity-wrapper {
+  align-items: center;
+}
+
+cart-drawer .cart-drawer .quantity {
+  --inputs-radius: 0.4rem;
+  --inputs-radius-outset: 0.5rem;
+  --inputs-border-width: 0.1rem;
+  --inputs-border-opacity: 0.12;
+  --color-foreground: 30, 30, 30;
+  width: 11.2rem;
+  min-height: 4rem;
+}
+
+cart-drawer .cart-drawer .quantity__input {
+  font-family: inherit;
+  font-size: 1.5rem;
+  opacity: 1;
+}
+
+cart-drawer .cart-drawer .quantity__button {
+  width: 3.6rem;
+}
+
+/* Remove: a trash icon at the top right of the item */
+cart-drawer .cart-drawer .cart-item cart-remove-button {
+  position: absolute;
+  top: 1.4rem;
+  right: -0.2rem;
+  display: block;
+  margin: 0;
+}
+
+cart-drawer cart-remove-button .button.button--tertiary {
+  --btn-bg: transparent;
+  --btn-fg: var(--cd-muted);
+  --btn-border: transparent;
+  --btn-fill: transparent;
+  --btn-fill-fg: var(--cd-text);
+  min-width: 4.4rem;
+  min-height: 4.4rem;
+  padding: 0;
+}
+
+cart-drawer cart-remove-button .svg-wrapper {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+/* ---------- Footer ---------- */
+cart-drawer .cart-drawer .drawer__footer {
+  padding: 0 0 2.8rem;
+  border-top: 0.1rem solid var(--cd-line);
+}
+
+cart-drawer .cart-drawer .drawer__footer > details {
+  margin-top: 0;
+  border-bottom: 0.1rem solid var(--cd-line);
+}
+
+cart-drawer .cart-drawer .drawer__footer summary {
+  padding: 1.2rem 0;
+}
+
+cart-drawer .cart-drawer .drawer__footer summary .summary__title {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.42;
+  letter-spacing: 0;
+  color: var(--cd-text);
+}
+
+.cart-drawer__note-icon {
+  flex-shrink: 0;
+  width: 1.8rem;
+  height: 1.8rem;
+  color: var(--cd-muted);
+}
+
+cart-drawer .cart-drawer .drawer__footer > details + .cart-drawer__footer {
+  padding-top: 1.4rem;
+}
+
+cart-drawer .cart-drawer .totals {
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+}
+
+cart-drawer .cart-drawer .totals__total {
+  margin: 0;
+  font-family: inherit;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.42;
+  letter-spacing: 0;
+  color: var(--cd-text);
+}
+
+cart-drawer .cart-drawer .totals__total-value {
+  margin: 0;
+  color: var(--cd-text);
+  font-family: var(--cart-heading-font, var(--font-heading-family));
+  font-weight: var(--cart-heading-weight, 600);
+  font-size: 3.1rem;
+  line-height: 1.3;
+  letter-spacing: -0.093rem;
+}
+
+cart-drawer .cart-drawer .tax-note {
+  display: block;
+  margin: 0.2rem 0 0;
+  padding: 0.8rem 1.2rem;
+  border-radius: 0.6rem;
+  background: #f6f6f6;
+  color: var(--cd-text);
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+/* View cart (secondary) + Check out (primary), side by side */
+cart-drawer .cart-drawer .cart__ctas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin-top: 1.4rem;
+  padding-top: 2rem;
+  border-top: 0.1rem solid var(--cd-line);
+}
+
+cart-drawer .cart-drawer .cart__ctas .button {
+  width: 100%;
+  min-width: 0;
+  min-height: 5.8rem;
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+/* ---------- Empty cart ---------- */
+cart-drawer .cart-drawer .drawer__inner-empty .button {
+  min-height: 5.3rem;
+  padding: 0 3.2rem;
+  font-size: 1.6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  cart-drawer .cart-drawer .drawer__inner,
+  cart-drawer .cart-drawer .cart-drawer__overlay,
+  .cart-drawer__cursor,
+  .cart-drawer__shipping-bar span {
+    transition: none;
+  }
+}

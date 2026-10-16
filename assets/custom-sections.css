@@ -559,10 +559,23 @@ a.category-panel__category-link:hover {
 }
 
 .bs-card__form {
+  display: block;
   margin: 0;
 }
 
+/* Adding to cart: Dawn's spinner replaces the plus icon */
+.bs-card__action .loading__spinner {
+  position: absolute;
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.bs-card__action.loading > svg {
+  visibility: hidden;
+}
+
 .bs-card__action {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;

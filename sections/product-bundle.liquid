@@ -182,17 +182,29 @@
       const error = this.querySelector('[data-bundle-error]');
       error.hidden = true;
       button.disabled = true;
+      // With the cart drawer, ask for its sections in the same request and open it; otherwise go to the cart page
+      const drawer = document.querySelector('cart-drawer');
       try {
         const response = await fetch(this.dataset.cartAddUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({ items: [...this.items].map(([id, item]) => ({ id: Number(id), quantity: item.quantity })) }),
+          body: JSON.stringify({
+            items: [...this.items].map(([id, item]) => ({ id: Number(id), quantity: item.quantity })),
+            ...(drawer && {
+              sections: drawer.getSectionsToRender().map((section) => section.id),
+              sections_url: window.location.pathname,
+            }),
+          }),
         });
-        if (!response.ok) {
-          const data = await response.json().catch(() => ({}));
-          throw new Error(data.description || data.message || this.dataset.error);
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.description || data.message || this.dataset.error);
+        if (!drawer) {
+          window.location.href = this.dataset.cartUrl;
+          return;
         }
-        window.location.href = this.dataset.cartUrl;
+        drawer.classList.remove('is-empty');
+        drawer.renderContents(data);
+        button.disabled = false;
       } catch (e) {
         // Network failures (TypeError) get the store's cart error text; Shopify errors keep their own message.
         error.textContent = e instanceof TypeError ? this.dataset.error : e.message || this.dataset.error;

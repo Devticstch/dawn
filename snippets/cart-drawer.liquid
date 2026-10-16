@@ -7,6 +7,7 @@
 
 {{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-cart-drawer-panel.css' | asset_url | stylesheet_tag }}
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
@@ -15,11 +16,21 @@
   .drawer {
     visibility: hidden;
   }
+
+  {{ settings.cart_drawer_heading_font | font_face: font_display: 'swap' }}
+
+  cart-drawer {
+    --cart-heading-font: {{ settings.cart_drawer_heading_font.family }}, {{ settings.cart_drawer_heading_font.fallback_families }};
+    --cart-heading-weight: {{ settings.cart_drawer_heading_font.weight }};
+  }
 </style>
 
 <cart-drawer class="drawer{% if cart == empty %} is-empty{% endif %}">
   <div id="CartDrawer" class="cart-drawer">
-    <div id="CartDrawer-Overlay" class="cart-drawer__overlay"></div>
+    <div id="CartDrawer-Overlay" class="cart-drawer__overlay">
+      {%- comment -%} Round close button that follows the pointer over the dimmed page (desktop); see the script below {%- endcomment -%}
+      <span class="cart-drawer__cursor" aria-hidden="true">{{- 'icon-close.svg' | inline_asset_content -}}</span>
+    </div>
     <div
       class="drawer__inner gradient color-{{ settings.cart_color_scheme }}"
       role="dialog"
@@ -74,6 +85,31 @@
           </span>
         </button>
       </div>
+      {%- liquid
+        # Free shipping progress; the threshold is a theme setting in the store currency
+        assign free_shipping_threshold = settings.cart_free_shipping_threshold | default: 0 | times: 100
+        assign show_free_shipping = false
+        if cart != empty and free_shipping_threshold > 0 and cart.currency.iso_code == shop.currency
+          assign show_free_shipping = true
+          assign free_shipping_remaining = free_shipping_threshold | minus: cart.total_price
+          assign free_shipping_amount = free_shipping_remaining | money
+          assign free_shipping_percent = cart.total_price | times: 100 | divided_by: free_shipping_threshold | at_most: 100
+        endif
+      -%}
+      {%- if show_free_shipping -%}
+        <div class="cart-drawer__shipping" role="status">
+          <p class="cart-drawer__shipping-text">
+            {%- if free_shipping_remaining > 0 -%}
+              {{ 'sections.cart.free_shipping_remaining_html' | t: amount: free_shipping_amount }}
+            {%- else -%}
+              {{ 'sections.cart.free_shipping_unlocked' | t }}
+            {%- endif -%}
+          </p>
+          <div class="cart-drawer__shipping-bar" aria-hidden="true">
+            <span style="width: {{ free_shipping_percent }}%;"></span>
+          </div>
+        </div>
+      {%- endif -%}
       <cart-drawer-items
         view-event-payload="{{ cart | standard_event_data: 'view', context: 'dialog' | escape }}"
         view-event-trigger="manual"
@@ -488,12 +524,13 @@
         </form>
       </cart-drawer-items>
       <div class="drawer__footer">
-        {%- if settings.show_cart_note -%}
+        {%- comment -%} The drawer always offers the note (reference design); the cart page keeps following the cart note setting {%- endcomment -%}
+        {%- if cart != empty -%}
           <details id="Details-CartDrawer">
             <summary>
               <span class="summary__title">
-                {{ 'sections.cart.note' | t }}
-                {{- 'icon-caret.svg' | inline_asset_content -}}
+                <svg class="cart-drawer__note-icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true" focusable="false"><rect x="0.6" y="0.6" width="16.8" height="16.8" rx="4"/><path d="M9 5.5v7M5.5 9h7"/></svg>
+                {{ 'sections.cart.add_note' | t }}
               </span>
             </summary>
             <cart-note class="cart__note field">
@@ -575,6 +612,9 @@
         <!-- CTAs -->
 
         <div class="cart__ctas" {{ block.shopify_attributes }}>
+          <a href="{{ routes.cart_url }}" class="button button--secondary cart-drawer__view-cart">
+            {{- 'general.cart.view_empty_cart' | t -}}
+          </a>
           <button
             type="submit"
             id="CartDrawer-Checkout"
@@ -592,3 +632,20 @@
     </div>
   </div>
 </cart-drawer>
+
+<script>
+  // Cart drawer: a round close button follows the mouse over the dimmed page (the overlay still closes on click)
+  (() => {
+    const drawer = document.querySelector('cart-drawer');
+    if (!drawer) return;
+    const cursor = () => drawer.querySelector('.cart-drawer__cursor');
+    drawer.addEventListener('pointermove', (event) => {
+      const el = cursor();
+      if (!el) return;
+      const onOverlay = event.pointerType === 'mouse' && event.target.closest('#CartDrawer-Overlay');
+      el.classList.toggle('is-visible', Boolean(onOverlay));
+      if (onOverlay) el.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`;
+    });
+    drawer.addEventListener('pointerleave', () => cursor()?.classList.remove('is-visible'));
+  })();
+</script>
