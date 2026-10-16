@@ -399,18 +399,6 @@
         "padding_bottom": 56
       }
     },
-    "signup_banner": {
-      "type": "signup-banner",
-      "settings": {
-        "heading": "Would you like 10% off?",
-        "text": "<p>Also be the first to know about new drops and rewards.<br>Opt-in for Tech2c updates via email.</p>",
-        "button_label": "Yes, Sign Me Up",
-        "background": "#fecad6",
-        "text_color": "#000000",
-        "padding_top": 64,
-        "padding_bottom": 64
-      }
-    },
     "logo_list": {
       "type": "logo-list",
       "disabled": true,
@@ -589,53 +577,6 @@
         "padding_bottom": 50
       }
     },
-    "editorial_style": {
-      "type": "image-with-text",
-      "settings": {
-        "image": "shopify://shop_images/image_93efd095-f9ba-4f89-92f8-1f5a8e675338.png",
-        "height": "adapt",
-        "desktop_image_width": "large",
-        "layout": "text_first",
-        "image_behavior": "none",
-        "content_layout": "no-overlap",
-        "desktop_content_position": "middle",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "section_color_scheme": "scheme-3",
-        "color_scheme": "scheme-3",
-        "padding_top": 56,
-        "padding_bottom": 56
-      },
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Make it yours",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Build an everyday setup around the pieces you actually use.</p>",
-            "text_style": "body"
-          }
-        },
-        "button": {
-          "type": "button",
-          "settings": {
-            "button_label": "Shop the collection",
-            "button_link": "/collections/all",
-            "button_style_secondary": false
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text",
-        "button"
-      ]
-    },
     "info_cards": {
       "type": "info-cards",
       "blocks": {
@@ -712,8 +653,6 @@
     "perks",
     "reviews_scatter",
     "reviews_highlight",
-    "signup_banner",
-    "editorial_style",
     "logo_list"
   ]
 }
