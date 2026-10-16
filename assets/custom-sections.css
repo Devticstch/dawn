@@ -4106,6 +4106,7 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
 }
 
 .prv__count,
+.prv__empty,
 .prv__hint {
   margin: 0.4rem 0 0;
   color: rgba(30, 30, 30, 0.65);
@@ -4115,6 +4116,7 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   letter-spacing: 0;
 }
 
+.prv__empty,
 .prv__hint {
   margin: 0;
 }

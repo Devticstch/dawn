@@ -18,9 +18,9 @@
 
 {%- comment -%}
   Product reviews: the average rating from the review metafields beside the review app's own block
-  (list, photos, write-a-review). Renders nothing until reviews or an app block exist.
+  (list, photos, write-a-review). Without either it shows the empty-state text.
 {%- endcomment -%}
-{%- if rating != blank or app_blocks.size > 0 or request.design_mode -%}
+{%- if product -%}
   <div
     class="prv cs-section"
     style="--cs-bg: {{ section.settings.background }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px;"
@@ -69,11 +69,16 @@
               {% render block %}
             {%- endfor -%}
           </div>
-        {%- elsif request.design_mode and rating == blank -%}
-          <p class="prv__hint">
-            Theme editor only: install a product reviews app, then add its reviews block to this section. Ratings
-            show here once the app has reviews.
-          </p>
+        {%- elsif rating == blank -%}
+          {%- if section.settings.empty_text != blank -%}
+            <p class="prv__empty">{{ section.settings.empty_text | escape }}</p>
+          {%- endif -%}
+          {%- if request.design_mode -%}
+            <p class="prv__hint">
+              Theme editor only: install a product reviews app, then add its reviews block to this section. Ratings
+              show here once the app has reviews.
+            </p>
+          {%- endif -%}
         {%- endif -%}
       </div>
     </div>
@@ -91,9 +96,10 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Shows the product's average rating from your reviews app and the app's own reviews block. Hidden on the store until there are reviews or an app block."
+      "content": "Shows the product's average rating from your reviews app and the app's own reviews block. Without reviews or an app block it shows the empty-state text."
     },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Customer Reviews" },
+    { "type": "text", "id": "empty_text", "label": "Text when there are no reviews", "default": "No reviews yet." },
     { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "instrument_sans_n6" },
     { "type": "color", "id": "background", "label": "Background", "default": "#F6F6F6" },
     { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
