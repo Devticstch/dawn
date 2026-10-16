@@ -1,7 +1,7 @@
 {%- style -%}
   {{ section.settings.heading_font | font_face: font_display: 'swap' }}
 
-  #shopify-section-{{ section.id }} .pa__heading {
+  #shopify-section-{{ section.id }} :is(.pa__eyebrow, .pa__heading) {
     font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
     font-weight: {{ section.settings.heading_font.weight }};
   }

@@ -3941,14 +3941,13 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   padding-inline: 1.5rem;
 }
 
+/* Same as the site's section titles (h2, e.g. Best Sellers): 24 / 32 / 42px; font set by the section */
 .pa__eyebrow {
   margin: 0;
   color: rgb(30, 30, 30);
-  font-family: var(--font-nav-family, inherit);
-  font-size: 1.6rem;
-  font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: -0.016rem;
+  font-size: 2.4rem;
+  line-height: 1.2;
+  letter-spacing: 0;
 }
 
 .pa__heading {
@@ -4021,6 +4020,10 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
     padding-inline: 5rem;
   }
 
+  .pa__eyebrow {
+    font-size: 3.2rem;
+  }
+
   .pa__specs {
     padding: 1.2rem 3.6rem;
   }
@@ -4039,6 +4042,10 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
 
   .pa__heading {
     font-size: 3.1rem;
+  }
+
+  .pa__eyebrow {
+    font-size: 4.2rem;
   }
 }
 
