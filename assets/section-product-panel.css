@@ -15,9 +15,12 @@ product-info.product-panel-section {
   background: var(--pp-layer);
 }
 
-/* A 1200px card, as in the reference screenshot (Dawn's page width leaves 1100px) */
+/* Same content width as the other sections: the reference container (DESIGN-SYSTEM.md 2.1),
+   max 1920px with a gutter from 22px at 800px wide to 164px at 1900px */
 .product-panel-section .page-width {
-  max-width: 130rem;
+  --cs-gutter: clamp(2.2rem, 12.909vw - 8.127rem, 16.4rem);
+  max-width: 192rem;
+  padding-inline: var(--cs-gutter);
 }
 
 /* ---------- Card ---------- */
