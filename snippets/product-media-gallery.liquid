@@ -154,6 +154,39 @@
       </button>
     </div>
   </slider-component>
+  {%- if section.settings.info_style == 'panel' -%}
+    {%- comment -%} Panel style (desktop): previous/next step through the thumbnails, zoom opens the active media's lightbox. See product-panel.js {%- endcomment -%}
+    <product-gallery-nav class="product-gallery-nav quick-add-hidden">
+      {%- if media_count > 1 -%}
+        <button
+          type="button"
+          class="product-gallery-nav__button product-gallery-nav__button--prev"
+          data-gallery="previous"
+          aria-label="{{ 'general.slider.previous_slide' | t }}"
+        >
+          <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
+        </button>
+        <button
+          type="button"
+          class="product-gallery-nav__button product-gallery-nav__button--next"
+          data-gallery="next"
+          aria-label="{{ 'general.slider.next_slide' | t }}"
+        >
+          <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
+        </button>
+      {%- endif -%}
+      {%- if section.settings.image_zoom != 'none' and product.media.size > 0 -%}
+        <button
+          type="button"
+          class="product-gallery-nav__button product-gallery-nav__button--zoom"
+          data-gallery="zoom"
+          aria-label="{{ 'products.product.media.open_media' | t: index: 1 }}"
+        >
+          <span class="svg-wrapper">{{- 'icon-zoom.svg' | inline_asset_content -}}</span>
+        </button>
+      {%- endif -%}
+    </product-gallery-nav>
+  {%- endif -%}
   {%- if first_3d_model -%}
     <button
       class="button button--full-width product__xr-button"

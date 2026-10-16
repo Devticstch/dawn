@@ -15,7 +15,7 @@
         "byline": {
           "type": "byline",
           "settings": {
-            "prefix": "By"
+            "prefix": ""
           }
         },
         "price": {
@@ -119,21 +119,34 @@
             "heading": "About the artist",
             "button_label": "Browse Artist Gallery"
           }
+        },
+        "inventory": {
+          "type": "inventory",
+          "settings": {}
+        },
+        "complementary": {
+          "type": "complementary",
+          "settings": {
+            "block_heading": "Buy it with",
+            "enable_quick_add": true
+          }
         }
       },
       "block_order": [
-        "rating",
-        "title",
-        "product_type",
         "byline",
+        "title",
         "price",
-        "more_designs",
+        "rating",
         "card_2",
-        "specs",
         "variant_picker",
         "quantity_selector",
+        "inventory",
         "buy_buttons",
+        "complementary",
         "card_3",
+        "product_type",
+        "more_designs",
+        "specs",
         "warranty",
         "card_4",
         "description",
@@ -158,7 +171,7 @@
         "enable_video_looping": false,
         "padding_top": 28,
         "padding_bottom": 36,
-        "info_style": "cards",
+        "info_style": "panel",
         "show_sticky_bar": true
       }
     },

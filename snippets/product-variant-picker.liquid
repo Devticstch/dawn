@@ -50,13 +50,30 @@
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
-        <fieldset class="js product-form__input product-form__input--pill">
-          <legend class="form__label">{{ option.name }}</legend>
+        {%- liquid
+          # Panel product style: the colour option shows each variant's image as a tile
+          assign show_tiles = false
+          assign option_name = option.name | downcase
+          if section.settings.info_style == 'panel'
+            if option_name == 'color' or option_name == 'colour'
+              assign show_tiles = true
+            endif
+          endif
+        -%}
+        <fieldset class="js product-form__input product-form__input--pill{% if show_tiles %} product-form__input--tiles{% endif %}">
+          {%- if section.settings.info_style == 'panel' -%}
+            <legend class="form__label">
+              {{ option.name }}: <span data-selected-value>{{- option.selected_value -}}</span>
+            </legend>
+          {%- else -%}
+            <legend class="form__label">{{ option.name }}</legend>
+          {%- endif -%}
           {% render 'product-variant-options',
             product: product,
             option: option,
             block: block,
-            picker_type: picker_type
+            picker_type: picker_type,
+            show_tiles: show_tiles
           %}
         </fieldset>
       {%- else -%}

@@ -6,6 +6,7 @@
   - option: {Object} current product_option object.
   - block: {Object} block object.
   - picker_type: {String} type of picker to dispay
+  - show_tiles: {Boolean} button picker shows each value's variant image as a tile (optional)
 
 
   Usage:
@@ -95,8 +96,21 @@
       {% endif %}
       {{ input_dataset }}
     >
-    <label for="{{ input_id }}">
-      {{ value -}}
+    {%- assign tile_media = null -%}
+    {%- if show_tiles -%}
+      {%- assign tile_media = value.variant.featured_media -%}
+    {%- endif -%}
+    <label for="{{ input_id }}"{% if tile_media %} class="product-form__tile" title="{{ escaped_value }}"{% endif %}>
+      {%- if tile_media -%}
+        {{
+          tile_media.preview_image
+          | image_url: width: 120
+          | image_tag: loading: 'lazy', widths: '60, 120', sizes: '56px', alt: ''
+        }}
+        <span class="visually-hidden">{{ value }}</span>
+      {%- else -%}
+        {{ value -}}
+      {%- endif -%}
       {{ label_unavailable }}
     </label>
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}

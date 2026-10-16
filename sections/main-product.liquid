@@ -1,6 +1,6 @@
 <product-info
   id="MainProduct-{{ section.id }}"
-  class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
+  class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}{% if section.settings.info_style == 'panel' %} product-panel-section{% endif %}"
   data-section="{{ section.id }}"
   data-product-id="{{ product.id }}"
   data-update-url="true"
@@ -10,8 +10,12 @@
   {% endif %}
 >
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
-  {%- if section.settings.info_style == 'cards' -%}
+  {%- if section.settings.info_style == 'cards' or section.settings.info_style == 'panel' -%}
     {{ 'section-product-bold.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
+  {%- if section.settings.info_style == 'panel' -%}
+    {{ 'section-product-panel.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'product-panel.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
@@ -29,6 +33,15 @@
   {%- endif -%}
 
   {%- style -%}
+    {%- if section.settings.info_style == 'panel' -%}
+      {{ section.settings.panel_heading_font | font_face: font_display: 'swap' }}
+
+      #MainProduct-{{ section.id }} {
+        --pp-heading-font: {{ section.settings.panel_heading_font.family }}, {{ section.settings.panel_heading_font.fallback_families }};
+        --pp-heading-weight: {{ section.settings.panel_heading_font.weight }};
+      }
+    {%- endif -%}
+
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
       padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
@@ -78,7 +91,7 @@
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <product-component view-event-payload="{{ product | standard_event_data: 'view', context: 'page' | escape }}">
     <div class="page-width">
-      <div class="product{% if section.settings.info_style == 'cards' %} product--bold{% endif %} product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
+      <div class="product{% if section.settings.info_style == 'cards' %} product--bold{% elsif section.settings.info_style == 'panel' %} product--bold product--panel{% endif %} product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
         <div class="grid__item product__media-wrapper">
           {% render 'product-media-gallery', variant_images: variant_images %}
         </div>
@@ -2499,10 +2512,17 @@
       "label": "Product info style",
       "options": [
         { "value": "standard", "label": "Standard" },
-        { "value": "cards", "label": "Cards (bold)" }
+        { "value": "cards", "label": "Cards (bold)" },
+        { "value": "panel", "label": "Panel (one white card)" }
       ],
       "default": "standard",
-      "info": "Cards groups blocks into white cards. Add \"Card divider\" blocks to start a new card"
+      "info": "Cards groups blocks into white cards. Add \"Card divider\" blocks to start a new card. Panel puts gallery and info in one white card; Rating sits beside Price"
+    },
+    {
+      "type": "font_picker",
+      "id": "panel_heading_font",
+      "label": "Panel: title font",
+      "default": "instrument_sans_n6"
     },
     {
       "type": "checkbox",

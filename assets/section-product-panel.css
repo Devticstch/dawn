@@ -1,0 +1,544 @@
+/* Product page "panel" style: gallery and info in one white card on the layer grey, a thumbnail rail
+   with prev/next and zoom buttons, vendor eyebrow, price with rating, variant image tiles, side-by-side
+   buy buttons and a "Buy it with" list. Loaded after section-product-bold.css (.product--bold), which
+   still styles the extra blocks. Values follow DESIGN-SYSTEM.md (colors 1.1, type 1.2, radii 1.3, buttons 4). */
+
+.product-panel-section {
+  --pp-text: #1e1e1e;
+  --pp-muted: rgba(30, 30, 30, 0.65);
+  --pp-line: rgba(30, 30, 30, 0.1);
+  --pp-layer: #f6f6f6;
+  --pp-accent: #0f61ff;
+}
+
+product-info.product-panel-section {
+  background: var(--pp-layer);
+}
+
+/* ---------- Card ---------- */
+.product.product--panel {
+  margin: 0;
+  padding: 1.6rem;
+  border-radius: 2rem;
+  background: #fff;
+  color: var(--pp-text);
+}
+
+@media screen and (min-width: 750px) {
+  .product.product--panel {
+    padding: 2.4rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .product.product--panel {
+    padding: 4rem;
+  }
+
+  .product--panel .product__info-wrapper {
+    padding-left: 4rem;
+  }
+}
+
+/* ---------- Gallery ---------- */
+.product--panel .thumbnail {
+  border: 0;
+  border-radius: 0.8rem;
+  background: transparent;
+}
+
+.product--panel .thumbnail[aria-current] {
+  border: 0;
+}
+
+@media screen and (min-width: 990px) {
+  .product--panel.product--thumbnail media-gallery {
+    grid-template-columns: 6.4rem minmax(0, 1fr);
+    column-gap: 4rem;
+  }
+
+  .product--panel.product--thumbnail .thumbnail-list {
+    gap: 0.8rem;
+  }
+
+  .product--panel.product--thumbnail .thumbnail-list__item {
+    position: relative;
+    width: 6.4rem;
+    padding-bottom: 0.8rem;
+  }
+
+  /* Active thumbnail: a dark line under it */
+  .product--panel.product--thumbnail .thumbnail-list__item::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0.2rem;
+    border-radius: 0.2rem;
+    background: var(--pp-text);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .product--panel.product--thumbnail .thumbnail-list__item:has(> .thumbnail[aria-current])::after {
+    opacity: 1;
+  }
+
+  /* Dawn's corner zoom icon gives way to the round zoom button */
+  .product--panel .product__media-icon {
+    display: none;
+  }
+
+  .product--panel .product-gallery-nav {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: stretch;
+    position: relative;
+    /* Above Dawn's full-image lightbox toggle (z-index 2) */
+    z-index: 3;
+    pointer-events: none;
+  }
+}
+
+.product-gallery-nav {
+  display: none;
+}
+
+@media screen and (min-width: 990px) {
+  .product-gallery-nav {
+    display: block;
+  }
+}
+
+.product-gallery-nav__button {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--pp-layer);
+  color: var(--pp-text);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background-color 0.3s cubic-bezier(0.31, 0.41, 0.38, 0.96), color 0.3s cubic-bezier(0.31, 0.41, 0.38, 0.96);
+}
+
+.product-gallery-nav__button:hover {
+  background: var(--pp-accent);
+  color: #fff;
+}
+
+.product-gallery-nav__button:focus-visible {
+  outline: 0.2rem solid var(--pp-accent);
+  outline-offset: 0.2rem;
+}
+
+.product-gallery-nav__button .svg-wrapper,
+.product-gallery-nav__button svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.product-gallery-nav__button--prev,
+.product-gallery-nav__button--next {
+  top: 50%;
+  margin-top: -2.2rem;
+}
+
+.product-gallery-nav__button--prev {
+  left: 0;
+}
+
+.product-gallery-nav__button--prev svg {
+  transform: rotate(90deg);
+}
+
+.product-gallery-nav__button--next {
+  right: 0;
+}
+
+.product-gallery-nav__button--next svg {
+  transform: rotate(-90deg);
+}
+
+.product-gallery-nav__button--zoom {
+  right: 0;
+  bottom: 0;
+}
+
+/* ---------- Info column ---------- */
+.product--panel .product__info-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-auto-flow: row dense;
+  gap: 0;
+  font-family: var(--font-nav-family, inherit);
+  color: var(--pp-text);
+}
+
+/* Margins rather than a gap: blocks that render nothing (e.g. "Buy it with" before it loads) add no space */
+.product--panel .product__info-container > * {
+  grid-column: 1 / -1;
+  min-width: 0;
+  margin: 2.4rem 0 0;
+}
+
+.product--panel .product__info-container > :first-child {
+  margin-top: 0;
+}
+
+.product--panel .product__info-container > .product__inventory.visibility-hidden,
+.product--panel .product__info-container > div:has(> .installment):not(:has(shopify-payment-terms)) {
+  display: none;
+}
+
+.product--panel .product-bold__byline {
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--pp-muted);
+}
+
+.product--panel .product-bold__byline a {
+  text-decoration: none;
+}
+
+.product--panel .product-bold__byline a:hover {
+  text-decoration: underline;
+}
+
+.product--panel .product-bold__byline + .product__title {
+  margin-top: 0.8rem;
+}
+
+.product--panel .product__title h1 {
+  margin: 0;
+  font-family: var(--pp-heading-font, var(--font-heading-family));
+  font-weight: var(--pp-heading-weight, 600);
+  font-size: 3.6rem;
+  line-height: 1.3;
+  letter-spacing: -0.05em;
+  color: var(--pp-text);
+}
+
+/* Price row: price left, rating right, divider below */
+.product--panel .product__info-container > [id^='price-'],
+.product--panel .product__info-container > .rating-wrapper {
+  margin-top: 1.6rem;
+  padding-bottom: 2.4rem;
+  border-bottom: 0.1rem solid var(--pp-line);
+}
+
+.product--panel .product__info-container:has(> .rating-wrapper) > [id^='price-'] {
+  grid-column: 1;
+}
+
+.product--panel .product__info-container > .rating-wrapper {
+  grid-column: 2;
+  align-self: stretch;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  padding-left: 1.6rem;
+}
+
+.product--panel .rating-text,
+.product--panel .rating-count {
+  margin: 0;
+  font-size: 1.4rem;
+  letter-spacing: 0;
+  color: var(--pp-muted);
+}
+
+.product--panel .price {
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--pp-text);
+}
+
+.product--panel .price .price-item--regular {
+  color: inherit;
+}
+
+.product--panel .price .badge {
+  border: 0;
+  border-radius: 1.6rem;
+  background: #da1e28;
+  color: #fff;
+  font-size: 1.4rem;
+}
+
+.product--panel .product__tax {
+  margin-top: 1.2rem;
+  font-size: 1.3rem;
+  color: var(--pp-muted);
+}
+
+/* ---------- Variant picker ---------- */
+.product--panel .product-form__input .form__label {
+  margin-bottom: 1.2rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--pp-muted);
+}
+
+.product--panel .product-form__input [data-selected-value] {
+  color: var(--pp-text);
+}
+
+.product--panel variant-selects .product-form__input + .product-form__input {
+  margin-top: 1.6rem;
+}
+
+.product--panel .product-form__input input[type='radio'] + label {
+  border: 0.1rem solid var(--pp-line);
+  font-family: inherit;
+  font-weight: 500;
+  color: var(--pp-text);
+}
+
+.product--panel .product-form__input input[type='radio']:checked + label {
+  border-color: var(--pp-text);
+  box-shadow: inset 0 0 0 0.05rem var(--pp-text);
+  color: var(--pp-text);
+}
+
+/* Variant image tiles (colour option) */
+.product--panel .product-form__input input[type='radio'] + label.product-form__tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 5.6rem;
+  height: 5.6rem;
+  margin: 0 0.8rem 0.8rem 0;
+  padding: 0.4rem;
+  border-radius: 0.8rem;
+  background: #fff;
+  vertical-align: top;
+}
+
+.product-form__tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.product--panel .product-form__input input[type='radio'].disabled + label.product-form__tile {
+  opacity: 0.4;
+}
+
+/* ---------- Quantity ---------- */
+.product--panel .product-form__quantity .form__label {
+  margin-bottom: 1.2rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--pp-muted);
+}
+
+.product--panel .product-form__quantity .quantity {
+  --inputs-radius: 10rem;
+  --inputs-radius-outset: 10rem;
+  --inputs-border-width: 0.1rem;
+  --inputs-border-opacity: 0.1;
+  --color-foreground: 30, 30, 30;
+  width: 13.6rem;
+  min-height: 4.8rem;
+}
+
+.product--panel .quantity__input {
+  font-family: inherit;
+  font-size: 1.5rem;
+  opacity: 1;
+}
+
+/* ---------- Stock status: green check ---------- */
+.product--panel .product__inventory {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--pp-text);
+}
+
+.product--panel .product__inventory .svg-wrapper {
+  position: relative;
+  flex-shrink: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.product--panel .product__inventory .svg-wrapper svg {
+  display: none;
+}
+
+.product--panel .product__inventory .svg-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 8.2l2.3 2.3 4.7-4.9'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 8.2l2.3 2.3 4.7-4.9'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* ---------- Buy buttons: primary blue + dark, side by side ---------- */
+/* Equal columns: a flex basis of 0 would still count each button's padding */
+.product--panel .product-form__buttons {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 1.4rem;
+  max-width: none;
+}
+
+.product--panel .product-form__buttons > * {
+  width: auto;
+  min-width: 0;
+  margin: 0;
+}
+
+.product--panel .shopify-payment-button__button--unbranded {
+  width: 100%;
+}
+
+.product--panel .product-form__submit,
+.product--panel .shopify-payment-button__button--unbranded {
+  min-height: 5.4rem;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* Dawn marks Add to cart secondary when Buy it now shows; here it stays the filled primary */
+.product--panel .product-form__submit.button--secondary {
+  --btn-bg: var(--btn-accent, #0f61ff);
+  --btn-fg: #fff;
+  --btn-border: var(--btn-bg);
+  --btn-fill: #fff;
+  --btn-fill-fg: var(--btn-bg);
+  --btn-hover-border: var(--btn-bg);
+}
+
+.product--panel .shopify-payment-button {
+  --btn-accent: #1e1e1e;
+}
+
+@media screen and (max-width: 749px) {
+  .product--panel .product-form__buttons {
+    grid-auto-flow: row;
+  }
+}
+
+/* ---------- "Buy it with" (complementary products) ---------- */
+.product--panel .product__info-container > product-recommendations {
+  margin-top: 0;
+}
+
+.product--panel .complementary-products .complementary-products__container {
+  margin-top: 2.4rem;
+}
+
+/* Dawn's container gap (1.3rem) separates the label and the list */
+.product--panel .complementary-products .summary__title {
+  margin-bottom: 0;
+  line-height: 1.4;
+}
+
+.product--panel .complementary-slide {
+  padding: 0;
+}
+
+.product--panel .complementary-products .accordion__title {
+  font-family: inherit;
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--pp-text);
+}
+
+.product--panel .complementary-slide > ul {
+  gap: 0;
+  border: 0.1rem solid var(--pp-line);
+  border-radius: 0.8rem;
+}
+
+.product--panel .complementary-slide > ul > li {
+  padding: 1.2rem 1.6rem;
+}
+
+.product--panel .complementary-slide > ul > li + li {
+  border-top: 0.1rem solid var(--pp-line);
+}
+
+/* Row: image, name and price, then the add button on the right */
+.product--panel .complementary-products__container .card--horizontal {
+  align-items: center;
+}
+
+.product--panel .complementary-products__container .card--horizontal > .card__content {
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto;
+  align-items: center;
+  column-gap: 1.2rem;
+  padding: 0;
+}
+
+.product--panel .complementary-products__container .card--horizontal > .card__content > .card__information {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.product--panel .complementary-products__container .card--horizontal > .card__content > .quick-add {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.product--panel .complementary-products__container .card--horizontal > .card__content > .card__badge {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+.product--panel .complementary-products__container .card__heading {
+  font-family: inherit;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.product--panel .complementary-products__container .price {
+  font-size: 1.4rem;
+  color: var(--pp-muted);
+}
+
+.product--panel .complementary-products__container .quick-add__submit {
+  width: auto;
+  min-height: 3.6rem;
+  padding: 0 1.6rem;
+  font-size: 1.3rem;
+}
+
+/* ---------- Extra blocks below: same type and colours ---------- */
+.product--panel .product-bold__info-heading {
+  font-family: var(--pp-heading-font, var(--font-heading-family));
+  font-weight: var(--pp-heading-weight, 600);
+}
+
+.product--panel .product-bold__spec-bar span.is-filled {
+  background: var(--pp-accent);
+}
+
+.product--panel .product__accordion {
+  border-bottom-color: var(--pp-line);
+}
+
+.product--panel .product__accordion .accordion__title {
+  font-family: inherit;
+  font-weight: 500;
+}
