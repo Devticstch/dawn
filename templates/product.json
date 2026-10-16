@@ -9,9 +9,6 @@
         "title": {
           "type": "title"
         },
-        "product_type": {
-          "type": "product_type"
-        },
         "byline": {
           "type": "byline",
           "settings": {
@@ -21,32 +18,8 @@
         "price": {
           "type": "price"
         },
-        "more_designs": {
-          "type": "more_designs",
-          "settings": {
-            "heading": "More Designs",
-            "limit": 12,
-            "link_label": "Expand"
-          }
-        },
         "card_2": {
           "type": "card_break"
-        },
-        "specs": {
-          "type": "spec_bars",
-          "settings": {
-            "segments": 6,
-            "label_1": "Impact Level",
-            "value_1": "4",
-            "note_1": "8.2ft | 2.5m",
-            "min_1": "Min.",
-            "max_1": "Max.",
-            "label_2": "Thickness",
-            "value_2": "2",
-            "note_2": "",
-            "min_2": "Slim",
-            "max_2": "Sturdy"
-          }
         },
         "variant_picker": {
           "type": "variant_picker",
@@ -63,61 +36,6 @@
           "settings": {
             "show_dynamic_checkout": true,
             "show_gift_card_recipient": true
-          }
-        },
-        "card_3": {
-          "type": "card_break"
-        },
-        "warranty": {
-          "type": "info_card",
-          "settings": {
-            "heading": "Product Warranty",
-            "icon": "shield",
-            "text": "<p>Up to <strong>24 months</strong> for club members.<br>6 months standard coverage.</p><p>Coverage varies by product and membership status. <a href=\"/policies/refund-policy\" title=\"Refund policy\">Terms apply</a>.</p>"
-          }
-        },
-        "card_4": {
-          "type": "card_break"
-        },
-        "description": {
-          "type": "description"
-        },
-        "details": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Product Details",
-            "icon": "none",
-            "content": "<p>Add materials, dimensions and compatibility details here.</p>"
-          }
-        },
-        "shipping": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Shipping & Returns",
-            "icon": "none",
-            "content": "<p>Free shipping on orders over $40. 10-day no questions asked returns and exchanges.</p>"
-          }
-        },
-        "faqs": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "FAQs",
-            "icon": "none",
-            "content": "<p>Add your frequently asked questions here.</p>"
-          }
-        },
-        "features": {
-          "type": "feature_grid",
-          "settings": {}
-        },
-        "card_5": {
-          "type": "card_break"
-        },
-        "about": {
-          "type": "link_card",
-          "settings": {
-            "heading": "About the artist",
-            "button_label": "Browse Artist Gallery"
           }
         },
         "inventory": {
@@ -142,20 +60,7 @@
         "quantity_selector",
         "inventory",
         "buy_buttons",
-        "complementary",
-        "card_3",
-        "product_type",
-        "more_designs",
-        "specs",
-        "warranty",
-        "card_4",
-        "description",
-        "details",
-        "shipping",
-        "faqs",
-        "features",
-        "card_5",
-        "about"
+        "complementary"
       ],
       "settings": {
         "enable_sticky_info": false,

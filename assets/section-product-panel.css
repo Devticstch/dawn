@@ -1,7 +1,7 @@
 /* Product page "panel" style: gallery and info in one white card on the layer grey, a thumbnail rail
    with prev/next and zoom buttons, vendor eyebrow, price with rating, variant image tiles, side-by-side
-   buy buttons and a "Buy it with" list. Loaded after section-product-bold.css (.product--bold), which
-   still styles the extra blocks. Values follow DESIGN-SYSTEM.md (colors 1.1, type 1.2, radii 1.3, buttons 4). */
+   buy buttons and a "Buy it with" list. Loaded after section-product-bold.css (.product--bold), whose
+   gallery rail and variant pills it builds on. Values follow DESIGN-SYSTEM.md (colors 1.1, type 1.2, radii 1.3, buttons 4). */
 
 .product-panel-section {
   --pp-text: #1e1e1e;
@@ -13,6 +13,11 @@
 
 product-info.product-panel-section {
   background: var(--pp-layer);
+}
+
+/* A 1200px card, as in the reference screenshot (Dawn's page width leaves 1100px) */
+.product-panel-section .page-width {
+  max-width: 130rem;
 }
 
 /* ---------- Card ---------- */
@@ -144,10 +149,21 @@ product-info.product-panel-section {
   height: 1.4rem;
 }
 
+/* Previous/next show while the gallery is hovered or holds keyboard focus */
 .product-gallery-nav__button--prev,
 .product-gallery-nav__button--next {
   top: 50%;
   margin-top: -2.2rem;
+  opacity: 0;
+  transition: opacity 0.3s ease, background-color 0.3s cubic-bezier(0.31, 0.41, 0.38, 0.96),
+    color 0.3s cubic-bezier(0.31, 0.41, 0.38, 0.96);
+}
+
+media-gallery:hover .product-gallery-nav__button--prev,
+media-gallery:hover .product-gallery-nav__button--next,
+media-gallery:focus-within .product-gallery-nav__button--prev,
+media-gallery:focus-within .product-gallery-nav__button--next {
+  opacity: 1;
 }
 
 .product-gallery-nav__button--prev {
@@ -522,23 +538,4 @@ product-info.product-panel-section {
   min-height: 3.6rem;
   padding: 0 1.6rem;
   font-size: 1.3rem;
-}
-
-/* ---------- Extra blocks below: same type and colours ---------- */
-.product--panel .product-bold__info-heading {
-  font-family: var(--pp-heading-font, var(--font-heading-family));
-  font-weight: var(--pp-heading-weight, 600);
-}
-
-.product--panel .product-bold__spec-bar span.is-filled {
-  background: var(--pp-accent);
-}
-
-.product--panel .product__accordion {
-  border-bottom-color: var(--pp-line);
-}
-
-.product--panel .product__accordion .accordion__title {
-  font-family: inherit;
-  font-weight: 500;
 }
