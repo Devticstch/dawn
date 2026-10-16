@@ -1166,14 +1166,16 @@ a.category-panel__category-link:hover {
     padding-top: 0;
   }
 
+  /* The stuck content keeps its own height (no empty space below it); the second row adds the
+     scroll distance, 50vh per product, during which it stays stuck */
   .fpt__scene {
-    height: calc(100vh + var(--fpt-count, 1) * 50vh);
+    display: grid;
+    grid-template-rows: auto calc(var(--fpt-count, 1) * 50vh);
   }
 
   .fpt__scene .fpt__inner {
     position: sticky;
     top: 0;
-    min-height: 100vh;
     padding-top: var(--cs-pad-top, 0px);
   }
 
