@@ -120,6 +120,10 @@
       ],
       "settings": {}
     },
+    "reviews": {
+      "type": "product-reviews",
+      "settings": {}
+    },
     "disclosures": {
       "type": "disclosures",
       "settings": {
@@ -149,6 +153,7 @@
   "order": [
     "main",
     "about",
+    "reviews",
     "disclosures",
     "related-products"
   ]
