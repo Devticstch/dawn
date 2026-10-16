@@ -248,7 +248,8 @@ main[data-template='index'] .feature-showcase .cs-container,
 main[data-template='index'] .fpt .cs-container,
 main[data-template='index'] .pb .cs-container,
 main[data-template='index'] .ic .cs-container,
-main[data-template='index'] .rs .cs-container {
+main[data-template='index'] .rs .cs-container,
+main[data-template='product'] .rs .cs-container {
   /* Reference container (DESIGN-SYSTEM.md 2.1): max 1920px, gutter 22px at 800px wide rising to 164px at 1900px */
   --cs-gutter: clamp(2.2rem, 12.909vw - 8.127rem, 16.4rem);
   max-width: 192rem;
@@ -4051,102 +4052,6 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
 
 @media screen and (min-width: 1200px) {
   .pa__heading {
-    font-size: 4.2rem;
-  }
-}
-
-/* ---------- Product reviews (below Product details) ---------- */
-/* White card on the page grey like the product card: average rating and count, then the review app's block */
-.prv__container {
-  max-width: 130rem;
-  margin-inline: auto;
-  padding-inline: 1.5rem;
-}
-
-.prv__card {
-  display: grid;
-  gap: 3.2rem;
-  padding: 2.4rem 1.6rem;
-  border-radius: 2rem;
-  background: #fff;
-  color: rgb(30, 30, 30);
-}
-
-.prv__heading {
-  margin: 0;
-  color: rgb(30, 30, 30);
-  font-size: 2.4rem;
-  line-height: 1.2;
-  letter-spacing: 0;
-}
-
-.prv__average {
-  display: flex;
-  align-items: center;
-  gap: 1.6rem;
-  margin-top: 2.4rem;
-}
-
-.prv__score {
-  margin: 0;
-  font-size: 6rem;
-  line-height: 1;
-  letter-spacing: -0.03em;
-}
-
-.prv .rating {
-  margin: 0;
-}
-
-/* Dawn's star component: its size variables are only set inside .product and cards */
-.prv .rating-star {
-  --color-rating-star: #f6c131;
-  --letter-spacing: 0.8;
-  --font-size: 2;
-}
-
-.prv__count,
-.prv__empty,
-.prv__hint {
-  margin: 0.4rem 0 0;
-  color: rgba(30, 30, 30, 0.65);
-  font-family: var(--font-nav-family, inherit);
-  font-size: 1.5rem;
-  line-height: 1.4;
-  letter-spacing: 0;
-}
-
-.prv__empty,
-.prv__hint {
-  margin: 0;
-}
-
-.prv__app {
-  min-width: 0;
-}
-
-@media screen and (min-width: 750px) {
-  .prv__container {
-    padding-inline: 5rem;
-  }
-
-  .prv__card {
-    padding: 4rem;
-  }
-
-  .prv__heading {
-    font-size: 3.2rem;
-  }
-}
-
-@media screen and (min-width: 990px) {
-  .prv__card:not(.prv__card--single) {
-    grid-template-columns: minmax(0, 4fr) minmax(0, 5.6fr);
-    gap: 6.4rem;
-    align-items: start;
-  }
-
-  .prv__heading {
     font-size: 4.2rem;
   }
 }

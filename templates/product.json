@@ -121,8 +121,91 @@
       "settings": {}
     },
     "reviews": {
-      "type": "product-reviews",
-      "settings": {}
+      "type": "reviews-scatter",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/image_ce8212bc-c887-413c-a951-dde5ef7fe729.png",
+            "quote": "Placeholder review for photo 1 — replace this text with a real customer review in the theme editor.",
+            "author": "Placeholder (photo 1)",
+            "size": "small",
+            "top": 60,
+            "left": 5,
+            "top_mobile": 40,
+            "left_mobile": 2,
+            "parallax": 100
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/image_262b5b0c-d73d-4fa1-9452-62d8da7019b5.png",
+            "quote": "Placeholder review for photo 2 — replace this text with a real customer review in the theme editor.",
+            "author": "Placeholder (photo 2)",
+            "size": "medium",
+            "top": 30,
+            "left": 25,
+            "top_mobile": 20,
+            "left_mobile": 25,
+            "parallax": 120
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/image_8f3c5492-ff6c-4e60-a768-19f9de6cebe8.png",
+            "quote": "Placeholder review for photo 3 — replace this text with a real customer review in the theme editor.",
+            "author": "Placeholder (photo 3)",
+            "size": "medium",
+            "top": 80,
+            "left": 35,
+            "top_mobile": 65,
+            "left_mobile": 25,
+            "parallax": 120
+          }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/image_7d28fae9-1e6c-4fb1-b59a-ffb9007922e7.png",
+            "quote": "Their cases are incredibly protective without sacrificing style, which is a rare combination to find.",
+            "author": "",
+            "size": "large",
+            "top": 50,
+            "left": 50,
+            "top_mobile": 15,
+            "left_mobile": 60,
+            "parallax": 140
+          }
+        },
+        "review_5": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/image_5b183bae-67ee-46d8-abfe-4ebd7cee097a.png",
+            "quote": "Placeholder review for photo 5 — replace this text with a real customer review in the theme editor.",
+            "author": "Placeholder (photo 5)",
+            "size": "large",
+            "top": 70,
+            "left": 70,
+            "top_mobile": 65,
+            "left_mobile": 68,
+            "parallax": 100
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4",
+        "review_5"
+      ],
+      "settings": {
+        "heading": "Loved by Our Customers",
+        "padding_top": 50,
+        "padding_bottom": 50
+      }
     },
     "disclosures": {
       "type": "disclosures",
