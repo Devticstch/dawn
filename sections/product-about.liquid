@@ -52,7 +52,7 @@
     <div class="pa__container">
       <div class="pa__intro">
         {%- if section.settings.eyebrow_prefix != blank -%}
-          <p class="pa__eyebrow">{{ section.settings.eyebrow_prefix | escape }} {{ product.title | escape }}</p>
+          <h2 class="pa__eyebrow">{{ section.settings.eyebrow_prefix | escape }} {{ product.title | escape }}</h2>
         {%- endif -%}
         {%- if section.settings.heading != blank -%}
           <h2 class="pa__heading">{{ section.settings.heading | escape }}</h2>
