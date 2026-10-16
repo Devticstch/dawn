@@ -88,7 +88,7 @@
 
 /* Panels of the block-built menu (snippets/header-nav-menu.liquid); sizes follow the reference design */
 .header-nav .list-menu--inline > li > header-menu > details[open] > .header__menu-item {
-  color: var(--header-bar-accent, var(--header-accent));
+  color: var(--header-accent);
 }
 
 .header-nav__panel {

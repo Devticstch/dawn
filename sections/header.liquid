@@ -166,49 +166,11 @@
     letter-spacing: 0;
   }
 
-  {%- liquid
-    assign header_background = section.settings.background_color
-    assign scheme_text = section.settings.color_scheme.settings.text
-    assign header_text = scheme_text
-    assign white_contrast = header_background | color_contrast: '#FFFFFF'
-    assign scheme_contrast = header_background | color_contrast: scheme_text
-    if white_contrast > scheme_contrast
-      assign header_text = '#FFFFFF'
-    endif
-    assign accent_contrast = section.settings.accent_color | color_contrast: header_background
-  -%}
-
-  /* Background colour setting, on every page. Text and icons take white or the scheme text colour,
-     whichever contrasts more with it */
+  /* Transparent on every page: the page, or the homepage's first section, shows through.
+     .gradient comes from the colour scheme class and would paint the scheme background */
   .header-wrapper,
   .header-wrapper.gradient {
-    background: {{ header_background }};
-    --color-foreground: {{ header_text | color_extract: 'red' }}, {{ header_text | color_extract: 'green' }}, {{ header_text | color_extract: 'blue' }};
-    {%- comment -%} Accent states in the bar fall back to the text colour when the accent would vanish on the background {%- endcomment -%}
-    {%- if accent_contrast < 3 %}
-      --header-bar-accent: rgba(var(--color-foreground), 0.75);
-      --header-bar-badge: {{ header_text }};
-      --header-bar-badge-text: {{ header_background }};
-    {%- else %}
-      --header-bar-accent: var(--header-accent);
-      --header-bar-badge: var(--header-accent);
-      --header-bar-badge-text: #fff;
-    {%- endif %}
-  }
-
-  {%- if header_text == '#FFFFFF' %}
-    .header__heading-logo-wrapper .header__heading-logo {
-      filter: brightness(0) invert(1);
-    }
-  {%- endif %}
-
-  /* Overlays opened from the bar without a colour scheme of their own keep the scheme text colour */
-  .header-wrapper :is(.search-modal, .disclosure__list-wrapper) {
-    --color-foreground: {{ scheme_text.red }}, {{ scheme_text.green }}, {{ scheme_text.blue }};
-  }
-
-  shopify-account.header__icon {
-    --shopify-account-color-text: {{ scheme_text }};
+    background: transparent;
   }
 
   .header__inline-menu .list-menu--inline > li > .header__menu-item,
@@ -242,7 +204,7 @@
 
   .header-nav .list-menu--inline > li > .header__menu-item:hover,
   .header-nav .list-menu--inline > li > header-menu > details > .header__menu-item:hover {
-    color: var(--header-bar-accent);
+    color: var(--header-accent);
   }
 
   /* Menu badges: the item's Badge setting, or titles like "Phone Cases [NEW]" (see mega-drawer-title) */
@@ -279,15 +241,15 @@
   }
 
   :where(.header__inline-menu .mega-drawer__badge) {
-    background: var(--header-bar-badge);
-    color: var(--header-bar-badge-text);
+    background: var(--header-accent);
+    color: #fff;
   }
 
   .header__icon--cart .cart-count-bubble {
     width: 1.6rem;
     height: 1.6rem;
-    background-color: var(--header-bar-badge);
-    color: var(--header-bar-badge-text);
+    background-color: var(--header-accent);
+    color: #fff;
     font-size: 1rem;
     font-weight: 500;
   }
@@ -399,10 +361,32 @@
 %}
 
 {%- if transparent_header -%}
+  {%- liquid
+    assign scheme_text = section.settings.color_scheme.settings.text
+  -%}
   {%- style -%}
-    /* Homepage only: the header (in its background colour) overlays the first section */
+    /* Homepage only: the header overlays the first section */
     #MainContent > .shopify-section:first-child {
       margin-top: calc(-1 * var(--transparent-header-height, 0px));
+    }
+
+    /* Over the first section: white text, icons and logo, like the reference. Once scrolled past it,
+       the scheme text colour returns */
+    .section-header:not(.scrolled-past-header) .header-wrapper {
+      --color-foreground: 255, 255, 255;
+    }
+
+    .section-header:not(.scrolled-past-header) .header__heading-logo-wrapper .header__heading-logo {
+      filter: brightness(0) invert(1);
+    }
+
+    /* Overlays opened from the bar without a colour scheme of their own keep the scheme text colour */
+    .header-wrapper :is(.search-modal, .disclosure__list-wrapper) {
+      --color-foreground: {{ scheme_text.red }}, {{ scheme_text.green }}, {{ scheme_text.blue }};
+    }
+
+    shopify-account.header__icon {
+      --shopify-account-color-text: {{ scheme_text }};
     }
   {%- endstyle -%}
 {%- endif -%}
@@ -937,14 +921,7 @@
       "id": "transparent_on_home",
       "default": false,
       "label": "Overlay first section on homepage",
-      "info": "The header sits over the top of the first homepage section, in its background colour. It hides on scroll down and reappears on scroll up."
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background color",
-      "default": "#0F61FF",
-      "info": "Used on every page. Text and icons switch to white or the color scheme's text color, whichever reads better"
+      "info": "The transparent header sits over the top of the first homepage section with white text and logo. It hides on scroll down and reappears on scroll up."
     },
     {
       "type": "checkbox",
