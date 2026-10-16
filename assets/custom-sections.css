@@ -1862,6 +1862,8 @@ button.rs__item {
   background: #f6f6f6;
   transform: translateY(-50%);
   transition: 0.3s;
+  /* The card can sit over another photo; clicks go through to that photo (the card has nothing clickable) */
+  pointer-events: none;
 }
 
 .rs__slide {
