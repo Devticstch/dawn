@@ -3930,3 +3930,120 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
     min-height: 8.4rem;
   }
 }
+
+/* ---------- Product details (below the product card) ---------- */
+/* Eyebrow, heading and text beside a spec table; 1200px wide like the product card above */
+.pa__container {
+  display: grid;
+  gap: 3.2rem;
+  max-width: 130rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.pa__eyebrow {
+  margin: 0;
+  color: rgb(30, 30, 30);
+  font-family: var(--font-nav-family, inherit);
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+.pa__heading {
+  margin: 2.4rem 0 0;
+  color: rgb(30, 30, 30);
+  font-size: 2.4rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.pa__eyebrow + .pa__heading {
+  margin-top: 1.6rem;
+}
+
+.pa__text {
+  max-width: 48rem;
+  margin-top: 2.4rem;
+  color: rgba(30, 30, 30, 0.75);
+  font-family: var(--font-nav-family, inherit);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+
+.pa__text > * {
+  margin: 0;
+}
+
+.pa__text > * + * {
+  margin-top: 1.2rem;
+}
+
+.pa__specs {
+  margin: 0;
+  padding: 0.8rem 2rem;
+  border-radius: 1rem;
+  background: rgba(30, 30, 30, 0.05);
+  font-family: var(--font-nav-family, inherit);
+  font-size: 1.4rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+.pa__row {
+  display: grid;
+  grid-template-columns: 12rem minmax(0, 1fr);
+  gap: 1.6rem;
+  padding: 1.8rem 0;
+}
+
+.pa__row + .pa__row {
+  border-top: 0.1rem solid rgba(30, 30, 30, 0.1);
+}
+
+.pa__row dt {
+  color: rgb(30, 30, 30);
+  font-weight: 500;
+}
+
+.pa__row dd {
+  margin: 0;
+  color: rgba(30, 30, 30, 0.65);
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+
+@media screen and (min-width: 750px) {
+  .pa__container {
+    padding-inline: 5rem;
+  }
+
+  .pa__specs {
+    padding: 1.2rem 3.6rem;
+  }
+
+  .pa__row {
+    grid-template-columns: 13.6rem minmax(0, 1fr);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .pa__container {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 5.6fr);
+    gap: 6.4rem;
+    align-items: start;
+  }
+
+  .pa__heading {
+    font-size: 3.1rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .pa__heading {
+    font-size: 4.2rem;
+  }
+}

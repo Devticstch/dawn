@@ -80,6 +80,46 @@
         "show_sticky_bar": true
       }
     },
+    "about": {
+      "type": "product-about",
+      "blocks": {
+        "spec_brand": {
+          "type": "spec",
+          "settings": {
+            "label": "Brand",
+            "source": "vendor"
+          }
+        },
+        "spec_type": {
+          "type": "spec",
+          "settings": {
+            "label": "Type",
+            "source": "type"
+          }
+        },
+        "spec_sku": {
+          "type": "spec",
+          "settings": {
+            "label": "SKU",
+            "source": "sku"
+          }
+        },
+        "spec_weight": {
+          "type": "spec",
+          "settings": {
+            "label": "Weight",
+            "source": "weight"
+          }
+        }
+      },
+      "block_order": [
+        "spec_brand",
+        "spec_type",
+        "spec_sku",
+        "spec_weight"
+      ],
+      "settings": {}
+    },
     "disclosures": {
       "type": "disclosures",
       "settings": {
@@ -108,6 +148,7 @@
   },
   "order": [
     "main",
+    "about",
     "disclosures",
     "related-products"
   ]

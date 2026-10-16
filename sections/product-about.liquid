@@ -1,0 +1,134 @@
+{%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .pa__heading {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+    font-weight: {{ section.settings.heading_font.weight }};
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign text = section.settings.text
+  if text == blank
+    assign text = product.description
+  endif
+-%}
+
+{%- capture rows -%}
+  {%- for block in section.blocks -%}
+    {%- liquid
+      case block.settings.source
+        when 'vendor'
+          assign value = product.vendor
+        when 'type'
+          assign value = product.type
+        when 'sku'
+          assign value = variant.sku
+        when 'weight'
+          assign value = ''
+          if variant.weight > 0
+            assign value = variant.weight_in_unit | weight_with_unit: variant.weight_unit
+          endif
+        else
+          assign value = block.settings.value
+      endcase
+    -%}
+    {%- if block.settings.label != blank and value != blank -%}
+      <div class="pa__row" {{ block.shopify_attributes }}>
+        <dt>{{ block.settings.label | escape }}</dt>
+        <dd>{{ value | escape }}</dd>
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- comment -%} Product details below the product card: eyebrow, heading and text on the left, a spec table on the right {%- endcomment -%}
+{%- if product and section.settings.heading != blank or text != blank or rows != blank -%}
+  <div
+    class="pa cs-section"
+    style="--cs-bg: {{ section.settings.background }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px;"
+  >
+    <div class="pa__container">
+      <div class="pa__intro">
+        {%- if section.settings.eyebrow_prefix != blank -%}
+          <p class="pa__eyebrow">{{ section.settings.eyebrow_prefix | escape }} {{ product.title | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="pa__heading">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+        {%- if text != blank -%}
+          <div class="pa__text rte">{{ text }}</div>
+        {%- endif -%}
+      </div>
+      {%- if rows != blank -%}
+        <dl class="pa__specs">{{ rows }}</dl>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product details",
+  "tag": "section",
+  "class": "section section-product-about",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow_prefix",
+      "label": "Eyebrow",
+      "default": "About the",
+      "info": "Followed by the product title. Leave empty to hide"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Connect a product metafield to show a heading per product. Hidden when empty"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "info": "Leave empty to use the product description"
+    },
+    { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "instrument_sans_n6" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#F6F6F6" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "blocks": [
+    {
+      "type": "spec",
+      "name": "Spec row",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        {
+          "type": "select",
+          "id": "source",
+          "label": "Value from",
+          "options": [
+            { "value": "custom", "label": "Value below" },
+            { "value": "vendor", "label": "Product vendor" },
+            { "value": "type", "label": "Product type" },
+            { "value": "sku", "label": "Variant SKU" },
+            { "value": "weight", "label": "Variant weight" }
+          ],
+          "default": "custom"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "info": "Connect a product metafield for per-product values. Rows without a value are hidden"
+        }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Product details" }]
+}
+{% endschema %}
