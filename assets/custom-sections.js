@@ -229,3 +229,80 @@ document.addEventListener('click', (event) => {
     { passive: true }
   );
 })();
+
+// Magnetic call-to-action buttons (reference: xo-magnetic, radius 150px, 0.5s). Within 150px of a button's centre the
+// button moves toward the pointer by 116.6 * d / (d + 77.5) px, d being the pointer's distance (a fit to the
+// reference's measurements: 40px -> 40, 100px -> 66, 145px -> 76), and eases back once the pointer leaves the radius.
+// It uses the CSS translate property, so buttons that are positioned with transform keep it. Mouse only.
+(() => {
+  const SELECTOR = [
+    'a.category-panel__button',
+    'a.feature-showcase__button',
+    'a.hero-carousel__cta',
+    'a.ic__button',
+    'a.header-nav__promo-button',
+  ].join(', ');
+  const RADIUS = 150;
+  const TAU = 150; // ms, the reference's ease toward the target
+
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const offsets = new WeakMap();
+  let pointerX = -1e5;
+  let pointerY = -1e5;
+  let frame = 0;
+  let last = 0;
+
+  const tick = (time) => {
+    const ease = 1 - Math.exp(-Math.min(time - (last || time), 100) / TAU);
+    last = time;
+    let moving = false;
+    document.querySelectorAll(SELECTOR).forEach((button) => {
+      const offset = offsets.get(button) || { x: 0, y: 0 };
+      offsets.set(button, offset);
+      const box = button.getBoundingClientRect();
+      // Centre at rest: the measured box minus the offset already applied
+      const dx = pointerX - (box.left + box.width / 2 - offset.x);
+      const dy = pointerY - (box.top + box.height / 2 - offset.y);
+      const distance = Math.hypot(dx, dy);
+      let targetX = 0;
+      let targetY = 0;
+      if (box.width && distance > 0 && distance < RADIUS) {
+        const pull = 116.6 / (distance + 77.5);
+        targetX = dx * pull;
+        targetY = dy * pull;
+      }
+      offset.x += (targetX - offset.x) * ease;
+      offset.y += (targetY - offset.y) * ease;
+      if (Math.abs(targetX - offset.x) + Math.abs(targetY - offset.y) > 0.1) moving = true;
+      else {
+        offset.x = targetX;
+        offset.y = targetY;
+      }
+      button.style.translate = offset.x || offset.y ? `${offset.x.toFixed(2)}px ${offset.y.toFixed(2)}px` : '';
+    });
+    frame = moving ? requestAnimationFrame(tick) : 0;
+    if (!frame) last = 0;
+  };
+  const schedule = () => {
+    if (!frame) frame = requestAnimationFrame(tick);
+  };
+
+  document.addEventListener(
+    'pointermove',
+    (event) => {
+      if (event.pointerType !== 'mouse') return;
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      schedule();
+    },
+    { passive: true }
+  );
+  // Buttons scroll under a still pointer; and leaving the window lets them settle
+  window.addEventListener('scroll', schedule, { passive: true });
+  document.documentElement.addEventListener('mouseleave', () => {
+    pointerX = pointerY = -1e5;
+    schedule();
+  });
+})();

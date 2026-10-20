@@ -1256,12 +1256,13 @@ a.category-panel__category-link:hover {
 }
 
 /* ---------- Image banner with button ---------- */
-/* Full-bleed image with a centred pill (reuses .feature-showcase__button); reference: 16:9 desktop, 3:2 mobile */
+/* Full-bleed image with a centred pill (reuses .feature-showcase__button); a shorter band than the reference's
+   16:9 / 3:2: 21:9 on desktop, 16:9 on mobile */
 /* Fixed background: the image is pinned to the viewport and the media box acts as a window onto it.
    clip-path (not overflow) is what clips a fixed child; also works on iOS, unlike background-attachment: fixed */
 .image-button__media {
   position: relative;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   clip-path: inset(0);
   background: rgba(30, 30, 30, 0.1);
@@ -1287,7 +1288,7 @@ a.category-panel__category-link:hover {
 
 @media screen and (min-width: 750px) {
   .image-button__media {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 21 / 9;
   }
 }
 
