@@ -24,14 +24,13 @@
     "about_story": {
       "type": "about-story",
       "settings": {
-        "logo_width": 140,
         "icon": "shield",
         "heading": "Chosen for everyday life",
         "text": "<p>Our range brings together cases and accessories with two jobs in mind: helping protect your phone day to day, and suiting the way it looks. Browse the iPhone and Samsung collections to find the right one for your model.</p>",
         "heading_font": "instrument_sans_n6",
         "background": "#f6f6f6",
         "panel_background": "#ffffff",
-        "padding_top": 80,
+        "padding_top": 0,
         "padding_bottom": 80
       }
     },
@@ -208,12 +207,12 @@
   },
   "order": [
     "about_hero",
+    "main",
     "about_story",
     "about_dna",
     "about_reveal",
     "about_faq",
     "about_newsletter",
-    "about_features",
-    "main"
+    "about_features"
   ]
 }

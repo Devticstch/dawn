@@ -4241,6 +4241,7 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
    centred panel on desktop, stacked on mobile. Heading uses the site's section-title sizes (24 / 31 / 42px) */
 .about-story__container {
   --cs-gutter: clamp(2.2rem, 12.909vw - 8.127rem, 16.4rem);
+  display: flow-root;
   max-width: 192rem;
   margin-inline: auto;
   padding-inline: var(--cs-gutter);

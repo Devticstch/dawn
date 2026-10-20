@@ -1,8 +1,7 @@
 {%- comment -%}
   About page story: the store logo over a centred intro, then a rounded card with an image beside a centred panel
   (icon, heading, text). Like the About hero it sits in the default page template and renders only on the About page.
-  The intro text is the About page's own content (Shopify admin > Online Store > Pages), so edits there show here;
-  main-page's copy of that content is hidden on this page so it appears once.
+  The logo and intro above the card are the Page section (main-page.liquid), which renders them on the About page.
 {%- endcomment -%}
 {%- if page.handle == 'about' or page.handle == 'about-us' -%}
 {%- style -%}
@@ -12,38 +11,13 @@
     font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
     font-weight: {{ section.settings.heading_font.weight }};
   }
-
-  .main-page-title ~ .rte {
-    display: none;
-  }
-
-  .page-width:has(> .main-page-title) {
-    display: none;
-  }
 {%- endstyle -%}
 
 <div
   class="about-story cs-section"
-  style="--cs-bg: {{ section.settings.background }}; --about-story-panel: {{ section.settings.panel_background }}; --about-story-logo-width: {{ section.settings.logo_width | divided_by: 10.0 }}rem; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px;"
+  style="--cs-bg: {{ section.settings.background }}; --about-story-panel: {{ section.settings.panel_background }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px;"
 >
   <div class="about-story__container">
-    <div class="about-story__intro{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-      <div class="about-story__logo">
-        {%- if settings.logo != blank -%}
-          {{
-            settings.logo
-            | image_url: width: 600
-            | image_tag: widths: '200, 300, 400, 600', sizes: '(min-width: 750px) 20rem, 14rem', loading: 'lazy', alt: shop.name
-          }}
-        {%- else -%}
-          <span class="about-story__logo-text">{{ shop.name | escape }}</span>
-        {%- endif -%}
-      </div>
-      {%- if page.content != blank -%}
-        <div class="about-story__text rte">{{ page.content }}</div>
-      {%- endif -%}
-    </div>
-
     <div class="about-story__card">
       <div class="about-story__media">
         {%- if section.settings.image != blank -%}
@@ -87,9 +61,8 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Shows only on the About page (handle about or about-us). The logo is the store logo from Theme settings. The intro text is the About page's content: edit it in Shopify admin under Online Store > Pages > About."
+      "content": "Shows only on the About page (handle about or about-us). The logo and intro above it are the Page section (its text is the About page content in Shopify admin)."
     },
-    { "type": "range", "id": "logo_width", "label": "Logo width", "min": 60, "max": 240, "step": 10, "unit": "px", "default": 140 },
     { "type": "header", "content": "Card" },
     { "type": "image_picker", "id": "image", "label": "Image", "info": "Shows a Shopify placeholder until an image is chosen" },
     {

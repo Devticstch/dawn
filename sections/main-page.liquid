@@ -14,6 +14,35 @@
   }
 {%- endstyle -%}
 
+{%- comment -%}
+  On the About page this section is the About story intro: the store logo over the page content, in the grey band
+  the About story card continues (the About hero shows the page title). Other pages keep Dawn's title and content.
+{%- endcomment -%}
+{%- if page.handle == 'about' or page.handle == 'about-us' -%}
+  <div
+    class="about-story cs-section"
+    style="--cs-bg: #f6f6f6; --cs-pad-top: 80px; --cs-pad-bottom: 0px; --cs-pad-top-mobile: 60px; --cs-pad-bottom-mobile: 0px;"
+  >
+    <div class="about-story__container">
+      <div class="about-story__intro{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        <div class="about-story__logo">
+          {%- if settings.logo != blank -%}
+            {{
+              settings.logo
+              | image_url: width: 600
+              | image_tag: widths: '200, 300, 400, 600', sizes: '(min-width: 750px) 20rem, 14rem', loading: 'lazy', alt: shop.name
+            }}
+          {%- else -%}
+            <span class="about-story__logo-text">{{ shop.name | escape }}</span>
+          {%- endif -%}
+        </div>
+        {%- if page.content != blank -%}
+          <div class="about-story__text rte">{{ page.content }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{%- else -%}
 <div class="page-width page-width--narrow section-{{ section.id }}-padding">
   <h1 class="main-page-title page-title h0{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
     {{ page.title | escape }}
@@ -22,6 +51,7 @@
     {{ page.content }}
   </div>
 </div>
+{%- endif -%}
 
 {% schema %}
 {
