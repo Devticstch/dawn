@@ -33,6 +33,70 @@
       "type": "about-reveal",
       "settings": {}
     },
+    "about_faq": {
+      "type": "about-faq",
+      "blocks": {
+        "question_1": {
+          "type": "question",
+          "settings": {
+            "question": "What does Tech2C sell?",
+            "answer": "<p>Tech2C brings together phone cases and accessories for iPhone and Samsung, chosen to balance everyday protection with clean, modern design, so your phone stays safe and still looks like yours.</p>"
+          }
+        },
+        "question_2": {
+          "type": "question",
+          "settings": {
+            "question": "Which phones are your cases made for?",
+            "answer": "<p>We focus on iPhone and Samsung. Check the description and options on each product page to confirm a case is made for your model. Not sure? Contact us before you order and we'll help you choose.</p>"
+          }
+        },
+        "question_3": {
+          "type": "question",
+          "settings": {
+            "question": "How do I find a case for my phone?",
+            "answer": "<p>Open <strong>Shop by Devices</strong> in the menu to browse by model, or visit the iPhone or Samsung collection to see everything made for that brand.</p>"
+          }
+        },
+        "question_4": {
+          "type": "question",
+          "settings": {
+            "question": "How much is shipping and how long does it take?",
+            "answer": "<p>Shipping options and costs depend on your address, and you'll see them at checkout before you pay. Our <a href=\"/policies/shipping-policy\" title=\"Shipping policy\">shipping policy</a> has the details.</p>"
+          }
+        },
+        "question_5": {
+          "type": "question",
+          "settings": {
+            "question": "Can I return or exchange an item?",
+            "answer": "<p>Returns and exchanges are covered by our <a href=\"/policies/refund-policy\" title=\"Refund policy\">refund policy</a>, which explains the time limits and conditions.</p>"
+          }
+        },
+        "question_6": {
+          "type": "question",
+          "settings": {
+            "question": "How can I track my order?",
+            "answer": "<p>After you order, we'll email you an order confirmation, followed by a shipping confirmation with tracking details where available.</p>"
+          }
+        },
+        "question_7": {
+          "type": "question",
+          "settings": {
+            "question": "Is checkout secure?",
+            "answer": "<p>Yes. Checkout runs on Shopify's secure checkout, so your payment details are processed by Shopify rather than stored by us.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_1",
+        "question_2",
+        "question_3",
+        "question_4",
+        "question_5",
+        "question_6",
+        "question_7"
+      ],
+      "settings": {}
+    },
     "main": {
       "type": "main-page",
       "settings": {
@@ -46,6 +110,7 @@
     "about_story",
     "about_dna",
     "about_reveal",
+    "about_faq",
     "main"
   ]
 }

@@ -322,6 +322,7 @@ document.addEventListener('click', (event) => {
     '.ccat__heading',
     '.about-story__heading',
     '.about-dna__heading',
+    '.about-faq__heading',
   ].join(', ');
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
@@ -430,4 +431,50 @@ document.addEventListener('click', (event) => {
   document.addEventListener('shopify:section:load', (event) => init(event.target));
   window.addEventListener('scroll', schedule, { passive: true });
   window.addEventListener('resize', schedule);
+})();
+
+// About page FAQ: animates each <details> answer open and closed (height and fade) instead of the native jump.
+// A click mid-animation reverses from the current height. .is-open drives the icon and colours straight away; the
+// native open state follows (closing waits for the animation). Reduced motion keeps the native toggle.
+(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const DURATION = 400;
+  const EASING = 'cubic-bezier(0.31, 0.41, 0.38, 0.96)';
+
+  const toggle = (item) => {
+    const answer = item.querySelector('.about-faq__answer');
+    const opening = !item.classList.contains('is-open');
+    const from = item.open ? answer.getBoundingClientRect().height : 0;
+    item._faqAnimation?.cancel();
+    item.classList.toggle('is-open', opening);
+    item.open = true;
+    const to = opening ? answer.scrollHeight : 0;
+    const animation = answer.animate(
+      { height: [`${from}px`, `${to}px`], opacity: opening ? [0, 1] : [1, 0] },
+      { duration: DURATION, easing: EASING }
+    );
+    item._faqAnimation = animation;
+    animation.onfinish = () => {
+      item._faqAnimation = null;
+      if (!opening) item.open = false;
+    };
+  };
+
+  document.addEventListener('click', (event) => {
+    const summary = event.target.closest('.about-faq__question');
+    if (!summary) return;
+    event.preventDefault();
+    toggle(summary.parentElement);
+  });
+
+  // Opened some other way (find in page, keyboard in some browsers): keep the icon state in sync
+  document.addEventListener(
+    'toggle',
+    (event) => {
+      const item = event.target;
+      if (item.classList?.contains('about-faq__item') && !item._faqAnimation) item.classList.toggle('is-open', item.open);
+    },
+    true
+  );
 })();
