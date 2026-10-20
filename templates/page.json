@@ -23,15 +23,44 @@
     },
     "about_story": {
       "type": "about-story",
-      "settings": {}
+      "settings": {
+        "logo_width": 140,
+        "intro": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
+        "icon": "shield",
+        "heading": "Lorem ipsum dolor",
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio praesent libero, sed cursus ante dapibus diam. Sed nisi nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum, praesent mauris fusce nec tellus sed augue semper porta. Mauris massa vestibulum lacinia arcu eget nulla.</p>",
+        "heading_font": "instrument_sans_n6",
+        "background": "#f6f6f6",
+        "panel_background": "#ffffff",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     },
     "about_dna": {
       "type": "about-dna",
-      "settings": {}
+      "settings": {
+        "heading": "Our product DNA",
+        "card_1_title": "Everyday protection",
+        "card_1_text": "<p>Cases designed with daily life in mind, to help keep your phone safe from the bumps and scrapes of the day.</p>",
+        "card_2_title": "Clean, modern design",
+        "card_2_text": "<p>Simple lines and considered details that suit your phone, so it stays protected and still looks like yours.</p>",
+        "card_3_title": "Made for iPhone and Samsung",
+        "card_3_text": "<p>Cases and accessories chosen for iPhone and Samsung models, so finding the right one for your phone is simple.</p>",
+        "heading_font": "instrument_sans_n6",
+        "background": "#f6f6f6",
+        "padding_top": 16,
+        "padding_bottom": 80
+      }
     },
     "about_reveal": {
       "type": "about-reveal",
-      "settings": {}
+      "settings": {
+        "heading": "We believe protection should still look like you",
+        "heading_font": "instrument_sans_n6",
+        "background": "#f6f6f6",
+        "text_color": "#1e1e1e",
+        "overlay_opacity": 10
+      }
     },
     "about_faq": {
       "type": "about-faq",
@@ -95,11 +124,31 @@
         "question_6",
         "question_7"
       ],
-      "settings": {}
+      "settings": {
+        "heading": "Frequently asked questions",
+        "text": "<p>Answers to the questions we hear most. Can't find what you're looking for? Get in touch and we'll help.</p>",
+        "button_label": "Contact us",
+        "button_link": "",
+        "heading_font": "instrument_sans_n6",
+        "background": "#ffffff",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     },
     "about_newsletter": {
       "type": "about-newsletter",
-      "settings": {}
+      "settings": {
+        "heading": "Sign up to our newsletter.",
+        "text": "<p>Subscribe to hear about new cases, accessories and news from Tech2C.</p>",
+        "placeholder": "E-mail",
+        "button_label": "Subscribe",
+        "legal": "<p>By continuing, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of service\">Terms & Conditions</a> and <a href=\"/policies/privacy-policy\" title=\"Privacy policy\">Privacy Policy</a>. You can unsubscribe at any time.</p>",
+        "heading_font": "instrument_sans_n6",
+        "panel_color": "#0f61ff",
+        "background": "#f6f6f6",
+        "padding_top": 80,
+        "padding_bottom": 40
+      }
     },
     "about_features": {
       "type": "about-features",
@@ -143,13 +192,18 @@
         "feature_3",
         "feature_4"
       ],
-      "settings": {}
+      "settings": {
+        "heading_font": "instrument_sans_n6",
+        "background": "#f6f6f6",
+        "padding_top": 40,
+        "padding_bottom": 80
+      }
     },
     "main": {
       "type": "main-page",
       "settings": {
-        "padding_top": 28,
-        "padding_bottom": 28
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     }
   },
