@@ -306,3 +306,79 @@ document.addEventListener('click', (event) => {
     schedule();
   });
 })();
+
+// Section and page headings reveal letter by letter like the reviews heading (reference: per-character rise). Each
+// heading is split into word and letter spans once it exists; it animates when it scrolls into view. Screen readers
+// get the plain title (aria-label). The hero and featured-product titles keep their own animations.
+(() => {
+  const SELECTOR = [
+    'main h1:not(.hero-carousel__heading)',
+    '.best-sellers__heading',
+    '.category-panel__heading',
+    '.feature-showcase__heading',
+    '.pb__heading',
+    '.pa__eyebrow',
+    '.pa__heading',
+    '.ccat__heading',
+  ].join(', ');
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+
+  const observer = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-revealed');
+        observer.unobserve(entry.target);
+      })
+    // Any part on screen: a heading low on a short page must still reveal
+  );
+
+  const split = (heading) => {
+    if (heading.classList.contains('cs-split') || !heading.textContent.trim()) return;
+    heading.setAttribute('aria-label', heading.textContent.replace(/\s+/g, ' ').trim());
+    let index = 0;
+    const walk = (node) => {
+      [...node.childNodes].forEach((child) => {
+        if (child.nodeType === Node.ELEMENT_NODE) {
+          walk(child);
+          return;
+        }
+        if (child.nodeType !== Node.TEXT_NODE || !child.textContent.trim()) return;
+        const fragment = document.createDocumentFragment();
+        child.textContent.split(/(\s+)/).forEach((part) => {
+          if (!part) return;
+          if (!part.trim()) {
+            fragment.append(document.createTextNode(' '));
+            return;
+          }
+          const word = document.createElement('span');
+          word.className = 'cs-split__word';
+          word.setAttribute('aria-hidden', 'true');
+          [...part].forEach((letter) => {
+            const char = document.createElement('span');
+            char.className = 'cs-split__char';
+            char.style.setProperty('--i', index++);
+            char.textContent = letter;
+            word.append(char);
+          });
+          fragment.append(word);
+        });
+        child.replaceWith(fragment);
+      });
+    };
+    walk(heading);
+    heading.classList.add('cs-split');
+    observer.observe(heading);
+  };
+
+  const scan = (root) => {
+    if (root.matches?.(SELECTOR)) split(root);
+    root.querySelectorAll?.(SELECTOR).forEach(split);
+  };
+  scan(document);
+  // Sections re-rendered later (theme editor, recommendations) get the same treatment
+  new MutationObserver((mutations) =>
+    mutations.forEach((mutation) => mutation.addedNodes.forEach((node) => node.nodeType === Node.ELEMENT_NODE && scan(node)))
+  ).observe(document.body, { childList: true, subtree: true });
+})();

@@ -4124,3 +4124,25 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+/* ---------- Heading letter reveal (custom-sections.js) ---------- */
+/* Same motion as the reviews heading (.rs__char): letters rise into place with a slight overshoot, 60ms apart */
+.cs-split__word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.cs-split__char {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cs-split:not(.is-revealed) .cs-split__char {
+    opacity: 0;
+  }
+
+  .cs-split.is-revealed .cs-split__char {
+    animation: rs-char 0.666s cubic-bezier(0.27, 0.79, 0.45, 1.24) backwards;
+    animation-delay: calc(var(--i) * 60ms);
+  }
+}
