@@ -1,0 +1,88 @@
+{%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .about-hero__title {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+    font-weight: {{ section.settings.heading_font.weight }};
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign heading = section.settings.heading | default: page.title
+-%}
+
+{%- comment -%} About page hero: rounded image banner in the content width, eyebrow and title centred over a dark overlay {%- endcomment -%}
+<div
+  class="about-hero cs-section"
+  style="--cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px; --about-hero-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
+>
+  <div class="about-hero__container">
+    <div class="about-hero__banner">
+      <div class="about-hero__media">
+        {%- if section.settings.image != blank -%}
+          {{
+            section.settings.image
+            | image_url: width: 3000
+            | image_tag:
+              class: 'about-hero__image',
+              widths: '750, 1100, 1500, 2000, 2600, 3000',
+              sizes: '(min-width: 1920px) 1592px, 100vw',
+              loading: 'eager',
+              fetchpriority: 'high',
+              alt: ''
+          }}
+        {%- else -%}
+          {{ 'hero-apparel-1' | placeholder_svg_tag: 'about-hero__image about-hero__placeholder' }}
+        {%- endif -%}
+      </div>
+      <div class="about-hero__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="about-hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+        {%- if heading != blank -%}
+          <h1 class="about-hero__title">{{ heading | escape }}</h1>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "About hero",
+  "tag": "section",
+  "class": "section section-about-hero",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Shows a Shopify placeholder until an image is chosen"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "About us" },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Leave empty to use the page title"
+    },
+    { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "instrument_sans_n6" },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Image overlay",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 30
+    },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 8 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 48 }
+  ],
+  "presets": [{ "name": "About hero" }]
+}
+{% endschema %}
