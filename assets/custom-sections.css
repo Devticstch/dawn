@@ -2724,8 +2724,12 @@ main[data-template='index'] .perks__grid {
   font-family: var(--font-nav-family, inherit);
 }
 
+/* Same content width and gutter as the other sections (DESIGN-SYSTEM.md 2.1) */
 .cs-footer__inner {
-  padding: 0 2.2rem;
+  --cs-gutter: clamp(2.2rem, 12.909vw - 8.127rem, 16.4rem);
+  max-width: 192rem;
+  margin-inline: auto;
+  padding: 0 var(--cs-gutter);
 }
 
 .cs-footer__top {
@@ -3079,22 +3083,19 @@ main[data-template='index'] .perks__grid {
 
 @media screen and (min-width: 992px) {
   .cs-footer {
-    padding: 6.6rem 0 2.3rem;
+    padding: 8rem 0 3.2rem;
   }
 
-  .cs-footer__inner {
-    padding: 0 2.5rem;
-  }
-
+  /* Brand on the left five columns, link columns spread across the right half */
   .cs-footer__top {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     gap: 2.8rem;
-    padding: 0 0 7.3rem 4.8rem;
+    padding: 0 0 8rem;
   }
 
   .cs-footer__brand {
-    grid-column: 1 / span 3;
+    grid-column: 1 / span 5;
   }
 
   .cs-footer__logo-image {
@@ -3102,14 +3103,14 @@ main[data-template='index'] .perks__grid {
   }
 
   .cs-footer__intro {
-    padding-right: 5rem;
+    max-width: 46rem;
     font-size: 1.6rem;
     letter-spacing: -0.016rem;
   }
 
   .cs-footer__nav {
-    grid-column: 4 / -2;
-    justify-self: end;
+    grid-column: 7 / -1;
+    grid-template-columns: repeat(var(--footer-cols, 4), minmax(0, 1fr));
     margin-top: 0;
   }
 
@@ -3137,9 +3138,7 @@ main[data-template='index'] .perks__grid {
     right: 4.4rem;
   }
 
-  .cs-footer__bottom {
-    padding: 0 2.1rem 0 4.8rem;
-  }
+
 }
 
 @media (prefers-reduced-motion: reduce) {
