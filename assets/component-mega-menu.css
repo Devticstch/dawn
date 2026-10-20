@@ -99,14 +99,26 @@
 
 /* Compact panel: centred under the header and sized to its content, at least 1100px so the menus look alike,
    wider only when long link titles need it, never past the screen. Centred with auto margins, since transform is
-   used by the open/close animation. The sides get the same line as the bottom. */
+   used by the open/close animation. It sits 12px below the header's bottom border, with the brand radius
+   (--mega-menu-radius, 20px; DESIGN-SYSTEM.md 1.3) and the same faint line all round. */
 .header-nav .mega-menu__content.header-nav__panel {
+  top: calc(100% + 1.2rem);
   width: fit-content;
   min-width: min(110rem, 100%);
   max-width: 100%;
   margin-inline: auto;
-  border-left: 0.1rem solid rgba(var(--color-foreground), 0.08);
-  border-right: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  border: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  border-radius: 2rem;
+}
+
+/* Invisible strip over the 12px gap, so moving the pointer from the label to the panel keeps the menu open */
+.header-nav .mega-menu[open]::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  height: 1.2rem;
 }
 
 /* Open and close like the reference: the panel fades in while rising 20px, 0.3s ease, and reverses on close.
