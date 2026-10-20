@@ -1,5 +1,9 @@
 {
   "sections": {
+    "about_hero": {
+      "type": "about-hero",
+      "settings": {}
+    },
     "main": {
       "type": "main-page",
       "settings": {
@@ -9,6 +13,7 @@
     }
   },
   "order": [
+    "about_hero",
     "main"
   ]
 }
