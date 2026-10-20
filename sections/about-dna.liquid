@@ -1,0 +1,126 @@
+{%- comment -%}
+  About page "product DNA": a centred heading over three image cards with a title and short text. Each card shows the
+  image chosen in the theme editor, else the theme's own illustration. Like the About hero it sits in the default page
+  template and renders only on the About page.
+{%- endcomment -%}
+{%- if page.handle == 'about' or page.handle == 'about-us' -%}
+{%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} :is(.about-dna__heading, .about-dna__title) {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+    font-weight: {{ section.settings.heading_font.weight }};
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign fallbacks = 'about-dna-protection.svg,about-dna-design.svg,about-dna-fit.svg' | split: ','
+-%}
+<div
+  class="about-dna cs-section"
+  style="--cs-bg: {{ section.settings.background }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px;"
+>
+  <div class="about-dna__container">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="about-dna__heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    <ul class="about-dna__grid" role="list">
+      {%- for i in (1..3) -%}
+        {%- liquid
+          assign image_key = 'card_' | append: i | append: '_image'
+          assign title_key = 'card_' | append: i | append: '_title'
+          assign text_key = 'card_' | append: i | append: '_text'
+          assign image = section.settings[image_key]
+        -%}
+        <li
+          class="about-dna__card{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+          {% if settings.animations_reveal_on_scroll %}
+            data-cascade style="--animation-order: {{ i }};"
+          {% endif %}
+        >
+          <div class="about-dna__media">
+            {%- if image != blank -%}
+              {{
+                image
+                | image_url: width: 1200
+                | image_tag:
+                  class: 'about-dna__image',
+                  widths: '400, 600, 800, 1200',
+                  sizes: '(min-width: 1920px) 512px, (min-width: 750px) 30vw, 100vw',
+                  loading: 'lazy'
+              }}
+            {%- else -%}
+              {%- assign fallback = fallbacks[forloop.index0] -%}
+              <img
+                class="about-dna__image"
+                src="{{ fallback | asset_url }}"
+                alt=""
+                width="600"
+                height="600"
+                loading="lazy"
+              >
+            {%- endif -%}
+          </div>
+          {%- if section.settings[title_key] != blank -%}
+            <h3 class="about-dna__title">{{ section.settings[title_key] | escape }}</h3>
+          {%- endif -%}
+          {%- if section.settings[text_key] != blank -%}
+            <div class="about-dna__text rte">{{ section.settings[text_key] }}</div>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "About product DNA",
+  "tag": "section",
+  "class": "section section-about-dna",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows only on the About page (handle about or about-us). Cards without an image show the theme's illustrations."
+    },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Our product DNA" },
+    { "type": "header", "content": "Card 1" },
+    { "type": "image_picker", "id": "card_1_image", "label": "Image" },
+    { "type": "text", "id": "card_1_title", "label": "Title", "default": "Everyday protection" },
+    {
+      "type": "richtext",
+      "id": "card_1_text",
+      "label": "Text",
+      "default": "<p>Cases designed with daily life in mind, to help keep your phone safe from the bumps and scrapes of the day.</p>"
+    },
+    { "type": "header", "content": "Card 2" },
+    { "type": "image_picker", "id": "card_2_image", "label": "Image" },
+    { "type": "text", "id": "card_2_title", "label": "Title", "default": "Clean, modern design" },
+    {
+      "type": "richtext",
+      "id": "card_2_text",
+      "label": "Text",
+      "default": "<p>Simple lines and considered details that suit your phone, so it stays protected and still looks like yours.</p>"
+    },
+    { "type": "header", "content": "Card 3" },
+    { "type": "image_picker", "id": "card_3_image", "label": "Image" },
+    { "type": "text", "id": "card_3_title", "label": "Title", "default": "Made for iPhone and Samsung" },
+    {
+      "type": "richtext",
+      "id": "card_3_text",
+      "label": "Text",
+      "default": "<p>Cases and accessories chosen for iPhone and Samsung models, so finding the right one for your phone is simple.</p>"
+    },
+    { "type": "header", "content": "Style" },
+    { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "instrument_sans_n6" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#F6F6F6" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 16 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "presets": [{ "name": "About product DNA" }]
+}
+{% endschema %}

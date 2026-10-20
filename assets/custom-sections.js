@@ -321,6 +321,7 @@ document.addEventListener('click', (event) => {
     '.pa__heading',
     '.ccat__heading',
     '.about-story__heading',
+    '.about-dna__heading',
   ].join(', ');
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;

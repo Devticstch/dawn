@@ -25,6 +25,10 @@
       "type": "about-story",
       "settings": {}
     },
+    "about_dna": {
+      "type": "about-dna",
+      "settings": {}
+    },
     "main": {
       "type": "main-page",
       "settings": {
@@ -36,6 +40,7 @@
   "order": [
     "about_hero",
     "about_story",
+    "about_dna",
     "main"
   ]
 }
