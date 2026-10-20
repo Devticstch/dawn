@@ -4235,3 +4235,153 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
     font-size: 7.5rem;
   }
 }
+
+/* ---------- About page story ---------- */
+/* Logo and centred intro, then a 20px-radius card in the content width (DESIGN-SYSTEM.md 2.1, 1.3): image beside a
+   centred panel on desktop, stacked on mobile. Heading uses the site's section-title sizes (24 / 31 / 42px) */
+.about-story__container {
+  --cs-gutter: clamp(2.2rem, 12.909vw - 8.127rem, 16.4rem);
+  max-width: 192rem;
+  margin-inline: auto;
+  padding-inline: var(--cs-gutter);
+}
+
+.about-story__intro {
+  max-width: 64rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.about-story__logo {
+  width: var(--about-story-logo-width, 14rem);
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.about-story__logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.about-story__logo-text {
+  font-family: var(--font-heading-family);
+  font-size: 2.4rem;
+  font-weight: 600;
+}
+
+.about-story__text {
+  margin-top: 2.4rem;
+  color: rgba(30, 30, 30, 0.75);
+  font-family: var(--font-nav-family, inherit);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+
+.about-story__text > * {
+  margin: 0;
+}
+
+.about-story__text > * + * {
+  margin-top: 1.2rem;
+}
+
+.about-story__card {
+  display: grid;
+  margin-top: 4.8rem;
+  overflow: hidden;
+  border-radius: 2rem;
+  background: var(--about-story-panel, #fff);
+}
+
+.about-story__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: rgba(30, 30, 30, 0.1);
+}
+
+.about-story__image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-story__placeholder {
+  background: #e5e5e5;
+  fill: rgba(30, 30, 30, 0.35);
+}
+
+.about-story__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2.4rem;
+  text-align: center;
+}
+
+.about-story__icon {
+  display: block;
+  width: 4.4rem;
+  height: 4.4rem;
+  margin-bottom: 2.4rem;
+  color: rgb(30, 30, 30);
+}
+
+.about-story__icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.about-story__heading {
+  margin: 0;
+  color: rgb(30, 30, 30);
+  font-size: 2.4rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.about-story__panel .about-story__text {
+  max-width: 62rem;
+}
+
+@media screen and (min-width: 750px) {
+  .about-story__card {
+    margin-top: 8rem;
+  }
+
+  .about-story__panel {
+    padding: 6.4rem 5rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .about-story__card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about-story__media {
+    aspect-ratio: auto;
+    min-height: 45rem;
+  }
+
+  .about-story__heading {
+    font-size: 3.1rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .about-story__panel {
+    padding: 8rem 9rem;
+  }
+
+  .about-story__heading {
+    font-size: 4.2rem;
+  }
+}

@@ -21,6 +21,10 @@
         "padding_bottom": 48
       }
     },
+    "about_story": {
+      "type": "about-story",
+      "settings": {}
+    },
     "main": {
       "type": "main-page",
       "settings": {
@@ -31,6 +35,7 @@
   },
   "order": [
     "about_hero",
+    "about_story",
     "main"
   ]
 }

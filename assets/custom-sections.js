@@ -320,6 +320,7 @@ document.addEventListener('click', (event) => {
     '.pa__eyebrow',
     '.pa__heading',
     '.ccat__heading',
+    '.about-story__heading',
   ].join(', ');
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
