@@ -15,23 +15,23 @@
         "slide_1": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/banner01.webp",
-            "link": "shopify://collections/all",
+            "image": "shopify://shop_images/slider-img.webp",
+            "mobile_focus": "center",
             "heading": "NEW! iPhone 18 Pro",
             "subheading": "Shop daily protection\nwith drop-tested cases",
             "button_label": "Shop now",
-            "mobile_focus": "center"
+            "link": "shopify://collections/all"
           }
         },
         "slide_2": {
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/banner-22.png",
-            "link": "shopify://collections/all",
+            "mobile_focus": "center",
             "heading": "Signature Cases",
             "subheading": "The award winning cases",
             "button_label": "Shop now",
-            "mobile_focus": "center"
+            "link": "shopify://collections/all"
           }
         },
         "slide_3": {
@@ -40,21 +40,22 @@
           "settings": {
             "image": "shopify://shop_images/image_756445f8-0483-4cd9-9769-f32a30dc94c5.png",
             "mobile_image": "shopify://shop_images/image_24e73aa9-2b36-47d7-9ced-f719f800ffc9.png",
-            "link": "",
+            "mobile_focus": "center",
             "heading": "Unlimited Prints",
             "subheading": "Find your perfect case",
-            "mobile_focus": "center"
+            "button_label": "Shop now",
+            "link": ""
           }
         },
         "slide_4": {
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/banner-33.png",
-            "link": "shopify://collections/all",
+            "mobile_focus": "center",
             "heading": "MAKE iT YOURS",
             "subheading": "Design a case that's all you",
             "button_label": "Shop now",
-            "mobile_focus": "center"
+            "link": "shopify://collections/all"
           }
         },
         "slide_5": {
@@ -63,10 +64,11 @@
           "settings": {
             "image": "shopify://shop_images/image_95139f7f-0223-485f-9ad6-9b6052c9ec35.png",
             "mobile_image": "shopify://shop_images/image_382f1039-9981-4af8-ae72-ca13fce5dfd7.png",
-            "link": "",
+            "mobile_focus": "center",
             "heading": "MagSafe Accessories",
             "subheading": "Snap on and go.\nUnlock new features.",
-            "mobile_focus": "center"
+            "button_label": "Shop now",
+            "link": ""
           }
         },
         "slide_6": {
@@ -75,10 +77,11 @@
           "settings": {
             "image": "shopify://shop_images/image_0d43b130-02da-47f4-854d-f0b687f2f4eb.png",
             "mobile_image": "shopify://shop_images/image_d376ce9b-5b14-4548-abf0-ff02b4390e36.png",
-            "link": "",
+            "mobile_focus": "center",
             "heading": "The Protectors",
             "subheading": "The ultimate armor\nfor lens and screens",
-            "mobile_focus": "center"
+            "button_label": "Shop now",
+            "link": ""
           }
         }
       },
@@ -93,8 +96,10 @@
       "settings": {
         "auto_rotate": true,
         "change_slides_speed": 5,
+        "overlay_opacity": 40,
         "accessibility_info": "Featured collections",
-        "overlay_opacity": 40
+        "heading_font": "instrument_sans_n6",
+        "accent_color": "#0f61ff"
       }
     },
     "category_strip": {
@@ -253,10 +258,167 @@
         "accessories_heading": "Accessories",
         "accessories_image": "shopify://shop_images/image_5cf08b37-8d04-4243-82b6-5fb606a8049a.png",
         "accessories_link": "/collections/all",
+        "heading_font": "instrument_sans_n6",
         "background": "#ffffff",
         "text_color": "#000000",
         "padding_top": 72,
         "padding_bottom": 64
+      }
+    },
+    "featured_best": {
+      "type": "best-sellers",
+      "settings": {
+        "title": "Best Sellers",
+        "collection": "all",
+        "products_to_show": 8,
+        "show_swatches": true,
+        "heading_font": "instrument_sans_n6",
+        "card_background": "#f6f6f6",
+        "badge_color": "#da1e28",
+        "accent_color": "#0f61ff",
+        "padding_top": 56,
+        "padding_bottom": 40
+      }
+    },
+    "editorial_protection": {
+      "type": "feature-showcase",
+      "blocks": {
+        "feature_protection": {
+          "type": "feature",
+          "settings": {
+            "icon": "warranty",
+            "title": "Protection",
+            "subtitle": ""
+          }
+        },
+        "feature_comfort": {
+          "type": "feature",
+          "settings": {
+            "icon": "heart",
+            "title": "Comfort",
+            "subtitle": ""
+          }
+        },
+        "feature_style": {
+          "type": "feature",
+          "settings": {
+            "icon": "sparkle",
+            "title": "Style",
+            "subtitle": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_protection",
+        "feature_comfort",
+        "feature_style"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/girl.webp",
+        "eyebrow": "SPECIAL FEATURES",
+        "overlay_small": "Super",
+        "overlay_large": "Slim",
+        "heading": "Protection, without the bulk",
+        "secondary_theme_image": "feature-cases-flatlay.jpg",
+        "button_label": "Shop cases",
+        "button_link": "/collections/all",
+        "heading_font": "instrument_sans_n6",
+        "panel_background": "#f6f6f6",
+        "accent_color": "#0f61ff",
+        "padding_top": 0,
+        "padding_bottom": 100
+      }
+    },
+    "image_banner_cases": {
+      "type": "image-banner-button",
+      "settings": {
+        "theme_image": "banner-ribbed-cases.jpg",
+        "button_label": "Shop now",
+        "button_link": "/collections/all",
+        "accent_color": "#0f61ff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "featured_bundle": {
+      "type": "product-bundle",
+      "settings": {
+        "title": "Product Bundles",
+        "collection": "all",
+        "products_to_show": 6,
+        "show_swatches": true,
+        "box_title": "Your bundle",
+        "box_subtitle": "",
+        "goal": 3,
+        "empty_text": "Your bundle is empty",
+        "heading_font": "instrument_sans_n6",
+        "card_background": "#f6f6f6",
+        "badge_color": "#da1e28",
+        "accent_color": "#0f61ff",
+        "padding_top": 50,
+        "padding_bottom": 50
+      }
+    },
+    "featured_tabs": {
+      "type": "featured-product-tabs",
+      "settings": {
+        "eyebrow": "FEATURED",
+        "collection": "all",
+        "products_to_show": 4,
+        "vendor_label": "Brand",
+        "type_label": "Type",
+        "weight_label": "Weight",
+        "title_font": "instrument_sans_n6",
+        "box_background": "#f6f6f6",
+        "accent_color": "#0f61ff",
+        "padding_top": 76,
+        "padding_bottom": 36
+      }
+    },
+    "info_cards": {
+      "type": "info-cards",
+      "blocks": {
+        "card_shipping": {
+          "type": "card",
+          "settings": {
+            "theme_image": "info-shipping.jpg",
+            "heading": "Shipping\nand Return",
+            "button_label": "View now",
+            "link": "/policies/shipping-policy"
+          }
+        },
+        "card_store": {
+          "type": "card",
+          "settings": {
+            "theme_image": "info-store.jpg",
+            "heading": "Our Store",
+            "button_label": "View now",
+            "link": "/pages/about-us"
+          }
+        },
+        "card_warranty": {
+          "type": "card",
+          "settings": {
+            "theme_image": "info-warranty.jpg",
+            "heading": "Warranty Policy",
+            "button_label": "View now",
+            "link": "/pages/contact"
+          }
+        }
+      },
+      "block_order": [
+        "card_shipping",
+        "card_store",
+        "card_warranty"
+      ],
+      "disabled": true,
+      "settings": {
+        "heading_font": "instrument_sans_n6",
+        "accent_color": "#0f61ff",
+        "padding_top": 92,
+        "padding_bottom": 63,
+        "padding_top_mobile": 62,
+        "padding_bottom_mobile": 43
       }
     },
     "reviews_scatter": {
@@ -342,13 +504,14 @@
       ],
       "settings": {
         "heading": "Loved by Our Customers",
+        "heading_font": "instrument_sans_n6",
+        "accent_color": "#0f61ff",
         "padding_top": 50,
         "padding_bottom": 50
       }
     },
     "reviews_highlight": {
       "type": "reviews-highlight",
-      "disabled": true,
       "blocks": {
         "avatar_1": {
           "type": "avatar",
@@ -388,6 +551,7 @@
         "avatar_4",
         "avatar_5"
       ],
+      "disabled": true,
       "settings": {
         "heading": "Loved by Our Customers",
         "quote": "Their cases are incredibly protective without sacrificing style, which is a rare combination to find.",
@@ -401,7 +565,6 @@
     },
     "logo_list": {
       "type": "logo-list",
-      "disabled": true,
       "blocks": {
         "logo_1": {
           "type": "logo",
@@ -438,6 +601,7 @@
         "logo_3",
         "logo_4"
       ],
+      "disabled": true,
       "settings": {
         "heading": "As Seen In",
         "logo_height": 40,
@@ -446,138 +610,6 @@
         "text_color": "#000000",
         "padding_top": 32,
         "padding_bottom": 32
-      }
-    },
-    "featured_best": {
-      "type": "best-sellers",
-      "settings": {
-        "title": "Best Sellers",
-        "collection": "all",
-        "products_to_show": 8,
-        "show_swatches": true,
-        "padding_top": 56,
-        "padding_bottom": 40
-      }
-    },
-    "editorial_protection": {
-      "type": "feature-showcase",
-      "settings": {
-        "image": "shopify://shop_images/girl.webp",
-        "eyebrow": "SPECIAL FEATURES",
-        "overlay_small": "Super",
-        "overlay_large": "Slim",
-        "heading": "Protection, without the bulk",
-        "secondary_theme_image": "feature-cases-flatlay.jpg",
-        "button_label": "Shop cases",
-        "button_link": "/collections/all",
-        "padding_top": 0,
-        "padding_bottom": 100
-      },
-      "blocks": {
-        "feature_protection": {
-          "type": "feature",
-          "settings": {
-            "icon": "warranty",
-            "title": "Protection"
-          }
-        },
-        "feature_comfort": {
-          "type": "feature",
-          "settings": {
-            "icon": "heart",
-            "title": "Comfort"
-          }
-        },
-        "feature_style": {
-          "type": "feature",
-          "settings": {
-            "icon": "sparkle",
-            "title": "Style"
-          }
-        }
-      },
-      "block_order": [
-        "feature_protection",
-        "feature_comfort",
-        "feature_style"
-      ]
-    },
-    "featured_bundle": {
-      "type": "product-bundle",
-      "settings": {
-        "title": "Product Bundles",
-        "collection": "all",
-        "products_to_show": 6,
-        "show_swatches": true,
-        "box_title": "Your bundle",
-        "goal": 3,
-        "empty_text": "Your bundle is empty",
-        "padding_top": 50,
-        "padding_bottom": 50
-      }
-    },
-    "info_cards": {
-      "type": "info-cards",
-      "disabled": true,
-      "blocks": {
-        "card_shipping": {
-          "type": "card",
-          "settings": {
-            "theme_image": "info-shipping.jpg",
-            "heading": "Shipping\nand Return",
-            "button_label": "View now",
-            "link": "/policies/shipping-policy"
-          }
-        },
-        "card_store": {
-          "type": "card",
-          "settings": {
-            "theme_image": "info-store.jpg",
-            "heading": "Our Store",
-            "button_label": "View now",
-            "link": "/pages/about-us"
-          }
-        },
-        "card_warranty": {
-          "type": "card",
-          "settings": {
-            "theme_image": "info-warranty.jpg",
-            "heading": "Warranty Policy",
-            "button_label": "View now",
-            "link": "/pages/contact"
-          }
-        }
-      },
-      "block_order": [
-        "card_shipping",
-        "card_store",
-        "card_warranty"
-      ],
-      "settings": {
-        "padding_top": 92,
-        "padding_bottom": 63,
-        "padding_top_mobile": 62,
-        "padding_bottom_mobile": 43
-      }
-    },
-    "featured_tabs": {
-      "type": "featured-product-tabs",
-      "settings": {
-        "eyebrow": "FEATURED",
-        "collection": "all",
-        "products_to_show": 4,
-        "padding_top": 76,
-        "padding_bottom": 36
-      }
-    },
-    "image_banner_cases": {
-      "type": "image-banner-button",
-      "settings": {
-        "theme_image": "banner-ribbed-cases.jpg",
-        "button_label": "Shop now",
-        "button_link": "/collections/all",
-        "padding_top": 0,
-        "padding_bottom": 0
       }
     }
   },
