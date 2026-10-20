@@ -87,7 +87,7 @@
 }
 
 /* Panels of the block-built menu (snippets/header-nav-menu.liquid); sizes follow the reference design */
-.header-nav .list-menu--inline > li > header-menu > details[open] > .header__menu-item {
+.header-nav .list-menu--inline > li > header-menu > details[open]:not(.is-closing) > .header__menu-item {
   color: var(--header-accent);
 }
 
@@ -95,6 +95,42 @@
   display: flex;
   padding: 0;
   border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+}
+
+/* Open and close like the reference: the panel fades in while rising 20px, 0.3s ease, and reverses on close.
+   The header script keeps the details open during the close (.is-closing). Label colour and caret follow. */
+.header-nav .mega-menu__content {
+  transform: translate3d(0, 2rem, 0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.header-nav .mega-menu[open]:not(.is-closing) .mega-menu__content {
+  opacity: 1;
+  transform: none;
+}
+
+.header-nav .mega-menu.is-closing .mega-menu__content {
+  opacity: 0;
+  transform: translate3d(0, 2rem, 0);
+}
+
+@starting-style {
+  .header-nav .mega-menu[open] .mega-menu__content {
+    opacity: 0;
+    transform: translate3d(0, 2rem, 0);
+  }
+}
+
+.header-nav .list-menu--inline > li > header-menu > details > .header__menu-item {
+  transition: color 0.3s ease;
+}
+
+.header-nav .header__menu-item .icon-caret {
+  transition: transform 0.3s ease;
+}
+
+.header-nav .mega-menu.is-closing > .header__menu-item .icon-caret {
+  transform: none;
 }
 
 .header-nav__intro {

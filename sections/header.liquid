@@ -720,12 +720,25 @@
   (() => {
     let closeTimer;
     const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const PANEL_CLOSE_MS = 300; // matches the panel transition in component-mega-menu.css
     const itemOf = (node) => node instanceof Element && node.closest('.header-nav__item');
+    // Closing keeps the details open while the panel fades out (.is-closing), so the close animates too
     const setOpen = (item, open) => {
       const details = item.querySelector('details');
-      if (!details || details.open === open) return;
-      details.open = open;
+      if (!details) return;
+      const closing = details.classList.contains('is-closing');
+      if (open ? details.open && !closing : !details.open || closing) return;
+      clearTimeout(details.closeTimer);
+      details.classList.toggle('is-closing', !open && !reducedMotion.matches);
+      if (open || reducedMotion.matches) details.open = open;
       details.querySelector('summary').setAttribute('aria-expanded', open);
+      if (!open && !reducedMotion.matches) {
+        details.closeTimer = setTimeout(() => {
+          details.classList.remove('is-closing');
+          details.open = false;
+        }, PANEL_CLOSE_MS);
+      }
     };
 
     document.addEventListener('pointerover', (event) => {
