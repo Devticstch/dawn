@@ -1,10 +1,21 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "banner": {
       "type": "collection-banner",
       "settings": {
+        "image": "shopify://shop_images/cases_1.webp",
         "theme_image": "banner-ribbed-cases.jpg",
-        "show_count": true
+        "show_count": true,
+        "heading_font": "instrument_sans_n6"
       }
     },
     "categories": {
@@ -14,14 +25,16 @@
           "type": "category",
           "settings": {
             "label": "iPhone",
-            "theme_image": "menu-iphone.png"
+            "theme_image": "menu-iphone.png",
+            "link": ""
           }
         },
         "category_samsung": {
           "type": "category",
           "settings": {
             "label": "Samsung",
-            "theme_image": "menu-samsung.png"
+            "theme_image": "menu-samsung.png",
+            "link": ""
           }
         }
       },
@@ -31,14 +44,26 @@
       ],
       "settings": {
         "heading": "Shop by Category",
-        "text": "<p>Protect your phone in style. From minimalist to drop-proof cases, we have your back.</p>"
+        "text": "<p>Protect your phone in style. From minimalist to drop-proof cases, we have your back.</p>",
+        "heading_font": "instrument_sans_n6"
       }
     },
     "product-grid": {
       "type": "main-collection-product-grid",
       "settings": {
+        "grid_style": "bold",
+        "show_grid_toggle": false,
+        "default_view": "small",
+        "show_subtitle": true,
+        "promo_enable": false,
+        "promo_position": 4,
+        "promo_heading": "Create Your Set. Make It Yours.",
+        "promo_text": "Your full custom setup for personal tech. Start with a personalized case, then build out the look with custom prints, MagSafe accessories and charms.",
+        "promo_button_label": "Shop Now",
+        "promo_link": "",
         "products_per_page": 24,
         "columns_desktop": 4,
+        "columns_mobile": "2",
         "color_scheme": "scheme-1",
         "image_ratio": "square",
         "image_shape": "default",
@@ -49,17 +74,8 @@
         "enable_filtering": true,
         "filter_type": "horizontal",
         "enable_sorting": true,
-        "columns_mobile": "2",
         "padding_top": 0,
-        "padding_bottom": 56,
-        "grid_style": "bold",
-        "default_view": "small",
-        "show_subtitle": true,
-        "promo_enable": false,
-        "promo_position": 4,
-        "promo_heading": "Create Your Set. Make It Yours.",
-        "promo_text": "Your full custom setup for personal tech. Start with a personalized case, then build out the look with custom prints, MagSafe accessories and charms.",
-        "promo_button_label": "Shop Now"
+        "padding_bottom": 56
       }
     }
   },

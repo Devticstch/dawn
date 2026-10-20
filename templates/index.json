@@ -332,6 +332,7 @@
     "image_banner_cases": {
       "type": "image-banner-button",
       "settings": {
+        "image": "shopify://shop_images/cases_1.webp",
         "theme_image": "banner-ribbed-cases.jpg",
         "button_label": "Shop now",
         "button_link": "/collections/all",
