@@ -29,6 +29,10 @@
       "type": "about-dna",
       "settings": {}
     },
+    "about_reveal": {
+      "type": "about-reveal",
+      "settings": {}
+    },
     "main": {
       "type": "main-page",
       "settings": {
@@ -41,6 +45,7 @@
     "about_hero",
     "about_story",
     "about_dna",
+    "about_reveal",
     "main"
   ]
 }

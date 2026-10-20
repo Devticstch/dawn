@@ -384,3 +384,50 @@ document.addEventListener('click', (event) => {
     mutations.forEach((mutation) => mutation.addedNodes.forEach((node) => node.nodeType === Node.ELEMENT_NODE && scan(node)))
   ).observe(document.body, { childList: true, subtree: true });
 })();
+
+// About page revealed image (reference: Impact "revealed-image"). While the stage is pinned, the first 80% of the
+// pinned scroll moves --reveal from 0 to 1 (eased in: the window grows to full screen as the image zooms out) and the
+// first 25% fades the heading in (--reveal-text); the last 20% holds the full image. Reduced motion keeps the CSS
+// defaults (fully revealed).
+(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+
+  const active = new Set();
+  let frame = 0;
+
+  const apply = (section) => {
+    const rect = section.getBoundingClientRect();
+    const span = Math.max((rect.height - window.innerHeight) * 0.8, 1);
+    const progress = Math.min(Math.max(-rect.top / span, 0), 1);
+    // ponytail: progress² stands in for the reference's CSS ease-in curve
+    section.style.setProperty('--reveal', (progress * progress).toFixed(4));
+    section.style.setProperty('--reveal-text', Math.min(progress / 0.25, 1).toFixed(4));
+  };
+
+  const update = () => {
+    frame = 0;
+    active.forEach(apply);
+  };
+  const schedule = () => {
+    if (!frame) frame = requestAnimationFrame(update);
+  };
+
+  const observer = new IntersectionObserver((entries) =>
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) active.add(entry.target);
+      else active.delete(entry.target);
+      apply(entry.target);
+    })
+  );
+
+  const init = (root) =>
+    root.querySelectorAll('.about-reveal').forEach((section) => {
+      apply(section);
+      observer.observe(section);
+    });
+
+  init(document);
+  document.addEventListener('shopify:section:load', (event) => init(event.target));
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule);
+})();

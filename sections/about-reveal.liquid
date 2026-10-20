@@ -1,0 +1,90 @@
+{%- comment -%}
+  About page revealed image (reference: Impact theme "revealed-image"). The section is two screens tall with a sticky
+  full-screen stage. While it is pinned, scrolling grows a centred window of the image to full screen as the image
+  zooms out; the heading is drawn twice, dark outside the window and white inside it (clipped like the image).
+  custom-sections.js sets --reveal (eased) and --reveal-text from the scroll position; without it, or with reduced
+  motion, the image shows fully revealed. Like the About hero it renders only on the About page.
+{%- endcomment -%}
+{%- if page.handle == 'about' or page.handle == 'about-us' -%}
+{%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .about-reveal__heading {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+    font-weight: {{ section.settings.heading_font.weight }};
+  }
+{%- endstyle -%}
+
+<div
+  class="about-reveal"
+  style="--about-reveal-bg: {{ section.settings.background }}; --about-reveal-text: {{ section.settings.text_color }}; --about-reveal-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
+>
+  <div class="about-reveal__stage">
+    <div class="about-reveal__clipper">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 3200
+          | image_tag:
+            class: 'about-reveal__image',
+            widths: '750, 1100, 1500, 2000, 2600, 3200',
+            sizes: '100vw',
+            loading: 'lazy',
+            alt: ''
+        }}
+      {%- else -%}
+        <img
+          class="about-reveal__image"
+          src="{{ 'about-reveal.svg' | asset_url }}"
+          alt=""
+          width="2400"
+          height="1200"
+          loading="lazy"
+        >
+      {%- endif -%}
+    </div>
+    {%- if section.settings.heading != blank -%}
+      <div class="about-reveal__content about-reveal__content--outside">
+        <h2 class="about-reveal__heading">{{ section.settings.heading | escape }}</h2>
+      </div>
+      <div class="about-reveal__content about-reveal__content--inside" aria-hidden="true">
+        <p class="about-reveal__heading">{{ section.settings.heading | escape }}</p>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "About revealed image",
+  "tag": "section",
+  "class": "section section-about-reveal",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows only on the About page (handle about or about-us). Scrolling opens the image from a small centred window to full screen. Without an image it shows the theme's illustration."
+    },
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Landscape, at least 2400 px wide. The centre stays visible on phones." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "We believe protection should still look like you" },
+    { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "instrument_sans_n6" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#F6F6F6" },
+    { "type": "color", "id": "text_color", "label": "Heading color outside the image", "default": "#1E1E1E" },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Image overlay",
+      "info": "Darkens the image behind the white heading",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "%",
+      "default": 10
+    }
+  ],
+  "presets": [{ "name": "About revealed image" }]
+}
+{% endschema %}

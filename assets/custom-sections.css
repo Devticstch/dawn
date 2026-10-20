@@ -4495,3 +4495,108 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
     font-size: 3.1rem;
   }
 }
+
+/* ---------- About page revealed image ---------- */
+/* Reference: Impact "revealed-image". Two screens tall with a sticky full-screen stage; --reveal (0 → 1, set by
+   custom-sections.js) opens the window from inset(37% 37% 41%) to full screen and zooms the image from 1.4 to 1;
+   --reveal-text fades both heading layers in. Both default to 1, so without JS the image shows fully revealed.
+   Heading: page-title style (36 / 54 / 75px, −0.05em, DESIGN-SYSTEM.md 1.2) */
+.about-reveal {
+  --reveal: 1;
+  --reveal-text: 1;
+  position: relative;
+  height: 200vh;
+  height: 200lvh;
+  background: var(--about-reveal-bg, #f6f6f6);
+}
+
+.about-reveal__stage {
+  position: sticky;
+  top: 0;
+  display: grid;
+  height: 100vh;
+  height: 100lvh;
+  overflow: hidden;
+}
+
+.about-reveal__stage > * {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+}
+
+.about-reveal__clipper,
+.about-reveal__content--inside {
+  --hide: calc(1 - var(--reveal));
+  clip-path: inset(calc(37% * var(--hide)) calc(37% * var(--hide)) calc(41% * var(--hide)));
+}
+
+.about-reveal__clipper {
+  position: relative;
+  overflow: hidden;
+}
+
+.about-reveal__clipper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, var(--about-reveal-overlay, 0.1));
+}
+
+.about-reveal__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(calc(-10% * var(--hide)), calc(-1.5% * var(--hide))) scale(calc(1 + 0.4 * var(--hide)));
+  will-change: transform;
+}
+
+.about-reveal__content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-content: center;
+  padding-inline: clamp(2.2rem, 12.909vw - 8.127rem, 16.4rem);
+  text-align: center;
+  opacity: var(--reveal-text);
+}
+
+.about-reveal__content--outside {
+  color: var(--about-reveal-text, #1e1e1e);
+}
+
+.about-reveal__content--inside {
+  color: #fff;
+}
+
+.about-reveal__heading {
+  max-width: 130rem;
+  margin: 0 auto;
+  color: inherit;
+  font-size: 3.6rem;
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+}
+
+@media screen and (min-width: 750px) {
+  .about-reveal__heading {
+    font-size: 5.4rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .about-reveal__heading {
+    font-size: 7.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-reveal {
+    height: auto;
+  }
+
+  .about-reveal__stage {
+    position: relative;
+  }
+}
