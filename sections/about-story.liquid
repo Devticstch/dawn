@@ -1,6 +1,8 @@
 {%- comment -%}
   About page story: the store logo over a centred intro, then a rounded card with an image beside a centred panel
   (icon, heading, text). Like the About hero it sits in the default page template and renders only on the About page.
+  The intro text is the About page's own content (Shopify admin > Online Store > Pages), so edits there show here;
+  main-page's copy of that content is hidden on this page so it appears once.
 {%- endcomment -%}
 {%- if page.handle == 'about' or page.handle == 'about-us' -%}
 {%- style -%}
@@ -9,6 +11,14 @@
   #shopify-section-{{ section.id }} .about-story__heading {
     font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
     font-weight: {{ section.settings.heading_font.weight }};
+  }
+
+  .main-page-title ~ .rte {
+    display: none;
+  }
+
+  .page-width:has(> .main-page-title) {
+    display: none;
   }
 {%- endstyle -%}
 
@@ -29,8 +39,8 @@
           <span class="about-story__logo-text">{{ shop.name | escape }}</span>
         {%- endif -%}
       </div>
-      {%- if section.settings.intro != blank -%}
-        <div class="about-story__text rte">{{ section.settings.intro }}</div>
+      {%- if page.content != blank -%}
+        <div class="about-story__text rte">{{ page.content }}</div>
       {%- endif -%}
     </div>
 
@@ -77,15 +87,9 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Shows only on the About page (handle about or about-us). The logo is the store logo from Theme settings."
+      "content": "Shows only on the About page (handle about or about-us). The logo is the store logo from Theme settings. The intro text is the About page's content: edit it in Shopify admin under Online Store > Pages > About."
     },
     { "type": "range", "id": "logo_width", "label": "Logo width", "min": 60, "max": 240, "step": 10, "unit": "px", "default": 140 },
-    {
-      "type": "richtext",
-      "id": "intro",
-      "label": "Intro text",
-      "default": "<p>Your phone goes everywhere with you, so the case on it matters. At Tech2C, we bring together phone cases and accessories for iPhone and Samsung that balance everyday protection with clean, modern design, so your phone stays safe and still looks like yours.</p>"
-    },
     { "type": "header", "content": "Card" },
     { "type": "image_picker", "id": "image", "label": "Image", "info": "Shows a Shopify placeholder until an image is chosen" },
     {
