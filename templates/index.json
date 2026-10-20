@@ -99,7 +99,7 @@
         "overlay_opacity": 40,
         "accessibility_info": "Featured collections",
         "heading_font": "instrument_sans_n6",
-        "accent_color": "#0f61ff"
+        "accent_color": "#8825e4"
       }
     },
     "category_strip": {
@@ -275,7 +275,7 @@
         "heading_font": "instrument_sans_n6",
         "card_background": "#f6f6f6",
         "badge_color": "#da1e28",
-        "accent_color": "#0f61ff",
+        "accent_color": "#8825e4",
         "padding_top": 56,
         "padding_bottom": 40
       }
@@ -324,7 +324,7 @@
         "button_link": "/collections/all",
         "heading_font": "instrument_sans_n6",
         "panel_background": "#f6f6f6",
-        "accent_color": "#0f61ff",
+        "accent_color": "#8825e4",
         "padding_top": 0,
         "padding_bottom": 100
       }
@@ -336,7 +336,7 @@
         "theme_image": "banner-ribbed-cases.jpg",
         "button_label": "Shop now",
         "button_link": "/collections/all",
-        "accent_color": "#0f61ff",
+        "accent_color": "#8825e4",
         "padding_top": 0,
         "padding_bottom": 0
       }
@@ -355,7 +355,7 @@
         "heading_font": "instrument_sans_n6",
         "card_background": "#f6f6f6",
         "badge_color": "#da1e28",
-        "accent_color": "#0f61ff",
+        "accent_color": "#8825e4",
         "padding_top": 50,
         "padding_bottom": 50
       }
@@ -371,7 +371,7 @@
         "weight_label": "Weight",
         "title_font": "instrument_sans_n6",
         "box_background": "#f6f6f6",
-        "accent_color": "#0f61ff",
+        "accent_color": "#8825e4",
         "padding_top": 76,
         "padding_bottom": 36
       }
@@ -415,7 +415,7 @@
       "disabled": true,
       "settings": {
         "heading_font": "instrument_sans_n6",
-        "accent_color": "#0f61ff",
+        "accent_color": "#8825e4",
         "padding_top": 92,
         "padding_bottom": 63,
         "padding_top_mobile": 62,
@@ -506,7 +506,7 @@
       "settings": {
         "heading": "Loved by Our Customers",
         "heading_font": "instrument_sans_n6",
-        "accent_color": "#0f61ff",
+        "accent_color": "#8825e4",
         "padding_top": 50,
         "padding_bottom": 50
       }

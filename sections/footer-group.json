@@ -42,7 +42,7 @@
         "newsletter_legal": "<p>By continuing, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of service\">Terms & Conditions</a> and <a href=\"/policies/privacy-policy\" title=\"Privacy policy\">Privacy Policy</a>.</p>",
         "show_social": true,
         "social_heading": "Let's be friends",
-        "background": "#0F61FF",
+        "background": "#8825E4",
         "text_color": "#ffffff"
       }
     }

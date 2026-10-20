@@ -206,7 +206,7 @@
   padding: 0 2.1rem;
   font-size: 1.5rem;
   white-space: nowrap;
-  --btn-accent: var(--hero-accent, #0f61ff);
+  --btn-accent: var(--hero-accent, #8825e4);
 }
 
 .hero-carousel__cta:focus-visible {
@@ -311,7 +311,7 @@
 
 .hero-carousel__dot.is-active::before {
   height: 2.8rem;
-  background: var(--hero-accent, #0f61ff);
+  background: linear-gradient(180deg, var(--hero-accent, #8825e4) 0%, var(--t2c-cyan, #00ffff) 100%);
 }
 
 .hero-carousel__dot:focus-visible {
@@ -345,7 +345,7 @@
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: var(--hero-accent, #0f61ff);
+  background: var(--hero-accent, #8825e4);
   color: #fff;
 }
 

@@ -8,7 +8,7 @@
   --pp-muted: rgba(30, 30, 30, 0.65);
   --pp-line: rgba(30, 30, 30, 0.1);
   --pp-layer: #f6f6f6;
-  --pp-accent: #0f61ff;
+  --pp-accent: #8825e4;
 }
 
 product-info.product-panel-section {
@@ -437,7 +437,7 @@ media-gallery:focus-within .product-gallery-nav__button--next {
 
 /* Dawn marks Add to cart secondary when Buy it now shows; here it stays the filled primary */
 .product--panel .product-form__submit.button--secondary {
-  --btn-bg: var(--btn-accent, #0f61ff);
+  --btn-bg: var(--btn-accent, #8825e4);
   --btn-fg: #fff;
   --btn-border: var(--btn-bg);
   --btn-fill: #fff;

@@ -142,7 +142,7 @@
         "button_label": "Subscribe",
         "legal": "<p>By continuing, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of service\">Terms & Conditions</a> and <a href=\"/policies/privacy-policy\" title=\"Privacy policy\">Privacy Policy</a>. You can unsubscribe at any time.</p>",
         "heading_font": "instrument_sans_n6",
-        "panel_color": "#0f61ff",
+        "panel_color": "#8825e4",
         "background": "#f6f6f6",
         "padding_top": 80,
         "padding_bottom": 40

@@ -138,7 +138,7 @@ cart-drawer .cart-drawer .drawer__close .svg-wrapper {
   display: block;
   height: 100%;
   border-radius: 0.6rem;
-  background: #0f61ff;
+  background: var(--t2c-gradient, #8825e4);
   transition: width var(--cd-duration) var(--cd-ease);
 }
 
