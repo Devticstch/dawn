@@ -142,6 +142,32 @@
         ></button>
       {%- endfor -%}
     </div>
+
+    {%- comment -%}
+      Previous / next like the reference: a blue arrow button follows the pointer and a click on the left or right
+      half changes slide (taps on phones). The real buttons below serve keyboard and screen readers.
+    {%- endcomment -%}
+    <button
+      type="button"
+      class="hero-carousel__arrow hero-carousel__arrow--prev"
+      data-hero-step="-1"
+      aria-label="{{ 'general.slider.previous_slide' | t }}"
+      aria-controls="HeroCarouselTrack-{{ section.id }}"
+    >
+      {{- 'icon-arrow.svg' | inline_asset_content -}}
+    </button>
+    <button
+      type="button"
+      class="hero-carousel__arrow hero-carousel__arrow--next"
+      data-hero-step="1"
+      aria-label="{{ 'general.slider.next_slide' | t }}"
+      aria-controls="HeroCarouselTrack-{{ section.id }}"
+    >
+      {{- 'icon-arrow.svg' | inline_asset_content -}}
+    </button>
+    <div class="hero-carousel__cursor" aria-hidden="true">
+      <span class="hero-carousel__cursor-button">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
+    </div>
   {%- endif -%}
 </hero-carousel>
 

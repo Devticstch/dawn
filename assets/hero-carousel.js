@@ -15,6 +15,9 @@ if (!customElements.get('hero-carousel')) {
         this.autoplay = this.dataset.autoplay === 'true' && !this.reducedMotion;
 
         this.dots.forEach((dot) => dot.addEventListener('click', () => this.goTo(parseInt(dot.dataset.index, 10))));
+        this.querySelectorAll('[data-hero-step]').forEach((button) =>
+          button.addEventListener('click', () => this.goTo(this.index + Number(button.dataset.heroStep)))
+        );
 
         // Mouse only: touch devices emulate hover and would stall autoplay after a tap
         this.addEventListener('pointerenter', (event) => {
@@ -33,6 +36,7 @@ if (!customElements.get('hero-carousel')) {
         document.addEventListener('visibilitychange', this.onVisibilityChange);
 
         this.initSwipe();
+        this.initCursor();
         this.play();
 
         if (Shopify.designMode) {
@@ -85,6 +89,61 @@ if (!customElements.get('hero-carousel')) {
 
       stop() {
         clearTimeout(this.timer);
+      }
+
+      // Like the reference: a click (or tap) on the left half goes back, on the right half forward; with a mouse a
+      // round arrow button eases after the pointer (time constant 155ms, measured on the reference, so it feels the
+      // same at any refresh rate) and hides over links and buttons, where those keep their own clicks.
+      initCursor() {
+        const cursor = this.querySelector('.hero-carousel__cursor');
+        if (!cursor) return;
+        const interactive = 'a, button, input, select, textarea, [role="button"]';
+        const side = (clientX) => {
+          const box = this.getBoundingClientRect();
+          return clientX < box.left + box.width / 2 ? -1 : 1;
+        };
+
+        this.addEventListener('click', (event) => {
+          if (event.defaultPrevented || Shopify.designMode || event.target.closest(interactive)) return;
+          this.goTo(this.index + side(event.clientX));
+        });
+
+        let x = 0;
+        let y = 0;
+        let targetX = 0;
+        let targetY = 0;
+        let frame = 0;
+        let last = 0;
+        let snap = true;
+        const render = (time) => {
+          const ease = 1 - Math.exp(-Math.min(time - (last || time), 100) / 155);
+          last = time;
+          x += (targetX - x) * ease;
+          y += (targetY - y) * ease;
+          cursor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+          frame = Math.abs(targetX - x) + Math.abs(targetY - y) > 0.5 ? requestAnimationFrame(render) : 0;
+          if (!frame) last = 0;
+        };
+
+        this.addEventListener('pointermove', (event) => {
+          if (event.pointerType !== 'mouse') return;
+          const box = this.getBoundingClientRect();
+          targetX = event.clientX - box.left;
+          targetY = event.clientY - box.top;
+          if (snap || this.reducedMotion) {
+            x = targetX;
+            y = targetY;
+            snap = false;
+          }
+          cursor.classList.toggle('is-visible', !event.target.closest(interactive));
+          cursor.classList.toggle('is-prev', side(event.clientX) < 0);
+          if (!frame) frame = requestAnimationFrame(render);
+        });
+
+        this.addEventListener('pointerleave', () => {
+          cursor.classList.remove('is-visible');
+          snap = true;
+        });
       }
 
       initSwipe() {

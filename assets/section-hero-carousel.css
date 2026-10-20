@@ -320,8 +320,97 @@
   border-radius: 0.8rem;
 }
 
+/* ---------- Previous / next (reference): pointer-following arrow button ---------- */
+/* 50px accent circle, white arrow; pops in and out with scale + opacity over 0.4s. hero-carousel.js moves it. */
+.hero-carousel:has(.hero-carousel__cursor) .hero-carousel__track {
+  cursor: pointer;
+}
+
+.hero-carousel__cursor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.hero-carousel__cursor-button,
+.hero-carousel__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  height: 5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--hero-accent, #0f61ff);
+  color: #fff;
+}
+
+.hero-carousel__cursor-button {
+  margin: -2.5rem 0 0 -2.5rem;
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 0.4s, opacity 0.4s;
+}
+
+.hero-carousel__cursor.is-visible .hero-carousel__cursor-button {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hero-carousel__cursor-button svg,
+.hero-carousel__arrow svg {
+  width: 1.6rem;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.hero-carousel__cursor.is-prev svg,
+.hero-carousel__arrow--prev svg {
+  transform: rotate(180deg);
+}
+
+/* Touch screens tap the halves instead; the pointer button is mouse only */
+@media (hover: none), (pointer: coarse) {
+  .hero-carousel__cursor {
+    display: none;
+  }
+}
+
+/* Keyboard and screen readers: real buttons that appear when focused */
+.hero-carousel__arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  margin-top: -2.5rem;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero-carousel__arrow--prev {
+  left: 2rem;
+}
+
+.hero-carousel__arrow--next {
+  right: 2rem;
+}
+
+.hero-carousel__arrow:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+  outline: 0.2rem solid #fff;
+  outline-offset: 0.3rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .hero-carousel__dot::before {
+  .hero-carousel__dot::before,
+  .hero-carousel__cursor-button,
+  .hero-carousel__cursor-button svg,
+  .hero-carousel__arrow svg {
     transition: none;
   }
 
