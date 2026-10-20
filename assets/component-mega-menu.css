@@ -97,6 +97,18 @@
   border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
 }
 
+/* Compact panel: centred under the header and sized to its content, at least 1100px so the menus look alike,
+   wider only when long link titles need it, never past the screen. Centred with auto margins, since transform is
+   used by the open/close animation. The sides get the same line as the bottom. */
+.header-nav .mega-menu__content.header-nav__panel {
+  width: fit-content;
+  min-width: min(110rem, 100%);
+  max-width: 100%;
+  margin-inline: auto;
+  border-left: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  border-right: 0.1rem solid rgba(var(--color-foreground), 0.08);
+}
+
 /* Open and close like the reference: the panel fades in while rising 20px, 0.3s ease, and reverses on close.
    The header script keeps the details open during the close (.is-closing). Label colour and caret follow. */
 .header-nav .mega-menu__content {
