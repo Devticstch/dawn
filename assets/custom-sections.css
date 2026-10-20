@@ -2724,6 +2724,27 @@ main[data-template='index'] .perks__grid {
   font-family: var(--font-nav-family, inherit);
 }
 
+/* Reveal like the reference (DESIGN-SYSTEM.md 7.1): the footer stays pinned behind the page and is uncovered as
+   the content scrolls past. It sits under the page (z-index -1) rather than lifting <main>, so pop-ups inside
+   <main> keep their layering; <main> gets the page colour so it hides the footer until it ends. The body is
+   isolated so the footer, once uncovered, receives clicks before the body box. Only when the footer fits the
+   window, so its top is never out of reach. */
+@media screen and (min-height: 650px) {
+  body {
+    isolation: isolate;
+  }
+
+  .section-footer-bold {
+    position: sticky;
+    bottom: 0;
+    z-index: -1;
+  }
+
+  #MainContent {
+    background: rgb(var(--color-background));
+  }
+}
+
 /* Same content width and gutter as the other sections (DESIGN-SYSTEM.md 2.1) */
 .cs-footer__inner {
   --cs-gutter: clamp(2.2rem, 12.909vw - 8.127rem, 16.4rem);
