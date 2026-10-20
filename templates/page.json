@@ -97,6 +97,54 @@
       ],
       "settings": {}
     },
+    "about_newsletter": {
+      "type": "about-newsletter",
+      "settings": {}
+    },
+    "about_features": {
+      "type": "about-features",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "title": "Everyday protection",
+            "text": "<p>Cases designed to help keep your phone safe from the bumps and scrapes of daily life.</p>"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck",
+            "title": "Shipping options",
+            "text": "<p>Delivery options and costs for your address are shown at checkout, before you pay.</p>"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "chat",
+            "title": "Support",
+            "text": "<p>Questions about a product or an order? <a href=\"/pages/contact\" title=\"Contact\">Contact us</a> and we'll help.</p>"
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "secure",
+            "title": "Secure payment",
+            "text": "<p>Payments are processed through Shopify's secure checkout.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ],
+      "settings": {}
+    },
     "main": {
       "type": "main-page",
       "settings": {
@@ -111,6 +159,8 @@
     "about_dna",
     "about_reveal",
     "about_faq",
+    "about_newsletter",
+    "about_features",
     "main"
   ]
 }

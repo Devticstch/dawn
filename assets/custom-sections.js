@@ -323,6 +323,7 @@ document.addEventListener('click', (event) => {
     '.about-story__heading',
     '.about-dna__heading',
     '.about-faq__heading',
+    '.about-newsletter__heading',
   ].join(', ');
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;

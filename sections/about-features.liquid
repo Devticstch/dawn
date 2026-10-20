@@ -1,0 +1,98 @@
+{%- comment -%}
+  About page features: a row of items with an icon, title and short text (4 per row on desktop, 2 on tablets, 1 on
+  phones). Like the About hero it sits in the default page template and renders only on the About page.
+{%- endcomment -%}
+{%- if page.handle == 'about' or page.handle == 'about-us' -%}
+{%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .about-features__title {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+    font-weight: {{ section.settings.heading_font.weight }};
+  }
+{%- endstyle -%}
+
+<div
+  class="about-features cs-section"
+  style="--cs-bg: {{ section.settings.background }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px;"
+>
+  <ul class="about-features__grid" role="list">
+    {%- for block in section.blocks -%}
+      <li
+        class="about-features__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+        {% if settings.animations_reveal_on_scroll %}
+          data-cascade style="--animation-order: {{ forloop.index }};"
+        {% endif %}
+        {{ block.shopify_attributes }}
+      >
+        {%- if block.settings.icon != 'none' -%}
+          <span class="about-features__icon">{% render 'cs-icon', icon: block.settings.icon %}</span>
+        {%- endif -%}
+        {%- if block.settings.title != blank -%}
+          <h3 class="about-features__title">{{ block.settings.title | escape }}</h3>
+        {%- endif -%}
+        {%- if block.settings.text != blank -%}
+          <div class="about-features__text rte">{{ block.settings.text }}</div>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "About features",
+  "tag": "section",
+  "class": "section section-about-features",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows only on the About page (handle about or about-us). Add one Feature block per item."
+    },
+    { "type": "font_picker", "id": "heading_font", "label": "Title font", "default": "instrument_sans_n6" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#F6F6F6" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "chat", "label": "Chat" },
+            { "value": "secure", "label": "Secure checkout" },
+            { "value": "return", "label": "Return box" },
+            { "value": "warranty", "label": "Warranty badge" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "star", "label": "Star" },
+            { "value": "gift", "label": "Gift" },
+            { "value": "leaf", "label": "Leaf" }
+          ],
+          "default": "shield"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Feature" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Describe the feature.</p>" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "About features",
+      "blocks": [{ "type": "feature" }, { "type": "feature" }, { "type": "feature" }, { "type": "feature" }]
+    }
+  ]
+}
+{% endschema %}

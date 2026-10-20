@@ -1,0 +1,151 @@
+{%- comment -%}
+  About page newsletter card: image beside an accent panel with an icon, heading, text and Shopify's customer form
+  (subscribes the email with the "newsletter" tag). Like the About hero it sits in the default page template and
+  renders only on the About page.
+{%- endcomment -%}
+{%- if page.handle == 'about' or page.handle == 'about-us' -%}
+{%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .about-newsletter__heading {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+    font-weight: {{ section.settings.heading_font.weight }};
+  }
+{%- endstyle -%}
+
+<div
+  class="about-newsletter cs-section"
+  style="--cs-bg: {{ section.settings.background }}; --about-newsletter-accent: {{ section.settings.panel_color }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px;"
+>
+  <div class="about-newsletter__container">
+    <div class="about-newsletter__card{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <div class="about-newsletter__media">
+        {%- if section.settings.image != blank -%}
+          {{
+            section.settings.image
+            | image_url: width: 1600
+            | image_tag:
+              class: 'about-newsletter__image',
+              widths: '375, 550, 750, 1100, 1600',
+              sizes: '(min-width: 1920px) 796px, (min-width: 990px) 50vw, 100vw',
+              loading: 'lazy'
+          }}
+        {%- else -%}
+          <img
+            class="about-newsletter__image"
+            src="{{ 'about-newsletter.svg' | asset_url }}"
+            alt=""
+            width="1200"
+            height="800"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+
+      <div class="about-newsletter__panel">
+        <svg class="about-newsletter__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" aria-hidden="true" focusable="false">
+          <circle cx="24" cy="24" r="8"/>
+          <path d="M32 16v11a5 5 0 0 0 10 0v-3a18 18 0 1 0-7 14.2"/>
+        </svg>
+        {%- if section.settings.heading != blank -%}
+          <h2 class="about-newsletter__heading">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.text != blank -%}
+          <div class="about-newsletter__text rte">{{ section.settings.text }}</div>
+        {%- endif -%}
+
+        {%- liquid
+          assign form_id = 'AboutNewsletter-' | append: section.id
+          assign button_label = section.settings.button_label
+          if button_label == blank
+            assign button_label = 'newsletter.button_label' | t
+          endif
+        -%}
+        {%- form 'customer', id: form_id, class: 'about-newsletter__form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="about-newsletter__fields">
+            <label class="visually-hidden" for="AboutNewsletterEmail-{{ section.id }}">{{ 'newsletter.label' | t }}</label>
+            <input
+              class="about-newsletter__input"
+              id="AboutNewsletterEmail-{{ section.id }}"
+              type="email"
+              name="contact[email]"
+              value="{{ form.email }}"
+              placeholder="{{ section.settings.placeholder | escape }}"
+              autocomplete="email"
+              autocorrect="off"
+              autocapitalize="off"
+              required
+              {% if form.errors %}
+                aria-invalid="true" aria-describedby="AboutNewsletterError-{{ section.id }}"
+              {% elsif form.posted_successfully? %}
+                aria-describedby="AboutNewsletterSuccess-{{ section.id }}"
+              {% endif %}
+            >
+            <button class="about-newsletter__button" type="submit" name="commit">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <rect x="2.5" y="4.5" width="15" height="11" rx="2"/>
+                <path d="m3 5.5 7 5.5 7-5.5"/>
+              </svg>
+              <span>{{ button_label | escape }}</span>
+            </button>
+          </div>
+          {%- if form.errors -%}
+            <p class="about-newsletter__message" id="AboutNewsletterError-{{ section.id }}" role="alert">
+              {{ form.errors.translated_fields.email | capitalize }}
+              {{ form.errors.messages.email }}
+            </p>
+          {%- elsif form.posted_successfully? -%}
+            <p class="about-newsletter__message" id="AboutNewsletterSuccess-{{ section.id }}" role="status" tabindex="-1" autofocus>
+              {{ 'newsletter.success' | t }}
+            </p>
+          {%- endif -%}
+        {%- endform -%}
+
+        {%- if section.settings.legal != blank -%}
+          <div class="about-newsletter__legal rte">{{ section.settings.legal }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "About newsletter",
+  "tag": "section",
+  "class": "section section-about-newsletter",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows only on the About page (handle about or about-us). Signups are saved as customers with the newsletter tag and email marketing consent. Without an image it shows the theme's illustration."
+    },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Sign up to our newsletter." },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Subscribe to hear about new cases, accessories and news from Tech2C.</p>"
+    },
+    { "type": "text", "id": "placeholder", "label": "Email placeholder", "default": "E-mail" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Subscribe" },
+    {
+      "type": "richtext",
+      "id": "legal",
+      "label": "Small print",
+      "default": "<p>By continuing, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of service\">Terms & Conditions</a> and <a href=\"/policies/privacy-policy\" title=\"Privacy policy\">Privacy Policy</a>. You can unsubscribe at any time.</p>"
+    },
+    { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "instrument_sans_n6" },
+    { "type": "color", "id": "panel_color", "label": "Panel color", "default": "#0F61FF" },
+    { "type": "color", "id": "background", "label": "Section background", "default": "#F6F6F6" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 40 }
+  ],
+  "presets": [{ "name": "About newsletter" }]
+}
+{% endschema %}
