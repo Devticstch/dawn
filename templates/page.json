@@ -11,7 +11,15 @@
   "sections": {
     "about_hero": {
       "type": "about-hero",
-      "settings": {}
+      "settings": {
+        "image": "shopify://shop_images/cases_1.webp",
+        "eyebrow": "About us",
+        "heading": "",
+        "heading_font": "instrument_sans_n6",
+        "overlay_opacity": 30,
+        "padding_top": 8,
+        "padding_bottom": 48
+      }
     },
     "main": {
       "type": "main-page",

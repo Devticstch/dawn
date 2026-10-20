@@ -1,11 +1,11 @@
 {%- comment -%}
-  The section sits in the default page template (page.json) as well as page.about.json, so the About page shows it
-  whether or not the "about" template is assigned in admin. It renders only on the About page; there it hides the
-  main-page title, which would repeat the hero's h1.
+  The section sits in the default page template (page.json), so the About page has one hero whose settings the theme
+  editor changes for every URL of the page. It renders only on the About page; there it hides the main-page title,
+  which would repeat the hero's h1.
 {%- endcomment -%}
 {%- liquid
   assign show_hero = false
-  if template.suffix == 'about' or page.handle == 'about' or page.handle == 'about-us'
+  if page.handle == 'about' or page.handle == 'about-us'
     assign show_hero = true
   endif
   assign heading = section.settings.heading | default: page.title
@@ -73,7 +73,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Shows only on the About page (handle about or about-us) or on pages using the about template."
+      "content": "Shows only on the About page (handle about or about-us). To edit it, open the Default page template and preview the About page."
     },
     {
       "type": "image_picker",
