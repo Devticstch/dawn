@@ -96,8 +96,17 @@
         {{- plus_icon -}}
       </a>
     {%- endif -%}
-    <a href="{{ product.url }}" class="bs-card__action" aria-label="{{ 'products.product.view_full_details' | t }}: {{ product.title | escape }}">
+    {%- comment -%} Opens the quick view (custom-sections.js); a plain link to the product without JavaScript {%- endcomment -%}
+    <a
+      href="{{ product.url }}"
+      class="bs-card__action"
+      data-quick-view
+      data-close-label="{{ 'accessibility.close' | t | escape }}"
+      aria-haspopup="dialog"
+      aria-label="{{ 'products.product.quick_view' | t }}: {{ product.title | escape }}"
+    >
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true" focusable="false"><path d="M1.5 8S4 3.5 8 3.5 14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8Z"/><circle cx="8" cy="8" r="2"/></svg>
+      {%- render 'loading-spinner' -%}
     </a>
   </div>
 

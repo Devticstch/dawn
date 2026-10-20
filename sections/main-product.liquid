@@ -722,11 +722,6 @@
 
       {% render 'product-media-modal', variant_images: variant_images %}
 
-      {%- if section.settings.show_sticky_bar -%}
-        {%- assign sticky_form_id = 'product-form-' | append: section.id -%}
-        {% render 'product-sticky-bar', product: product, product_form_id: sticky_form_id, section_id: section.id %}
-      {%- endif -%}
-
       {% assign popups = section.blocks | where: 'type', 'popup' %}
       {%- for block in popups -%}
         <modal-dialog id="PopupModal-{{ block.id }}" class="product-popup-modal" {{ block.shopify_attributes }}>
@@ -2523,12 +2518,6 @@
       "id": "panel_heading_font",
       "label": "Panel: title font",
       "default": "instrument_sans_n6"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_sticky_bar",
-      "label": "Show sticky add to cart bar",
-      "default": false
     },
     {
       "type": "checkbox",

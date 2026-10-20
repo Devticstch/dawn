@@ -117,30 +117,31 @@
 .collection-bold .facets__display {
   top: calc(100% + 1.2rem);
   left: 0;
-  width: 25rem;
-  border: 0;
-  border-radius: 0.8rem;
+  width: 26rem;
+  overflow: hidden;
+  border: 0.1rem solid rgba(30, 30, 30, 0.08);
+  border-radius: 2rem;
   background: #fff;
-  box-shadow: 0 0 1.6rem rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.08);
 }
 
 .collection-bold .facets__display .facets__price {
-  padding: 2rem 1.2rem;
+  padding: 1.6rem;
 }
 
 .collection-bold .facets__header {
-  padding: 1.2rem;
+  padding: 1.4rem 1.6rem;
   border-bottom-color: rgba(30, 30, 30, 0.08);
   font-size: 1.4rem;
 }
 
 .collection-bold .facets__list {
-  padding: 1rem 1.2rem 1.4rem;
+  padding: 0.8rem 1.6rem 1.2rem;
 }
 
 .collection-bold .facets__item label,
 .collection-bold .facets__item .facet-checkbox {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: rgb(30, 30, 30);
 }
 
@@ -240,6 +241,199 @@
 
   .collection-bold .product-grid .bs-card__info {
     padding: 1rem 1rem 3.2rem;
+  }
+}
+
+/* ---------- Filter and sort dropdowns ---------- */
+/* Same look as the header's mega menu panels (white, 20px radius, 1px rgba(30,30,30,0.08) border) with the
+   dropdown shadow (DESIGN-SYSTEM.md 1.4, 3.5): items Inter 14px that turn accent blue on hover (7.2), rounded
+   checkboxes filled with the accent, rounded price fields, and the same panel for the sort options where the browser
+   supports a styled <select> (appearance: base-select; other browsers keep their native list) */
+.collection-bold .facets__display {
+  transition: opacity 0.2s ease, translate 0.2s ease;
+}
+
+@starting-style {
+  .collection-bold .facets__disclosure[open] .facets__display {
+    opacity: 0;
+    translate: 0 -0.4rem;
+  }
+}
+
+.collection-bold .facets__header {
+  color: rgba(30, 30, 30, 0.65);
+  font-family: var(--font-nav-family, inherit);
+}
+
+.collection-bold .facets__header .facets__reset,
+.collection-bold .facets__header a {
+  color: #0f61ff;
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+
+.collection-bold .facets__header .facets__reset:hover,
+.collection-bold .facets__header a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.collection-bold .facets__item .facet-checkbox {
+  padding-block: 0.8rem;
+  font-family: var(--font-nav-family, inherit);
+  font-weight: 500;
+  line-height: 1.6rem;
+  transition: color 0.2s ease;
+}
+
+.collection-bold .facets__item .facet-checkbox:hover,
+.collection-bold .mobile-facets__label:hover {
+  color: #0f61ff;
+}
+
+.collection-bold .facet-checkbox > svg,
+.collection-bold .mobile-facets__label > svg {
+  border-radius: 0.4rem;
+  background: #fff;
+  box-shadow: inset 0 0 0 0.1rem rgba(30, 30, 30, 0.3);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.collection-bold .facet-checkbox > svg rect,
+.collection-bold .mobile-facets__label > svg rect {
+  stroke: none;
+}
+
+.collection-bold .facet-checkbox:hover > svg,
+.collection-bold .mobile-facets__label:hover > svg {
+  box-shadow: inset 0 0 0 0.1rem #0f61ff;
+}
+
+.collection-bold .facet-checkbox > input:checked ~ svg,
+.collection-bold .mobile-facets__label > input:checked ~ svg {
+  background: #0f61ff;
+  box-shadow: inset 0 0 0 0.1rem #0f61ff;
+}
+
+.collection-bold .facet-checkbox .svg-wrapper,
+.collection-bold .mobile-facets__label .icon-checkmark {
+  color: #fff;
+}
+
+/* Dawn places the tick for 1rem label padding; keep it centred in the box with the 0.8rem padding above */
+.collection-bold .facet-checkbox .svg-wrapper {
+  top: 1.2rem;
+}
+
+.collection-bold .facet-checkbox > input:focus-visible ~ svg,
+.collection-bold .mobile-facets__label > input:focus-visible ~ svg {
+  outline: 0.2rem solid #0f61ff;
+  outline-offset: 0.2rem;
+}
+
+.collection-bold .facets__price .field::before,
+.collection-bold .facets__price .field::after {
+  content: none;
+}
+
+.collection-bold .facets__price .field__input {
+  height: 4.6rem;
+  border: 0.1rem solid rgba(30, 30, 30, 0.15);
+  border-radius: 1rem;
+  background: #fff;
+  font-family: var(--font-nav-family, inherit);
+  font-size: 1.4rem;
+  transition: border-color 0.2s ease;
+}
+
+.collection-bold .facets__price .field__input:hover,
+.collection-bold .facets__price .field__input:focus {
+  border-color: #0f61ff;
+  box-shadow: none;
+  outline: 0;
+}
+
+.collection-bold .facets__price .field__label {
+  font-family: var(--font-nav-family, inherit);
+  font-size: 1.4rem;
+}
+
+.collection-bold .facets__price .field-currency {
+  color: rgba(30, 30, 30, 0.65);
+  font-family: var(--font-nav-family, inherit);
+  font-size: 1.4rem;
+}
+
+@supports (appearance: base-select) {
+  .collection-bold :is(.facet-filters__sort, .mobile-facets__sort .select__select),
+  .collection-bold :is(.facet-filters__sort, .mobile-facets__sort .select__select)::picker(select) {
+    appearance: base-select;
+  }
+
+  .collection-bold :is(.facet-filters__sort, .mobile-facets__sort .select__select)::picker-icon {
+    display: none;
+  }
+
+  /* A styled select lays its text out as flex: keep the chosen option level with the caret */
+  .collection-bold .mobile-facets__sort .select__select {
+    align-items: center;
+  }
+
+  .collection-bold :is(.facet-filters__sort, .mobile-facets__sort .select__select)::picker(select) {
+    min-width: 22rem;
+    margin-block: 1.2rem;
+    padding: 0.8rem;
+    border: 0.1rem solid rgba(30, 30, 30, 0.08);
+    border-radius: 2rem;
+    background: #fff;
+    box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.08);
+    opacity: 1;
+    translate: 0 0;
+    transition: opacity 0.2s ease, translate 0.2s ease, display 0.2s allow-discrete, overlay 0.2s allow-discrete;
+  }
+
+  @starting-style {
+    .collection-bold :is(.facet-filters__sort, .mobile-facets__sort .select__select):open::picker(select) {
+      opacity: 0;
+      translate: 0 -0.4rem;
+    }
+  }
+
+  .collection-bold :is(.facet-filters__sort, .mobile-facets__sort .select__select) option {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    min-height: 3.6rem;
+    padding: 0 1.2rem;
+    border-radius: 1rem;
+    color: rgb(30, 30, 30);
+    font-family: var(--font-nav-family, inherit);
+    font-size: 1.4rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .collection-bold :is(.facet-filters__sort, .mobile-facets__sort .select__select) option:is(:hover, :focus-visible) {
+    background: #f6f6f6;
+    color: #0f61ff;
+    outline: 0;
+  }
+
+  .collection-bold :is(.facet-filters__sort, .mobile-facets__sort .select__select) option:checked {
+    color: #0f61ff;
+  }
+
+  .collection-bold :is(.facet-filters__sort, .mobile-facets__sort .select__select) option::checkmark {
+    order: 1;
+    margin-left: auto;
+    color: #0f61ff;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collection-bold .facets__display,
+  .collection-bold :is(.facet-filters__sort, .mobile-facets__sort .select__select)::picker(select) {
+    transition: none;
   }
 }
 

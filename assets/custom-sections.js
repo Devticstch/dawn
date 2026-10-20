@@ -60,57 +60,6 @@ document.addEventListener('click', (event) => {
   closeLink.closest('.menu-drawer-container')?.querySelector(':scope > summary')?.click();
 });
 
-// Product page sticky add-to-cart bar: shows once the main buy button scrolls out of
-// view, and mirrors the main button's label/disabled state and the current price.
-if (!customElements.get('product-sticky-bar')) {
-  customElements.define(
-    'product-sticky-bar',
-    class ProductStickyBar extends HTMLElement {
-      connectedCallback() {
-        this.button = this.querySelector('.product-sticky-bar__button');
-        this.priceEl = this.querySelector('.product-sticky-bar__price');
-        this.sectionId = this.dataset.sectionId;
-        this.hidden = false;
-
-        const form = document.getElementById(this.dataset.formId);
-        if (!form) return;
-
-        this.observer = new IntersectionObserver(([entry]) => {
-          const pastButton = !entry.isIntersecting && entry.boundingClientRect.top < 0;
-          this.classList.toggle('is-visible', pastButton);
-        });
-        this.observer.observe(form);
-
-        // Dawn re-renders the price and buy buttons on variant change; watch the whole
-        // product info column and re-sync from whatever elements are current.
-        this.sync = this.sync.bind(this);
-        const info = document.getElementById(`ProductInfo-${this.sectionId}`);
-        if (info) {
-          this.mutationObserver = new MutationObserver(this.sync);
-          this.mutationObserver.observe(info, { subtree: true, childList: true, attributes: true, attributeFilter: ['disabled'] });
-        }
-        this.sync();
-      }
-
-      disconnectedCallback() {
-        this.observer?.disconnect();
-        this.mutationObserver?.disconnect();
-      }
-
-      sync() {
-        const mainButton = document.getElementById(`ProductSubmitButton-${this.sectionId}`);
-        if (mainButton) {
-          this.button.disabled = mainButton.disabled;
-          const label = mainButton.querySelector('span')?.textContent.trim();
-          if (label) this.button.textContent = label;
-        }
-        const price = document.querySelector(`#price-${this.sectionId} .price-item--last, #price-${this.sectionId} .price-item--regular`);
-        if (price && price.textContent.trim()) this.priceEl.textContent = price.textContent.trim();
-      }
-    }
-  );
-}
-
 // Collection grid size toggle: stores the choice per browser and applies it via
 // data-grid-view on the .collection-bold wrapper (which survives filter re-renders).
 if (!customElements.get('grid-view-toggle')) {
@@ -478,4 +427,173 @@ document.addEventListener('click', (event) => {
     },
     true
   );
+})();
+
+// Product quick view (reference: xo-futurer). A product card's eye link ([data-quick-view]) fetches the quick-view
+// section for that product (Section Rendering API) and shows it in one shared modal: scale-in open, scale-out close,
+// focus trapped, Escape / overlay / close button to close. Thumbnails and option pills switch the image, price,
+// variant and button state. Adding to cart (Dawn's product-form) closes the modal before the cart drawer opens.
+// Any fetch failure, or a modified click (new tab), follows the link to the product page instead.
+(() => {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let modal = null;
+  let panel = null;
+  let body = null;
+  let opener = null;
+  let request = null;
+  let closeTimer = 0;
+
+  const build = (closeLabel) => {
+    modal = document.createElement('div');
+    modal.className = 'quick-view-modal';
+    modal.hidden = true;
+    modal.innerHTML = `
+      <span class="quick-view-modal__overlay" data-quick-view-close></span>
+      <div class="quick-view-modal__panel" role="dialog" aria-modal="true" tabindex="-1">
+        <button type="button" class="quick-view-modal__close" data-quick-view-close>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="m3.5 3.5 9 9m0-9-9 9"/></svg>
+        </button>
+        <div class="quick-view-modal__body"></div>
+      </div>`;
+    panel = modal.querySelector('.quick-view-modal__panel');
+    body = modal.querySelector('.quick-view-modal__body');
+    modal.querySelector('.quick-view-modal__close').setAttribute('aria-label', closeLabel || 'Close');
+    modal.addEventListener('click', (event) => {
+      if (event.target.closest('[data-quick-view-close]')) close();
+    });
+    modal.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') close();
+    });
+    document.body.appendChild(modal);
+  };
+
+  const setMedia = (view, mediaId) => {
+    if (!mediaId) return;
+    const slide = view.querySelector(`.quick-view__slide[data-media-id="${mediaId}"]`);
+    if (!slide) return;
+    view.querySelectorAll('.quick-view__slide, .quick-view__thumb').forEach((el) => {
+      el.classList.toggle('is-active', el.dataset.mediaId === String(mediaId));
+    });
+  };
+
+  const setup = (view) => {
+    const variants = JSON.parse(view.querySelector('[data-quick-view-variants]').textContent);
+    const idInput = view.querySelector('input[name="id"]');
+    const button = view.querySelector('.quick-view__add');
+    const price = view.querySelector('[data-quick-view-price]');
+    const details = view.querySelector('.quick-view__details');
+
+    view.querySelectorAll('.quick-view__thumb').forEach((thumb) =>
+      thumb.addEventListener('click', () => setMedia(view, thumb.dataset.mediaId))
+    );
+
+    view.addEventListener('change', (event) => {
+      const radio = event.target.closest('input[data-option-index]');
+      if (!radio) return;
+      radio.closest('.quick-view__option').querySelector('[data-quick-view-option-value]').textContent = radio.value;
+      const selected = [...view.querySelectorAll('input[data-option-index]:checked')].map((input) => input.value);
+      const variant = variants.find((v) => v.options.every((value, i) => value === selected[i]));
+      const label = button.querySelector('span');
+
+      if (!variant) {
+        button.disabled = true;
+        label.textContent = button.dataset.labelUnavailable;
+        return;
+      }
+      idInput.value = variant.id;
+      button.disabled = !variant.available;
+      label.textContent = variant.available ? button.dataset.labelAdd : button.dataset.labelSoldOut;
+
+      const amount = document.createElement('span');
+      amount.className = 'quick-view__amount';
+      amount.textContent = variant.price;
+      price.replaceChildren(amount);
+      if (variant.compare) {
+        const compare = document.createElement('s');
+        compare.className = 'quick-view__compare';
+        compare.textContent = variant.compare;
+        price.append(compare);
+      }
+
+      const url = new URL(details.href, window.location.origin);
+      url.searchParams.set('variant', variant.id);
+      details.href = url.href;
+      setMedia(view, variant.media);
+    });
+  };
+
+  const finishClose = () => {
+    clearTimeout(closeTimer);
+    if (!modal) return;
+    modal.hidden = true;
+    modal.classList.remove('is-open', 'is-closing');
+    body.innerHTML = '';
+  };
+
+  const close = ({ restoreFocus = true } = {}) => {
+    if (!modal || modal.hidden || modal.classList.contains('is-closing')) return;
+    modal.classList.remove('is-open');
+    modal.classList.add('is-closing');
+    document.body.classList.remove('overflow-hidden');
+    removeTrapFocus(restoreFocus ? opener : null);
+    closeTimer = setTimeout(finishClose, reduceMotion.matches ? 0 : 320);
+  };
+
+  const show = () => {
+    clearTimeout(closeTimer);
+    modal.classList.remove('is-open', 'is-closing');
+    modal.hidden = false;
+    const title = body.querySelector('.quick-view__title');
+    if (title) panel.setAttribute('aria-labelledby', title.id);
+    panel.scrollTop = 0;
+    document.body.classList.add('overflow-hidden');
+    void modal.offsetWidth; // start the transition from the closed state
+    modal.classList.add('is-open');
+    trapFocus(panel, modal.querySelector('.quick-view-modal__close'));
+  };
+
+  const open = async (link) => {
+    if (link.classList.contains('loading')) return;
+    request?.abort();
+    request = new AbortController();
+    opener = link;
+    const spinner = link.querySelector('.loading__spinner');
+    link.classList.add('loading');
+    link.setAttribute('aria-busy', 'true');
+    spinner?.classList.remove('hidden');
+    try {
+      const url = new URL(link.href, window.location.origin);
+      url.searchParams.set('section_id', 'quick-view');
+      const response = await fetch(url, { signal: request.signal });
+      if (!response.ok) throw new Error(`Quick view ${response.status}`);
+      const html = new DOMParser().parseFromString(await response.text(), 'text/html');
+      const view = html.querySelector('.quick-view');
+      if (!view) throw new Error('Quick view markup missing');
+      if (!modal) build(link.dataset.closeLabel);
+      finishClose();
+      HTMLUpdateUtility.setInnerHTML(body, view.outerHTML);
+      setup(body.querySelector('.quick-view'));
+      window.Shopify?.PaymentButton?.init();
+      show();
+    } catch (error) {
+      if (error.name !== 'AbortError') window.location.href = link.href;
+    } finally {
+      link.classList.remove('loading');
+      link.removeAttribute('aria-busy');
+      spinner?.classList.add('hidden');
+    }
+  };
+
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[data-quick-view]');
+    if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    open(link);
+  });
+
+  if (typeof subscribe === 'function') {
+    subscribe(PUB_SUB_EVENTS.cartUpdate, (event) => {
+      if (modal && !modal.hidden && event?.source === 'product-form') close({ restoreFocus: false });
+    });
+  }
 })();

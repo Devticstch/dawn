@@ -1,0 +1,206 @@
+{%- comment -%}
+  Product quick view (reference: xo-futurer). Not placed in any template: custom-sections.js fetches it for a product
+  with the Section Rendering API (product URL + ?section_id=quick-view) when a product card's eye button is clicked,
+  and shows it in a modal. Gallery with thumbnails beside vendor, title, price, options, quantity, Add to cart (Dawn's
+  product-form, which opens the cart drawer), the dynamic checkout button and a link to the product page.
+{%- endcomment -%}
+{%- liquid
+  assign current = product.selected_or_first_available_variant
+  assign form_id = 'QuickViewForm-' | append: product.id
+  assign images = product.media | where: 'media_type', 'image'
+  if images.size == 0 and product.featured_media
+    assign images = product.media
+  endif
+  assign start_media = current.featured_media.id | default: product.featured_media.id
+-%}
+<div class="quick-view" data-product-id="{{ product.id }}">
+  <div class="quick-view__gallery">
+    <div class="quick-view__stage">
+      {%- for media in images limit: 8 -%}
+        {%- liquid
+          assign active = false
+          if media.id == start_media
+            assign active = true
+          elsif forloop.first and start_media == blank
+            assign active = true
+          endif
+        -%}
+        <div class="quick-view__slide{% if active %} is-active{% endif %}" data-media-id="{{ media.id }}">
+          {{
+            media.preview_image
+            | image_url: width: 1100
+            | image_tag:
+              class: 'quick-view__image',
+              widths: '400, 550, 800, 1100',
+              sizes: '(min-width: 990px) 42rem, calc(100vw - 8.8rem)',
+              loading: 'eager',
+              alt: media.alt
+          }}
+        </div>
+      {%- else -%}
+        <div class="quick-view__slide is-active">
+          {{ 'product-1' | placeholder_svg_tag: 'quick-view__image quick-view__placeholder' }}
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if images.size > 1 -%}
+      <div class="quick-view__thumbs" role="list">
+        {%- for media in images limit: 8 -%}
+          <button
+            type="button"
+            class="quick-view__thumb{% if media.id == start_media or forloop.first and start_media == blank %} is-active{% endif %}"
+            data-media-id="{{ media.id }}"
+            aria-label="{{ 'products.product.media.load_image' | t: index: forloop.index }}"
+            role="listitem"
+          >
+            {{ media.preview_image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="quick-view__info">
+    {%- if product.vendor != blank -%}
+      <p class="quick-view__vendor">{{ product.vendor | escape }}</p>
+    {%- endif -%}
+    <h2 class="quick-view__title" id="QuickViewTitle-{{ product.id }}">{{ product.title | escape }}</h2>
+
+    <div class="quick-view__price" data-quick-view-price>
+      {%- if current.compare_at_price > current.price -%}
+        <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
+      {%- endif -%}
+      <span class="quick-view__amount">{{ current.price | money }}</span>
+      {%- if current.compare_at_price > current.price -%}
+        <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+        <s class="quick-view__compare">{{ current.compare_at_price | money }}</s>
+      {%- endif -%}
+    </div>
+    {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
+      <div class="quick-view__tax rte">
+        {%- if cart.duties_included and cart.taxes_included -%}
+          {{ 'products.product.duties_and_taxes_included' | t }}
+        {%- elsif cart.taxes_included -%}
+          {{ 'products.product.taxes_included' | t }}
+        {%- elsif cart.duties_included -%}
+          {{ 'products.product.duties_included' | t }}
+        {%- endif -%}
+        {%- if shop.shipping_policy.body != blank -%}
+          {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url | prepend: ' ' }}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- unless product.has_only_default_variant -%}
+      <div class="quick-view__options">
+        {%- for option in product.options_with_values -%}
+          {%- assign option_index = forloop.index0 -%}
+          <fieldset class="quick-view__option">
+            <legend class="quick-view__option-name">
+              {{- option.name | escape -}}: <span data-quick-view-option-value>{{ option.selected_value | escape }}</span>
+            </legend>
+            <div class="quick-view__values">
+              {%- for value in option.values -%}
+                <label class="quick-view__value">
+                  <input
+                    type="radio"
+                    class="visually-hidden"
+                    name="QuickViewOption-{{ product.id }}-{{ option_index }}"
+                    value="{{ value | escape }}"
+                    data-option-index="{{ option_index }}"
+                    {% if value == option.selected_value %}
+                      checked
+                    {% endif %}
+                  >
+                  <span>{{ value | escape }}</span>
+                </label>
+              {%- endfor -%}
+            </div>
+          </fieldset>
+        {%- endfor -%}
+      </div>
+    {%- endunless -%}
+
+    <product-form class="quick-view__form" data-section-id="quick-view">
+      <div class="product-form__error-message-wrapper" role="alert" hidden>
+        <span class="product-form__error-message"></span>
+      </div>
+      {%- form 'product', product, id: form_id, novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+        <input type="hidden" name="id" value="{{ current.id }}" disabled>
+        <quantity-input class="quick-view__quantity">
+          <button class="quantity__button" name="minus" type="button">
+            <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M3 8h10"/></svg>
+          </button>
+          <input
+            class="quantity__input"
+            type="number"
+            name="quantity"
+            id="QuickViewQuantity-{{ product.id }}"
+            min="{{ current.quantity_rule.min }}"
+            {% if current.quantity_rule.max != null %}
+              max="{{ current.quantity_rule.max }}"
+            {% endif %}
+            step="{{ current.quantity_rule.increment }}"
+            value="{{ current.quantity_rule.min }}"
+            aria-label="{{ 'products.product.quantity.input_label' | t: product: product.title | escape }}"
+          >
+          <button class="quantity__button" name="plus" type="button">
+            <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: product.title | escape }}</span>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M8 3v10M3 8h10"/></svg>
+          </button>
+        </quantity-input>
+        <div class="quick-view__buttons">
+          <button
+            type="submit"
+            name="add"
+            class="quick-view__add button button--secondary"
+            data-label-add="{{ 'products.product.add_to_cart' | t | escape }}"
+            data-label-sold-out="{{ 'products.product.sold_out' | t | escape }}"
+            data-label-unavailable="{{ 'products.product.unavailable' | t | escape }}"
+            {% unless current.available %}
+              disabled
+            {% endunless %}
+          >
+            <span>
+              {%- if current.available -%}
+                {{ 'products.product.add_to_cart' | t }}
+              {%- else -%}
+                {{ 'products.product.sold_out' | t }}
+              {%- endif -%}
+            </span>
+            {%- render 'loading-spinner' -%}
+          </button>
+          <div class="quick-view__checkout">{{ form | payment_button }}</div>
+        </div>
+      {%- endform -%}
+    </product-form>
+
+    <a class="quick-view__details" href="{{ product.url }}">{{ 'products.product.view_full_details' | t }}</a>
+
+    <script type="application/json" data-quick-view-variants>
+      [
+        {%- for variant in product.variants -%}
+          {
+            "id": {{ variant.id }},
+            "options": {{ variant.options | json }},
+            "available": {{ variant.available | json }},
+            "price": {{ variant.price | money | json }},
+            "compare": {% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money | json }}{% else %}null{% endif %},
+            "media": {{ variant.featured_media.id | json }}
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    </script>
+    <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Quick view",
+  "tag": "div",
+  "class": "quick-view-section",
+  "settings": []
+}
+{% endschema %}
