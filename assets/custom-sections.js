@@ -179,11 +179,10 @@ document.addEventListener('click', (event) => {
   );
 })();
 
-// Magnetic call-to-action buttons (reference: xo-magnetic, radius 150px, 0.5s). Within 150px of a button's centre the
-// button moves toward the pointer by 116.6 * d / (d + 77.5) px, d being the pointer's distance (a fit to the
-// reference's measurements: 40px -> 40, 100px -> 66, 145px -> 76), and eases back once the pointer leaves the radius.
+// Magnetic call-to-action buttons, kept subtle: within 120px of a button's centre the button leans toward the pointer
+// by 40 * d / (d + 65) * (1 - (d / 120)^2) px, d being the pointer's distance (40px -> 13.5, 60px -> 14.4, 100px -> 7.5),
+// so it never travels more than ~15px and fades out smoothly at the edge of the field instead of snapping back.
 // It uses the CSS translate property, so buttons that are positioned with transform keep it. Mouse only.
-// The image banner's button uses a tighter field (100px radius, at most ~24px of travel) so it stays near the pointer.
 (() => {
   const SELECTOR = [
     'a.category-panel__button',
@@ -192,9 +191,8 @@ document.addEventListener('click', (event) => {
     'a.ic__button',
     'a.header-nav__promo-button',
   ].join(', ');
-  const RADIUS = 150;
-  const TIGHT = 'a.feature-showcase__button:is(.image-button *)';
-  const TAU = 150; // ms, the reference's ease toward the target
+  const RADIUS = 120;
+  const TAU = 180; // ms, ease toward the target
 
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -217,11 +215,10 @@ document.addEventListener('click', (event) => {
       const dx = pointerX - (box.left + box.width / 2 - offset.x);
       const dy = pointerY - (box.top + box.height / 2 - offset.y);
       const distance = Math.hypot(dx, dy);
-      const tight = button.matches(TIGHT);
       let targetX = 0;
       let targetY = 0;
-      if (box.width && distance > 0 && distance < (tight ? 100 : RADIUS)) {
-        const pull = tight ? 40 / (distance + 65) : 116.6 / (distance + 77.5);
+      if (box.width && distance > 0 && distance < RADIUS) {
+        const pull = (40 / (distance + 65)) * (1 - (distance / RADIUS) ** 2);
         targetX = dx * pull;
         targetY = dy * pull;
       }
