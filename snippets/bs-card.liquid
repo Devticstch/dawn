@@ -6,7 +6,8 @@
   - index: {Number} position in the list, picks the placeholder image when the product has no media
   - show_swatches: {Boolean} color swatches from the option named Color or Colour
   - action: {String} 'cart' (default): "+" adds to cart or opens the product when it has options;
-    'bundle': "+" adds the first available variant to the section's bundle box
+    'bundle': "+" adds the first available variant to the section's picks sidebar
+  - action_label: {String} optional accessible label for the 'bundle' "+" button (default: Add to cart)
 {%- endcomment -%}
 {%- liquid
   assign compare_at = product.compare_at_price
@@ -75,7 +76,7 @@
         data-title="{{ product.title | escape }}"
         data-price="{{ variant.price }}"
         data-image="{% if product.featured_media %}{{ product.featured_media | image_url: width: 120 }}{% endif %}"
-        aria-label="{{ 'products.product.add_to_cart' | t }}: {{ product.title | escape }}"
+        aria-label="{% if action_label != blank %}{{ action_label | escape }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endif %}: {{ product.title | escape }}"
       >
         {{- plus_icon -}}
       </button>

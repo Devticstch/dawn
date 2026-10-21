@@ -24,7 +24,6 @@
 
     <product-bundle
       class="pb__layout"
-      data-goal="{{ section.settings.goal }}"
       data-money-format="{{ shop.money_format | escape }}"
       data-cart-add-url="{{ routes.cart_add_url }}.js"
       data-cart-url="{{ routes.cart_url }}"
@@ -33,7 +32,7 @@
       <ul class="pb__grid" role="list">
         {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
           <li class="{% if settings.animations_reveal_on_scroll %}scroll-trigger cs-reveal{% endif %}" data-cascade>
-            {%- render 'bs-card', product: product, index: forloop.index0, show_swatches: section.settings.show_swatches, action: 'bundle' -%}
+            {%- render 'bs-card', product: product, index: forloop.index0, show_swatches: section.settings.show_swatches, action: 'bundle', action_label: section.settings.add_label -%}
           </li>
         {%- endfor -%}
       </ul>
@@ -51,16 +50,14 @@
             <span class="pb__count" data-bundle-count>0</span>
           </button>
         </div>
-        <div class="pb__progress" aria-hidden="true"><span class="pb__progress-bar" data-bundle-progress></span></div>
 
         <div class="pb__body">
           <div class="pb__empty" data-bundle-empty>
             <span class="pb__empty-icon" aria-hidden="true">
               <svg viewBox="0 0 108 104" fill="none">
-                <path d="M54 46c-8-14-20-22-26-16s4 14 26 16Zm0 0c10-15 24-21 28-14s-8 13-28 14Z" stroke="currentColor" stroke-opacity=".35" stroke-width="5" stroke-linecap="round"/>
-                <path d="M16 50h76v46a4 4 0 0 1-4 4H20a4 4 0 0 1-4-4V50Z" fill="currentColor" fill-opacity=".55"/>
-                <path d="M54 50h38v46a4 4 0 0 1-4 4H54V50Z" fill="currentColor" fill-opacity=".8"/>
-                <path d="M2 50 16 36h76l14 14H2Z" fill="currentColor" fill-opacity=".45"/>
+                <path d="M34 38V30a20 20 0 0 1 40 0v8" stroke="currentColor" stroke-opacity=".45" stroke-width="5" stroke-linecap="round"/>
+                <path d="M16 38h76l-6 58a6 6 0 0 1-6 5H28a6 6 0 0 1-6-5l-6-58Z" fill="currentColor" fill-opacity=".55"/>
+                <path d="M54 38h38l-6 58a6 6 0 0 1-6 5H54V38Z" fill="currentColor" fill-opacity=".8"/>
               </svg>
               <span class="pb__empty-count" data-bundle-count>0</span>
             </span>
@@ -76,7 +73,9 @@
               <span>{{ 'sections.cart.estimated_total' | t }}</span>
               <span data-bundle-total></span>
             </p>
-            <button type="button" class="pb__button" data-bundle-submit>{{ 'products.product.add_to_cart' | t }}</button>
+            <button type="button" class="pb__button" data-bundle-submit>
+              {%- if section.settings.button_label != blank -%}{{ section.settings.button_label | escape }}{%- else -%}{{ 'products.product.add_to_cart' | t }}{%- endif -%}
+            </button>
             <p class="pb__error" role="alert" data-bundle-error hidden></p>
           </div>
         </div>
@@ -99,13 +98,12 @@
 </div>
 
 {% javascript %}
-  // Collects products picked with the cards' "+" buttons and adds them to the cart in one request.
+  // Shopping picks: collects products saved with the cards' "+" buttons and adds them all to the cart in one request.
   class ProductBundle extends HTMLElement {
     connectedCallback() {
       this.items = new Map();
-      this.goal = Number(this.dataset.goal) || 0;
       this.addEventListener('click', this.onClick.bind(this));
-      // Mobile: the bundle bar shows only while the section is on screen.
+      // Mobile: the picks bar shows only while the section is on screen.
       this.observer = new IntersectionObserver(([entry]) => this.classList.toggle('is-in-view', entry.isIntersecting));
       this.observer.observe(this);
       this.render();
@@ -155,8 +153,6 @@
       const count = [...this.items.values()].reduce((sum, item) => sum + item.quantity, 0);
       const total = [...this.items.values()].reduce((sum, item) => sum + item.price * item.quantity, 0);
       this.querySelectorAll('[data-bundle-count]').forEach((el) => (el.textContent = count));
-      const share = this.goal ? Math.min(count / this.goal, 1) : count ? 1 : 0;
-      this.querySelector('[data-bundle-progress]').style.width = `${share * 100}%`;
 
       const list = this.querySelector('[data-bundle-list]');
       const template = this.querySelector('[data-bundle-row]');
@@ -219,19 +215,20 @@
 
 {% schema %}
 {
-  "name": "Product bundle",
+  "name": "Shopping picks",
   "tag": "section",
   "class": "section section-product-bundle",
   "settings": [
-    { "type": "text", "id": "title", "label": "Heading", "default": "Product Bundles" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Pick Your Favourites" },
     { "type": "collection", "id": "collection", "label": "Collection" },
     { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 2, "max": 12, "step": 1, "default": 6 },
     { "type": "checkbox", "id": "show_swatches", "label": "Show color swatches", "default": true, "info": "Uses the product option named Color or Colour" },
-    { "type": "header", "content": "Bundle box" },
-    { "type": "text", "id": "box_title", "label": "Title", "default": "Your bundle" },
-    { "type": "text", "id": "box_subtitle", "label": "Subtitle", "info": "For example a discount message. Only promise a discount that is set up in Shopify Admin > Discounts" },
-    { "type": "range", "id": "goal", "label": "Items for a full progress bar", "min": 1, "max": 10, "step": 1, "default": 3 },
-    { "type": "text", "id": "empty_text", "label": "Empty bundle text", "default": "Your bundle is empty" },
+    { "type": "header", "content": "Picks sidebar" },
+    { "type": "text", "id": "box_title", "label": "Title", "default": "Your Shopping Picks" },
+    { "type": "text", "id": "box_subtitle", "label": "Subtitle", "info": "Optional short line under the title. Only promise a discount that is set up in Shopify Admin > Discounts" },
+    { "type": "text", "id": "empty_text", "label": "Empty text", "default": "Tap + on any product to save it here, then add all your picks to the cart at once." },
+    { "type": "text", "id": "add_label", "label": "\"+\" button label (screen readers)", "default": "Add to your picks" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Add all to cart" },
     { "type": "header", "content": "Style" },
     { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "instrument_sans_n6" },
     { "type": "color", "id": "card_background", "label": "Card and box background", "default": "#F6F6F6" },
@@ -240,6 +237,6 @@
     { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 2, "unit": "px", "default": 50 },
     { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 2, "unit": "px", "default": 50 }
   ],
-  "presets": [{ "name": "Product bundle" }]
+  "presets": [{ "name": "Shopping picks" }]
 }
 {% endschema %}

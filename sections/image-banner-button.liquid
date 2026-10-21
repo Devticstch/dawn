@@ -1,5 +1,9 @@
 {%- liquid
   assign image = section.settings.image
+  assign show_button = false
+  if section.settings.button_label != blank and section.settings.button_link != blank
+    assign show_button = true
+  endif
 -%}
 
 <div
@@ -30,10 +34,17 @@
         fetchpriority="low"
       >
     {%- endif -%}
-    {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
-      <a href="{{ section.settings.button_link }}" class="feature-showcase__button">
-        {{- section.settings.button_label | escape -}}
-      </a>
+    {%- if section.settings.text != blank or show_button -%}
+      <div class="image-button__content">
+        {%- if section.settings.text != blank -%}
+          <p class="image-button__text">{{ section.settings.text | escape }}</p>
+        {%- endif -%}
+        {%- if show_button -%}
+          <a href="{{ section.settings.button_link }}" class="feature-showcase__button">
+            {{- section.settings.button_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
     {%- endif -%}
   </div>
 </div>
@@ -46,6 +57,13 @@
   "settings": [
     { "type": "image_picker", "id": "image", "label": "Image", "info": "Full width. Shown at 16:9 on desktop and 3:2 on mobile, cropped from the center" },
     { "type": "text", "id": "theme_image", "label": "Theme image", "info": "File name from the theme assets, used when no image is selected" },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "info": "Short paragraph above the button",
+      "default": "Cases and accessories for iPhone and Samsung that pair everyday protection with clean, modern design."
+    },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop now" },
     { "type": "url", "id": "button_link", "label": "Button link" },
     { "type": "color", "id": "accent_color", "label": "Button color", "default": "#8825E4" },

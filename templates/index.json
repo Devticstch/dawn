@@ -344,14 +344,13 @@
     "featured_bundle": {
       "type": "product-bundle",
       "settings": {
-        "title": "Product Bundles",
+        "title": "Pick Your Favourites",
         "collection": "all",
         "products_to_show": 6,
         "show_swatches": true,
-        "box_title": "Your bundle",
+        "box_title": "Your Shopping Picks",
         "box_subtitle": "",
-        "goal": 3,
-        "empty_text": "Your bundle is empty",
+        "empty_text": "Tap + on any product to save it here, then add all your picks to the cart at once.",
         "heading_font": "instrument_sans_n6",
         "card_background": "#f6f6f6",
         "badge_color": "#da1e28",
