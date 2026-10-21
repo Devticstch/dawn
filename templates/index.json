@@ -105,6 +105,79 @@
     "category_strip": {
       "type": "category-strip",
       "blocks": {
+        "category_14": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "label": "Slim Cases",
+            "group": "phone_case",
+            "link": ""
+          }
+        },
+        "category_15": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "label": "Clear Cases",
+            "group": "phone_case",
+            "link": ""
+          }
+        },
+        "category_5": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/image_f2e6eb09-d6f3-4b38-b794-5d0cd099a242.png",
+            "label": "Wallet Cases",
+            "group": "phone_case",
+            "link": ""
+          }
+        },
+        "category_16": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "label": "Cute Cases",
+            "group": "phone_case",
+            "link": ""
+          }
+        },
+        "category_17": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "label": "iPhone 18 Pro Max",
+            "group": "accessories",
+            "link": ""
+          }
+        },
+        "category_18": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "label": "iPhone 18 Pro",
+            "group": "accessories",
+            "link": ""
+          }
+        },
+        "category_19": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "label": "iPhone 17 Pro Max",
+            "group": "accessories",
+            "link": ""
+          }
+        },
+        "category_20": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "label": "iPhone 17 Pro",
+            "group": "accessories",
+            "link": ""
+          }
+        },
         "category_1": {
           "type": "category",
           "settings": {
@@ -141,16 +214,6 @@
             "collection": "",
             "image": "shopify://shop_images/image_d00a21b2-121c-47d1-a73e-317d5c687a0c.png",
             "label": "Leather Cases",
-            "group": "phone_case",
-            "link": ""
-          }
-        },
-        "category_5": {
-          "type": "category",
-          "settings": {
-            "collection": "",
-            "image": "shopify://shop_images/image_f2e6eb09-d6f3-4b38-b794-5d0cd099a242.png",
-            "label": "Wallet Cases",
             "group": "phone_case",
             "link": ""
           }
@@ -234,69 +297,6 @@
             "group": "accessories",
             "link": ""
           }
-        },
-        "category_14": {
-          "type": "category",
-          "settings": {
-            "collection": "",
-            "label": "Slim Cases",
-            "group": "phone_case",
-            "link": ""
-          }
-        },
-        "category_15": {
-          "type": "category",
-          "settings": {
-            "collection": "",
-            "label": "Clear Cases",
-            "group": "phone_case",
-            "link": ""
-          }
-        },
-        "category_16": {
-          "type": "category",
-          "settings": {
-            "collection": "",
-            "label": "Cute Cases",
-            "group": "phone_case",
-            "link": ""
-          }
-        },
-        "category_17": {
-          "type": "category",
-          "settings": {
-            "collection": "",
-            "label": "iPhone 18 Pro Max",
-            "group": "accessories",
-            "link": ""
-          }
-        },
-        "category_18": {
-          "type": "category",
-          "settings": {
-            "collection": "",
-            "label": "iPhone 18 Pro",
-            "group": "accessories",
-            "link": ""
-          }
-        },
-        "category_19": {
-          "type": "category",
-          "settings": {
-            "collection": "",
-            "label": "iPhone 17 Pro Max",
-            "group": "accessories",
-            "link": ""
-          }
-        },
-        "category_20": {
-          "type": "category",
-          "settings": {
-            "collection": "",
-            "label": "iPhone 17 Pro",
-            "group": "accessories",
-            "link": ""
-          }
         }
       },
       "block_order": [
@@ -322,7 +322,7 @@
         "category_13"
       ],
       "settings": {
-        "phone_case_heading": "Phone Case",
+        "phone_case_heading": "Case Categories",
         "phone_case_image": "shopify://shop_images/image_f77b7b9e-4a80-49aa-8bb2-e1466ca6b9db.png",
         "phone_case_link": "/collections/all",
         "accessories_heading": "Phone Model",
@@ -404,6 +404,7 @@
       "settings": {
         "image": "shopify://shop_images/cases_1.webp",
         "theme_image": "banner-ribbed-cases.jpg",
+        "text": "",
         "button_label": "Shop now",
         "button_link": "/collections/all",
         "accent_color": "#8825e4",
@@ -421,6 +422,8 @@
         "box_title": "Your Shopping Picks",
         "box_subtitle": "",
         "empty_text": "Tap + on any product to save it here, then add all your picks to the cart at once.",
+        "add_label": "Add to your picks",
+        "button_label": "Add all to cart",
         "heading_font": "instrument_sans_n6",
         "card_background": "#f6f6f6",
         "badge_color": "#da1e28",
