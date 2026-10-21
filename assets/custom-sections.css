@@ -1020,7 +1020,7 @@ a.category-panel__category-link:hover {
 }
 
 /* Like the reference, the product sits in front of the title row and hides it where they overlap.
-   isolation keeps the multiply blend below inside the media (photo with its glow), off the titles */
+   isolation keeps the glow and the photo in their own stacking layer, off the titles */
 .fpt__media {
   position: relative;
   z-index: 1;
@@ -1032,21 +1032,23 @@ a.category-panel__category-link:hover {
   pointer-events: none;
 }
 
+/* A subtle #8825E4 glow behind the product only (never blended into the photo) */
 .fpt__glow {
   position: absolute;
+  z-index: 0;
   inset: -10%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(var(--fpt-accent-rgb), 0.5) 0%, rgba(var(--t2c-cyan-rgb), 0.18) 40%, rgba(var(--t2c-cyan-rgb), 0) 68%);
+  background: radial-gradient(circle, rgba(136, 37, 228, 0.18) 0%, rgba(136, 37, 228, 0.06) 40%, rgba(136, 37, 228, 0) 65%);
 }
 
-/* Multiply melts white photo backgrounds into the glow and the titles behind */
+/* Drawn as-is above the glow; white photo backgrounds are keyed out by the section's SVG filter */
 .fpt__image {
   position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
-  mix-blend-mode: multiply;
 }
 
 .fpt__placeholder {
