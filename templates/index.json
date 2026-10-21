@@ -234,14 +234,84 @@
             "group": "accessories",
             "link": ""
           }
+        },
+        "category_14": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "label": "Slim Cases",
+            "group": "phone_case",
+            "link": ""
+          }
+        },
+        "category_15": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "label": "Clear Cases",
+            "group": "phone_case",
+            "link": ""
+          }
+        },
+        "category_16": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "label": "Cute Cases",
+            "group": "phone_case",
+            "link": ""
+          }
+        },
+        "category_17": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "label": "iPhone 18 Pro Max",
+            "group": "accessories",
+            "link": ""
+          }
+        },
+        "category_18": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "label": "iPhone 18 Pro",
+            "group": "accessories",
+            "link": ""
+          }
+        },
+        "category_19": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "label": "iPhone 17 Pro Max",
+            "group": "accessories",
+            "link": ""
+          }
+        },
+        "category_20": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "label": "iPhone 17 Pro",
+            "group": "accessories",
+            "link": ""
+          }
         }
       },
       "block_order": [
+        "category_14",
+        "category_15",
+        "category_5",
+        "category_16",
+        "category_17",
+        "category_18",
+        "category_19",
+        "category_20",
         "category_1",
         "category_2",
         "category_3",
         "category_4",
-        "category_5",
         "category_6",
         "category_7",
         "category_8",
@@ -255,7 +325,7 @@
         "phone_case_heading": "Phone Case",
         "phone_case_image": "shopify://shop_images/image_f77b7b9e-4a80-49aa-8bb2-e1466ca6b9db.png",
         "phone_case_link": "/collections/all",
-        "accessories_heading": "Accessories",
+        "accessories_heading": "Phone Model",
         "accessories_image": "shopify://shop_images/image_5cf08b37-8d04-4243-82b6-5fb606a8049a.png",
         "accessories_link": "/collections/all",
         "heading_font": "instrument_sans_n6",

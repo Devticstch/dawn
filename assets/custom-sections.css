@@ -1382,7 +1382,8 @@ a.category-panel__category-link:hover {
   }
 }
 
-/* Paragraph above the button: both centred in a column over the image, a soft dark wash behind them for contrast */
+/* Optional paragraph above the button: both centred in a column over the image, with a soft dark wash behind the
+   text for contrast (no wash when there is only the button) */
 .image-button__content {
   position: absolute;
   inset: 0;
@@ -1393,9 +1394,12 @@ a.category-panel__category-link:hover {
   justify-content: center;
   gap: 1.6rem;
   padding: 2rem 2.2rem;
-  background: radial-gradient(ellipse 85% 75% at 50% 50%, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.38) 50%, rgba(0, 0, 0, 0) 100%);
   text-align: center;
   pointer-events: none;
+}
+
+.image-button__content:has(.image-button__text) {
+  background: radial-gradient(ellipse 85% 75% at 50% 50%, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.38) 50%, rgba(0, 0, 0, 0) 100%);
 }
 
 .image-button__content > * {
@@ -1425,6 +1429,9 @@ a.category-panel__category-link:hover {
 @media screen and (min-width: 750px) {
   .image-button__content {
     gap: 2.4rem;
+  }
+
+  .image-button__content:has(.image-button__text) {
     background: radial-gradient(ellipse 66% 62% at 50% 50%, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.3) 45%, rgba(0, 0, 0, 0) 100%);
   }
 

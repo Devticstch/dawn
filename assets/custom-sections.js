@@ -183,6 +183,7 @@ document.addEventListener('click', (event) => {
 // button moves toward the pointer by 116.6 * d / (d + 77.5) px, d being the pointer's distance (a fit to the
 // reference's measurements: 40px -> 40, 100px -> 66, 145px -> 76), and eases back once the pointer leaves the radius.
 // It uses the CSS translate property, so buttons that are positioned with transform keep it. Mouse only.
+// The image banner's button uses a tighter field (100px radius, at most ~24px of travel) so it stays near the pointer.
 (() => {
   const SELECTOR = [
     'a.category-panel__button',
@@ -192,6 +193,7 @@ document.addEventListener('click', (event) => {
     'a.header-nav__promo-button',
   ].join(', ');
   const RADIUS = 150;
+  const TIGHT = 'a.feature-showcase__button:is(.image-button *)';
   const TAU = 150; // ms, the reference's ease toward the target
 
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
@@ -215,10 +217,11 @@ document.addEventListener('click', (event) => {
       const dx = pointerX - (box.left + box.width / 2 - offset.x);
       const dy = pointerY - (box.top + box.height / 2 - offset.y);
       const distance = Math.hypot(dx, dy);
+      const tight = button.matches(TIGHT);
       let targetX = 0;
       let targetY = 0;
-      if (box.width && distance > 0 && distance < RADIUS) {
-        const pull = 116.6 / (distance + 77.5);
+      if (box.width && distance > 0 && distance < (tight ? 100 : RADIUS)) {
+        const pull = tight ? 40 / (distance + 65) : 116.6 / (distance + 77.5);
         targetX = dx * pull;
         targetY = dy * pull;
       }

@@ -145,7 +145,7 @@
         "panel_color": "#1e1e1e",
         "background": "#f6f6f6",
         "padding_top": 80,
-        "padding_bottom": 40
+        "padding_bottom": 80
       }
     },
     "about_features": {
@@ -193,7 +193,7 @@
       "settings": {
         "heading_font": "instrument_sans_n6",
         "background": "#f6f6f6",
-        "padding_top": 40,
+        "padding_top": 80,
         "padding_bottom": 80
       }
     },
@@ -211,8 +211,8 @@
     "about_story",
     "about_dna",
     "about_reveal",
+    "about_features",
     "about_faq",
-    "about_newsletter",
-    "about_features"
+    "about_newsletter"
   ]
 }
