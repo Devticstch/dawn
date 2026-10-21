@@ -136,7 +136,7 @@
     "about_newsletter": {
       "type": "about-newsletter",
       "settings": {
-        "heading": "Sign up to our newsletter.",
+        "heading": "Get the Latest Updates",
         "text": "<p>Subscribe to hear about new cases, accessories and news from Tech2C.</p>",
         "placeholder": "E-mail",
         "button_label": "Subscribe",

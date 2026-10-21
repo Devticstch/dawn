@@ -439,7 +439,8 @@ media-gallery:focus-within .product-gallery-nav__button--next {
 .product--panel .product-form__submit.button--secondary {
   --btn-bg: var(--btn-accent, #8825e4);
   --btn-fg: #fff;
-  --btn-border: var(--btn-bg);
+  --btn-border: transparent;
+  --btn-gradient: linear-gradient(135deg, var(--btn-bg) 0%, color-mix(in srgb, var(--btn-bg) 75%, #00ffff) 100%);
   --btn-fill: #fff;
   --btn-fill-fg: var(--btn-bg);
   --btn-hover-border: var(--btn-bg);
@@ -447,6 +448,11 @@ media-gallery:focus-within .product-gallery-nav__button--next {
 
 .product--panel .shopify-payment-button {
   --btn-accent: #1e1e1e;
+}
+
+.product--panel .shopify-payment-button__button--unbranded {
+  --btn-gradient: none;
+  --btn-border: var(--btn-bg);
 }
 
 @media screen and (max-width: 749px) {

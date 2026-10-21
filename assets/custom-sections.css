@@ -4,7 +4,8 @@
    page, purple is the one accent (solid buttons, links, active states, icons, borders, focus; 6.1:1 on white and white
    on purple), and cyan is a small highlight only: thin gradient lines and bars, faint glows, hover text on dark
    (13.3:1 on #1E1E1E). Cyan is unreadable on white (1.25:1), so never text or large fills on light backgrounds.
-   Large brand surfaces are deep charcoal with soft purple glows rather than solid purple. Buttons turn white on hover. */
+   Large brand surfaces are deep charcoal with soft purple glows rather than solid purple. Filled buttons carry a subtle
+   purple-to-cyan gradient that ends in a 75/25 purple-cyan blend (white labels stay >= 4.8:1); they turn white on hover. */
 :root {
   --t2c-purple: #8825e4;
   --t2c-purple-rgb: 136, 37, 228;
@@ -599,6 +600,7 @@ a.category-panel__category-link:hover {
   border: 0;
   border-radius: 50%;
   background: var(--bs-accent);
+  background-image: linear-gradient(135deg, var(--bs-accent) 0%, color-mix(in srgb, var(--bs-accent) 75%, #00ffff) 100%);
   color: #fff;
   cursor: pointer;
 }
@@ -1858,6 +1860,7 @@ a.category-panel__category-link:hover {
   border: 0;
   border-radius: 50%;
   background: var(--rs-accent, #8825e4);
+  background-image: linear-gradient(135deg, var(--rs-accent, #8825e4) 0%, color-mix(in srgb, var(--rs-accent, #8825e4) 75%, #00ffff) 100%);
   color: #fff;
   cursor: pointer;
 }
@@ -3532,7 +3535,9 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   ) {
   --btn-bg: var(--btn-accent, #8825e4);
   --btn-fg: #fff;
-  --btn-border: var(--btn-bg);
+  --btn-border: transparent;
+  --btn-hover-border: var(--btn-bg);
+  --btn-gradient: linear-gradient(135deg, var(--btn-bg) 0%, color-mix(in srgb, var(--btn-bg) 75%, #00ffff) 100%);
   --btn-fill: #fff;
   --btn-fill-fg: var(--btn-bg);
   --btn-ease: cubic-bezier(0.25, 0.74, 0.22, 0.99);
@@ -3541,6 +3546,7 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   border: 0.1rem solid var(--btn-border);
   border-radius: 10rem;
   background: var(--btn-bg);
+  background-image: var(--btn-gradient, none);
   color: var(--btn-fg);
   font-family: var(--font-nav-family, inherit);
   font-weight: 500;
@@ -3555,6 +3561,7 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   --btn-bg: #fff;
   --btn-fg: var(--btn-accent, #8825e4);
   --btn-border: rgba(136, 37, 228, 0.4);
+  --btn-gradient: none;
   --btn-fill: var(--btn-accent, #8825e4);
   --btn-fill-fg: #fff;
   --btn-hover-border: var(--btn-accent, #8825e4);
@@ -4882,6 +4889,7 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   border: 0.1rem solid var(--t2c-purple);
   border-radius: 10rem;
   background: var(--t2c-purple);
+  background-image: linear-gradient(135deg, var(--t2c-purple) 0%, color-mix(in srgb, var(--t2c-purple) 75%, #00ffff) 100%);
   color: #fff;
   font-family: var(--font-nav-family, inherit);
   font-size: 1.6rem;
