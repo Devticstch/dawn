@@ -1,9 +1,10 @@
 /* Shared styles for the storefront homepage sections (promo strip, category strip, bento grid, etc.) */
 
-/* Brand accents (replace the earlier #0F61FF blue). Purple is the readable accent: text, links, icons, borders, solid
-   buttons and focus rings (6.1:1 on white; white on purple 6.1:1). Cyan is unreadable on white (1.25:1), so it is a
-   fill behind dark text (#1E1E1E on cyan 13.3:1), a highlight on purple (4.9:1) or on dark. The gradient is for
-   decorative bars, indicators, lines and glows, never behind text. */
+/* Brand accents (replace the earlier #0F61FF blue), used sparingly: neutrals (#FFFFFF, #F6F6F6, #1E1E1E) carry the
+   page, purple is the one accent (solid buttons, links, active states, icons, borders, focus; 6.1:1 on white and white
+   on purple), and cyan is a small highlight only: thin gradient lines and bars, faint glows, hover text on dark
+   (13.3:1 on #1E1E1E). Cyan is unreadable on white (1.25:1), so never text or large fills on light backgrounds.
+   Large brand surfaces are deep charcoal with soft purple glows rather than solid purple. Buttons turn white on hover. */
 :root {
   --t2c-purple: #8825e4;
   --t2c-purple-rgb: 136, 37, 228;
@@ -608,13 +609,14 @@ a.category-panel__category-link:hover {
 }
 
 .bs-card__action {
-  transition: background-color 0.3s cubic-bezier(0.31, 0.41, 0.38, 0.96), color 0.3s cubic-bezier(0.31, 0.41, 0.38, 0.96);
+  transition: background-color 0.3s cubic-bezier(0.31, 0.41, 0.38, 0.96), color 0.3s cubic-bezier(0.31, 0.41, 0.38, 0.96), box-shadow 0.3s cubic-bezier(0.31, 0.41, 0.38, 0.96);
 }
 
 .bs-card__action:hover,
 .bs-card__action:focus-visible {
-  background: var(--t2c-cyan);
-  color: #1e1e1e;
+  background: #fff;
+  color: var(--bs-accent);
+  box-shadow: 0 0 0 0.1rem rgba(var(--t2c-purple-rgb), 0.35);
 }
 
 .bs-card__action:focus-visible {
@@ -2747,10 +2749,10 @@ main[data-template='index'] .perks__grid {
    72px field (radius 10, Inter 20), bottom bar 13px and stacked */
 .cs-footer {
   padding: 4.2rem 0 3.9rem;
-  background: var(--cs-bg, #8825e4);
+  background: radial-gradient(70rem at 0% 0%, rgba(var(--t2c-purple-rgb), 0.3) 0%, rgba(var(--t2c-purple-rgb), 0) 70%), radial-gradient(50rem at 100% 100%, rgba(var(--t2c-cyan-rgb), 0.08) 0%, rgba(var(--t2c-cyan-rgb), 0) 70%), var(--cs-bg, #1e1e1e);
   color: var(--cs-text, #fff);
   font-family: var(--font-nav-family, inherit);
-  border-top: 0.4rem solid transparent;
+  border-top: 0.2rem solid transparent;
   border-image: var(--t2c-gradient) 1;
 }
 
@@ -2899,7 +2901,7 @@ main[data-template='index'] .perks__grid {
   padding: 0.9rem;
   border-radius: 50%;
   background: #fff;
-  color: var(--cs-bg, #8825e4);
+  color: var(--cs-bg, #1e1e1e);
 }
 
 .cs-footer__social .svg-wrapper,
@@ -2955,7 +2957,7 @@ main[data-template='index'] .perks__grid {
   border: 0;
   border-radius: 50%;
   background: #fff;
-  color: var(--cs-bg, #8825e4);
+  color: var(--cs-bg, #1e1e1e);
   cursor: pointer;
   transform: translateY(-50%);
 }
@@ -3529,9 +3531,8 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   --btn-bg: var(--btn-accent, #8825e4);
   --btn-fg: #fff;
   --btn-border: var(--btn-bg);
-  --btn-fill: var(--t2c-cyan);
-  --btn-fill-fg: #1e1e1e;
-  --btn-hover-border: var(--t2c-cyan);
+  --btn-fill: #fff;
+  --btn-fill-fg: var(--btn-bg);
   --btn-ease: cubic-bezier(0.25, 0.74, 0.22, 0.99);
   isolation: isolate;
   overflow: hidden;
@@ -4756,7 +4757,7 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
 
 /* ---------- About page newsletter ---------- */
 /* 20px-radius card in the content width (DESIGN-SYSTEM.md 2.1, 1.3), flat like all cards (1.4): image beside an
-   accent panel (purple with a soft cyan glow in the top corner) on desktop, stacked on mobile. Dark pill button (4),
+   charcoal panel with a soft purple glow and a faint cyan one on desktop, stacked on mobile. Dark pill button (4),
    58px field and button; heading 24 / 31 / 42px */
 .about-newsletter__container {
   --cs-gutter: clamp(2.2rem, 12.909vw - 8.127rem, 16.4rem);
@@ -4770,7 +4771,7 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   grid-template-columns: minmax(0, 1fr);
   overflow: hidden;
   border-radius: 2rem;
-  background: var(--about-newsletter-accent, #8825e4);
+  background: var(--about-newsletter-accent, #1e1e1e);
 }
 
 .about-newsletter__media {
@@ -4794,7 +4795,7 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   align-items: flex-start;
   justify-content: center;
   padding: 4rem 2.4rem;
-  background: radial-gradient(circle at 100% 0%, rgba(var(--t2c-cyan-rgb), 0.4) 0%, rgba(var(--t2c-cyan-rgb), 0) 40%), var(--about-newsletter-accent, #8825e4);
+  background: radial-gradient(50rem at 100% 0%, rgba(var(--t2c-purple-rgb), 0.45) 0%, rgba(var(--t2c-purple-rgb), 0) 70%), radial-gradient(36rem at 0% 100%, rgba(var(--t2c-cyan-rgb), 0.1) 0%, rgba(var(--t2c-cyan-rgb), 0) 70%), var(--about-newsletter-accent, #1e1e1e);
   color: #fff;
 }
 
@@ -4881,9 +4882,9 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   gap: 0.8rem;
   height: 5.8rem;
   padding: 0 2.8rem;
-  border: 0.1rem solid #1e1e1e;
+  border: 0.1rem solid var(--t2c-purple);
   border-radius: 10rem;
-  background: #1e1e1e;
+  background: var(--t2c-purple);
   color: #fff;
   font-family: var(--font-nav-family, inherit);
   font-size: 1.6rem;
@@ -4898,8 +4899,9 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
 }
 
 .about-newsletter__button:hover {
+  border-color: #fff;
   background: #fff;
-  color: #1e1e1e;
+  color: var(--t2c-purple);
 }
 
 .about-newsletter__message {
