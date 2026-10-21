@@ -440,7 +440,7 @@ media-gallery:focus-within .product-gallery-nav__button--next {
   --btn-bg: var(--btn-accent, #8825e4);
   --btn-fg: #fff;
   --btn-border: transparent;
-  --btn-gradient: linear-gradient(135deg, var(--btn-bg) 0%, color-mix(in srgb, var(--btn-bg) 75%, #00ffff) 100%);
+  --btn-gradient: linear-gradient(135deg, var(--btn-bg) 0%, color-mix(in srgb, var(--btn-bg) 73%, #00ffff) 100%);
   --btn-fill: #fff;
   --btn-fill-fg: var(--btn-bg);
   --btn-hover-border: var(--btn-bg);

@@ -201,9 +201,9 @@
       },
       "scheme-6": {
         "settings": {
-          "background": "#241a33",
-          "background_gradient": "",
-          "text": "#ffffff",
+          "background": "#f1e8fd",
+          "background_gradient": "linear-gradient(90deg, rgba(241, 232, 253, 1) 0%, rgba(228, 251, 253, 1) 100%)",
+          "text": "#2a1640",
           "button": "#000000",
           "button_label": "#ffffff",
           "secondary_button_label": "#000000",

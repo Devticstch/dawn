@@ -27,43 +27,86 @@
     {%- endif -%}
 
     <best-sellers-slider class="best-sellers__slider">
-      <ul class="best-sellers__track" role="list">
+      <ul class="best-sellers__track" id="BestSellersTrack-{{ section.id }}" role="list">
         {%- for product in collection.products limit: section.settings.products_to_show -%}
           <li class="best-sellers__slide{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}" data-cascade>
             {%- render 'bs-card', product: product, index: forloop.index0, show_swatches: section.settings.show_swatches, action: 'cart' -%}
           </li>
         {%- endfor -%}
       </ul>
-      <div class="best-sellers__progress" aria-hidden="true" hidden>
-        <span class="best-sellers__progress-bar"></span>
+      <div class="best-sellers__nav" data-nav hidden>
+        <button type="button" class="best-sellers__arrow" data-step="-1" aria-controls="BestSellersTrack-{{ section.id }}" aria-label="{{ 'general.slider.previous_slide' | t | escape }}">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 3 5 8l5 5"/></svg>
+        </button>
+        <div class="best-sellers__progress" aria-hidden="true">
+          <span class="best-sellers__progress-bar"></span>
+        </div>
+        <button type="button" class="best-sellers__arrow" data-step="1" aria-controls="BestSellersTrack-{{ section.id }}" aria-label="{{ 'general.slider.next_slide' | t | escape }}">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 3 5 5-5 5"/></svg>
+        </button>
       </div>
     </best-sellers-slider>
   </div>
 </div>
 
 {% javascript %}
-  // Moves the progress bar with the horizontal scroll; hidden when every card fits.
+  // Horizontal product row: arrows move one card, the progress bar follows the scroll, and a vertical wheel turn over
+  // the cards moves one card at a time. At either end the wheel scrolls the page as usual; the controls hide when
+  // every card fits.
   class BestSellersSlider extends HTMLElement {
     connectedCallback() {
       this.track = this.querySelector('.best-sellers__track');
-      this.progress = this.querySelector('.best-sellers__progress');
+      this.nav = this.querySelector('[data-nav]');
       this.bar = this.querySelector('.best-sellers__progress-bar');
+      this.arrows = this.querySelectorAll('[data-step]');
       this.update = this.update.bind(this);
+      this.onWheel = this.onWheel.bind(this);
       this.track.addEventListener('scroll', this.update, { passive: true });
+      this.track.addEventListener('wheel', this.onWheel, { passive: false });
+      this.arrows.forEach((arrow) => arrow.addEventListener('click', () => this.step(Number(arrow.dataset.step))));
       this.observer = new ResizeObserver(this.update);
       this.observer.observe(this.track);
     }
 
     disconnectedCallback() {
       this.track.removeEventListener('scroll', this.update);
+      this.track.removeEventListener('wheel', this.onWheel);
       this.observer.disconnect();
+    }
+
+    // One card (with its gap) per step; scroll snapping lines the next card up
+    step(direction) {
+      const slide = this.track.firstElementChild;
+      if (!slide) return;
+      const gap = parseFloat(getComputedStyle(this.track).columnGap) || 0;
+      const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      this.track.scrollBy({ left: direction * (slide.getBoundingClientRect().width + gap), behavior: smooth ? 'smooth' : 'auto' });
+    }
+
+    canScroll(direction) {
+      const { scrollLeft, scrollWidth, clientWidth } = this.track;
+      return direction < 0 ? scrollLeft > 1 : scrollLeft < scrollWidth - clientWidth - 1;
+    }
+
+    // Vertical wheel over the cards: one card per turn while the row can still move that way; sideways
+    // (trackpad or shift) scrolling stays native, and at the ends the page scrolls normally
+    onWheel(event) {
+      if (event.ctrlKey || Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+      const direction = Math.sign(event.deltaY);
+      if (!direction || !this.canScroll(direction)) return;
+      event.preventDefault();
+      if (this.wheelLocked) return;
+      this.wheelLocked = true;
+      setTimeout(() => (this.wheelLocked = false), 450);
+      this.step(direction);
     }
 
     update() {
       const { scrollLeft, scrollWidth, clientWidth } = this.track;
       const overflow = scrollWidth - clientWidth;
-      this.progress.hidden = overflow <= 1;
+      this.nav.hidden = overflow <= 1;
       if (overflow <= 1) return;
+      this.arrows.forEach((arrow) => (arrow.disabled = !this.canScroll(Number(arrow.dataset.step))));
       const share = clientWidth / scrollWidth;
       this.bar.style.width = `${share * 100}%`;
       this.bar.style.transform = `translateX(${(scrollLeft / overflow) * ((1 - share) / share) * 100}%)`;

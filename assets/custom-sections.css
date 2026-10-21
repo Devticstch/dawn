@@ -5,7 +5,7 @@
    on purple), and cyan is a small highlight only: thin gradient lines and bars, faint glows, hover text on dark
    (13.3:1 on #1E1E1E). Cyan is unreadable on white (1.25:1), so never text or large fills on light backgrounds.
    Large brand surfaces are deep charcoal with soft purple glows rather than solid purple. Filled buttons carry a subtle
-   purple-to-cyan gradient that ends in a 75/25 purple-cyan blend (white labels stay >= 4.8:1); they turn white on hover. */
+   purple-to-cyan gradient that ends in a 73/27 purple-cyan blend (white labels stay >= 4.5:1); they turn white on hover. */
 :root {
   --t2c-purple: #8825e4;
   --t2c-purple-rgb: 136, 37, 228;
@@ -600,7 +600,7 @@ a.category-panel__category-link:hover {
   border: 0;
   border-radius: 50%;
   background: var(--bs-accent);
-  background-image: linear-gradient(135deg, var(--bs-accent) 0%, color-mix(in srgb, var(--bs-accent) 75%, #00ffff) 100%);
+  background-image: linear-gradient(135deg, var(--bs-accent) 0%, color-mix(in srgb, var(--bs-accent) 73%, #00ffff) 100%);
   color: #fff;
   cursor: pointer;
 }
@@ -681,17 +681,66 @@ a.category-panel__category-link:hover {
   box-shadow: inset 0 0 0 0.1rem rgba(var(--color-foreground), 0.15);
 }
 
+/* Controls under the cards: previous arrow, progress bar, next arrow; hidden when every card fits */
+.best-sellers__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+  margin-top: 3.2rem;
+}
+
+.best-sellers__nav[hidden] {
+  display: none;
+}
+
+.best-sellers__arrow {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  padding: 0;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.14);
+  border-radius: 50%;
+  background: #fff;
+  color: rgb(var(--color-foreground));
+  cursor: pointer;
+  transition: background-color 0.3s cubic-bezier(0.31, 0.41, 0.38, 0.96), color 0.3s cubic-bezier(0.31, 0.41, 0.38, 0.96),
+    border-color 0.3s cubic-bezier(0.31, 0.41, 0.38, 0.96), opacity 0.3s ease;
+}
+
+.best-sellers__arrow svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  pointer-events: none;
+}
+
+.best-sellers__arrow:not(:disabled):hover {
+  border-color: transparent;
+  background: var(--bs-accent);
+  background-image: linear-gradient(135deg, var(--bs-accent) 0%, color-mix(in srgb, var(--bs-accent) 73%, #00ffff) 100%);
+  color: #fff;
+}
+
+.best-sellers__arrow:focus-visible {
+  outline: 0.2rem solid var(--bs-accent);
+  outline-offset: 0.2rem;
+}
+
+.best-sellers__arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
 .best-sellers__progress {
   width: 7.5rem;
   height: 0.5rem;
-  margin: 3.8rem auto 0;
+  margin: 0;
   overflow: hidden;
   border-radius: 1rem;
   background: rgba(var(--color-foreground), 0.08);
-}
-
-.best-sellers__progress[hidden] {
-  display: none;
 }
 
 .best-sellers__progress-bar {
@@ -1033,6 +1082,8 @@ a.category-panel__category-link:hover {
   display: block;
   width: 100%;
   margin-top: 4rem;
+  /* Nudged up a little; still clear of the titles */
+  translate: 0 -1rem;
   aspect-ratio: 1;
   pointer-events: none;
 }
@@ -1202,6 +1253,7 @@ a.category-panel__category-link:hover {
     justify-self: center;
     max-width: min(72.5rem, calc(100vh - 32rem));
     margin-top: 0;
+    translate: 0 -1.6rem;
   }
 
   .fpt__button {
@@ -1907,7 +1959,7 @@ a.category-panel__category-link:hover {
   border: 0;
   border-radius: 50%;
   background: var(--rs-accent, #8825e4);
-  background-image: linear-gradient(135deg, var(--rs-accent, #8825e4) 0%, color-mix(in srgb, var(--rs-accent, #8825e4) 75%, #00ffff) 100%);
+  background-image: linear-gradient(135deg, var(--rs-accent, #8825e4) 0%, color-mix(in srgb, var(--rs-accent, #8825e4) 73%, #00ffff) 100%);
   color: #fff;
   cursor: pointer;
 }
@@ -3584,7 +3636,7 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   --btn-fg: #fff;
   --btn-border: transparent;
   --btn-hover-border: var(--btn-bg);
-  --btn-gradient: linear-gradient(135deg, var(--btn-bg) 0%, color-mix(in srgb, var(--btn-bg) 75%, #00ffff) 100%);
+  --btn-gradient: linear-gradient(135deg, var(--btn-bg) 0%, color-mix(in srgb, var(--btn-bg) 73%, #00ffff) 100%);
   --btn-fill: #fff;
   --btn-fill-fg: var(--btn-bg);
   --btn-ease: cubic-bezier(0.25, 0.74, 0.22, 0.99);
@@ -4936,7 +4988,7 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   border: 0.1rem solid var(--t2c-purple);
   border-radius: 10rem;
   background: var(--t2c-purple);
-  background-image: linear-gradient(135deg, var(--t2c-purple) 0%, color-mix(in srgb, var(--t2c-purple) 75%, #00ffff) 100%);
+  background-image: linear-gradient(135deg, var(--t2c-purple) 0%, color-mix(in srgb, var(--t2c-purple) 73%, #00ffff) 100%);
   color: #fff;
   font-family: var(--font-nav-family, inherit);
   font-size: 1.6rem;
