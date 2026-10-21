@@ -176,24 +176,35 @@
   }
 }
 
+/* Taglines: 20 / 22 / 24px with open line spacing; full width up to 34rem on phones (35% of 390px is too narrow
+   to read), 55% of the slider on tablets and about 35% from 992px */
 .hero-carousel__text {
-  width: 30.6rem;
-  max-width: 100%;
+  width: 100%;
+  max-width: 34rem;
   margin: 0;
   /* Reference uses 50% white over a dark video; brighter photos here need more contrast */
   color: rgba(255, 255, 255, 0.88);
   text-shadow: 0 0.1rem 1.2rem rgba(0, 0, 0, 0.45);
   font-family: var(--font-nav-family, inherit);
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 500;
-  line-height: 1.1;
+  line-height: 1.35;
   letter-spacing: -0.018rem;
+  text-wrap: pretty;
+}
+
+@media screen and (min-width: 768px) {
+  .hero-carousel__text {
+    width: 55%;
+    max-width: none;
+    font-size: 2.2rem;
+  }
 }
 
 @media screen and (min-width: 992px) {
   .hero-carousel__text {
-    width: 41.8rem;
-    font-size: 2rem;
+    width: 35%;
+    font-size: 2.4rem;
     letter-spacing: -0.02rem;
   }
 }
