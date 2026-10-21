@@ -1,6 +1,6 @@
 {%- comment -%}
   About page "product DNA": a centred heading over three image cards with a title and short text. Each card shows the
-  image chosen in the theme editor, else the theme's own illustration. Like the About hero it sits in the default page
+  image chosen in the theme editor, else the theme's own photo. Like the About hero it sits in the default page
   template and renders only on the About page.
 {%- endcomment -%}
 {%- if page.handle == 'about' or page.handle == 'about-us' -%}
@@ -14,7 +14,7 @@
 {%- endstyle -%}
 
 {%- liquid
-  assign fallbacks = 'about-dna-protection.svg,about-dna-design.svg,about-dna-fit.svg' | split: ','
+  assign fallbacks = 'about-dna-protection.webp,about-dna-design.webp,about-dna-fit.webp' | split: ','
 -%}
 <div
   class="about-dna cs-section"
@@ -85,7 +85,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Shows only on the About page (handle about or about-us). Cards without an image show the theme's illustrations."
+      "content": "Shows only on the About page (handle about or about-us). Cards without an image show the theme's photos."
     },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Our product DNA" },
     { "type": "header", "content": "Card 1" },

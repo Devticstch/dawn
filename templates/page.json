@@ -57,7 +57,7 @@
         "heading_font": "instrument_sans_n6",
         "background": "#f6f6f6",
         "text_color": "#1e1e1e",
-        "overlay_opacity": 10
+        "overlay_opacity": 25
       }
     },
     "about_faq": {

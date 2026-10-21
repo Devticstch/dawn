@@ -31,7 +31,14 @@
               loading: 'lazy'
           }}
         {%- else -%}
-          {{ 'lifestyle-2' | placeholder_svg_tag: 'about-story__image about-story__placeholder' }}
+          <img
+            class="about-story__image"
+            src="{{ 'about-story.webp' | asset_url }}"
+            alt=""
+            width="1536"
+            height="1152"
+            loading="lazy"
+          >
         {%- endif -%}
       </div>
       <div class="about-story__panel">
