@@ -443,8 +443,16 @@
       "type": "featured-product-tabs",
       "settings": {
         "eyebrow": "FEATURED",
+        "products": [
+          "carbon-grip-magsafe-case",
+          "rhode",
+          "navy-woven-case",
+          "orange-woven-case"
+        ],
         "collection": "all",
         "products_to_show": 4,
+        "category_label": "Category",
+        "show_options": true,
         "vendor_label": "",
         "type_label": "",
         "weight_label": "",
