@@ -207,22 +207,24 @@
                 {%- when 'description' -%}
                   {%- if product.description != blank -%}
                     {%- if block.settings.heading != blank -%}
-                      {%- comment -%} Accordion; custom-sections.js animates it open and closed {%- endcomment -%}
-                      <details class="product__description product__features quick-add-hidden" {{ block.shopify_attributes }}>
-                        <summary class="product__features-summary">
-                          <h2 class="product__description-heading">{{ block.settings.heading | escape }}</h2>
-                          <span class="product__features-icon" aria-hidden="true"></span>
-                        </summary>
-                        <div class="product__features-content">
-                          <div class="product__features-inner rte">{{ product.description }}</div>
-                        </div>
-                      </details>
+                      {% render 'product-accordion',
+                        heading: block.settings.heading,
+                        content: product.description,
+                        class: 'product__description',
+                        attributes: block.shopify_attributes
+                      %}
                     {%- else -%}
                       <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
                         {{ product.description }}
                       </div>
                     {%- endif -%}
                   {%- endif -%}
+                {%- when 'accordion' -%}
+                  {% render 'product-accordion',
+                    heading: block.settings.heading,
+                    content: block.settings.content,
+                    attributes: block.shopify_attributes
+                  %}
                 {%- when 'sku' -%}
                   <p
                     class="product__sku{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.sku.size == 0 %} visibility-hidden{% endif %}"
@@ -979,6 +981,20 @@
       "limit": 1,
       "settings": [
         { "type": "text", "id": "heading", "label": "Heading", "info": "Shows the description in an accordion with this title. Leave empty to show it open, without a title" }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Accordion",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Delivery and returns" },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "info": "Hidden when empty. Shown in the panel product style, like the Key Features accordion",
+          "default": "<p><strong>Delivery:</strong> Shipping options and costs depend on your address, and you'll see them at checkout before you pay. Our <a href=\"/policies/shipping-policy\" title=\"Shipping policy\">shipping policy</a> has the details.</p><p><strong>Tracking:</strong> After you order, we'll email you an order confirmation, followed by a shipping confirmation with tracking details where available.</p><p><strong>Returns:</strong> Returns and exchanges are covered by our <a href=\"/policies/refund-policy\" title=\"Refund policy\">refund policy</a>, which explains the time limits and conditions.</p><p><strong>Questions?</strong> <a href=\"/pages/contact\" title=\"Contact\">Contact us</a> and we'll help.</p>"
+        }
       ]
     },
     {

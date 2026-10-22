@@ -668,8 +668,8 @@ media-gallery:focus-within .product-gallery-nav__button--next {
   }
 }
 
-/* ---------- Key Features: the product description under the buy buttons ---------- */
-.product--panel .product__info-container > .product__description {
+/* ---------- Accordions under the buy buttons: Key Features (product description) and Accordion blocks ---------- */
+.product--panel .product__info-container > :is(.product__description, .product__features) {
   margin-top: 2.4rem;
   font-size: 1.4rem;
   line-height: 1.5;
@@ -685,6 +685,12 @@ media-gallery:focus-within .product-gallery-nav__button--next {
 /* Accordion: divider lines above and below, title row with a plus that turns into a minus */
 .product--panel .product__features {
   border-block: 0.1rem solid var(--pp-line);
+}
+
+/* Stacked accordions share one divider */
+.product--panel .product__features + .product__features {
+  margin-top: 0;
+  border-top: 0;
 }
 
 .product--panel .product__features-summary {
@@ -707,7 +713,7 @@ media-gallery:focus-within .product-gallery-nav__button--next {
   border-radius: 0.4rem;
 }
 
-.product--panel .product__description-heading {
+.product--panel .product__features-heading {
   margin: 0;
   font-family: var(--pp-heading-font, var(--font-heading-family));
   font-weight: var(--pp-heading-weight, 600);
@@ -718,7 +724,7 @@ media-gallery:focus-within .product-gallery-nav__button--next {
   transition: color 0.3s ease;
 }
 
-.product--panel .product__features-summary:hover .product__description-heading {
+.product--panel .product__features-summary:hover .product__features-heading {
   color: var(--pp-accent);
 }
 
@@ -765,7 +771,7 @@ media-gallery:focus-within .product-gallery-nav__button--next {
 
   .product--panel .product__features-icon::before,
   .product--panel .product__features-icon::after,
-  .product--panel .product__description-heading {
+  .product--panel .product__features-heading {
     transition: none;
   }
 }
@@ -778,33 +784,48 @@ media-gallery:focus-within .product-gallery-nav__button--next {
   padding-bottom: 1.6rem;
 }
 
+.product--panel .product__features-inner strong {
+  font-weight: 600;
+  color: var(--pp-text);
+}
+
+.product--panel .product__features-inner a {
+  color: var(--pp-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.product--panel .product__features-inner a:hover {
+  text-decoration-thickness: 0.2rem;
+}
+
 /* Compact text: paragraphs 8px apart, list items 4px apart */
-.product--panel .product__description :is(p, ul, ol) {
+.product--panel :is(.product__description, .product__features) :is(p, ul, ol) {
   margin: 0;
 }
 
-.product--panel .product__description :is(p, ul, ol) + :is(p, ul, ol) {
+.product--panel :is(.product__description, .product__features) :is(p, ul, ol) + :is(p, ul, ol) {
   margin-top: 0.8rem;
 }
 
-.product--panel .product__description ul {
+.product--panel :is(.product__description, .product__features) ul {
   display: grid;
   gap: 0.4rem;
   padding: 0;
   list-style: none;
 }
 
-.product--panel .product__description ul > li {
+.product--panel :is(.product__description, .product__features) ul > li {
   position: relative;
   margin: 0;
   padding-left: 1.8rem;
 }
 
-.product--panel .product__description li > p {
+.product--panel :is(.product__description, .product__features) li > p {
   margin: 0;
 }
 
-.product--panel .product__description ul > li::before {
+.product--panel :is(.product__description, .product__features) ul > li::before {
   content: '';
   position: absolute;
   top: 0.6em;

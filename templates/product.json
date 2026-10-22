@@ -66,6 +66,13 @@
             "heading": "Key Features"
           }
         },
+        "delivery_returns": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Delivery and returns",
+            "content": "<p><strong>Delivery:</strong> Shipping options and costs depend on your address, and you'll see them at checkout before you pay. Our <a href=\"/policies/shipping-policy\" title=\"Shipping policy\">shipping policy</a> has the details.</p><p><strong>Tracking:</strong> After you order, we'll email you an order confirmation, followed by a shipping confirmation with tracking details where available.</p><p><strong>Returns:</strong> Returns and exchanges are covered by our <a href=\"/policies/refund-policy\" title=\"Refund policy\">refund policy</a>, which explains the time limits and conditions.</p><p><strong>Questions?</strong> <a href=\"/pages/contact\" title=\"Contact\">Contact us</a> and we'll help.</p>"
+          }
+        },
         "complementary": {
           "type": "complementary",
           "settings": {
@@ -91,6 +98,7 @@
         "inventory",
         "buy_buttons",
         "description",
+        "delivery_returns",
         "complementary"
       ],
       "settings": {

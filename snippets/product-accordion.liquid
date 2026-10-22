@@ -1,0 +1,27 @@
+{%- comment -%}
+  Product page accordion (panel style): a <details> with a title row and a plus/minus icon.
+  custom-sections.js animates it open and closed; it still works as a native <details> without JavaScript.
+  Styles: section-product-panel.css ("Accordions under the buy buttons").
+
+  Renders nothing unless both heading and content are set.
+
+  Accepts:
+  - heading: {String} title text
+  - content: {String} HTML shown when open
+  - class: {String} extra classes for the <details> (optional)
+  - attributes: {String} extra attributes, e.g. block.shopify_attributes (optional)
+
+  Usage:
+  {% render 'product-accordion', heading: block.settings.heading, content: block.settings.content, attributes: block.shopify_attributes %}
+{%- endcomment -%}
+{%- if heading != blank and content != blank -%}
+<details class="product__features quick-add-hidden{% if class != blank %} {{ class }}{% endif %}" {{ attributes }}>
+  <summary class="product__features-summary">
+    <h2 class="product__features-heading">{{ heading | escape }}</h2>
+    <span class="product__features-icon" aria-hidden="true"></span>
+  </summary>
+  <div class="product__features-content">
+    <div class="product__features-inner rte">{{ content }}</div>
+  </div>
+</details>
+{%- endif -%}
