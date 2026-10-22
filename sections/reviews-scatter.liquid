@@ -17,7 +17,7 @@
 -%}
 
 <div
-  class="rs cs-section"
+  class="rs{% unless template.name == 'product' %} cs-section{% endunless %}"
   style="--cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom }}px; --rs-accent: {{ section.settings.accent_color }};"
 >
   <div class="cs-container">

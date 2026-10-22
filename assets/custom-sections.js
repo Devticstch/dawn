@@ -383,7 +383,8 @@ document.addEventListener('click', (event) => {
   window.addEventListener('resize', schedule);
 })();
 
-// About page FAQ: animates each <details> answer open and closed (height and fade) instead of the native jump.
+// About page FAQ and the product page "Key Features" accordion: animates each <details> answer open and closed
+// (height and fade) instead of the native jump.
 // A click mid-animation reverses from the current height. .is-open drives the icon and colours straight away; the
 // native open state follows (closing waits for the animation). Reduced motion keeps the native toggle.
 (() => {
@@ -391,9 +392,11 @@ document.addEventListener('click', (event) => {
 
   const DURATION = 400;
   const EASING = 'cubic-bezier(0.31, 0.41, 0.38, 0.96)';
+  const SUMMARY = '.about-faq__question, .product__features-summary';
+  const ITEM = '.about-faq__item, .product__features';
 
   const toggle = (item) => {
-    const answer = item.querySelector('.about-faq__answer');
+    const answer = item.querySelector('.about-faq__answer, .product__features-content');
     const opening = !item.classList.contains('is-open');
     const from = item.open ? answer.getBoundingClientRect().height : 0;
     item._faqAnimation?.cancel();
@@ -412,7 +415,7 @@ document.addEventListener('click', (event) => {
   };
 
   document.addEventListener('click', (event) => {
-    const summary = event.target.closest('.about-faq__question');
+    const summary = event.target.closest(SUMMARY);
     if (!summary) return;
     event.preventDefault();
     toggle(summary.parentElement);
@@ -423,7 +426,7 @@ document.addEventListener('click', (event) => {
     'toggle',
     (event) => {
       const item = event.target;
-      if (item.classList?.contains('about-faq__item') && !item._faqAnimation) item.classList.toggle('is-open', item.open);
+      if (item.matches?.(ITEM) && !item._faqAnimation) item.classList.toggle('is-open', item.open);
     },
     true
   );

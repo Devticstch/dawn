@@ -46,7 +46,7 @@
 {%- comment -%} Product details below the product card: eyebrow, heading and text on the left, a spec table on the right {%- endcomment -%}
 {%- if product and section.settings.heading != blank or text != blank or rows != blank -%}
   <div
-    class="pa cs-section"
+    class="pa{% unless template.name == 'product' %} cs-section{% endunless %}"
     style="--cs-bg: {{ section.settings.background }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px;"
   >
     <div class="pa__container">
