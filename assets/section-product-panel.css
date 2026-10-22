@@ -351,6 +351,74 @@ media-gallery:focus-within .product-gallery-nav__button--next {
   opacity: 0.4;
 }
 
+/* ---------- Option dropdowns and quantity: full-width accent-outlined pills ----------
+   Same pattern as the quick-view quantity (custom-sections.css) and the reference quantity field:
+   white, 1px accent border at 40%, 100px radius. Dawn's pseudo-element borders are replaced by a
+   real border so hover and focus can use the accent. */
+.product--panel .product-form__input--dropdown,
+.product--panel .product-form__quantity {
+  width: 100%;
+  min-width: 0;
+}
+
+.product--panel .product-form__input--dropdown .select,
+.product--panel .product-form__quantity .quantity {
+  height: 5.4rem;
+  border: 0.1rem solid rgba(136, 37, 228, 0.4);
+  border-radius: 10rem;
+  background: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product--panel .product-form__input--dropdown .select::before,
+.product--panel .product-form__input--dropdown .select::after,
+.product--panel .product-form__quantity .quantity::before,
+.product--panel .product-form__quantity .quantity::after {
+  content: none;
+}
+
+.product--panel .product-form__input--dropdown .select:hover,
+.product--panel .product-form__quantity .quantity:hover {
+  border-color: var(--pp-accent);
+}
+
+.product--panel .product-form__input--dropdown .select:focus-within,
+.product--panel .product-form__quantity .quantity:focus-within {
+  border-color: var(--pp-accent);
+  box-shadow: 0 0 0 0.3rem rgba(136, 37, 228, 0.15);
+}
+
+.product--panel .product-form__input--dropdown .select__select {
+  height: 100%;
+  margin: 0;
+  padding: 0 5rem 0 2.4rem;
+  border-radius: 10rem;
+  background: transparent;
+  box-shadow: none;
+  color: var(--pp-text);
+  font-family: inherit;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.product--panel .product-form__input--dropdown .select__select:focus,
+.product--panel .product-form__input--dropdown .select__select:focus-visible {
+  box-shadow: none;
+}
+
+.product--panel .product-form__input--dropdown .dropdown-swatch + .select__select {
+  padding-left: calc(3.2rem + var(--swatch-input--size));
+}
+
+.product--panel .product-form__input--dropdown .dropdown-swatch {
+  left: 2.4rem;
+}
+
+.product--panel .product-form__input--dropdown .select .svg-wrapper {
+  right: 2.4rem;
+  color: var(--pp-accent);
+}
+
 /* ---------- Quantity ---------- */
 .product--panel .product-form__quantity .form__label {
   margin-bottom: 1.2rem;
@@ -359,20 +427,41 @@ media-gallery:focus-within .product-gallery-nav__button--next {
   color: var(--pp-muted);
 }
 
+.product--panel .product-form__quantity .price-per-item__container > quantity-input {
+  flex: 1 1 auto;
+}
+
 .product--panel .product-form__quantity .quantity {
-  --inputs-radius: 10rem;
-  --inputs-radius-outset: 10rem;
-  --inputs-border-width: 0.1rem;
-  --inputs-border-opacity: 0.1;
-  --color-foreground: 30, 30, 30;
-  width: 13.6rem;
-  min-height: 4.8rem;
+  width: 100%;
+  min-height: 0;
+  color: var(--pp-accent);
+}
+
+.product--panel .product-form__quantity .quantity__button {
+  width: 5.4rem;
+  margin: 0;
+  border-radius: 10rem;
+  color: inherit;
+}
+
+.product--panel .product-form__quantity .quantity__button .svg-wrapper {
+  width: 1.4rem;
+}
+
+.product--panel .product-form__quantity .quantity__button.disabled {
+  opacity: 0.35;
 }
 
 .product--panel .quantity__input {
   font-family: inherit;
   font-size: 1.5rem;
   opacity: 1;
+}
+
+.product--panel .product-form__quantity .quantity__input:focus,
+.product--panel .product-form__quantity .quantity__input:focus-visible {
+  background: transparent;
+  box-shadow: none;
 }
 
 /* ---------- Stock status: green check ---------- */
