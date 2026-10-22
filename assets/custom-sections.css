@@ -503,13 +503,15 @@ a.category-panel__category-link:hover {
   aspect-ratio: 1;
 }
 
-/* Multiply melts white photo backgrounds into the card colour */
+/* Fills the square media box (cropped, centred), like Dawn's product cards; multiply melts any white photo
+   background into the card colour */
 .bs-card__image {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
   mix-blend-mode: multiply;
   transition: opacity 0.3s ease;
 }
