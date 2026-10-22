@@ -7,18 +7,6 @@
   margin-top: 1.6rem;
 }
 
-/* Theme editor only: why the card is hidden on this product */
-.product-addon-notice {
-  margin: 1.6rem 0 0;
-  padding: 1rem 1.2rem;
-  border: 0.1rem dashed rgba(136, 37, 228, 0.5);
-  border-radius: 1rem;
-  background: rgba(136, 37, 228, 0.06);
-  font-size: 1.3rem;
-  line-height: 1.4;
-  color: #1e1e1e;
-}
-
 .product-addon__heading {
   margin: 0 0 0.8rem;
   font-family: var(--font-nav-family, inherit);
