@@ -17,7 +17,7 @@
         "announcement-1": {
           "type": "announcement",
           "settings": {
-            "text": "Super sales",
+            "text": "11/11 Sale",
             "link": ""
           }
         },
@@ -53,17 +53,21 @@
           "settings": {
             "title": "New & Featured",
             "link": "/collections/all?sort_by=created-descending",
+            "badge": "",
             "intro_heading": "Category",
+            "intro_text": "",
+            "promo_theme_image": "menu-promo.jpg",
             "promo_heading": "New Arrivals",
             "promo_button_label": "Explore more",
             "promo_link": "/collections/all?sort_by=created-descending",
-            "promo_theme_image": "menu-promo.jpg"
+            "promo_caption": ""
           }
         },
         "card_new_1": {
           "type": "menu_card",
           "settings": {
             "title": "iPhone",
+            "link": "",
             "theme_image": "menu-iphone.png"
           }
         },
@@ -71,20 +75,27 @@
           "type": "menu_card",
           "settings": {
             "title": "Samsung",
+            "link": "",
             "theme_image": "menu-samsung.png"
           }
         },
         "col_new_iphone": {
           "type": "menu_column",
           "settings": {
-            "heading": "iPhone"
+            "heading": "iPhone",
+            "link": "",
+            "links": "",
+            "product_limit": 9,
+            "show_view_all": true
           }
         },
         "col_new_feature": {
           "type": "menu_column",
           "settings": {
             "heading": "Feature",
+            "link": "",
             "links": "iPhone\nSamsung",
+            "product_limit": 9,
             "show_view_all": false
           }
         },
@@ -96,16 +107,18 @@
             "badge": "50% OFF",
             "intro_heading": "Category",
             "intro_text": "Protect your phone in style. From minimalist to drop-proof cases, we have your back.",
+            "promo_theme_image": "menu-promo.jpg",
             "promo_heading": "New Arrivals",
             "promo_button_label": "Explore more",
             "promo_link": "/collections/all?sort_by=created-descending",
-            "promo_theme_image": "menu-promo.jpg"
+            "promo_caption": ""
           }
         },
         "card_best_1": {
           "type": "menu_card",
           "settings": {
             "title": "iPhone",
+            "link": "",
             "theme_image": "menu-iphone.png"
           }
         },
@@ -113,6 +126,7 @@
           "type": "menu_card",
           "settings": {
             "title": "Samsung",
+            "link": "",
             "theme_image": "menu-samsung.png"
           }
         },
@@ -121,33 +135,49 @@
           "settings": {
             "title": "Shop by devices",
             "link": "/collections",
+            "badge": "",
             "intro_heading": "Devices",
             "intro_text": "Protect your phone in style. From minimalist to drop-proof cases, we have your back.",
+            "promo_theme_image": "menu-promo.jpg",
             "promo_heading": "New Arrivals",
             "promo_button_label": "Explore more",
             "promo_link": "/collections/all?sort_by=created-descending",
-            "promo_theme_image": "menu-promo.jpg"
+            "promo_caption": ""
           }
         },
         "col_dev_iphone": {
           "type": "menu_column",
           "settings": {
             "heading": "iPhone",
-            "product_limit": 5
+            "link": "",
+            "links": "",
+            "product_limit": 5,
+            "show_view_all": true
           }
         },
         "col_dev_samsung": {
           "type": "menu_column",
           "settings": {
             "heading": "Samsung",
-            "product_limit": 5
+            "link": "",
+            "links": "",
+            "product_limit": 5,
+            "show_view_all": true
           }
         },
         "nav_about": {
           "type": "menu_item",
           "settings": {
             "title": "About us",
-            "link": "/pages/about"
+            "link": "/pages/about",
+            "badge": "",
+            "intro_heading": "",
+            "intro_text": "",
+            "promo_theme_image": "",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": "",
+            "promo_caption": ""
           }
         }
       },
@@ -174,9 +204,11 @@
         "view_all_label": "View All",
         "sticky_header_type": "on-scroll-up",
         "transparent_on_home": true,
+        "transparent_on_collection": true,
         "show_line_separator": false,
         "color_scheme": "scheme-1",
         "menu_color_scheme": "scheme-1",
+        "accent_color": "#8825e4",
         "enable_country_selector": true,
         "enable_language_selector": true,
         "margin_bottom": 0,
