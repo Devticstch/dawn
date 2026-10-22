@@ -23,8 +23,14 @@
 </svg>
 
 {%- liquid
+  # Products picked in the theme editor win; otherwise the collection's first products
   assign products = section.settings.collection.products
-  assign product_count = products.size | at_most: section.settings.products_to_show
+  assign limit = section.settings.products_to_show
+  if section.settings.products.size > 0
+    assign products = section.settings.products
+    assign limit = section.settings.products.size
+  endif
+  assign product_count = products.size | at_most: limit
 -%}
 
 <div
@@ -40,7 +46,7 @@
 
     <div class="fpt__titles">
       <div class="fpt__titles-track" role="tablist" aria-label="{{ section.settings.eyebrow | default: section.settings.collection.title | escape }}">
-        {%- for product in products limit: section.settings.products_to_show -%}
+        {%- for product in products limit: limit -%}
           <button
             type="button"
             class="fpt__title"
@@ -59,7 +65,7 @@
     </div>
 
     <div class="fpt__panels">
-    {%- for product in products limit: section.settings.products_to_show -%}
+    {%- for product in products limit: limit -%}
       {%- liquid
         assign variant = product.selected_or_first_available_variant
         assign on_sale = false
@@ -119,6 +125,30 @@
           {%- endif -%}
 
           <dl class="fpt__specs">
+            {%- assign category = product.category.name | default: product.type -%}
+            {%- if category != blank and section.settings.category_label != blank -%}
+              <div class="fpt__spec fpt__atom" style="--atom-i: {{ atom_index }};">
+                <dt>{{ section.settings.category_label | escape }}</dt>
+                <dd>{{ category | escape }}</dd>
+              </div>
+              {%- assign atom_index = atom_index | plus: 1 -%}
+            {%- endif -%}
+            {%- comment -%} One row per option (e.g. Phone Model, Color): the first three values, then "+N" {%- endcomment -%}
+            {%- if section.settings.show_options and product.has_only_default_variant == false -%}
+              {%- for option in product.options_with_values -%}
+                <div class="fpt__spec fpt__atom" style="--atom-i: {{ atom_index }};">
+                  <dt>{{ option.name | escape }}</dt>
+                  <dd>
+                    {%- for value in option.values limit: 3 -%}
+                      {{- value | escape -}}
+                      {%- unless forloop.last %}, {% endunless -%}
+                    {%- endfor -%}
+                    {%- if option.values.size > 3 %} +{{ option.values.size | minus: 3 }}{% endif -%}
+                  </dd>
+                </div>
+                {%- assign atom_index = atom_index | plus: 1 -%}
+              {%- endfor -%}
+            {%- endif -%}
             {%- if product.vendor != blank and section.settings.vendor_label != blank -%}
               <div class="fpt__spec fpt__atom" style="--atom-i: {{ atom_index }};">
                 <dt>{{ section.settings.vendor_label | escape }}</dt>
@@ -245,6 +275,9 @@
       });
     }
 
+    // Scene states, whichever way the products change: the incoming product slides in from the left
+    // ('idle' -> 'active'), the outgoing one carries on to the right ('active' -> 'leaving') and, once
+    // its exit has finished, jumps back to the left unseen ('leaving' -> 'idle')
     select(index) {
       this.tabs.forEach((tab, i) => {
         const active = i === index;
@@ -254,8 +287,17 @@
         // Scene: every panel stays rendered so the outgoing product can animate away
         panel.hidden = !this.isScene && !active;
         panel.inert = this.isScene && !active;
-        if (this.isScene) panel.dataset.state = active ? 'active' : i < index ? 'past' : 'future';
-        else delete panel.dataset.state;
+        clearTimeout(panel.resetTimer);
+        if (!this.isScene) {
+          delete panel.dataset.state;
+        } else if (active) {
+          panel.dataset.state = 'active';
+        } else if (panel.dataset.state === 'active' || panel.dataset.state === 'leaving') {
+          panel.dataset.state = 'leaving';
+          panel.resetTimer = setTimeout(() => (panel.dataset.state = 'idle'), 1000);
+        } else {
+          panel.dataset.state = 'idle';
+        }
       });
       this.align();
     }
@@ -281,9 +323,12 @@
   "class": "section section-featured-product-tabs",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "FEATURED" },
-    { "type": "collection", "id": "collection", "label": "Collection" },
-    { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 2, "max": 8, "step": 1, "default": 4 },
+    { "type": "product_list", "id": "products", "label": "Products", "limit": 8, "info": "Pick the products to feature, in order. When none are picked, the collection below is used" },
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Used when no products are picked above" },
+    { "type": "range", "id": "products_to_show", "label": "Products to show from the collection", "min": 2, "max": 8, "step": 1, "default": 4 },
     { "type": "header", "content": "Details" },
+    { "type": "text", "id": "category_label", "label": "Category label", "default": "Category", "info": "Shows the product category (or product type). Leave empty to hide the row" },
+    { "type": "checkbox", "id": "show_options", "label": "Show variant options", "default": true, "info": "One row per option, e.g. Phone Model and Color" },
     { "type": "text", "id": "vendor_label", "label": "Brand label", "default": "Brand", "info": "Leave empty to hide the row" },
     { "type": "text", "id": "type_label", "label": "Type label", "default": "Type", "info": "Leave empty to hide the row" },
     { "type": "text", "id": "weight_label", "label": "Weight label", "default": "Weight", "info": "Shown when the variant has a weight. Leave empty to hide the row" },

@@ -1037,7 +1037,10 @@ a.category-panel__category-link:hover {
   z-index: 2;
   margin-inline: calc(-1 * var(--cs-gutter, 1.6rem));
   padding-inline: var(--cs-gutter, 1.6rem);
-  overflow: hidden;
+  /* Clip the sliding track sideways only: with overflow: hidden the tight line height cut off ascenders and
+     descenders (e.g. g, p, y) */
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 .fpt__titles-track {
@@ -1179,6 +1182,7 @@ a.category-panel__category-link:hover {
 }
 
 .fpt__spec dd {
+  max-width: 65%;
   margin: 0;
   font-size: 1.6rem;
   font-weight: 500;
@@ -1288,10 +1292,12 @@ a.category-panel__category-link:hover {
     grid-template-rows: auto calc(var(--fpt-count, 1) * 50vh);
   }
 
+  /* Top padding clears the sticky header (it slides back in on scroll up) with 32px to spare, never less
+     than the section's own top padding */
   .fpt__scene .fpt__inner {
     position: sticky;
     top: 0;
-    padding-top: var(--cs-pad-top, 0px);
+    padding-top: max(var(--cs-pad-top, 0px), calc(var(--header-height, 7.4rem) + 3.2rem));
   }
 
   .fpt__panels {
@@ -1327,16 +1333,21 @@ a.category-panel__category-link:hover {
     background: transparent;
   }
 
+  /* Product images travel left to right: the incoming one slides in from the left ('idle' -> 'active'),
+     the outgoing one carries on to the right ('leaving'), then resets to the left unseen (no transition) */
   .fpt__inner.is-scene .fpt__image {
-    transition: transform 1s cubic-bezier(0.23, 0.78, 0.19, 0.99);
+    transition: transform 1s cubic-bezier(0.23, 0.78, 0.19, 0.99), opacity 0.6s ease;
   }
 
-  .fpt__inner.is-scene .fpt__panel[data-state='future'] .fpt__image {
-    transform: rotate(-120deg) scale(0);
+  .fpt__inner.is-scene .fpt__panel[data-state='idle'] .fpt__image {
+    opacity: 0;
+    transform: translateX(-40%);
+    transition: none;
   }
 
-  .fpt__inner.is-scene .fpt__panel[data-state='past'] .fpt__image {
-    transform: rotate(180deg) scale(0);
+  .fpt__inner.is-scene .fpt__panel[data-state='leaving'] .fpt__image {
+    opacity: 0;
+    transform: translateX(40%);
   }
 
   .fpt__inner.is-scene .fpt__atom {
@@ -1344,14 +1355,34 @@ a.category-panel__category-link:hover {
     transition-delay: calc(0.1s + var(--atom-i, 0) * 0.075s);
   }
 
-  .fpt__inner.is-scene .fpt__panel[data-state='future'] .fpt__atom {
+  .fpt__inner.is-scene .fpt__panel[data-state='idle'] .fpt__atom {
     opacity: 0;
     transform: translateY(2rem);
+    transition: none;
   }
 
-  .fpt__inner.is-scene .fpt__panel[data-state='past'] .fpt__atom {
+  .fpt__inner.is-scene .fpt__panel[data-state='leaving'] .fpt__atom {
     opacity: 0;
     transform: translateY(-2rem);
+  }
+}
+
+/* Tabs and swipe (smaller screens): the newly shown product slides in from the left as well */
+@media screen and (max-width: 991px) and (prefers-reduced-motion: no-preference) {
+  .fpt__panel:not([hidden]) .fpt__image {
+    animation: fpt-slide-in 0.8s cubic-bezier(0.23, 0.78, 0.19, 0.99) both;
+  }
+}
+
+@keyframes fpt-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-40%);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
