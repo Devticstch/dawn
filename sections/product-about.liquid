@@ -10,7 +10,7 @@
 {%- liquid
   assign variant = product.selected_or_first_available_variant
   assign text = section.settings.text
-  if text == blank
+  if text == blank and section.settings.show_description
     assign text = product.description
   endif
 -%}
@@ -95,6 +95,13 @@
       "id": "text",
       "label": "Text",
       "info": "Leave empty to use the product description"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Use the product description when Text is empty",
+      "info": "Turn off when the product section already shows the description",
+      "default": true
     },
     { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "instrument_sans_n6" },
     { "type": "color", "id": "background", "label": "Background", "default": "#F6F6F6" },
