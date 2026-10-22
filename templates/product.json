@@ -63,7 +63,7 @@
         "description": {
           "type": "description",
           "settings": {
-            "heading": "Key Features"
+            "heading": "Details"
           }
         },
         "delivery_returns": {
