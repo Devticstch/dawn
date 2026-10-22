@@ -5,9 +5,6 @@
   data-product-id="{{ product.id }}"
   data-update-url="true"
   data-url="{{ product.url }}"
-  {% if section.settings.image_zoom == 'hover' %}
-    data-zoom-on-hover
-  {% endif %}
 >
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {%- if section.settings.info_style == 'cards' or section.settings.info_style == 'panel' -%}
@@ -62,9 +59,6 @@
     <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
 
-  {% if section.settings.image_zoom == 'hover' %}
-    <script id="EnableZoomOnHover-main" src="{{ 'magnify.js' | asset_url }}" defer="defer"></script>
-  {% endif %}
   {%- if request.design_mode -%}
     <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
@@ -93,7 +87,8 @@
     <div class="page-width">
       <div class="product{% if section.settings.info_style == 'cards' %} product--bold{% elsif section.settings.info_style == 'panel' %} product--bold product--panel{% endif %} product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
         <div class="grid__item product__media-wrapper">
-          {% render 'product-media-gallery', variant_images: variant_images %}
+          {%- comment -%} Product page images never open full screen (no lightbox or hover zoom) {%- endcomment -%}
+          {% render 'product-media-gallery', variant_images: variant_images, image_zoom: 'none' %}
         </div>
         <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
           <section
@@ -2670,8 +2665,9 @@
           "label": "t:sections.main-product.settings.image_zoom.options__3.label"
         }
       ],
-      "default": "lightbox",
-      "label": "t:sections.main-product.settings.image_zoom.label"
+      "default": "none",
+      "label": "t:sections.main-product.settings.image_zoom.label",
+      "info": "Not used on this theme's product page: product images never open full screen"
     },
     {
       "type": "checkbox",

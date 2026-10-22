@@ -1,5 +1,5 @@
 /* Product page "panel" style: gallery and info in one white card on the layer grey, a thumbnail rail
-   with prev/next and zoom buttons, vendor eyebrow, price with rating, variant image tiles, side-by-side
+   with prev/next buttons, vendor eyebrow, price with rating, variant image tiles, side-by-side
    buy buttons and a "Buy it with" list. Loaded after section-product-bold.css (.product--bold), whose
    gallery rail and variant pills it builds on. Values follow DESIGN-SYSTEM.md (colors 1.1, type 1.2, radii 1.3, buttons 4). */
 
@@ -109,7 +109,7 @@ product-info.product-panel-section {
     opacity: 1;
   }
 
-  /* Dawn's corner zoom icon gives way to the round zoom button */
+  /* No corner media icon over the gallery */
   .product--panel .product__media-icon {
     display: none;
   }
@@ -199,11 +199,6 @@ media-gallery:focus-within .product-gallery-nav__button--next {
 
 .product-gallery-nav__button--next svg {
   transform: rotate(-90deg);
-}
-
-.product-gallery-nav__button--zoom {
-  right: 0;
-  bottom: 0;
 }
 
 /* ---------- Info column ---------- */

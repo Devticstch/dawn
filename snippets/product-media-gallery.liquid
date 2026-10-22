@@ -6,12 +6,15 @@
   - product: {Object} Product liquid object
   - variant_images: {Array} Product images associated with a variant
   - limit: {Number} (optional) When passed, limits the number of media items to render
+  - image_zoom: {String} (optional) Overrides the section's image zoom setting ('none', 'lightbox' or 'hover')
 
   Usage:
   {% render 'product-media-gallery' %}
 {% endcomment %}
 
 {%- liquid
+  assign image_zoom = image_zoom | default: section.settings.image_zoom
+
   if section.settings.hide_variants and variant_images.size == product.media.size
     assign single_media_visible = true
   endif
@@ -81,6 +84,7 @@
             media_width: media_width,
             media_fit: section.settings.media_fit,
             constrain_to_viewport: section.settings.constrain_to_viewport,
+            image_zoom: image_zoom,
             lazy_load: false
           %}
         </li>
@@ -119,6 +123,7 @@
               media_width: media_width,
               media_fit: section.settings.media_fit,
               constrain_to_viewport: section.settings.constrain_to_viewport,
+              image_zoom: image_zoom,
               lazy_load: lazy_load
             %}
           </li>
@@ -155,7 +160,7 @@
     </div>
   </slider-component>
   {%- if section.settings.info_style == 'panel' -%}
-    {%- comment -%} Panel style (desktop): previous/next step through the thumbnails, zoom opens the active media's lightbox. See product-panel.js {%- endcomment -%}
+    {%- comment -%} Panel style (desktop): previous/next step through the thumbnails. See product-panel.js {%- endcomment -%}
     <product-gallery-nav class="product-gallery-nav quick-add-hidden">
       {%- if media_count > 1 -%}
         <button
@@ -173,16 +178,6 @@
           aria-label="{{ 'general.slider.next_slide' | t }}"
         >
           <span class="svg-wrapper">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
-        </button>
-      {%- endif -%}
-      {%- if section.settings.image_zoom != 'none' and product.media.size > 0 -%}
-        <button
-          type="button"
-          class="product-gallery-nav__button product-gallery-nav__button--zoom"
-          data-gallery="zoom"
-          aria-label="{{ 'products.product.media.open_media' | t: index: 1 }}"
-        >
-          <span class="svg-wrapper">{{- 'icon-zoom.svg' | inline_asset_content -}}</span>
         </button>
       {%- endif -%}
     </product-gallery-nav>

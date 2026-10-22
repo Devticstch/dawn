@@ -101,14 +101,10 @@
         "media_size": "large",
         "constrain_to_viewport": true,
         "media_fit": "contain",
-<<<<<<< HEAD
-        "image_zoom": "none",
-=======
         "gallery_layout": "thumbnail",
->>>>>>> e63e8421a67e0710790e2af18c212d891af78405
         "mobile_thumbnails": "hide",
         "media_position": "left",
-        "image_zoom": "lightbox",
+        "image_zoom": "none",
         "hide_variants": true,
         "enable_video_looping": false,
         "padding_top": 36,

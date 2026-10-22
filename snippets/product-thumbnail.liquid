@@ -15,6 +15,8 @@
   - media_fit: {String} Method ("contain" or "cover") to fit image into container
   - media_width: {Float} The width percentage that the media column occupies on desktop.
   - lazy_load: {Boolean} Image should be lazy loaded. Default: true (optional)
+  - image_zoom: {String} 'none', 'lightbox' or 'hover'. Default: the section's image zoom setting (optional).
+    With 'none' an image renders no zoom icon and no lightbox button, so clicking it does nothing
 
   Usage:
   {% render 'product-thumbnail',
@@ -40,8 +42,13 @@
     assign mobile_columns = 2
   endif
 
+  assign image_zoom = image_zoom | default: section.settings.image_zoom
+  assign opens_modal = true
   if media.media_type == 'image'
-    assign image_class = 'image-magnify-' | append: section.settings.image_zoom
+    assign image_class = 'image-magnify-' | append: image_zoom
+    if image_zoom == 'none'
+      assign opens_modal = false
+    endif
   endif
 -%}
 
@@ -57,8 +64,9 @@
     class="product__modal-opener product__modal-opener--{{ media.media_type }}"
     data-modal="#ProductModal-{{ modal_id }}"
   >
+    {%- if opens_modal -%}
     <span
-      class="product__media-icon motion-reduce quick-add-hidden{% if media.media_type == 'image' %} product__media-icon--{{ section.settings.image_zoom }}{% endif %}"
+      class="product__media-icon motion-reduce quick-add-hidden{% if media.media_type == 'image' %} product__media-icon--{{ image_zoom }}{% endif %}"
       aria-hidden="true"
     >
       {% case media.media_type %}
@@ -76,6 +84,7 @@
           </span>
       {% endcase %}
     </span>
+    {%- endif -%}
     {%- render 'loading-spinner' -%}
     <div class="product__media media media--transparent">
       {{
@@ -88,8 +97,9 @@
           widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
       }}
     </div>
+    {%- if opens_modal -%}
     <button
-      class="product__media-toggle quick-add-hidden product__media-zoom-{{ section.settings.image_zoom }}"
+      class="product__media-toggle quick-add-hidden product__media-zoom-{{ image_zoom }}"
       type="button"
       aria-haspopup="dialog"
       data-media-id="{{ media.id }}"
@@ -98,6 +108,7 @@
         {{ 'products.product.media.open_media' | t: index: position }}
       </span>
     </button>
+    {%- endif -%}
   </modal-opener>
 
   {%- if media.media_type != 'image' -%}
