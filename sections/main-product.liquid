@@ -995,7 +995,14 @@
           "content": "Shows the product set in the product's custom.product_add_on metafield (product reference) with an Add button. Hidden when the metafield is empty."
         },
         { "type": "text", "id": "heading", "label": "Heading", "info": "Optional, shown above the card" },
-        { "type": "text", "id": "button_label", "label": "Button label", "default": "Add" }
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Add" },
+        {
+          "type": "text",
+          "id": "bundle_label",
+          "label": "Bundle price label",
+          "default": "with this case",
+          "info": "Shown next to the bundle price when the product has a custom.add_on_discount_amount (money) metafield. Keep that amount equal to the Buy X get Y automatic discount that applies it at checkout"
+        }
       ]
     },
     {

@@ -1,7 +1,8 @@
 {%- comment -%}
   Optional add-on card for the product page: the product in the product's custom.product_add_on metafield
   (product reference) with its image, title, sale and compare-at price and an Add button. Renders nothing when
-  the metafield is empty (or points at the product itself).
+  the metafield is empty (or points at the product itself). With custom.add_on_discount_amount set on the main
+  product, it shows the bundle price instead (see the bundle_off note below).
   The Add button posts the add-on as its own cart line (Dawn's /cart/add via <product-addon-form>, a
   <product-form> subclass, so product-info.js keeps using the main product's form) and refreshes the cart
   drawer or notification. Add-ons with options link to their product page instead.
@@ -26,6 +27,15 @@
     assign on_sale = false
     if variant.compare_at_price > variant.price
       assign on_sale = true
+    endif
+
+    # Bundle price (display only): the amount in the main product's custom.add_on_discount_amount (money
+    # metafield, in cents when used directly) comes off the add-on's price. Checkout applies the real saving
+    # through the store's "Buy X get Y" automatic discount, so the two amounts must match
+    assign bundle_off = product.metafields.custom.add_on_discount_amount.value | times: 1
+    assign bundle_price = nil
+    if bundle_off > 0
+      assign bundle_price = variant.price | minus: bundle_off | at_least: 0
     endif
     assign button_label = block.settings.button_label | default: 'Add'
     assign form_id = 'ProductAddonForm-' | append: block.id
@@ -63,7 +73,15 @@
       <div class="product-addon__info">
         <a href="{{ addon.url }}" class="product-addon__title">{{ addon.title | escape }}</a>
         <p class="product-addon__price">
-          {%- if on_sale -%}
+          {%- if bundle_price != nil -%}
+            <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
+            <span class="product-addon__sale">{{ bundle_price | money }}</span>
+            <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+            <s class="product-addon__compare">{{ variant.price | money }}</s>
+            {%- if block.settings.bundle_label != blank -%}
+              <span class="product-addon__bundle-label">{{ block.settings.bundle_label | escape }}</span>
+            {%- endif -%}
+          {%- elsif on_sale -%}
             <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
             <span class="product-addon__sale">{{ variant.price | money }}</span>
             <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>

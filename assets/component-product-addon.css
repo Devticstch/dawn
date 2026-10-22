@@ -95,6 +95,15 @@
 }
 
 /* The form element (button) and the error message take part in the card grid directly */
+/* "with this case": the bundle price only applies alongside the main product */
+.product-addon__bundle-label {
+  flex-basis: 100%;
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: rgba(30, 30, 30, 0.65);
+}
+
 .product-addon__form {
   display: contents;
 }
