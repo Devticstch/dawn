@@ -15,11 +15,31 @@
   {% render 'product-addon', product: product, block: block, section_id: section.id %}
 {%- endcomment -%}
 {%- liquid
-  assign addon = product.metafields.custom.product_addon.value
+  assign addon_field = product.metafields.custom.product_addon
+  assign addon = addon_field.value
   if addon.id == product.id
     assign addon = nil
   endif
 -%}
+{%- comment -%}
+  Theme editor only (never shown to customers): say why the card is hidden. A product reference is nil in Liquid
+  when the product has no value, or when the referenced product isn't active on the Online Store channel
+{%- endcomment -%}
+{%- if addon == blank and request.design_mode -%}
+  {{ 'component-product-addon.css' | asset_url | stylesheet_tag }}
+  <p class="product-addon-notice" {{ block.shopify_attributes }}>
+    Add-on card hidden:
+    {% if addon_field == blank -%}
+      this product has no value in the custom.product_addon metafield.
+    {%- elsif addon_field.type != 'product_reference' -%}
+      custom.product_addon is a "{{ addon_field.type }}" metafield; this card expects a single product reference.
+    {%- elsif addon_field.value.id == product.id -%}
+      custom.product_addon points to this same product.
+    {%- else -%}
+      the product in custom.product_addon isn't available on the Online Store (draft, archived or not published to the Online Store channel).
+    {%- endif %}
+  </p>
+{%- endif -%}
 {%- if addon != blank -%}
   {%- liquid
     assign variant = addon.selected_or_first_available_variant
