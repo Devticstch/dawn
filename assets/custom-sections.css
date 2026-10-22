@@ -929,7 +929,10 @@ a.category-panel__category-link:hover {
     gap: 2.8rem;
   }
 
+  /* Keeps its ratio, but stretches when the side column needs more height so both end level */
   .feature-showcase__card--tall {
+    align-self: stretch;
+    width: 100%;
     aspect-ratio: 601 / 622;
   }
 
@@ -952,11 +955,17 @@ a.category-panel__category-link:hover {
     letter-spacing: -0.007em;
   }
 
+  /* Panel and wide card share the column height equally */
   .feature-showcase__side {
+    display: grid;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
     gap: 2.8rem;
   }
 
   .feature-showcase__panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 4.5rem 5rem 4.3rem;
   }
 
@@ -989,7 +998,6 @@ a.category-panel__category-link:hover {
   }
 
   .feature-showcase__card--wide {
-    flex: 1 1 auto;
     aspect-ratio: auto;
     min-height: 20rem;
   }

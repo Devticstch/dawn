@@ -61,9 +61,8 @@
                 class="header__menu-item list-menu__item link focus-inset"
                 data-href="{{ item_url }}"
               >
-                <span>{{ item.settings.title | escape }}</span>
+                <span>{{ item.settings.title | escape }}{{ badge }}</span>
                 {{- 'icon-caret.svg' | inline_asset_content -}}
-                {{- badge -}}
               </summary>
               <div
                 class="mega-menu__content header-nav__panel color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
@@ -180,8 +179,7 @@
           </header-menu>
         {%- else -%}
           <a href="{{ item_url }}" class="header__menu-item list-menu__item link link--text focus-inset">
-            <span>{{ item.settings.title | escape }}</span>
-            {{- badge -}}
+            <span>{{ item.settings.title | escape }}{{ badge }}</span>
           </a>
         {%- endif -%}
       </li>

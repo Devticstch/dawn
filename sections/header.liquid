@@ -196,7 +196,7 @@
     font-weight: var(--font-nav-weight);
   }
 
-  /* Block-built menu: 14px labels 18px apart, caret then badge, no underline */
+  /* Block-built menu: 14px labels 18px apart, badge above the label, no underline */
   .header-nav .header__menu-item {
     gap: 0.4rem;
     padding: 1.2rem 0.9rem;
@@ -235,8 +235,18 @@
     vertical-align: middle;
   }
 
-  .header-nav .header__menu-item > .mega-drawer__badge {
-    margin-left: 0;
+  /* Badge sits centred above its title, out of flow so the header keeps its height */
+  .header-nav .header__menu-item > span {
+    position: relative;
+  }
+
+  .header-nav .header__menu-item > span > .mega-drawer__badge {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin: 0 0 0.2rem;
+    white-space: nowrap;
+    transform: translateX(-50%);
   }
 
   @media screen and (min-width: 990px) {
@@ -1041,7 +1051,7 @@
           "label": "Link",
           "info": "Blank: the collection named like the title, otherwise a product search. Items linking to a missing page or blog are hidden."
         },
-        { "type": "text", "id": "badge", "label": "Badge", "info": "Shown as a pill next to the title, e.g. 50% OFF" },
+        { "type": "text", "id": "badge", "label": "Badge", "info": "Shown as a pill above the title, e.g. 50% OFF" },
         { "type": "header", "content": "Dropdown panel" },
         { "type": "text", "id": "intro_heading", "label": "Intro heading" },
         { "type": "textarea", "id": "intro_text", "label": "Intro text" },
