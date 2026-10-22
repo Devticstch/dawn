@@ -1194,6 +1194,67 @@ a.category-panel__category-link:hover {
   color: inherit;
 }
 
+/* Option values as pills: each value stays on one line; pills that don't fit wrap whole, right-aligned */
+.fpt__spec--values {
+  padding-block: 1rem;
+}
+
+.fpt__spec--values dt {
+  flex-shrink: 0;
+}
+
+.fpt__spec--values dd {
+  max-width: 75%;
+}
+
+.fpt__values {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* A value wider than the whole box (rare) is shortened with an ellipsis rather than breaking or overflowing */
+.fpt__value {
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0.4rem 1.1rem;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.1);
+  border-radius: 10rem;
+  background: #fff;
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Small screens: label above, pills below on the full box width */
+@media screen and (max-width: 749px) {
+  .fpt__spec--values {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding-block: 1.2rem;
+  }
+
+  .fpt__spec--values dd {
+    max-width: 100%;
+  }
+
+  .fpt__spec--values .fpt__values {
+    justify-content: flex-start;
+  }
+}
+
+.fpt__value--more {
+  border-color: rgba(var(--fpt-accent-rgb, 136, 37, 228), 0.25);
+  background: rgba(var(--fpt-accent-rgb, 136, 37, 228), 0.08);
+  color: var(--fpt-accent, #8825e4);
+}
+
 .fpt__form {
   margin: 0;
 }

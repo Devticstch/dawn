@@ -133,17 +133,23 @@
               </div>
               {%- assign atom_index = atom_index | plus: 1 -%}
             {%- endif -%}
-            {%- comment -%} One row per option (e.g. Phone Model, Color): the first three values, then "+N" {%- endcomment -%}
+            {%- comment -%}
+              One row per option (e.g. Phone Model, Color): the first three values as pills, then "+N". A pill never
+              breaks inside a value; pills that don't fit move to the next line whole
+            {%- endcomment -%}
             {%- if section.settings.show_options and product.has_only_default_variant == false -%}
               {%- for option in product.options_with_values -%}
-                <div class="fpt__spec fpt__atom" style="--atom-i: {{ atom_index }};">
+                <div class="fpt__spec fpt__spec--values fpt__atom" style="--atom-i: {{ atom_index }};">
                   <dt>{{ option.name | escape }}</dt>
                   <dd>
-                    {%- for value in option.values limit: 3 -%}
-                      {{- value | escape -}}
-                      {%- unless forloop.last %}, {% endunless -%}
-                    {%- endfor -%}
-                    {%- if option.values.size > 3 %} +{{ option.values.size | minus: 3 }}{% endif -%}
+                    <ul class="fpt__values" role="list">
+                      {%- for value in option.values limit: 3 -%}
+                        <li class="fpt__value">{{ value | escape }}</li>
+                      {%- endfor -%}
+                      {%- if option.values.size > 3 -%}
+                        <li class="fpt__value fpt__value--more">+{{ option.values.size | minus: 3 }}</li>
+                      {%- endif -%}
+                    </ul>
                   </dd>
                 </div>
                 {%- assign atom_index = atom_index | plus: 1 -%}
