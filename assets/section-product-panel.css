@@ -551,10 +551,18 @@ media-gallery:focus-within .product-gallery-nav__button--next {
   opacity: 1;
 }
 
-.product--panel .product-form__quantity .quantity__input:focus,
-.product--panel .product-form__quantity .quantity__input:focus-visible {
+/* Dawn gives unfocused buttons and the input `box-shadow: inherit`, which copied the pill's focus
+   ring onto each one; the ring belongs to the pill only */
+.product--panel .product-form__quantity .quantity__button,
+.product--panel .product-form__quantity .quantity__input {
   background: transparent;
   box-shadow: none;
+}
+
+/* The pill's accent border and ring (:focus-within above) mark the focused input; its own outline
+   only showed as two lines beside the buttons. Buttons keep the theme outline for keyboard users. */
+.product--panel .product-form__quantity .quantity__input:focus-visible {
+  outline: none;
 }
 
 /* ---------- Stock status: green check ---------- */
