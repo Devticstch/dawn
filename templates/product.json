@@ -63,14 +63,14 @@
         "description": {
           "type": "description",
           "settings": {
-            "heading": "Key Features"
+            "heading": "Details"
           }
         },
         "delivery_returns": {
           "type": "accordion",
           "settings": {
-            "heading": "Delivery and returns",
-            "content": "<p><strong>Delivery:</strong> Shipping options and costs depend on your address, and you'll see them at checkout before you pay. Our <a href=\"/policies/shipping-policy\" title=\"Shipping policy\">shipping policy</a> has the details.</p><p><strong>Tracking:</strong> After you order, we'll email you an order confirmation, followed by a shipping confirmation with tracking details where available.</p><p><strong>Returns:</strong> Returns and exchanges are covered by our <a href=\"/policies/refund-policy\" title=\"Refund policy\">refund policy</a>, which explains the time limits and conditions.</p><p><strong>Questions?</strong> <a href=\"/pages/contact\" title=\"Contact\">Contact us</a> and we'll help.</p>"
+            "heading": "Shipping & Returns",
+            "content": "<p><strong>Shipping:</strong> We carefully pack every order to ensure your phone case arrives in great condition. Delivery times and shipping charges may vary depending on your location and will be confirmed at checkout.</p><p><strong>Returns & Exchanges:</strong> If your order arrives damaged or you receive the wrong item, please contact our support team with your order details so we can help resolve the issue. Please review our return policy for eligibility and conditions before placing your order.</p>"
           }
         },
         "complementary": {
