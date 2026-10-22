@@ -1,0 +1,103 @@
+{%- comment -%}
+  Optional add-on card for the product page: the product in the product's custom.product_addon metafield
+  (product reference) with its image, title, sale and compare-at price and an Add button. Renders nothing when
+  the metafield is empty (or points at the product itself).
+  The Add button posts the add-on as its own cart line (Dawn's /cart/add via <product-addon-form>, a
+  <product-form> subclass, so product-info.js keeps using the main product's form) and refreshes the cart
+  drawer or notification. Add-ons with options link to their product page instead.
+
+  Accepts:
+  - product: {Object} the main product
+  - block: {Object} the "Add-on" block (settings: heading, button_label)
+  - section_id: {String}
+
+  Usage:
+  {% render 'product-addon', product: product, block: block, section_id: section.id %}
+{%- endcomment -%}
+{%- liquid
+  assign addon = product.metafields.custom.product_addon.value
+  if addon.id == product.id
+    assign addon = nil
+  endif
+-%}
+{%- if addon != blank -%}
+  {%- liquid
+    assign variant = addon.selected_or_first_available_variant
+    assign on_sale = false
+    if variant.compare_at_price > variant.price
+      assign on_sale = true
+    endif
+    assign button_label = block.settings.button_label | default: 'Add'
+    assign form_id = 'ProductAddonForm-' | append: block.id
+  -%}
+  {{ 'component-product-addon.css' | asset_url | stylesheet_tag }}
+  <script>
+    // Same behaviour as Dawn's <product-form>, but not matched by product-info.js's querySelector('product-form')
+    document.addEventListener('DOMContentLoaded', () => {
+      if (customElements.get('product-addon-form') || !customElements.get('product-form')) return;
+      customElements.define('product-addon-form', class extends customElements.get('product-form') {});
+    });
+  </script>
+  <div class="product-addon quick-add-hidden" {{ block.shopify_attributes }}>
+    {%- if block.settings.heading != blank -%}
+      <p class="product-addon__heading">{{ block.settings.heading | escape }}</p>
+    {%- endif -%}
+    <div class="product-addon__card">
+      <a href="{{ addon.url }}" class="product-addon__media" tabindex="-1" aria-hidden="true">
+        {%- if addon.featured_media -%}
+          {{
+            addon.featured_media
+            | image_url: width: 192
+            | image_tag:
+              class: 'product-addon__image',
+              widths: '96, 144, 192',
+              sizes: '64px',
+              loading: 'lazy',
+              alt: ''
+          }}
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'product-addon__image product-addon__placeholder' }}
+        {%- endif -%}
+      </a>
+
+      <div class="product-addon__info">
+        <a href="{{ addon.url }}" class="product-addon__title">{{ addon.title | escape }}</a>
+        <p class="product-addon__price">
+          {%- if on_sale -%}
+            <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
+            <span class="product-addon__sale">{{ variant.price | money }}</span>
+            <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+            <s class="product-addon__compare">{{ variant.compare_at_price | money }}</s>
+          {%- else -%}
+            <span>{{ variant.price | money }}</span>
+          {%- endif -%}
+        </p>
+      </div>
+
+      {%- if addon.available and addon.has_only_default_variant -%}
+        <product-addon-form class="product-addon__form" data-section-id="{{ section_id }}">
+          {%- form 'product', addon, id: form_id, novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+            <input type="hidden" name="id" value="{{ variant.id }}">
+            <button
+              type="submit"
+              name="add"
+              class="button button--secondary product-addon__button"
+              aria-label="{{ button_label | escape }}: {{ addon.title | escape }}"
+            >
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><path d="M8 3v10M3 8h10"/></svg>
+              <span>{{ button_label | escape }}</span>
+              {%- render 'loading-spinner' -%}
+            </button>
+          {%- endform -%}
+          <div class="product-addon__error product-form__error-message-wrapper" role="alert" hidden>
+            <span class="product-form__error-message"></span>
+          </div>
+        </product-addon-form>
+      {%- elsif addon.available -%}
+        <a href="{{ addon.url }}" class="button button--secondary product-addon__button">{{ 'products.product.choose_options' | t }}</a>
+      {%- else -%}
+        <button type="button" class="button button--secondary product-addon__button" disabled>{{ 'products.product.sold_out' | t }}</button>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}

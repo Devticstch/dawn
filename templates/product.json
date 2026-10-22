@@ -60,6 +60,12 @@
             "show_gift_card_recipient": true
           }
         },
+        "product_addon": {
+          "type": "product_addon",
+          "settings": {
+            "button_label": "Add"
+          }
+        },
         "description": {
           "type": "description",
           "settings": {
@@ -97,6 +103,7 @@
         "quantity_selector",
         "inventory",
         "buy_buttons",
+        "product_addon",
         "description",
         "delivery_returns",
         "complementary"
