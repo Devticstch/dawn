@@ -419,6 +419,99 @@ media-gallery:focus-within .product-gallery-nav__button--next {
   color: var(--pp-accent);
 }
 
+/* Open option list: a styled card where the browser supports customizable <select>
+   (Chrome/Edge 135+); other browsers keep their native list. The element stays a real
+   <select>, so Dawn's variant switching and keyboard support are unchanged. */
+@supports (appearance: base-select) {
+  .product--panel .product-form__input--dropdown .select__select,
+  .product--panel .product-form__input--dropdown .select__select::picker(select) {
+    appearance: base-select;
+  }
+
+  .product--panel .product-form__input--dropdown .select__select {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Dawn's caret icon is kept; hide the built-in one */
+  .product--panel .product-form__input--dropdown .select__select::picker-icon {
+    display: none;
+  }
+
+  .product--panel .product-form__input--dropdown .select__select::picker(select) {
+    margin-block: 0.8rem;
+    padding: 0.6rem;
+    border: 0.1rem solid rgba(136, 37, 228, 0.2);
+    border-radius: 2rem;
+    background: #fff;
+    box-shadow: 0 1.6rem 4rem rgba(30, 30, 30, 0.12);
+    opacity: 0;
+    transform: translateY(-0.4rem);
+    transition: opacity 0.2s ease, transform 0.2s ease, overlay 0.2s allow-discrete, display 0.2s allow-discrete;
+  }
+
+  .product--panel .product-form__input--dropdown .select__select:open::picker(select) {
+    opacity: 1;
+    transform: none;
+  }
+
+  @starting-style {
+    .product--panel .product-form__input--dropdown .select__select:open::picker(select) {
+      opacity: 0;
+      transform: translateY(-0.4rem);
+    }
+  }
+
+  .product--panel .product-form__input--dropdown .select__select option {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 4.4rem;
+    padding: 0 1.6rem;
+    border-radius: 1.4rem;
+    color: var(--pp-text);
+    font-family: inherit;
+    font-size: 1.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .product--panel .product-form__input--dropdown .select__select option + option {
+    margin-top: 0.2rem;
+  }
+
+  .product--panel .product-form__input--dropdown .select__select option:hover,
+  .product--panel .product-form__input--dropdown .select__select option:focus-visible {
+    outline: none;
+    background: rgba(136, 37, 228, 0.06);
+  }
+
+  .product--panel .product-form__input--dropdown .select__select option:checked {
+    background: rgba(136, 37, 228, 0.1);
+    color: var(--pp-accent);
+  }
+
+  /* Tick on the right of the selected option */
+  .product--panel .product-form__input--dropdown .select__select option::checkmark {
+    order: 1;
+    margin-left: auto;
+    color: var(--pp-accent);
+  }
+
+  .product--panel .product-form__input--dropdown .select__select option:disabled {
+    color: var(--pp-muted);
+    cursor: not-allowed;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product--panel .product-form__input--dropdown .select__select::picker(select),
+  .product--panel .product-form__input--dropdown .select__select option {
+    transition: none;
+  }
+}
+
 /* ---------- Quantity ---------- */
 .product--panel .product-form__quantity .form__label {
   margin-bottom: 1.2rem;
