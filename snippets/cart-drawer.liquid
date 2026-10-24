@@ -276,6 +276,12 @@
                               </li>
                             {%- endfor -%}
                           </ul>
+
+                          {%- comment -%} Add-on offer heading of this line's product (custom.add_on_offer_heading); hidden when empty {%- endcomment -%}
+                          {%- assign offer_heading = item.product.metafields.custom.add_on_offer_heading.value -%}
+                          {%- if offer_heading != blank -%}
+                            <p class="cart-item__offer">{{ offer_heading | escape }}</p>
+                          {%- endif -%}
                         </td>
 
                         <td class="cart-item__totals right" role="cell" headers="CartDrawer-ColumnTotal">

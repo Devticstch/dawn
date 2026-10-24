@@ -220,6 +220,20 @@ cart-drawer .cart-drawer .cart-item__old-price {
   color: var(--cd-muted);
 }
 
+/* Add-on offer heading under a line item: a purple-tinted note, like the theme's accent pills */
+cart-drawer .cart-drawer .cart-item__offer {
+  display: inline-block;
+  margin: 0.8rem 0 0;
+  padding: 0.5rem 1rem;
+  border-radius: 0.8rem;
+  background: rgba(136, 37, 228, 0.08);
+  color: #8825e4;
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
 /* The reference shows the unit price only */
 cart-drawer .cart-drawer .cart-item__totals {
   display: none;
