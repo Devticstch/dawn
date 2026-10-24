@@ -109,7 +109,7 @@
           "type": "category",
           "settings": {
             "collection": "slim-cases",
-            "image": "shopify://shop_images/2_c290ca69-2915-4bb1-8df9-d3219e21aab9.png",
+            "image": "shopify://shop_images/slim.webp",
             "label": "Slim Cases",
             "group": "phone_case",
             "link": ""
@@ -119,7 +119,7 @@
           "type": "category",
           "settings": {
             "collection": "clear-cases",
-            "image": "shopify://shop_images/4_29ab3c0e-a15c-4e9e-bb47-a1d503cdede5.png",
+            "image": "shopify://shop_images/clear_case_b4ad6778-2083-444d-9887-8630ec79848a.webp",
             "label": "Clear Cases",
             "group": "phone_case",
             "link": ""
@@ -139,7 +139,7 @@
           "type": "category",
           "settings": {
             "collection": "cute-cases",
-            "image": "shopify://shop_images/Yourparagraphtext.png",
+            "image": "{{ block.settings.collection.image }}",
             "label": "Cute Cases",
             "group": "phone_case",
             "link": ""
