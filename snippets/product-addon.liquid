@@ -10,7 +10,8 @@
 
   Accepts:
   - product: {Object} the main product
-  - block: {Object} the "Add-on" block (settings: heading, button_label)
+  - block: {Object} the "Add-on" block (settings: button_label, bundle_label). The offer heading above the card
+    comes from the main product's custom.add_on_offer_heading metafield
   - section_id: {String}
 
   Usage:
@@ -60,8 +61,10 @@
     });
   </script>
   <div class="product-addon quick-add-hidden" {{ block.shopify_attributes }}>
-    {%- if block.settings.heading != blank -%}
-      <p class="product-addon__heading">{{ block.settings.heading | escape }}</p>
+    {%- comment -%} Offer heading from the main product's custom.add_on_offer_heading; hidden when empty {%- endcomment -%}
+    {%- assign offer_heading = product.metafields.custom.add_on_offer_heading.value -%}
+    {%- if offer_heading != blank -%}
+      <p class="product-addon__heading">{{ offer_heading | escape }}</p>
     {%- endif -%}
     <div class="product-addon__card">
       <a href="{{ addon.url }}" class="product-addon__media" tabindex="-1" aria-hidden="true">
