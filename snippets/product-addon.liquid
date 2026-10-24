@@ -1,8 +1,9 @@
 {%- comment -%}
   Optional add-on card for the product page: the product in the product's custom.product_add_on metafield
   (product reference) with its image, title, sale and compare-at price and an Add button. Renders nothing when
-  the metafield is empty (or points at the product itself). With custom.add_on_discount_amount set on the main
-  product, it shows the bundle price instead (see the bundle_off note below).
+  the metafield is empty (or points at the product itself). Bundle price, in order: the add-on's real discounted
+  price from the cart once the bundle discount applies there; otherwise the add-on price minus the main
+  product's custom.add_on_discount_amount (an estimate to keep equal to the discount); otherwise no bundle price.
   The Add button posts the add-on as its own cart line (Dawn's /cart/add via <product-addon-form>, a
   <product-form> subclass, so product-info.js keeps using the main product's form) and refreshes the cart
   drawer or notification. Add-ons with options link to their product page instead.
@@ -37,6 +38,16 @@
     if bundle_off > 0
       assign bundle_price = variant.price | minus: bundle_off | at_least: 0
     endif
+
+    # Theme code can't read automatic discount settings (Liquid only exposes discounts through the cart).
+    # So when this add-on is already in the cart with a line discount (the Buy X get Y bundle discount
+    # applied), show that real per-unit price instead of the metafield estimate
+    for item in cart.items
+      if item.variant_id == variant.id and item.line_level_discount_allocations.size > 0
+        assign bundle_price = item.final_price
+        break
+      endif
+    endfor
     assign button_label = block.settings.button_label | default: 'Add'
     assign form_id = 'ProductAddonForm-' | append: block.id
   -%}
