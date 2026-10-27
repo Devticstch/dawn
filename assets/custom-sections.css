@@ -1329,14 +1329,14 @@ a.category-panel__category-link:hover {
     padding: 3.3rem 7rem;
   }
 
-  /* Below the titles (no negative pull over them); at most 725px and short enough that the whole product stays on
+  /* Below the titles (no negative pull over them); at most 800px and short enough that the whole product stays on
      screen in the sticky scroll scene */
   .fpt__media {
     grid-area: 1 / 2;
     justify-self: center;
-    max-width: min(72.5rem, calc(100vh - 32rem));
+    max-width: min(80rem, calc(100vh - 28rem));
     margin-top: 0;
-    translate: 0 -1.6rem;
+    translate: 0 -4rem;
   }
 
   .fpt__button {
@@ -1356,14 +1356,19 @@ a.category-panel__category-link:hover {
 
   /* The stuck content keeps its own height (no empty space below it); the second row adds the
      scroll distance, 50vh per product, during which it stays stuck */
+  /* minmax(0, 1fr) with the content's width: 100% keeps the stuck content to the page width. Otherwise the
+     column and the content (a grid item with auto side margins) sized to the long title row, up to the
+     1600px container max, pushing the product off screen on small laptops */
   .fpt__scene {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto calc(var(--fpt-count, 1) * 50vh);
   }
 
   /* Top padding clears the sticky header (it slides back in on scroll up) with 32px to spare, never less
      than the section's own top padding */
   .fpt__scene .fpt__inner {
+    width: 100%;
     position: sticky;
     top: 0;
     padding-top: max(var(--cs-pad-top, 0px), calc(var(--header-height, 7.4rem) + 3.2rem));
@@ -1402,19 +1407,19 @@ a.category-panel__category-link:hover {
     background: transparent;
   }
 
-  /* Product change (owner's GIF reference): the incoming product grows from a dot at the left edge as it travels
-     to the centre ('idle' -> 'active'); at the same time the outgoing one shrinks to a dot as it travels to the
-     right edge ('leaving'), then resets to the left unseen. No fade, slow-fast-slow, 0.8s */
+  /* Product change (owner's GIF reference), tied to the scroll direction: products still to come wait as a dot
+     at the left edge ('future'), products already shown as a dot at the right edge ('past'). Scrolling down,
+     the next product grows from the left into the centre while the current one shrinks away to the right;
+     scrolling up reverses it. No fade, slow-fast-slow, 0.8s */
   .fpt__inner.is-scene .fpt__image {
     transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .fpt__inner.is-scene .fpt__panel[data-state='idle'] .fpt__image {
+  .fpt__inner.is-scene .fpt__panel[data-state='future'] .fpt__image {
     transform: translateX(-50%) scale(0.04);
-    transition: none;
   }
 
-  .fpt__inner.is-scene .fpt__panel[data-state='leaving'] .fpt__image {
+  .fpt__inner.is-scene .fpt__panel[data-state='past'] .fpt__image {
     transform: translateX(50%) scale(0.04);
   }
 
@@ -1423,13 +1428,12 @@ a.category-panel__category-link:hover {
     transition-delay: calc(0.1s + var(--atom-i, 0) * 0.075s);
   }
 
-  .fpt__inner.is-scene .fpt__panel[data-state='idle'] .fpt__atom {
+  .fpt__inner.is-scene .fpt__panel[data-state='future'] .fpt__atom {
     opacity: 0;
     transform: translateY(2rem);
-    transition: none;
   }
 
-  .fpt__inner.is-scene .fpt__panel[data-state='leaving'] .fpt__atom {
+  .fpt__inner.is-scene .fpt__panel[data-state='past'] .fpt__atom {
     opacity: 0;
     transform: translateY(-2rem);
   }

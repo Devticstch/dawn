@@ -281,9 +281,10 @@
       });
     }
 
-    // Scene states, whichever way the products change: the incoming product slides in from the left
-    // ('idle' -> 'active'), the outgoing one carries on to the right ('active' -> 'leaving') and, once
-    // its exit has finished, jumps back to the left unseen ('leaving' -> 'idle')
+    // Scene states follow the scroll position, so the animation reverses when scrolling back up: products
+    // still to come wait at the left ('future'), products already shown wait at the right ('past').
+    // Scrolling down, the next product grows in from the left while the current one shrinks away to the
+    // right; scrolling up plays exactly the same motion backwards
     select(index) {
       this.tabs.forEach((tab, i) => {
         const active = i === index;
@@ -293,17 +294,8 @@
         // Scene: every panel stays rendered so the outgoing product can animate away
         panel.hidden = !this.isScene && !active;
         panel.inert = this.isScene && !active;
-        clearTimeout(panel.resetTimer);
-        if (!this.isScene) {
-          delete panel.dataset.state;
-        } else if (active) {
-          panel.dataset.state = 'active';
-        } else if (panel.dataset.state === 'active' || panel.dataset.state === 'leaving') {
-          panel.dataset.state = 'leaving';
-          panel.resetTimer = setTimeout(() => (panel.dataset.state = 'idle'), 1000);
-        } else {
-          panel.dataset.state = 'idle';
-        }
+        if (this.isScene) panel.dataset.state = active ? 'active' : i < index ? 'past' : 'future';
+        else delete panel.dataset.state;
       });
       this.align();
     }
