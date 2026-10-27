@@ -2,7 +2,7 @@
   Renders an inline SVG icon for the custom homepage sections.
   Accepts:
   - icon: {String} arrow-left, arrow-right, chevron-left, chevron-right, star, instagram,
-    trophy, sparkle, truck, return, secure, warranty, heart, leaf, chat, gift
+    trophy, sparkle, truck, return, secure, warranty, heart, leaf, chat, gift, gem, drop
 {% endcomment %}
 {%- case icon -%}
   {%- when 'arrow-left' -%}
@@ -37,6 +37,10 @@
     <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 27S4 20 4 11.5A6.5 6.5 0 0 1 16 8a6.5 6.5 0 0 1 12 3.5C28 20 16 27 16 27z"/></svg>
   {%- when 'leaf' -%}
     <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 26C6 12 14 5 27 5c0 13-7 21-21 21zM6 26l12-12"/></svg>
+  {%- when 'gem' -%}
+    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 5h14l5 7-12 15L4 12zM4 12h24M12.5 5 11 12l5 15 5-15-1.5-7"/></svg>
+  {%- when 'drop' -%}
+    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g transform="rotate(-18 19 12.5)"><rect x="14" y="3" width="10" height="17" rx="2"/><path d="M17.5 6h3"/></g><path d="M7 4v12M3.5 12.5 7 16l3.5-3.5M4 28h24M14 25l-1.5-1.5M24 25l1.5-1.5"/></svg>
   {%- when 'chat' -%}
     <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 6h24v16H13l-6 5v-5H4z"/></svg>
   {%- when 'gift' -%}

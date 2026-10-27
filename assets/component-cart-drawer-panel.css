@@ -391,7 +391,7 @@ cart-drawer .cart-drawer .cart__ctas .button {
 /* ---------- Empty cart ---------- */
 cart-drawer .cart-drawer .drawer__inner-empty .button {
   min-height: 5.3rem;
-  padding: 0 3.2rem;
+  padding: 0 4rem;
   font-size: 1.6rem;
 }
 

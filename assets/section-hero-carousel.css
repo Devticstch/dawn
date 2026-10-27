@@ -214,7 +214,7 @@
   display: inline-flex;
   align-items: center;
   height: 5rem;
-  padding: 0 2.1rem;
+  padding: 0 2.9rem;
   font-size: 1.5rem;
   white-space: nowrap;
   --btn-accent: var(--hero-accent, #8825e4);

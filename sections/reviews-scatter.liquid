@@ -36,7 +36,8 @@
                   {%- assign char_index = char_index | plus: 1 -%}
                 {%- endfor -%}
               </span>
-              {%- unless forloop.last %} {% endunless -%}
+              {%- comment -%} An output tag: Liquid drops a tag block that holds only whitespace {%- endcomment -%}
+              {%- unless forloop.last -%}{{ ' ' }}{%- endunless -%}
             {%- endfor -%}
           </h2>
         {%- endif -%}
