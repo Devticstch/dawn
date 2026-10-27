@@ -18,6 +18,7 @@
           "type": "menu",
           "settings": {
             "heading": "Home",
+            "menu": "footer",
             "links": "Overview | /\nShop | /collections/all\nAbout us | /pages/about"
           }
         },
@@ -25,6 +26,7 @@
           "type": "menu",
           "settings": {
             "heading": "Collections",
+            "menu": "footer",
             "links": "iPhone\nSamsung\nNew Arrivals | /collections/all?sort_by=created-descending\nBest Sellers | /collections/all?sort_by=best-selling"
           }
         }
@@ -34,15 +36,18 @@
         "menu_2"
       ],
       "settings": {
-        "brand_text": "<p><strong>Tech2c</strong><br>Protect your phone in style. Tech2c brings together phone cases and accessories for iPhone and Samsung that balance everyday protection with clean, modern design, so your phone stays safe and still looks like yours.</p>",
-        "newsletter_enable": false,
+        "brand_text": "<p><strong>Tech2c</strong><br/>Protect your phone in style. Tech2c brings together phone cases and accessories for iPhone and Samsung that balance everyday protection with clean, modern design, so your phone stays safe and still looks like yours.</p>",
+        "newsletter_enable": true,
         "newsletter_heading": "Newsletter",
         "newsletter_placeholder": "Enter your email",
         "newsletter_button": "SIGN UP",
         "newsletter_legal": "<p>By continuing, you agree to our <a href=\"/policies/terms-of-service\" title=\"Terms of service\">Terms & Conditions</a> and <a href=\"/policies/privacy-policy\" title=\"Privacy policy\">Privacy Policy</a>.</p>",
         "show_social": true,
         "social_heading": "Let's be friends",
-        "background": "#1E1E1E",
+        "show_payment": true,
+        "enable_language_selector": true,
+        "enable_country_selector": true,
+        "background": "#1e1e1e",
         "text_color": "#ffffff"
       }
     }
