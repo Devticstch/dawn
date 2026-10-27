@@ -363,7 +363,7 @@
         "feature_protection": {
           "type": "feature",
           "settings": {
-            "icon": "warranty",
+            "icon": "gem",
             "title": "Premium Quality",
             "subtitle": ""
           }
@@ -371,7 +371,7 @@
         "feature_comfort": {
           "type": "feature",
           "settings": {
-            "icon": "heart",
+            "icon": "drop",
             "title": "6-Foot Drop Tested",
             "subtitle": ""
           }
@@ -379,7 +379,7 @@
         "feature_style": {
           "type": "feature",
           "settings": {
-            "icon": "sparkle",
+            "icon": "leaf",
             "title": "Eco-Friendly",
             "subtitle": ""
           }
