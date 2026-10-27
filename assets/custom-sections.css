@@ -1474,30 +1474,37 @@ a.category-panel__category-link:hover {
   object-fit: cover;
 }
 
-/* Parallax: the image, 40% taller than the box, drifts down inside it as the page scrolls down (and back up on
-   scroll up), so it moves slower than the page. The drift runs linearly over the whole pass, from the box entering
-   at the bottom to leaving at the top. Native scroll-driven animation; a still image where unsupported or with
-   reduced motion. +-13% of the image height (18.2% of the box) stays inside its 20% overhang. clip, not hidden:
-   a hidden box is a scroll container of its own, and view() would follow it instead of the page */
+/* Parallax: the image drifts down inside the box as the page scrolls down (and back up on scroll up), linearly over
+   the whole pass, from the box entering at the bottom to leaving at the top (viewport + box height of scroll).
+   The drift is 30% of that pass, so the image moves at 70% of the page speed on every screen; capped at 80% of the
+   box height so short boxes on tall screens don't over-crop the photo. The image is taller than the box by exactly
+   the drift and starts half of it above, so it covers the box at both ends. Native scroll-driven animation; a still
+   image where unsupported or with reduced motion. clip, not hidden: a hidden box is a scroll container of its own,
+   and the timeline would follow it instead of the page. The timeline is the box's own view timeline: the taller
+   image's view() spanned a longer range, so part of the drift played while the box was still off screen.
+   Size container: cqh is the box height */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .image-button__media {
       overflow: clip;
+      container-type: size;
+      view-timeline: --image-button-view;
     }
 
     .image-button__image {
-      top: -20%;
-      height: 140%;
+      --ib-drift: min(0.3 * (100vh + 100cqh), 80cqh);
+      top: calc(var(--ib-drift) / -2);
+      height: calc(100% + var(--ib-drift));
       animation: image-button-parallax linear both;
-      animation-timeline: view();
+      animation-timeline: --image-button-view;
     }
 
     @keyframes image-button-parallax {
       from {
-        transform: translateY(-13%);
+        transform: translateY(calc(var(--ib-drift) / -2));
       }
       to {
-        transform: translateY(13%);
+        transform: translateY(calc(var(--ib-drift) / 2));
       }
     }
   }
