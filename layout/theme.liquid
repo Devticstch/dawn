@@ -87,6 +87,10 @@
       {{ body_font_italic | font_face: font_display: 'swap' }}
       {{ body_font_bold_italic | font_face: font_display: 'swap' }}
       {{ settings.type_header_font | font_face: font_display: 'swap' }}
+      {%- comment -%} Policy pages: bold Inter for the headings and strong text (custom-sections.css, Policy pages) {%- endcomment -%}
+      {%- if request.page_type == 'policy' -%}
+        {{ settings.type_nav_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
+      {%- endif %}
 
       {% for scheme in settings.color_schemes -%}
         {% assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id %}

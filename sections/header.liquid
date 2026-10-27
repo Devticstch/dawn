@@ -382,6 +382,9 @@
   if section.settings.transparent_on_collection and request.page_type == 'collection'
     assign transparent_header = true
   endif
+  if section.settings.transparent_on_contact and request.page_type == 'page' and template.suffix == 'contact'
+    assign transparent_header = true
+  endif
   if transparent_header
     assign header_tag = 'sticky-header'
     assign sticky_type = 'on-scroll-up'
@@ -393,7 +396,7 @@
     assign scheme_text = section.settings.color_scheme.settings.text
   -%}
   {%- style -%}
-    /* Homepage and collection pages: the header overlays the first section (hero / collection banner) */
+    /* Homepage, collection pages and the contact page: the header overlays the first section (hero / page banner) */
     #MainContent > .shopify-section:first-child {
       margin-top: calc(-1 * var(--transparent-header-height, 0px));
     }
@@ -941,6 +944,13 @@
       "default": true,
       "label": "Overlay first section on collection pages",
       "info": "Same as above, over the collection banner. Turn off if the collection template does not start with a banner."
+    },
+    {
+      "type": "checkbox",
+      "id": "transparent_on_contact",
+      "default": true,
+      "label": "Overlay first section on the contact page",
+      "info": "Same as above, over the contact page banner. Turn off if the contact template does not start with a banner."
     },
     {
       "type": "checkbox",

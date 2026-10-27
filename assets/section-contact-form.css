@@ -1,3 +1,17 @@
+/* Reference contact form (DESIGN-SYSTEM.md 6): a centred 540px column; 60px pill fields 8px apart, name and email
+   side by side from 750px, the message box below, then a full-width button 40px down. Fields keep Dawn's floating
+   labels and take the product page field style (white pill, purple border and focus ring); the border is 65% purple,
+   not that style's 40%, so the field edge reaches 3:1 on white */
+.contact.page-width {
+  max-width: 58.4rem;
+  padding-inline: 2.2rem;
+}
+
+/* 40px below the contact page intro when there is one */
+.shopify-section:has(.contact-intro) + .shopify-section .contact {
+  padding-top: 4rem;
+}
+
 .contact img {
   max-width: 100%;
 }
@@ -11,29 +25,90 @@
 }
 
 .contact .field {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
 }
 
-@media screen and (min-width: 750px) {
-  .contact .field {
-    margin-bottom: 2rem;
-  }
+.contact .field::before,
+.contact .field::after {
+  content: none;
 }
 
+.contact .field__input {
+  height: 6rem;
+  margin: 0;
+  padding: 0 2.4rem;
+  border: 0.1rem solid rgba(var(--t2c-purple-rgb), 0.65);
+  border-radius: 10rem;
+  box-shadow: none;
+  font-family: var(--font-nav-family, inherit);
+  font-weight: 500;
+  letter-spacing: -0.016rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact .field__input:hover {
+  border-color: var(--t2c-purple);
+}
+
+.contact .field__input:focus,
+.contact .field__input:focus-visible {
+  border-color: var(--t2c-purple);
+  box-shadow: 0 0 0 0.3rem rgba(var(--t2c-purple-rgb), 0.15);
+}
+
+.contact .field__label {
+  top: 1.8rem;
+  left: 2.5rem;
+  font-family: var(--font-nav-family, inherit);
+  font-weight: 500;
+  letter-spacing: -0.016rem;
+}
+
+/* Floating label: up and smaller once the field has focus or a value, with the text below it */
+.contact .field__input:is(:focus, :not(:placeholder-shown), :-webkit-autofill) {
+  padding: 2.2rem 2.4rem 0.6rem;
+}
+
+.contact .field__input:is(:focus, :not(:placeholder-shown), :-webkit-autofill) ~ .field__label {
+  top: 0.9rem;
+  left: 2.5rem;
+  font-size: 1.2rem;
+  letter-spacing: 0;
+}
+
+.contact .text-area {
+  height: 13.6rem;
+  min-height: 13.6rem;
+  padding: 1.8rem 2.4rem;
+  border-radius: 2rem;
+}
+
+.contact .text-area:is(:focus, :not(:placeholder-shown)) {
+  padding: 2.8rem 2.4rem 1rem;
+}
+
+/* 40px: the last field's 8px bottom margin collapses into this one */
 .contact__button {
-  margin-top: 3rem;
+  margin-top: 4rem;
 }
 
-@media screen and (min-width: 750px) {
-  .contact__button {
-    margin-top: 4rem;
-  }
+.contact__button .button {
+  width: 100%;
+  min-height: 5rem;
+  font-size: 1.5rem;
 }
 
 @media screen and (min-width: 750px) {
   .contact__fields {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 2rem;
+    grid-column-gap: 0.8rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .contact__button .button {
+    min-height: 5.8rem;
+    font-size: 1.6rem;
   }
 }

@@ -12,6 +12,28 @@
   }
 }
 
+/* Contact page intro (DESIGN-SYSTEM.md 6): the page content, centred in the contact form's 540px column under the
+   page banner */
+.contact-intro {
+  max-width: 58.4rem;
+  margin: 0 auto;
+  padding-inline: 2.2rem;
+  color: rgba(var(--color-foreground), 0.7);
+  font-family: var(--font-nav-family, inherit);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.42;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .contact-intro {
+    font-size: 1.8rem;
+    line-height: 1.44;
+  }
+}
+
 .page-placeholder-wrapper {
   display: flex;
   justify-content: center;

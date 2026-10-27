@@ -1,10 +1,19 @@
 {
   "sections": {
+    "banner": {
+      "type": "collection-banner",
+      "settings": {
+        "image": "shopify://shop_images/cases_1.webp",
+        "theme_image": "banner-ribbed-cases.jpg",
+        "show_count": false,
+        "heading_font": "instrument_sans_n6"
+      }
+    },
     "main": {
       "type": "main-page",
       "settings": {
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 80,
+        "padding_bottom": 0
       }
     },
     "form": {
@@ -13,12 +22,13 @@
         "heading": "",
         "heading_size": "h1",
         "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 80,
+        "padding_bottom": 100
       }
     }
   },
   "order": [
+    "banner",
     "main",
     "form"
   ]

@@ -16,7 +16,9 @@
 
 {%- comment -%}
   On the About page this section is the About story intro: the store logo over the page content, in the grey band
-  the About story card continues (the About hero shows the page title). Other pages keep Dawn's title and content.
+  the About story card continues (the About hero shows the page title). On the contact template the page banner
+  shows the title, so the page content alone is the contact form's centred intro (nothing when empty).
+  Other pages keep Dawn's title and content.
 {%- endcomment -%}
 {%- if page.handle == 'about' or page.handle == 'about-us' -%}
   <div
@@ -42,6 +44,12 @@
       </div>
     </div>
   </div>
+{%- elsif template.suffix == 'contact' -%}
+  {%- if page.content != blank -%}
+    <div class="contact-intro rte section-{{ section.id }}-padding{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      {{ page.content }}
+    </div>
+  {%- endif -%}
 {%- else -%}
 <div class="page-width page-width--narrow section-{{ section.id }}-padding">
   <h1 class="main-page-title page-title h0{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">

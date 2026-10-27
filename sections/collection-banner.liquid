@@ -8,6 +8,7 @@
 
 {%- liquid
   assign image = section.settings.image | default: collection.image
+  assign title = collection.title | default: page.title
   if collection.products_count
     assign product_count = collection.products_count
   else
@@ -15,7 +16,10 @@
   endif
 -%}
 
-{%- comment -%} Reference page heading: full-width image, white collection title with the product count, bottom-left {%- endcomment -%}
+{%- comment -%}
+  Reference page heading: full-width image, white title bottom-left. The collection title with its product count, or
+  on a page (Contact) the page title; that page's main-page section then leaves its own title out
+{%- endcomment -%}
 <div class="cb">
   <div class="cb__media{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
     {%- if image != blank -%}
@@ -42,7 +46,7 @@
   </div>
   <div class="cb__content">
     <h1 class="cb__title">
-      {{- collection.title | escape -}}
+      {{- title | escape -}}
       {%- if section.settings.show_count and product_count > 0 -%}
         <span class="cb__count">({{ product_count }})</span>
       {%- endif -%}
@@ -56,7 +60,7 @@
   "tag": "section",
   "class": "section section-collection-banner",
   "enabled_on": {
-    "templates": ["collection"]
+    "templates": ["collection", "page"]
   },
   "settings": [
     { "type": "image_picker", "id": "image", "label": "Image", "info": "Falls back to the collection image, then the theme image" },
