@@ -286,16 +286,23 @@ main[data-template='product'] .ymal .cs-container {
 
 .category-panel {
   --cp-pad-top: 2.4rem;
+  --cp-pad-right: 3.2rem;
   --cp-feature-h: 21.3rem;
   position: relative;
   min-width: 0;
-  padding: var(--cp-pad-top) 3.2rem 2.4rem;
+  padding: var(--cp-pad-top) var(--cp-pad-right) 2.4rem 3.2rem;
   overflow: hidden;
   border-radius: 2rem;
   background: #f6f6f6;
 }
 
+/* Heading/button column sized to its content, photo in the remaining width: the photo can never cover the
+   heading or button, it gets smaller on narrow panels instead */
 .category-panel__feature {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 1.2rem;
+  align-items: start;
   min-height: var(--cp-feature-h);
 }
 
@@ -323,14 +330,11 @@ main[data-template='product'] .ymal .cs-container {
 }
 
 /* Product photos on white: multiply melts the white into the panel grey, the mask fades the bottom edge.
-   The box ends where the category row starts, so the image never runs into the labels. */
+   Still flush with the panel's top and right edges (negative margins cancel the padding); the box ends where
+   the category row starts, so the image never runs into the labels. */
 .category-panel__feature-image {
-  position: absolute;
-  top: 0;
-  right: 0;
   height: calc(var(--cp-pad-top) + var(--cp-feature-h));
-  max-width: 74%;
-  aspect-ratio: 1;
+  margin: calc(-1 * var(--cp-pad-top)) calc(-1 * var(--cp-pad-right)) 0 0;
   mix-blend-mode: multiply;
   pointer-events: none;
   -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 92%);
@@ -374,8 +378,8 @@ main[data-template='product'] .ymal .cs-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Reference item: 19px top, 21px image-to-label, 33px below the label */
-  gap: 2.1rem;
+  /* Reference item: 19px top, 33px below the label; the label sits 8px under a slightly larger image */
+  gap: 0.8rem;
   height: 100%;
   padding: 1.9rem 1.8rem 3.3rem;
   color: color-mix(in srgb, var(--cs-text) 75%, transparent);
@@ -391,8 +395,8 @@ a.category-panel__category-link:hover {
 
 .category-panel__category-image {
   flex-shrink: 0;
-  width: 4.8rem;
-  height: 4.8rem;
+  width: 6rem;
+  height: 6rem;
   mix-blend-mode: multiply;
 }
 
@@ -427,10 +431,6 @@ a.category-panel__category-link:hover {
     font-size: 1.5rem;
   }
 
-  .category-panel__feature-image {
-    max-width: 56%;
-  }
-
   .category-panel__categories {
     grid-auto-flow: row;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -441,11 +441,19 @@ a.category-panel__category-link:hover {
   }
 }
 
+/* Two narrow panels side by side: less side padding so labels wrap between words, not inside them */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .category-panel__category-link {
+    padding-inline: 0.4rem;
+  }
+}
+
 @media screen and (min-width: 990px) {
   .category-panel {
     --cp-pad-top: 3.4rem;
+    --cp-pad-right: 4.5rem;
     --cp-feature-h: 24.3rem;
-    padding: var(--cp-pad-top) 4.5rem 4.2rem 4.8rem;
+    padding: var(--cp-pad-top) var(--cp-pad-right) 4.2rem 4.8rem;
   }
 
   .category-panel__heading {
@@ -1394,21 +1402,20 @@ a.category-panel__category-link:hover {
     background: transparent;
   }
 
-  /* Product images travel left to right: the incoming one slides in from the left ('idle' -> 'active'),
-     the outgoing one carries on to the right ('leaving'), then resets to the left unseen (no transition) */
+  /* Product change (owner's GIF reference): the incoming product grows from a dot at the left edge as it travels
+     to the centre ('idle' -> 'active'); at the same time the outgoing one shrinks to a dot as it travels to the
+     right edge ('leaving'), then resets to the left unseen. No fade, slow-fast-slow, 0.8s */
   .fpt__inner.is-scene .fpt__image {
-    transition: transform 1s cubic-bezier(0.23, 0.78, 0.19, 0.99), opacity 0.6s ease;
+    transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
   }
 
   .fpt__inner.is-scene .fpt__panel[data-state='idle'] .fpt__image {
-    opacity: 0;
-    transform: translateX(-40%);
+    transform: translateX(-50%) scale(0.04);
     transition: none;
   }
 
   .fpt__inner.is-scene .fpt__panel[data-state='leaving'] .fpt__image {
-    opacity: 0;
-    transform: translateX(40%);
+    transform: translateX(50%) scale(0.04);
   }
 
   .fpt__inner.is-scene .fpt__atom {
@@ -1428,21 +1435,19 @@ a.category-panel__category-link:hover {
   }
 }
 
-/* Tabs and swipe (smaller screens): the newly shown product slides in from the left as well */
+/* Tabs and swipe (smaller screens): the newly shown product grows in from a dot at the left edge as well */
 @media screen and (max-width: 991px) and (prefers-reduced-motion: no-preference) {
   .fpt__panel:not([hidden]) .fpt__image {
-    animation: fpt-slide-in 0.8s cubic-bezier(0.23, 0.78, 0.19, 0.99) both;
+    animation: fpt-slide-in 0.8s cubic-bezier(0.7, 0, 0.3, 1) both;
   }
 }
 
 @keyframes fpt-slide-in {
   from {
-    opacity: 0;
-    transform: translateX(-40%);
+    transform: translateX(-50%) scale(0.04);
   }
 
   to {
-    opacity: 1;
     transform: none;
   }
 }
