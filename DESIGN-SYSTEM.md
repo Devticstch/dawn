@@ -453,6 +453,7 @@ Two columns, 28px gap.
 | Product page media / bundle box | `position: sticky; top: 10px` |
 | Featured product tabs | sticky inner scene (scroll-driven) |
 | Intro text | sticky parallax at `top: 84–90px` |
+| Featured product background (`featured-product-style-1`) | image fixed to the viewport (`background-attachment: fixed`, `cover`) and drifting from +200px to −200px (`background-position-y`), linear over the section's pass (its top entering at the bottom of the screen to its bottom leaving at the top), eased toward the scroll position with a ≈200ms time constant (55% of a jump at 150ms, 98% at 820ms); the same ±200px at 390, 1440 and 1920 [M, measured 2026-10-27] |
 
 ### 7.2 Hover [M][S]
 

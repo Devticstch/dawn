@@ -1459,55 +1459,24 @@ a.category-panel__category-link:hover {
 /* ---------- Image banner with button ---------- */
 /* Full-bleed image with a centred pill (reuses .feature-showcase__button); a shorter band than the reference's
    16:9 / 3:2: 21:9 on desktop, 16:9 on mobile */
+/* Background as the reference's featured product (DESIGN-SYSTEM.md 7.1): the image is pinned to the viewport and the
+   media box acts as a window onto it, while custom-sections.js drifts it slowly (--drift). clip-path (not overflow)
+   is what clips a fixed child; also works on iOS, unlike the reference's background-attachment: fixed */
 .image-button__media {
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
+  clip-path: inset(0);
   background: rgba(30, 30, 30, 0.1);
 }
 
 .image-button__image {
-  position: absolute;
+  position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-/* Parallax: the image drifts down inside the box as the page scrolls down (and back up on scroll up), linearly over
-   the whole pass, from the box entering at the bottom to leaving at the top (viewport + box height of scroll).
-   The drift is 30% of that pass, so the image moves at 70% of the page speed on every screen; capped at 80% of the
-   box height so short boxes on tall screens don't over-crop the photo. The image is taller than the box by exactly
-   the drift and starts half of it above, so it covers the box at both ends. Native scroll-driven animation; a still
-   image where unsupported or with reduced motion. clip, not hidden: a hidden box is a scroll container of its own,
-   and the timeline would follow it instead of the page. The timeline is the box's own view timeline: the taller
-   image's view() spanned a longer range, so part of the drift played while the box was still off screen.
-   Size container: cqh is the box height */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .image-button__media {
-      overflow: clip;
-      container-type: size;
-      view-timeline: --image-button-view;
-    }
-
-    .image-button__image {
-      --ib-drift: min(0.3 * (100vh + 100cqh), 80cqh);
-      top: calc(var(--ib-drift) / -2);
-      height: calc(100% + var(--ib-drift));
-      animation: image-button-parallax linear both;
-      animation-timeline: --image-button-view;
-    }
-
-    @keyframes image-button-parallax {
-      from {
-        transform: translateY(calc(var(--ib-drift) / -2));
-      }
-      to {
-        transform: translateY(calc(var(--ib-drift) / 2));
-      }
-    }
-  }
+  transform: translateY(var(--drift, 0px));
 }
 
 /* Reference mobile button: 105 x 42, 14px, centred 20px above the middle */
