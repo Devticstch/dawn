@@ -364,7 +364,7 @@
           "type": "feature",
           "settings": {
             "icon": "warranty",
-            "title": "Protection",
+            "title": "Premium Quality",
             "subtitle": ""
           }
         },
@@ -372,7 +372,7 @@
           "type": "feature",
           "settings": {
             "icon": "heart",
-            "title": "Comfort",
+            "title": "6-Foot Drop Tested",
             "subtitle": ""
           }
         },
@@ -380,7 +380,7 @@
           "type": "feature",
           "settings": {
             "icon": "sparkle",
-            "title": "Style",
+            "title": "Eco-Friendly",
             "subtitle": ""
           }
         }
@@ -395,7 +395,7 @@
         "eyebrow": "SPECIAL FEATURES",
         "overlay_small": "Super",
         "overlay_large": "Slim",
-        "heading": "Protection, without the bulk",
+        "heading": "What Makes Tech2C Special",
         "secondary_theme_image": "feature-cases-flatlay.jpg",
         "button_label": "Shop cases",
         "button_link": "/collections/all",
