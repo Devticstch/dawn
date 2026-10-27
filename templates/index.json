@@ -19,7 +19,7 @@
             "mobile_focus": "center",
             "heading": "NEW! iPhone 18 Pro",
             "subheading": "Shop daily protection with drop-tested cases made for the new iPhone 18 Pro, so it stays protected and looking sharp every day.",
-            "button_label": "Shop now",
+            "button_label": "Start Exploring",
             "link": "shopify://collections/all"
           }
         },
@@ -30,7 +30,7 @@
             "mobile_focus": "center",
             "heading": "Signature Cases",
             "subheading": "Discover our award-winning signature cases: clean, modern designs that protect your phone and still look like yours.",
-            "button_label": "Shop now",
+            "button_label": "Start Exploring",
             "link": "shopify://collections/all"
           }
         },
@@ -54,7 +54,7 @@
             "mobile_focus": "center",
             "heading": "MAKE iT YOURS",
             "subheading": "Design a case that's all you. Pick the look you love and carry a phone that feels as personal as everything else you own.",
-            "button_label": "Shop now",
+            "button_label": "Start Exploring",
             "link": "shopify://collections/all"
           }
         },
@@ -364,7 +364,7 @@
           "type": "feature",
           "settings": {
             "icon": "warranty",
-            "title": "Protection",
+            "title": "Premium Quality",
             "subtitle": ""
           }
         },
@@ -372,7 +372,7 @@
           "type": "feature",
           "settings": {
             "icon": "heart",
-            "title": "Comfort",
+            "title": "6-Foot Drop Tested",
             "subtitle": ""
           }
         },
@@ -380,7 +380,7 @@
           "type": "feature",
           "settings": {
             "icon": "sparkle",
-            "title": "Style",
+            "title": "Eco-Friendly",
             "subtitle": ""
           }
         }
@@ -395,7 +395,7 @@
         "eyebrow": "SPECIAL FEATURES",
         "overlay_small": "Super",
         "overlay_large": "Slim",
-        "heading": "Protection, without the bulk",
+        "heading": "What Makes Tech2C Special",
         "secondary_theme_image": "feature-cases-flatlay.jpg",
         "button_label": "Shop cases",
         "button_link": "/collections/all",
@@ -460,7 +460,7 @@
         "box_background": "#f6f6f6",
         "accent_color": "#8825e4",
         "padding_top": 76,
-        "padding_bottom": 36
+        "padding_bottom": 12
       }
     },
     "info_cards": {
@@ -594,7 +594,7 @@
         "heading": "Loved by Our Customers",
         "heading_font": "instrument_sans_n6",
         "accent_color": "#8825e4",
-        "padding_top": 50,
+        "padding_top": 10,
         "padding_bottom": 50
       }
     },
