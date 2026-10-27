@@ -64,6 +64,8 @@
             >
             <label class="field__label" for="{{ input_id }}">{{ 'general.search.search' | t }}</label>
             <input type="hidden" name="options[prefix]" value="last">
+            {%- comment -%} Products and blog posts only: pages (About, Contact) stay out of search results {%- endcomment -%}
+            <input type="hidden" name="type" value="product,article">
             <button
               type="reset"
               class="reset__button field__button{% if search.terms == blank %} hidden{% endif %}"

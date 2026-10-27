@@ -432,7 +432,7 @@ Two columns, 28px gap.
 | Collection list (`/collections`) | 560px banner, then cards 601 × 401 | 420px banner; cards 346 × 461 |
 | Collection grid | page heading 75 / 90; 4 columns of 287px cards; category strip of 48px icons | heading 36 / 43.2; 2 columns of 166px cards |
 | Cart | heading 75 / 97.5; empty state 31px + 211 × 53 button; product row below | heading 36; button 191 × 46 |
-| Search | result cards 287px; tag pills 28px tall | cards 346px |
+| Search | grey `#F6F6F6` band under the header: 102px below the header to the field, 98px under it; the search term as a 152px field, Inter 75 weight 500 −3.75px, 1px underline, search icon at the right; popular-search pills 28px tall, 31px below. Then "N results" Inter 15 weight 500 24px below the band, the collection toolbar (filters left, "Sort by" right) 48px lower, the grid 24px below that: 4 columns of 287px product cards (5.1), 28px gaps; products and blog posts only (no pages); article cards: square image radius 10px, title Instrument Sans 20 / 21 weight 500 −0.2px, author • date Inter 14 [measured 2026-10-27] | band 44px below the header, 32px under the field; field 100px, 42px −2.1px; 1 column of 346px cards, 14px gaps; article titles 16 / 16.8 |
 | Blog | breadcrumb; title "Blog" 100 / 110 −6px; 3 columns of 400 × 266 cards | title 44 / 48.4; 1 column |
 | Article | title 60 / 78 −3px; lead Inter 20 / 28 −0.4px; image 1100 × 623 radius 10; body Inter 16 / 25.92 weight 400; comment form with 158 × 58 button | title 32 / 41.6; body headings 24px |
 | About | intro text 50 / 65 −2.5px with 100px stats; team, specs, testimonials (31px quotes), FAQ (50px title) | 25px intro, 44px stats |

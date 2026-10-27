@@ -7,6 +7,7 @@
   - enable_sorting: {Boolean} Show sorting when true
   - filter_type: {String} Type of filter
   - paginate: {Object}
+  - search_types: {String} Search results only: the resource types to keep searching, e.g. 'product,article'
 
   Usage:
   {% render 'facets', results: collection, enable_filtering: true, enable_sorting: true, filter_type: 'vertical', paginate: paginate %}
@@ -25,6 +26,9 @@
   else
     assign terms = results.terms | escape
     assign results_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+    if search_types
+      assign results_url = results_url | append: '&type=' | append: search_types
+    endif
   endif
 -%}
 
@@ -43,6 +47,7 @@
         {%- if results.terms -%}
           <input type="hidden" name="q" value="{{ results.terms | escape }}">
           <input name="options[prefix]" type="hidden" value="last">
+          <input name="type" type="hidden" value="{{ search_types }}">
         {%- endif -%}
 
         {% if enable_filtering %}
@@ -780,6 +785,7 @@
             {%- if results.terms -%}
               <input type="hidden" name="q" value="{{ results.terms | escape }}">
               <input name="options[prefix]" type="hidden" value="last">
+              <input name="type" type="hidden" value="{{ search_types }}">
             {%- endif -%}
           </div>
         </form>
@@ -869,6 +875,7 @@
         {%- if results.terms -%}
           <input type="hidden" name="q" value="{{ results.terms | escape }}">
           <input name="options[prefix]" type="hidden" value="last">
+          <input name="type" type="hidden" value="{{ search_types }}">
         {%- endif -%}
       </form>
     </facet-filters-form>

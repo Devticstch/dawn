@@ -1,4 +1,5 @@
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
+{{ 'template-collection-bold.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-search.css' | asset_url | stylesheet_tag }}
@@ -8,48 +9,37 @@
   <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 
-{% if section.settings.image_shape == 'blob' %}
-  {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
-{%- endif -%}
-
 <script src="{{ 'main-search.js' | asset_url }}" defer="defer"></script>
+{%- comment -%} The product cards' "+" adds to the cart without leaving the page {%- endcomment -%}
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 
-<style>
-  .template-search__header {
-    margin-bottom: 3rem;
-  }
-
-  .template-search__search {
-    margin: 0 auto 3.5rem;
-    max-width: 74.1rem;
-  }
-
-  .template-search__search .search {
-    margin-top: 3rem;
-  }
-
-  .template-search--empty {
-    padding-bottom: 18rem;
-  }
-
-  @media screen and (min-width: 750px) {
-    .template-search__header {
-      margin-bottom: 5rem;
-    }
-  }
-
-  .search__button .icon {
-    height: 1.8rem;
-  }
-</style>
-
+{%- comment -%}
+  Pages stay out of search results (the About page and other pages): every search form sends type=product,article;
+  the types of the current search, without pages, carry over to new searches, filters, sorting and "Clear all"
+{%- endcomment -%}
 {%- liquid
   assign sort_by = search.sort_by | default: search.default_sort_by
   assign terms = search.terms | escape
-  assign search_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+  assign search_types = ''
+  for type in search.types
+    if type != 'page'
+      assign search_types = search_types | append: ',' | append: type
+    endif
+  endfor
+  assign search_types = search_types | remove_first: ','
+  if search_types == blank
+    assign search_types = 'product,article'
+  endif
+  assign search_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&type=' | append: search_types | append: '&sort_by=' | append: sort_by
 -%}
 
 {%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} :is(.bs-card__title, .search-article__title) {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+  }
+
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
@@ -64,9 +54,14 @@
 {%- endstyle -%}
 
 {% paginate search.results by 24 %}
-  <div class="template-search{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %} section-{{ section.id }}-padding">
-    <div class="template-search__header page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-      <h1 class="h2 center">
+  {%- comment -%}
+    Reference search page (DESIGN-SYSTEM.md 6): a grey band with the search term as a large underlined field, then
+    the collection page's "bold" toolbar, product cards and pagination (template-collection-bold.css)
+  {%- endcomment -%}
+  <div class="template-search collection-bold{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %} section-{{ section.id }}-padding">
+    <div class="template-search__header">
+    <div class="page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+      <h1 class="visually-hidden">
         {%- if search.performed -%}
           {{- 'templates.search.title' | t -}}
         {%- else -%}
@@ -102,6 +97,7 @@
               >
               <label class="field__label" for="Search-In-Template">{{ 'general.search.search' | t }}</label>
               <input name="options[prefix]" type="hidden" value="last">
+              <input name="type" type="hidden" value="{{ search_types }}">
 
               {%- if settings.predictive_search_enabled -%}
                 <div class="predictive-search predictive-search--search-template" tabindex="-1" data-predictive-search>
@@ -132,20 +128,32 @@
           </predictive-search>
         {%- endif -%}
       </div>
-      {%- if search.performed -%}
-        {%- unless section.settings.enable_filtering or section.settings.enable_sorting -%}
-          {%- if search.results_count > 0 -%}
-            <p role="status">
-              {{ 'templates.search.results_with_count_and_term' | t: terms: search.terms, count: search.results_count }}
-            </p>
-          {%- endif -%}
-        {%- endunless -%}
-        {%- if search.results_count == 0 and search.filters == empty -%}
-          <p role="status">{{ 'templates.search.no_results' | t: terms: search.terms }}</p>
-        {%- endif -%}
+      {%- if search.performed and search.results_count == 0 and search.filters == empty -%}
+        <p class="template-search__message" role="status">{{ 'templates.search.no_results' | t: terms: search.terms }}</p>
       {%- endif -%}
     </div>
+    </div>
     {%- if search.performed -%}
+      {%- comment -%}
+        The results count: shown from the toolbar's own count when the filter bar renders (it updates with filtering),
+        otherwise here
+      {%- endcomment -%}
+      {%- liquid
+        assign show_count = false
+        if search.results_count > 0
+          if search.filters == empty
+            assign show_count = true
+          endif
+          unless section.settings.enable_filtering or section.settings.enable_sorting
+            assign show_count = true
+          endunless
+        endif
+      -%}
+      {%- if show_count -%}
+        <p class="template-search__count page-width" role="status">
+          {{ 'templates.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+        </p>
+      {%- endif -%}
       {%- if section.settings.enable_sorting
         and section.settings.filter_type == 'vertical'
         and search.filters != empty
@@ -221,7 +229,8 @@
                 enable_filtering: section.settings.enable_filtering,
                 enable_sorting: section.settings.enable_sorting,
                 filter_type: section.settings.filter_type,
-                paginate: paginate
+                paginate: paginate,
+                search_types: search_types
               %}
             </aside>
           {%- endif -%}
@@ -256,13 +265,11 @@
                 class="grid product-grid  grid--{{ section.settings.columns_mobile }}-col-tablet-down grid--{{ section.settings.columns_desktop }}-col-desktop"
                 role="list"
               >
-                {%- assign skip_card_product_styles = false -%}
                 {%- for item in search.results -%}
-                  {% assign lazy_load = false %}
-                  {%- if forloop.index > 2 -%}
-                    {%- assign lazy_load = true -%}
+                  {%- comment -%} Pages only arrive from older search links without the type parameter {%- endcomment -%}
+                  {%- if item.object_type == 'page' -%}
+                    {%- continue -%}
                   {%- endif -%}
-
                   <li
                     class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
                     {% if settings.animations_reveal_on_scroll %}
@@ -271,50 +278,37 @@
                   >
                     {%- case item.object_type -%}
                       {%- when 'product' -%}
-                        {%- capture product_settings -%}{%- if section.settings.product_show_vendor -%}vendor,{%- endif -%}title,price{%- endcapture -%}
-                        {% render 'card-product',
-                          card_product: item,
-                          media_aspect_ratio: section.settings.image_ratio,
-                          image_shape: section.settings.image_shape,
-                          show_secondary_image: section.settings.show_secondary_image,
-                          show_vendor: section.settings.show_vendor,
-                          show_rating: section.settings.show_rating,
-                          lazy_load: lazy_load,
-                          skip_styles: skip_card_product_styles,
-                          product_view_context: 'search'
-                        %}
-                        {%- assign skip_card_product_styles = true -%}
+                        {%- comment -%} Reference product card, shared with the collection grid and Best Sellers (DESIGN-SYSTEM.md 5.1) {%- endcomment -%}
+                        {% render 'bs-card', product: item, index: forloop.index0, show_swatches: true, action: 'cart' %}
                       {%- when 'article' -%}
-                        {% render 'article-card',
-                          article: item,
-                          show_image: true,
-                          show_date: section.settings.article_show_date,
-                          show_author: section.settings.article_show_author,
-                          show_badge: true,
-                          media_aspect_ratio: 1,
-                          lazy_load: lazy_load
-                        %}
-                      {%- when 'page' -%}
-                        <div class="article-card-wrapper card-wrapper underline-links-hover">
-                          <div
-                            class="card card--card card--text ratio color-{{ settings.blog_card_color_scheme }}"
-                            style="--ratio-percent: 100%;"
-                          >
-                            <div class="card__content">
-                              <div class="card__information">
-                                <h3 class="card__heading">
-                                  <a href="{{ item.url }}" class="full-unstyled-link">
-                                    {{ item.title | truncate: 50 | escape }}
-                                  </a>
-                                </h3>
-                              </div>
-                              <div class="card__badge {{ settings.badge_position }}">
-                                <span class="badge color-{{ settings.color_schemes | first }}">
-                                  {{- 'templates.search.page' | t -}}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
+                        {%- comment -%} Reference article card: square image, title, author and date {%- endcomment -%}
+                        <div class="search-article">
+                          <a href="{{ item.url }}" class="search-article__image" tabindex="-1" aria-hidden="true">
+                            {%- if item.image -%}
+                              {{
+                                item.image
+                                | image_url: width: 900
+                                | image_tag:
+                                  loading: 'lazy',
+                                  widths: '300, 450, 600, 900',
+                                  sizes: '(min-width: 990px) 25vw, (min-width: 750px) 50vw, 100vw',
+                                  alt: ''
+                              }}
+                            {%- endif -%}
+                          </a>
+                          <h3 class="search-article__title">
+                            <a href="{{ item.url }}">{{ item.title | escape }}</a>
+                          </h3>
+                          {%- if section.settings.article_show_author or section.settings.article_show_date -%}
+                            <p class="search-article__meta">
+                              {%- if section.settings.article_show_author -%}
+                                <span>{{ item.author | escape }}</span>
+                              {%- endif -%}
+                              {%- if section.settings.article_show_date -%}
+                                <span>{{ item.published_at | time_tag: format: 'date' }}</span>
+                              {%- endif -%}
+                            </p>
+                          {%- endif -%}
                         </div>
                     {%- endcase -%}
                   </li>
@@ -330,9 +324,6 @@
     {%- endif -%}
   </div>
 {% endpaginate %}
-{% if section.settings.image_shape == 'arch' %}
-  {{ 'mask-arch.svg' | inline_asset_content }}
-{%- endif -%}
 
 {% schema %}
 {
@@ -366,87 +357,10 @@
       ]
     },    
     {
-      "type": "header",
-      "content": "t:sections.main-search.settings.header__1.content"
-    },
-    {
-      "type": "select",
-      "id": "image_ratio",
-      "options": [
-        {
-          "value": "adapt",
-          "label": "t:sections.main-search.settings.image_ratio.options__1.label"
-        },
-        {
-          "value": "portrait",
-          "label": "t:sections.main-search.settings.image_ratio.options__2.label"
-        },
-        {
-          "value": "square",
-          "label": "t:sections.main-search.settings.image_ratio.options__3.label"
-        }
-      ],
-      "default": "adapt",
-      "label": "t:sections.main-search.settings.image_ratio.label"
-    },
-    {
-      "type": "select",
-      "id": "image_shape",
-      "options": [
-        {
-          "value": "default",
-          "label": "t:sections.all.image_shape.options__1.label"
-        },
-        {
-          "value": "arch",
-          "label": "t:sections.all.image_shape.options__2.label"
-        },
-        {
-          "value": "blob",
-          "label": "t:sections.all.image_shape.options__3.label"
-        },
-        {
-          "value": "chevronleft",
-          "label": "t:sections.all.image_shape.options__4.label"
-        },
-        {
-          "value": "chevronright",
-          "label": "t:sections.all.image_shape.options__5.label"
-        },
-        {
-          "value": "diamond",
-          "label": "t:sections.all.image_shape.options__6.label"
-        },
-        {
-          "value": "parallelogram",
-          "label": "t:sections.all.image_shape.options__7.label"
-        },
-        {
-          "value": "round",
-          "label": "t:sections.all.image_shape.options__8.label"
-        }
-      ],
-      "default": "default",
-      "label": "t:sections.all.image_shape.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_secondary_image",
-      "default": false,
-      "label": "t:sections.main-search.settings.show_secondary_image.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_vendor",
-      "default": false,
-      "label": "t:sections.main-search.settings.show_vendor.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_rating",
-      "default": false,
-      "label": "t:sections.main-search.settings.show_rating.label",
-      "info": "t:sections.main-search.settings.show_rating.info"
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Product and article title font",
+      "default": "instrument_sans_n6"
     },
     {
       "type": "header",

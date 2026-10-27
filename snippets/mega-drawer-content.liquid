@@ -30,6 +30,8 @@
         autocomplete="off"
       >
       <input type="hidden" name="options[prefix]" value="last">
+      {%- comment -%} Products and blog posts only: pages (About, Contact) stay out of search results {%- endcomment -%}
+      <input type="hidden" name="type" value="product,article">
     </form>
     {%- if shop.customer_accounts_enabled -%}
       <a

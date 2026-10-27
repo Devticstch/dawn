@@ -5854,3 +5854,233 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
     letter-spacing: -0.052rem;
   }
 }
+
+/* ---------- Search page ---------- */
+/* Reference search page (DESIGN-SYSTEM.md 6): a grey band under the header with the search term as a large
+   underlined field (its label stays for screen readers; the placeholder shows when empty), the results count over
+   the collection page's bold toolbar, then the shared product cards (template-collection-bold.css) and article
+   cards. The header stays in the flow, so the band's top padding is the reference's gap below the header. The
+   underline is 3:1 on the band and turns purple on focus */
+.template-search__header {
+  padding: 4.4rem 0 3.2rem;
+  background: #f6f6f6;
+}
+
+.template-search__search .field {
+  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.45);
+  transition: border-color 0.3s ease;
+}
+
+.template-search__search .field::before,
+.template-search__search .field::after {
+  content: none;
+}
+
+.template-search__search .field:focus-within {
+  border-color: var(--t2c-purple);
+}
+
+.template-search__search .search__input.field__input {
+  height: 9.9rem;
+  margin: 0;
+  padding: 1rem 9.8rem 1rem 0;
+  background: transparent;
+  box-shadow: none;
+  color: rgb(var(--color-foreground));
+  font-family: var(--font-nav-family, inherit);
+  font-size: 4.2rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.21rem;
+}
+
+.template-search__search .search__input::placeholder {
+  opacity: 1;
+  color: rgba(var(--color-foreground), 0.6);
+}
+
+.template-search__search .field__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.template-search__search .field__button {
+  top: calc(50% - 2.2rem);
+  color: rgb(var(--color-foreground));
+}
+
+/* The icon ends flush with the underline */
+.template-search__search .search__button {
+  right: -1.1rem;
+}
+
+.template-search__search .search__button .icon {
+  width: 2.2rem;
+  height: 2.2rem;
+}
+
+.template-search__message,
+.template-search__count,
+.template-search.collection-bold .facets__form .product-count,
+.template-search.collection-bold .facets-container > .product-count {
+  margin: 0;
+  color: rgb(var(--color-foreground));
+  font-family: var(--font-nav-family, inherit);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.42;
+  letter-spacing: 0;
+}
+
+.template-search__message {
+  padding-top: 2.4rem;
+}
+
+.template-search__count {
+  padding-block: 2.4rem;
+}
+
+/* The toolbar's own count (it updates with filtering) on a row of its own above the filters and sort */
+.template-search.collection-bold .facets-wrapper {
+  padding-top: 2.4rem;
+  margin-bottom: 2.4rem;
+}
+
+.template-search.collection-bold .facets__form .product-count {
+  position: relative;
+  grid-row: 1;
+  grid-column: 1 / -1;
+  width: auto;
+  height: auto;
+  margin-bottom: 4.8rem;
+  overflow: visible;
+  clip: auto;
+  text-align: left;
+}
+
+/* Dawn places the filters and sort in row 1 */
+.template-search.collection-bold .facets__form > :not(.product-count) {
+  grid-row: 2;
+}
+
+/* Phones: the count from the filter drawer's toolbar, on a row of its own above the Filter button */
+.template-search.collection-bold .facets-container > .product-count {
+  grid-row: 1;
+  grid-column: 1 / -1;
+  padding-bottom: 2.4rem;
+  text-align: left;
+}
+
+.template-search .product-count__text {
+  margin: 0;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.search-article__image {
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: #f6f6f6;
+}
+
+.search-article__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.search-article:hover .search-article__image img {
+  transform: scale(1.05);
+}
+
+.search-article__title {
+  margin: 1.6rem 2.4rem 0 0;
+  padding-bottom: 0.7rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.search-article__title a {
+  color: rgb(var(--color-foreground));
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.search-article__title a:hover {
+  color: var(--t2c-purple);
+}
+
+.search-article__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0 0 1.6rem;
+  color: rgba(var(--color-foreground), 0.75);
+  font-family: var(--font-nav-family, inherit);
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+.search-article__meta > * + *::before {
+  content: '';
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-right: 0.8rem;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: middle;
+}
+
+@media screen and (min-width: 750px) {
+  .search-article__title {
+    font-size: 2rem;
+  }
+}
+
+/* Dawn's one-column setting runs up to 989px; tablets keep two columns */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .template-search .product-grid.grid--1-col-tablet-down .grid__item {
+    width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
+    max-width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .template-search__header {
+    padding: 10.2rem 0 9.8rem;
+  }
+
+  .template-search__search .search__input.field__input {
+    height: 15.1rem;
+    font-size: 7.5rem;
+    letter-spacing: -0.375rem;
+  }
+
+  .template-search__search .search__button {
+    right: -0.8rem;
+  }
+
+  .template-search__search .search__button .icon {
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .search-article__image img {
+    transition: none;
+  }
+}
