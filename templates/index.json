@@ -19,8 +19,10 @@
             "mobile_focus": "center",
             "heading": "NEW! iPhone 18 Pro",
             "subheading": "Shop daily protection with drop-tested cases made for the new iPhone 18 Pro, so it stays protected and looking sharp every day.",
+            "text_position": "left",
             "button_label": "Start Exploring",
-            "link": "shopify://collections/all"
+            "link": "shopify://collections/all",
+            "button_position": "left"
           }
         },
         "slide_2": {
@@ -30,8 +32,10 @@
             "mobile_focus": "center",
             "heading": "Signature Cases",
             "subheading": "Discover our award-winning signature cases: clean, modern designs that protect your phone and still look like yours.",
+            "text_position": "left",
             "button_label": "Start Exploring",
-            "link": "shopify://collections/all"
+            "link": "shopify://collections/all",
+            "button_position": "left"
           }
         },
         "slide_4": {
@@ -42,8 +46,10 @@
             "mobile_focus": "center",
             "heading": "MAKE iT YOURS",
             "subheading": "Design a case that's all you. Pick the look you love and carry a phone that feels as personal as everything else you own.",
+            "text_position": "left",
             "button_label": "Start Exploring",
-            "link": "shopify://collections/all"
+            "link": "shopify://collections/all",
+            "button_position": "left"
           }
         }
       },
@@ -88,7 +94,6 @@
           "type": "category",
           "settings": {
             "collection": "wallet-cases",
-            "image": "shopify://shop_images/image_f2e6eb09-d6f3-4b38-b794-5d0cd099a242.png",
             "label": "Wallet Cases",
             "group": "phone_case",
             "link": ""
@@ -108,7 +113,6 @@
           "type": "category",
           "settings": {
             "collection": "iphone-18-pro-max",
-            "image": "shopify://shop_images/3_dcf5953a-fd9c-4ad0-a2eb-36f17d49efe2.png",
             "label": "iPhone 18 Pro Max",
             "group": "accessories",
             "link": ""
@@ -118,7 +122,6 @@
           "type": "category",
           "settings": {
             "collection": "iphone-18-pro",
-            "image": "shopify://shop_images/2_c290ca69-2915-4bb1-8df9-d3219e21aab9.png",
             "label": "iPhone 18 Pro",
             "group": "accessories",
             "link": ""
@@ -128,7 +131,6 @@
           "type": "category",
           "settings": {
             "collection": "iphone-17-pro-max",
-            "image": "shopify://shop_images/3_1fc9f2af-1209-4b8c-9397-66398ac3bd8d.png",
             "label": "iPhone 17 Pro Max",
             "group": "accessories",
             "link": ""
@@ -138,7 +140,6 @@
           "type": "category",
           "settings": {
             "collection": "iphone-17-pro",
-            "image": "shopify://shop_images/4_33635e7d-0cb2-43f7-a8ae-efaa9537830b.png",
             "label": "iPhone 17 Pro",
             "group": "accessories",
             "link": ""
