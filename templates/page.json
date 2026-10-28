@@ -46,10 +46,13 @@
       "type": "about-dna",
       "settings": {
         "heading": "Our product DNA",
+        "card_1_image": "shopify://shop_images/Everyday_protection.webp",
         "card_1_title": "Everyday protection",
         "card_1_text": "<p>Cases designed with daily life in mind, to help keep your phone safe from the bumps and scrapes of the day.</p>",
+        "card_2_image": "shopify://shop_images/clean_Modern_design.webp",
         "card_2_title": "Clean, modern design",
         "card_2_text": "<p>Simple lines and considered details that suit your phone, so it stays protected and still looks like yours.</p>",
+        "card_3_image": "shopify://shop_images/Made_for_iPhone.webp",
         "card_3_title": "Made for iPhone and Samsung",
         "card_3_text": "<p>Cases and accessories chosen for iPhone and Samsung models, so finding the right one for your phone is simple.</p>",
         "heading_font": "instrument_sans_n6",
