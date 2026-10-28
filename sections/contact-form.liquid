@@ -35,6 +35,15 @@
           {{- 'icon-success.svg' | inline_asset_content -}}
           {{ 'templates.contact.form.post_success' | t }}
         </h2>
+        {%- comment -%}
+          Shopify confirmed the message: on a page, continue to its thank-you page (the page.thanks template). Errors
+          stay on this page; without JavaScript, and in the theme editor, the message above stays instead
+        {%- endcomment -%}
+        {%- if request.page_type == 'page' and request.design_mode == false -%}
+          <script>
+            window.location.replace({{ request.path | append: '?view=thanks' | json }});
+          </script>
+        {%- endif -%}
       {%- elsif form.errors -%}
         <div class="form__message">
           <h2 class="form-status caption-large text-body" role="alert" tabindex="-1" autofocus>

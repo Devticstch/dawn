@@ -5780,7 +5780,6 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
 }
 
 .shopify-policy__container h2 {
-  padding-bottom: 1.6rem;
   font-size: 2.4rem;
   line-height: 1.33;
   letter-spacing: -0.096rem;
@@ -5826,7 +5825,7 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   }
 
   .shopify-policy__container h2 {
-    padding-bottom: 2rem;
+    padding-top: 2rem;
   }
 
   .shopify-policy__container :is(h4, h5, h6),
@@ -6082,5 +6081,56 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
 @media (prefers-reduced-motion: reduce) {
   .search-article__image img {
     transition: none;
+  }
+}
+
+/* ---------- Contact thank-you page ---------- */
+/* After a sent contact form: the contact page's banner, then the message centred in the form's 540px column, in the
+   section title type (DESIGN-SYSTEM.md 1.2: 24px, 31px at 1024, 42px from 1200) and the shared pill button */
+.contact-thanks {
+  max-width: 58.4rem;
+  margin: 0 auto;
+  padding-inline: 2.2rem;
+  text-align: center;
+}
+
+.contact-thanks__title {
+  margin: 0;
+  color: rgb(var(--color-foreground));
+  font-size: 2.4rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.contact-thanks__text {
+  margin-top: 1.6rem;
+  color: rgba(var(--color-foreground), 0.7);
+  font-family: var(--font-nav-family, inherit);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.42;
+  letter-spacing: 0;
+}
+
+.contact-thanks__button {
+  margin-top: 4rem;
+}
+
+@media screen and (min-width: 768px) {
+  .contact-thanks__text {
+    font-size: 1.8rem;
+    line-height: 1.44;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .contact-thanks__title {
+    font-size: 3.1rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .contact-thanks__title {
+    font-size: 4.2rem;
   }
 }

@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
     <link rel="canonical" href="{{ canonical_url }}">
+    {%- comment -%} The contact form's thank-you page (page.thanks template) stays out of search engines {%- endcomment -%}
+    {%- if request.page_type == 'page' and template.suffix == 'thanks' %}
+      <meta name="robots" content="noindex">
+    {%- endif %}
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">

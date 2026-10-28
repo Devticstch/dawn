@@ -449,6 +449,18 @@
   transition: width 0.25s ease;
 }
 
+/* ---------- Collections list (/collections) ---------- */
+/* The same grid under the banner, without a toolbar: the collection grid's 56px above and below (0.75 on phones) */
+.collections-list {
+  padding: 4.2rem 0;
+}
+
+@media screen and (min-width: 750px) {
+  .collections-list {
+    padding: 5.6rem 0;
+  }
+}
+
 /* ---------- Pagination ---------- */
 .collection-bold .pagination-wrapper {
   margin-top: 5.6rem;
