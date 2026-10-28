@@ -1,9 +1,19 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "banner": {
       "type": "collection-banner",
       "settings": {
-        "image": "shopify://shop_images/cases_1.webp",
+        "title": "",
+        "image": "shopify://shop_images/WEB_background_image_for_Product_page_f5fd380b-f54e-4935-893c-b312ad33bd83.webp",
         "theme_image": "banner-ribbed-cases.jpg",
         "show_count": false,
         "heading_font": "instrument_sans_n6"
