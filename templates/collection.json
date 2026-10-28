@@ -12,7 +12,8 @@
     "banner": {
       "type": "collection-banner",
       "settings": {
-        "image": "shopify://shop_images/cases_1.webp",
+        "title": "",
+        "image": "shopify://shop_images/WEB_background_image_for_Product_page_f5fd380b-f54e-4935-893c-b312ad33bd83.webp",
         "theme_image": "banner-ribbed-cases.jpg",
         "show_count": true,
         "heading_font": "instrument_sans_n6"

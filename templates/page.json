@@ -12,7 +12,7 @@
     "about_hero": {
       "type": "about-hero",
       "settings": {
-        "image": "shopify://shop_images/cases_1.webp",
+        "image": "shopify://shop_images/Main_Cover_image_for_about_us_Page.webp",
         "eyebrow": "About us",
         "heading": "",
         "heading_font": "instrument_sans_n6",
@@ -21,9 +21,17 @@
         "padding_bottom": 36
       }
     },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "about_story": {
       "type": "about-story",
       "settings": {
+        "image": "shopify://shop_images/ABout_Us_Page_image_Chosen_for_everyday_life.webp",
         "icon": "shield",
         "heading": "Chosen for everyday life",
         "text": "<p>Our range brings together cases and accessories with two jobs in mind: helping protect your phone day to day, and suiting the way it looks. Browse the iPhone and Samsung collections to find the right one for your model.</p>",
@@ -38,10 +46,13 @@
       "type": "about-dna",
       "settings": {
         "heading": "Our product DNA",
+        "card_1_image": "shopify://shop_images/Everyday_protection.webp",
         "card_1_title": "Everyday protection",
         "card_1_text": "<p>Cases designed with daily life in mind, to help keep your phone safe from the bumps and scrapes of the day.</p>",
+        "card_2_image": "shopify://shop_images/clean_Modern_design.webp",
         "card_2_title": "Clean, modern design",
         "card_2_text": "<p>Simple lines and considered details that suit your phone, so it stays protected and still looks like yours.</p>",
+        "card_3_image": "shopify://shop_images/Made_for_iPhone.webp",
         "card_3_title": "Made for iPhone and Samsung",
         "card_3_text": "<p>Cases and accessories chosen for iPhone and Samsung models, so finding the right one for your phone is simple.</p>",
         "heading_font": "instrument_sans_n6",
@@ -58,6 +69,55 @@
         "background": "#f6f6f6",
         "text_color": "#1e1e1e",
         "overlay_opacity": 25
+      }
+    },
+    "about_features": {
+      "type": "about-features",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "title": "Everyday protection",
+            "text": "<p>Cases designed to help keep your phone safe from the bumps and scrapes of daily life.</p>"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck",
+            "title": "Shipping options",
+            "text": "<p>Delivery options and costs for your address are shown at checkout, before you pay.</p>"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "chat",
+            "title": "Support",
+            "text": "<p>Questions about a product or an order? <a href=\"/pages/contact\" title=\"Contact\">Contact us</a> and we'll help.</p>"
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "secure",
+            "title": "Secure payment",
+            "text": "<p>Payments are processed through Shopify's secure checkout.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ],
+      "settings": {
+        "heading_font": "instrument_sans_n6",
+        "background": "#f6f6f6",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "about_faq": {
@@ -136,6 +196,7 @@
     "about_newsletter": {
       "type": "about-newsletter",
       "settings": {
+        "image": "shopify://shop_images/Last_Image_for_Subscribe_section.webp",
         "heading": "Get the Latest Updates",
         "text": "<p>Subscribe to hear about new cases, accessories and news from Tech2C.</p>",
         "placeholder": "E-mail",
@@ -146,62 +207,6 @@
         "background": "#f6f6f6",
         "padding_top": 80,
         "padding_bottom": 80
-      }
-    },
-    "about_features": {
-      "type": "about-features",
-      "blocks": {
-        "feature_1": {
-          "type": "feature",
-          "settings": {
-            "icon": "shield",
-            "title": "Everyday protection",
-            "text": "<p>Cases designed to help keep your phone safe from the bumps and scrapes of daily life.</p>"
-          }
-        },
-        "feature_2": {
-          "type": "feature",
-          "settings": {
-            "icon": "truck",
-            "title": "Shipping options",
-            "text": "<p>Delivery options and costs for your address are shown at checkout, before you pay.</p>"
-          }
-        },
-        "feature_3": {
-          "type": "feature",
-          "settings": {
-            "icon": "chat",
-            "title": "Support",
-            "text": "<p>Questions about a product or an order? <a href=\"/pages/contact\" title=\"Contact\">Contact us</a> and we'll help.</p>"
-          }
-        },
-        "feature_4": {
-          "type": "feature",
-          "settings": {
-            "icon": "secure",
-            "title": "Secure payment",
-            "text": "<p>Payments are processed through Shopify's secure checkout.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "feature_1",
-        "feature_2",
-        "feature_3",
-        "feature_4"
-      ],
-      "settings": {
-        "heading_font": "instrument_sans_n6",
-        "background": "#f6f6f6",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
-    "main": {
-      "type": "main-page",
-      "settings": {
-        "padding_top": 0,
-        "padding_bottom": 0
       }
     }
   },

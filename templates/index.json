@@ -15,7 +15,7 @@
         "slide_1": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/slider-img.webp",
+            "image": "shopify://shop_images/Hero_Section_Aura_Case_Image.webp",
             "mobile_focus": "center",
             "heading": "NEW! iPhone 18 Pro",
             "subheading": "Shop daily protection with drop-tested cases made for the new iPhone 18 Pro, so it stays protected and looking sharp every day.",
@@ -26,7 +26,7 @@
         "slide_2": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/banner-22.png",
+            "image": "shopify://shop_images/Prada_case_hero_Image.webp",
             "mobile_focus": "center",
             "heading": "Signature Cases",
             "subheading": "Discover our award-winning signature cases: clean, modern designs that protect your phone and still look like yours.",
@@ -34,21 +34,9 @@
             "link": "shopify://collections/all"
           }
         },
-        "slide_3": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/image_756445f8-0483-4cd9-9769-f32a30dc94c5.png",
-            "mobile_image": "shopify://shop_images/image_24e73aa9-2b36-47d7-9ced-f719f800ffc9.png",
-            "mobile_focus": "center",
-            "heading": "Unlimited Prints",
-            "subheading": "Find your perfect case among endless prints and patterns, from bold graphics to subtle textures that match your style.",
-            "button_label": "Shop now",
-            "link": ""
-          }
-        },
         "slide_4": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/banner-33.png",
             "mobile_focus": "center",
@@ -57,41 +45,12 @@
             "button_label": "Start Exploring",
             "link": "shopify://collections/all"
           }
-        },
-        "slide_5": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/image_95139f7f-0223-485f-9ad6-9b6052c9ec35.png",
-            "mobile_image": "shopify://shop_images/image_382f1039-9981-4af8-ae72-ca13fce5dfd7.png",
-            "mobile_focus": "center",
-            "heading": "MagSafe Accessories",
-            "subheading": "Snap on and go. Unlock new features with MagSafe accessories that attach in an instant and keep your essentials close.",
-            "button_label": "Shop now",
-            "link": ""
-          }
-        },
-        "slide_6": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/image_0d43b130-02da-47f4-854d-f0b687f2f4eb.png",
-            "mobile_image": "shopify://shop_images/image_d376ce9b-5b14-4548-abf0-ff02b4390e36.png",
-            "mobile_focus": "center",
-            "heading": "The Protectors",
-            "subheading": "The ultimate armor for lenses and screens, helping guard your phone against the scratches and knocks of everyday life.",
-            "button_label": "Shop now",
-            "link": ""
-          }
         }
       },
       "block_order": [
         "slide_1",
         "slide_2",
-        "slide_3",
-        "slide_4",
-        "slide_5",
-        "slide_6"
+        "slide_4"
       ],
       "settings": {
         "auto_rotate": true,
@@ -391,11 +350,12 @@
         "feature_style"
       ],
       "settings": {
-        "image": "shopify://shop_images/girl.webp",
+        "image": "shopify://shop_images/Web.webp",
         "eyebrow": "SPECIAL FEATURES",
         "overlay_small": "Super",
         "overlay_large": "Slim",
         "heading": "What Makes Tech2C Special",
+        "secondary_image": "shopify://shop_images/Homepage_shop_all_seaction_Image.webp",
         "secondary_theme_image": "feature-cases-flatlay.jpg",
         "button_label": "Shop cases",
         "button_link": "/collections/all",
@@ -409,7 +369,7 @@
     "image_banner_cases": {
       "type": "image-banner-button",
       "settings": {
-        "image": "shopify://shop_images/cases_1.webp",
+        "image": "shopify://shop_images/Website_Background_Image_2.webp",
         "theme_image": "banner-ribbed-cases.jpg",
         "text": "",
         "button_label": "Shop now",
@@ -515,7 +475,7 @@
         "review_1": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/image_ce8212bc-c887-413c-a951-dde5ef7fe729.png",
+            "image": "shopify://shop_images/1_7d06f52f-6972-4ef2-98cc-1c144f3d5c47.webp",
             "quote": "Placeholder review for photo 1 — replace this text with a real customer review in the theme editor.",
             "author": "Placeholder (photo 1)",
             "size": "small",
@@ -529,7 +489,7 @@
         "review_2": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/image_262b5b0c-d73d-4fa1-9452-62d8da7019b5.png",
+            "image": "shopify://shop_images/2_839b3463-33c4-4793-b75d-78372faf51e8.webp",
             "quote": "Placeholder review for photo 2 — replace this text with a real customer review in the theme editor.",
             "author": "Placeholder (photo 2)",
             "size": "medium",
@@ -543,7 +503,7 @@
         "review_3": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/image_8f3c5492-ff6c-4e60-a768-19f9de6cebe8.png",
+            "image": "shopify://shop_images/3_256c5b53-e89e-4236-8beb-c0b912f2b941.webp",
             "quote": "Placeholder review for photo 3 — replace this text with a real customer review in the theme editor.",
             "author": "Placeholder (photo 3)",
             "size": "medium",
@@ -557,7 +517,7 @@
         "review_4": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/image_7d28fae9-1e6c-4fb1-b59a-ffb9007922e7.png",
+            "image": "shopify://shop_images/4_9a06cf84-7792-43df-bbcf-72fabc59d898.webp",
             "quote": "Their cases are incredibly protective without sacrificing style, which is a rare combination to find.",
             "author": "",
             "size": "large",
@@ -571,7 +531,7 @@
         "review_5": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/image_5b183bae-67ee-46d8-abfe-4ebd7cee097a.png",
+            "image": "shopify://shop_images/5_5c29b531-ff0d-4152-a459-eb53906c732d.webp",
             "quote": "Placeholder review for photo 5 — replace this text with a real customer review in the theme editor.",
             "author": "Placeholder (photo 5)",
             "size": "large",
