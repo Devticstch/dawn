@@ -200,13 +200,16 @@
   // title sits at the row start (centred on small screens). Arrow keys and touch swipes move between titles.
   // Desktop without reduced motion (the same media query as the CSS): a scroll scene like the reference.
   // Each product owns an equal share of the scroll; panels stay stacked and animate between states.
+  // Phones: the products sit side by side in a native scroll-snap slider; the titles follow the product in view.
   class FeaturedProductTabs extends HTMLElement {
     connectedCallback() {
       this.tabs = [...this.querySelectorAll('[role="tab"]')];
       this.panels = this.tabs.map((tab) => document.getElementById(tab.getAttribute('aria-controls')));
       this.track = this.querySelector('.fpt__titles-track');
       this.scene = this.closest('.fpt__scene');
+      this.panelsEl = this.querySelector('.fpt__panels');
       this.sceneMedia = window.matchMedia('(min-width: 992px) and (prefers-reduced-motion: no-preference)');
+      this.slideMedia = window.matchMedia('(max-width: 749px)');
       this.tabs.forEach((tab, index) => {
         tab.addEventListener('click', () => this.go(index));
         tab.addEventListener('keydown', (event) => {
@@ -223,7 +226,7 @@
         this.touchStart = event.touches[0];
       }, { passive: true });
       this.addEventListener('touchend', (event) => {
-        if (this.isScene) return;
+        if (this.isScene || this.isSlider) return;
         const end = event.changedTouches[0];
         const dx = end.clientX - this.touchStart.clientX;
         const dy = end.clientY - this.touchStart.clientY;
@@ -236,8 +239,11 @@
 
       this.onScroll = this.onScroll.bind(this);
       this.setMode = this.setMode.bind(this);
+      this.onSlide = this.onSlide.bind(this);
       window.addEventListener('scroll', this.onScroll, { passive: true });
+      this.panelsEl.addEventListener('scroll', this.onSlide, { passive: true });
       this.sceneMedia.addEventListener('change', this.setMode);
+      this.slideMedia.addEventListener('change', this.setMode);
       this.setMode();
     }
 
@@ -245,6 +251,7 @@
       this.observer.disconnect();
       window.removeEventListener('scroll', this.onScroll);
       this.sceneMedia.removeEventListener('change', this.setMode);
+      this.slideMedia.removeEventListener('change', this.setMode);
     }
 
     current() {
@@ -254,15 +261,38 @@
     setMode() {
       this.isScene = Boolean(this.scene) && this.tabs.length > 1 && this.sceneMedia.matches;
       this.classList.toggle('is-scene', this.isScene);
+      this.isSlider = !this.isScene && this.tabs.length > 1 && this.slideMedia.matches;
+      this.classList.toggle('is-slider', this.isSlider);
       this.select(Math.max(this.current(), 0));
+      if (this.isSlider) this.slideTo(this.current(), 'instant');
       this.onScroll();
     }
 
-    // Scene: a title click or arrow key scrolls to the middle of that product's share of the scene
+    // Scene: a title click or arrow key scrolls to the middle of that product's share of the scene.
+    // Slider: it selects the title and slides to its product
     go(index) {
+      if (this.isSlider) {
+        this.select(index);
+        return this.slideTo(index);
+      }
       if (!this.isScene) return this.select(index);
       const { top, distance } = this.sceneBounds();
       window.scrollTo({ top: top + ((index + 0.5) / this.tabs.length) * distance, behavior: 'smooth' });
+    }
+
+    slideTo(index, behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth') {
+      this.panelsEl.scrollTo({ left: this.panels[index].offsetLeft - this.panels[0].offsetLeft, behavior });
+    }
+
+    // Slider: once a swipe settles on a product, its title becomes the selected tab
+    onSlide() {
+      if (!this.isSlider) return;
+      clearTimeout(this.slideTimer);
+      this.slideTimer = setTimeout(() => {
+        const step = this.panels[1].offsetLeft - this.panels[0].offsetLeft;
+        const index = Math.min(Math.max(Math.round(this.panelsEl.scrollLeft / step), 0), this.panels.length - 1);
+        if (index !== this.current()) this.select(index);
+      }, 80);
     }
 
     sceneBounds() {
@@ -291,9 +321,9 @@
         tab.setAttribute('aria-selected', active);
         tab.tabIndex = active ? 0 : -1;
         const panel = this.panels[i];
-        // Scene: every panel stays rendered so the outgoing product can animate away
-        panel.hidden = !this.isScene && !active;
-        panel.inert = this.isScene && !active;
+        // Scene: every panel stays rendered so the outgoing product can animate away; slider: side by side
+        panel.hidden = !this.isScene && !this.isSlider && !active;
+        panel.inert = (this.isScene || this.isSlider) && !active;
         if (this.isScene) panel.dataset.state = active ? 'active' : i < index ? 'past' : 'future';
         else delete panel.dataset.state;
       });

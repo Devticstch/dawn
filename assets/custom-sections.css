@@ -443,10 +443,31 @@ a.category-panel__category-link:hover {
   }
 }
 
-/* Two rows on small screens: less space above and below each item */
+/* Small screens, compact: the photo keeps its own proportions instead of a fixed 213px area (which left an empty
+   band under it), the categories follow right under it, two rows with 48px thumbnails */
 @media screen and (max-width: 749px) {
+  .category-panel__feature {
+    min-height: 0;
+  }
+
+  .category-panel__feature-image,
+  .category-panel__feature-image img {
+    height: auto;
+  }
+
+  /* Wide phones: never taller than the former fixed area */
+  .category-panel__feature-image img {
+    max-height: calc(var(--cp-pad-top) + var(--cp-feature-h));
+  }
+
   .category-panel__category-link {
-    padding-block: 1.2rem 1.6rem;
+    gap: 0.6rem;
+    padding-block: 0.8rem 1.2rem;
+  }
+
+  .category-panel__category-image {
+    width: 4.8rem;
+    height: 4.8rem;
   }
 }
 
@@ -1312,6 +1333,32 @@ a.category-panel__category-link:hover {
   .fpt__box {
     margin-top: 0;
   }
+
+  /* Products side by side in a native scroll-snap slider that follows the finger; full-bleed like the titles, one
+     gutter apart so the next product never peeks in. The titles follow the product in view (featured-product-tabs) */
+  .fpt__inner.is-slider .fpt__panels {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--cs-gutter, 1.6rem);
+    margin-inline: calc(-1 * var(--cs-gutter, 1.6rem));
+    padding-inline: var(--cs-gutter, 1.6rem);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-padding-inline: var(--cs-gutter, 1.6rem);
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .fpt__inner.is-slider .fpt__panels::-webkit-scrollbar {
+    display: none;
+  }
+
+  .fpt__inner.is-slider .fpt__panel {
+    flex: 0 0 100%;
+    min-width: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
 }
 
 @media screen and (min-width: 750px) {
@@ -1469,8 +1516,8 @@ a.category-panel__category-link:hover {
   }
 }
 
-/* Tabs and swipe (smaller screens): the newly shown product grows in from a dot at the left edge as well */
-@media screen and (max-width: 991px) and (prefers-reduced-motion: no-preference) {
+/* Tabs and swipe (tablets; phones use the slider): the newly shown product grows in from a dot at the left edge as well */
+@media screen and (min-width: 750px) and (max-width: 991px) and (prefers-reduced-motion: no-preference) {
   .fpt__panel:not([hidden]) .fpt__image {
     animation: fpt-slide-in 0.8s cubic-bezier(0.7, 0, 0.3, 1) both;
   }
