@@ -215,6 +215,27 @@
   </div>
 </footer>
 
+{% javascript %}
+  // Footer reveal (custom-sections.css): pin the footer behind the page only while it fits between the bottom of
+  // the header group (announcement bar and header, by their heights, so the sticky header's position doesn't count)
+  // and the bottom of the window. Measured against the smallest viewport (clientHeight), so a phone's toolbar
+  // showing or hiding never switches it on and off while scrolling
+  (() => {
+    const footer = document.querySelector('.section-footer-bold');
+    if (!footer) return;
+    const headerGroup = [...document.querySelectorAll('.shopify-section-group-header-group')];
+    const update = () => {
+      const headerHeight = headerGroup.reduce((sum, section) => sum + section.offsetHeight, 0);
+      const space = document.documentElement.clientHeight - headerHeight;
+      document.documentElement.classList.toggle('footer-reveal', footer.offsetHeight <= space);
+    };
+    const observer = new ResizeObserver(update);
+    [footer, ...headerGroup].forEach((element) => observer.observe(element));
+    window.addEventListener('resize', update);
+    update();
+  })();
+{% endjavascript %}
+
 {% schema %}
 {
   "name": "Footer (bold)",

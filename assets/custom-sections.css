@@ -3127,22 +3127,22 @@ main[data-template='index'] .perks__grid {
 /* Reveal like the reference (DESIGN-SYSTEM.md 7.1): the footer stays pinned behind the page and is uncovered as
    the content scrolls past. It sits under the page (z-index -1) rather than lifting <main>, so pop-ups inside
    <main> keep their layering; <main> gets the page colour so it hides the footer until it ends. The body is
-   isolated so the footer, once uncovered, receives clicks before the body box. Only when the footer fits the
-   window, so its top is never out of reach. */
-@media screen and (min-height: 650px) {
-  body {
-    isolation: isolate;
-  }
+   isolated so the footer, once uncovered, receives clicks before the body box. Only when the footer fits between
+   the header and the bottom of the window (.footer-reveal, set by footer-bold.liquid from its measured height):
+   a taller footer (phones) would reach up behind the transparent header and show through it, and its top would be
+   out of reach. */
+.footer-reveal body {
+  isolation: isolate;
+}
 
-  .section-footer-bold {
-    position: sticky;
-    bottom: 0;
-    z-index: -1;
-  }
+.footer-reveal .section-footer-bold {
+  position: sticky;
+  bottom: 0;
+  z-index: -1;
+}
 
-  #MainContent {
-    background: rgb(var(--color-background));
-  }
+.footer-reveal #MainContent {
+  background: rgb(var(--color-background));
 }
 
 /* Same content width and gutter as the other sections (DESIGN-SYSTEM.md 2.1) */
