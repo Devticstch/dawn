@@ -111,10 +111,12 @@
         <div class="hero-carousel__content">
           <div class="hero-carousel__box">
             {%- if block.settings.subheading != blank -%}
-              <p class="hero-carousel__text">{{ block.settings.subheading | escape | newline_to_br }}</p>
+              <p class="hero-carousel__text{% if block.settings.text_position == 'right' %} hero-carousel__text--right{% endif %}">
+                {{- block.settings.subheading | escape | newline_to_br -}}
+              </p>
             {%- endif -%}
             {%- if block.settings.button_label != blank and block.settings.link != blank -%}
-              <a href="{{ block.settings.link }}" class="hero-carousel__cta">
+              <a href="{{ block.settings.link }}" class="hero-carousel__cta{% if block.settings.button_position == 'right' %} hero-carousel__cta--right{% endif %}">
                 {{- block.settings.button_label | escape -}}
               </a>
             {%- endif -%}
@@ -272,6 +274,16 @@
           "info": "Optional"
         },
         {
+          "type": "select",
+          "id": "text_position",
+          "label": "Description position",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "left"
+        },
+        {
           "type": "text",
           "id": "button_label",
           "label": "Button label",
@@ -282,6 +294,16 @@
           "id": "link",
           "label": "Button link",
           "info": "The button is hidden until both a label and a link are set"
+        },
+        {
+          "type": "select",
+          "id": "button_position",
+          "label": "Button position",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "left"
         }
       ]
     }

@@ -182,8 +182,7 @@
   width: 100%;
   max-width: 34rem;
   margin: 0;
-  /* Reference uses 50% white over a dark video; brighter photos here need more contrast */
-  color: rgba(255, 255, 255, 0.88);
+  color: #fff;
   text-shadow: 0 0.1rem 1.2rem rgba(0, 0, 0, 0.45);
   font-family: var(--font-nav-family, inherit);
   font-size: 2rem;
@@ -230,6 +229,16 @@
     height: 5.8rem;
     font-size: 1.6rem;
   }
+}
+
+/* Per-slide theme editor setting: description and button each on the left (default) or right */
+.hero-carousel__text--right {
+  align-self: flex-end;
+  text-align: right;
+}
+
+.hero-carousel__cta--right {
+  align-self: flex-end;
 }
 
 .hero-carousel__slide.is-active :is(.hero-carousel__text, .hero-carousel__cta, .hero-carousel__heading) {
