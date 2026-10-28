@@ -491,6 +491,32 @@ a.category-panel__category-link:hover {
   }
 }
 
+/* Tablets and small laptops: both photos the same size, a fixed share of the panel rather than whatever width the
+   heading leaves (a long heading wraps instead of shrinking its photo), and the photo area only as tall as the photo,
+   so no empty band above the categories. Both panels share the row lines (subgrid), so the category rows stay level */
+@media screen and (min-width: 750px) and (max-width: 1279px) {
+  .category-panel {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+
+  .category-panel__feature {
+    grid-template-columns: minmax(0, 1fr) 48%;
+    min-height: 0;
+  }
+
+  .category-panel__feature-image,
+  .category-panel__feature-image img {
+    height: auto;
+  }
+
+  .category-panel__feature-image img {
+    max-height: calc(var(--cp-pad-top) + var(--cp-feature-h));
+  }
+}
+
 /* ---------- Best sellers ---------- */
 /* Product cards in a horizontal slider; sizes follow the reference design */
 .best-sellers__heading {
