@@ -349,7 +349,16 @@
       {%- render 'cart-drawer' -%}
     {%- endif -%}
 
-    {% sections 'header-group' %}
+    {%- comment -%} The contact form's thank-you page (page.thanks) is a full-screen page without header or footer {%- endcomment -%}
+    {%- liquid
+      assign full_screen_page = false
+      if request.page_type == 'page' and template.suffix == 'thanks'
+        assign full_screen_page = true
+      endif
+    -%}
+    {%- unless full_screen_page -%}
+      {% sections 'header-group' %}
+    {%- endunless -%}
 
     <main
       id="MainContent"
@@ -361,7 +370,9 @@
       {{ content_for_layout }}
     </main>
 
-    {% sections 'footer-group' %}
+    {%- unless full_screen_page -%}
+      {% sections 'footer-group' %}
+    {%- endunless -%}
 
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>

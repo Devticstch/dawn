@@ -36,11 +36,13 @@
           {{ 'templates.contact.form.post_success' | t }}
         </h2>
         {%- comment -%}
-          Shopify confirmed the message: on a page, continue to its thank-you page (the page.thanks template). Errors
-          stay on this page; without JavaScript, and in the theme editor, the message above stays instead
+          Shopify confirmed the message: on a page, continue to its thank-you page (the page.thanks template), with
+          the message above hidden so it does not flash first. Errors stay on this page; without JavaScript, and in
+          the theme editor, the message above shows instead
         {%- endcomment -%}
         {%- if request.page_type == 'page' and request.design_mode == false -%}
           <script>
+            document.currentScript.previousElementSibling.hidden = true;
             window.location.replace({{ request.path | append: '?view=thanks' | json }});
           </script>
         {%- endif -%}
