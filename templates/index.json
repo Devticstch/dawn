@@ -350,11 +350,12 @@
         "feature_style"
       ],
       "settings": {
-        "image": "shopify://shop_images/girl.webp",
+        "image": "shopify://shop_images/Web.webp",
         "eyebrow": "SPECIAL FEATURES",
         "overlay_small": "Super",
         "overlay_large": "Slim",
         "heading": "What Makes Tech2C Special",
+        "secondary_image": "shopify://shop_images/Homepage_shop_all_seaction_Image.webp",
         "secondary_theme_image": "feature-cases-flatlay.jpg",
         "button_label": "Shop cases",
         "button_link": "/collections/all",
