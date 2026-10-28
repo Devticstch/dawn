@@ -179,6 +179,21 @@
             "promo_link": "",
             "promo_caption": ""
           }
+        },
+        "menu_item_MNydaN": {
+          "type": "menu_item",
+          "settings": {
+            "title": "Contact Us",
+            "link": "/pages/contact",
+            "badge": "",
+            "intro_heading": "",
+            "intro_text": "",
+            "promo_theme_image": "",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": "",
+            "promo_caption": ""
+          }
         }
       },
       "block_order": [
@@ -193,7 +208,8 @@
         "nav_devices",
         "col_dev_iphone",
         "col_dev_samsung",
-        "nav_about"
+        "nav_about",
+        "menu_item_MNydaN"
       ],
       "settings": {
         "logo_position": "middle-left",
@@ -205,6 +221,7 @@
         "sticky_header_type": "on-scroll-up",
         "transparent_on_home": true,
         "transparent_on_collection": true,
+        "transparent_on_contact": true,
         "show_line_separator": false,
         "color_scheme": "scheme-1",
         "menu_color_scheme": "scheme-1",
