@@ -31,6 +31,7 @@
     "about_story": {
       "type": "about-story",
       "settings": {
+        "image": "shopify://shop_images/ABout_Us_Page_image_Chosen_for_everyday_life.webp",
         "icon": "shield",
         "heading": "Chosen for everyday life",
         "text": "<p>Our range brings together cases and accessories with two jobs in mind: helping protect your phone day to day, and suiting the way it looks. Browse the iPhone and Samsung collections to find the right one for your model.</p>",
