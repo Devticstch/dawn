@@ -12,7 +12,7 @@
     "about_hero": {
       "type": "about-hero",
       "settings": {
-        "image": "shopify://shop_images/cases_1.webp",
+        "image": "shopify://shop_images/Main_Cover_image_for_about_us_Page.webp",
         "eyebrow": "About us",
         "heading": "",
         "heading_font": "instrument_sans_n6",
