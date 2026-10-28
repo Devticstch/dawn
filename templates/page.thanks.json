@@ -12,11 +12,12 @@
     "thanks": {
       "type": "contact-thanks",
       "settings": {
-        "image": "shopify://shop_images/cases_1.webp",
+        "image": "shopify://shop_images/Website_Background_Image_2.webp",
         "theme_image": "banner-ribbed-cases.jpg",
         "heading": "Thank You!",
         "text": "<p>Your message has been sent successfully. Our team will get back to you as soon as possible.</p>",
         "button_label": "Back to Homepage",
+        "button_link": "",
         "heading_font": "instrument_sans_n6"
       }
     }
