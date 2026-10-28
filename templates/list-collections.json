@@ -13,7 +13,7 @@
       "type": "collection-banner",
       "settings": {
         "title": "Collections",
-        "image": "shopify://shop_images/cases_1.webp",
+        "image": "shopify://shop_images/WEB_background_image_for_Product_page.webp",
         "theme_image": "banner-ribbed-cases.jpg",
         "show_count": false,
         "heading_font": "instrument_sans_n6"
