@@ -283,6 +283,7 @@ stylesheets could not be read (see limitations).
 | Logo | 90px wide at ≤991px (140px at 992–1140px), left, white on the homepage hero |
 | Icon pill | white, radius 23.5px, padding 5px 18px 5px 8px, shadow `0 34px 104px rgba(0,0,0,0.1)`; holds search, account, cart, hamburger; icons `rgba(30,30,30,0.75)`, hamburger 15px |
 | Pill size at 390 | 182 × 46px, 22px from the announcement bar |
+| Sticky (revealed on scroll up) | no full-width band: the row becomes one white bar 22px from the top and sides, 46px tall, radius 14px, padding 0 22px, shadow `0 34px 104px rgba(0,0,0,0.1)`; the icon pill loses its own background and shadow inside it; same at 390, 768 and 1024, `0.5s cubic-bezier(.31,.41,.38,.96)` [M, measured 2026-10-28] |
 
 ### 3.4 Mega menu (desktop) [M]
 

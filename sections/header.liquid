@@ -339,6 +339,40 @@
     .header--mobile-left .header__icon--menu {
       color: rgba(30, 30, 30, 0.75);
     }
+
+    /* Sticky (revealed on scroll up), like the reference: instead of a full-width band, the row becomes
+       one floating rounded bar 22px from the top and sides, 22px inner padding, and the icon pill merges into it */
+    .header-wrapper:has(.header--mobile-left)::before {
+      inset: 2.2rem 2.2rem 0;
+      border-radius: 1.4rem;
+      box-shadow: 0 3.4rem 10.4rem rgba(0, 0, 0, 0.1);
+    }
+
+    .header--mobile-left,
+    .header--mobile-left .header__icons,
+    .header--mobile-left header-drawer {
+      transition-property: padding, background-color, box-shadow;
+      transition-duration: 0.5s;
+      transition-timing-function: cubic-bezier(0.31, 0.41, 0.38, 0.96);
+    }
+
+    .shopify-section-header-sticky .header--mobile-left {
+      padding-left: 4.4rem;
+    }
+
+    .shopify-section-header-sticky .header--mobile-left .header__icons,
+    .shopify-section-header-sticky .header--mobile-left header-drawer {
+      background-color: transparent;
+      box-shadow: none;
+    }
+  }
+
+  @media screen and (max-width: 989px) and (prefers-reduced-motion: reduce) {
+    .header--mobile-left,
+    .header--mobile-left .header__icons,
+    .header--mobile-left header-drawer {
+      transition: none;
+    }
   }
 
   @media screen and (min-width: 990px) {
