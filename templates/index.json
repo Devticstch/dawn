@@ -34,19 +34,6 @@
             "link": "shopify://collections/all"
           }
         },
-        "slide_3": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/image_756445f8-0483-4cd9-9769-f32a30dc94c5.png",
-            "mobile_image": "shopify://shop_images/image_24e73aa9-2b36-47d7-9ced-f719f800ffc9.png",
-            "mobile_focus": "center",
-            "heading": "Unlimited Prints",
-            "subheading": "Find your perfect case among endless prints and patterns, from bold graphics to subtle textures that match your style.",
-            "button_label": "Shop now",
-            "link": ""
-          }
-        },
         "slide_4": {
           "type": "slide",
           "settings": {
@@ -57,41 +44,12 @@
             "button_label": "Start Exploring",
             "link": "shopify://collections/all"
           }
-        },
-        "slide_5": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/image_95139f7f-0223-485f-9ad6-9b6052c9ec35.png",
-            "mobile_image": "shopify://shop_images/image_382f1039-9981-4af8-ae72-ca13fce5dfd7.png",
-            "mobile_focus": "center",
-            "heading": "MagSafe Accessories",
-            "subheading": "Snap on and go. Unlock new features with MagSafe accessories that attach in an instant and keep your essentials close.",
-            "button_label": "Shop now",
-            "link": ""
-          }
-        },
-        "slide_6": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/image_0d43b130-02da-47f4-854d-f0b687f2f4eb.png",
-            "mobile_image": "shopify://shop_images/image_d376ce9b-5b14-4548-abf0-ff02b4390e36.png",
-            "mobile_focus": "center",
-            "heading": "The Protectors",
-            "subheading": "The ultimate armor for lenses and screens, helping guard your phone against the scratches and knocks of everyday life.",
-            "button_label": "Shop now",
-            "link": ""
-          }
         }
       },
       "block_order": [
         "slide_1",
         "slide_2",
-        "slide_3",
-        "slide_4",
-        "slide_5",
-        "slide_6"
+        "slide_4"
       ],
       "settings": {
         "auto_rotate": true,
@@ -409,7 +367,7 @@
     "image_banner_cases": {
       "type": "image-banner-button",
       "settings": {
-        "image": "shopify://shop_images/cases_1.webp",
+        "image": "shopify://shop_images/Website_Background_Image_2.webp",
         "theme_image": "banner-ribbed-cases.jpg",
         "text": "",
         "button_label": "Shop now",
