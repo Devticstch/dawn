@@ -26,6 +26,23 @@
   }
 }
 
+/* Homepage on small screens: one vertical spacing for every section (40px top and bottom), so the gaps between
+   sections are equal; the padding settings apply from 750px. The feature showcase continues Best Sellers (no top
+   padding) and the full-bleed image banner has none */
+@media screen and (max-width: 749px) {
+  main[data-template='index'] .cs-section {
+    padding-block: 4rem;
+  }
+
+  main[data-template='index'] .feature-showcase.cs-section {
+    padding-top: 0;
+  }
+
+  main[data-template='index'] .image-button.cs-section {
+    padding-block: 0;
+  }
+}
+
 .cs-container {
   padding-inline: 1.6rem;
   margin-inline: auto;
@@ -349,29 +366,19 @@ main[data-template='product'] .ymal .cs-container {
   object-position: right top;
 }
 
+/* Small screens: two by two, each item about the reference's 131px wide; four in a row from 750px */
 .category-panel__categories {
   /* No z-index: it would isolate the row and stop the thumbnails blending; DOM order keeps it above the feature image */
   position: relative;
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 13.1rem;
-  gap: 2rem;
-  margin: 0 -3.2rem;
-  padding: 0 3.2rem;
-  overflow-x: auto;
-  scroll-padding-inline: 3.2rem;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
   list-style: none;
-}
-
-.category-panel__categories::-webkit-scrollbar {
-  display: none;
 }
 
 .category-panel__category {
   min-width: 0;
-  scroll-snap-align: start;
 }
 
 .category-panel__category-link {
@@ -432,12 +439,14 @@ a.category-panel__category-link:hover {
   }
 
   .category-panel__categories {
-    grid-auto-flow: row;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0;
-    margin: 0;
-    padding: 0;
-    overflow: visible;
+  }
+}
+
+/* Two rows on small screens: less space above and below each item */
+@media screen and (max-width: 749px) {
+  .category-panel__category-link {
+    padding-block: 1.2rem 1.6rem;
   }
 }
 
@@ -1282,6 +1291,27 @@ a.category-panel__category-link:hover {
 .fpt__button:disabled {
   cursor: not-allowed;
   opacity: 0.6;
+}
+
+/* Small screens: long product names scale with the screen and wrap (balanced) inside the row instead of running off
+   both edges; a smaller product image, and the detail box straight under it */
+@media screen and (max-width: 749px) {
+  .fpt__title {
+    max-width: calc(100vw - 2 * var(--cs-gutter, 1.6rem));
+    font-size: clamp(3.2rem, 10vw, 5.4rem);
+    line-height: 1.05;
+    white-space: normal;
+    text-wrap: balance;
+  }
+
+  .fpt__media {
+    max-width: 26rem;
+    margin-inline: auto;
+  }
+
+  .fpt__box {
+    margin-top: 0;
+  }
 }
 
 @media screen and (min-width: 750px) {
@@ -2272,6 +2302,47 @@ button.rs__item {
 @keyframes rs-slide {
   to {
     transform: translateX(-100%);
+  }
+}
+
+/* Small screens: no full-height scatter stage (it left large empty areas). Heading, then the photos in one row
+   (sized to fit 320px), then the review card under them */
+@media screen and (max-width: 767px) {
+  .rs__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.4rem 0.4rem;
+    height: auto;
+  }
+
+  .rs__head {
+    width: 100%;
+  }
+
+  .rs__item {
+    position: relative;
+    top: auto;
+    left: auto;
+  }
+
+  .rs__item--medium .rs__image {
+    width: clamp(3.6rem, 11vw, 4.4rem);
+    height: clamp(3.6rem, 11vw, 4.4rem);
+  }
+
+  .rs__item--large .rs__image {
+    width: clamp(6.4rem, 24vw, 9.6rem);
+    height: clamp(6.4rem, 24vw, 9.6rem);
+  }
+
+  .rs__card {
+    position: relative;
+    top: auto;
+    right: auto;
+    max-width: none;
+    transform: none;
   }
 }
 
