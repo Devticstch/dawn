@@ -473,7 +473,7 @@
         "review_1": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/image_ce8212bc-c887-413c-a951-dde5ef7fe729.png",
+            "image": "shopify://shop_images/1_7d06f52f-6972-4ef2-98cc-1c144f3d5c47.webp",
             "quote": "Placeholder review for photo 1 — replace this text with a real customer review in the theme editor.",
             "author": "Placeholder (photo 1)",
             "size": "small",
@@ -487,7 +487,7 @@
         "review_2": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/image_262b5b0c-d73d-4fa1-9452-62d8da7019b5.png",
+            "image": "shopify://shop_images/2_839b3463-33c4-4793-b75d-78372faf51e8.webp",
             "quote": "Placeholder review for photo 2 — replace this text with a real customer review in the theme editor.",
             "author": "Placeholder (photo 2)",
             "size": "medium",
@@ -501,7 +501,7 @@
         "review_3": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/image_8f3c5492-ff6c-4e60-a768-19f9de6cebe8.png",
+            "image": "shopify://shop_images/3_256c5b53-e89e-4236-8beb-c0b912f2b941.webp",
             "quote": "Placeholder review for photo 3 — replace this text with a real customer review in the theme editor.",
             "author": "Placeholder (photo 3)",
             "size": "medium",
@@ -515,7 +515,7 @@
         "review_4": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/image_7d28fae9-1e6c-4fb1-b59a-ffb9007922e7.png",
+            "image": "shopify://shop_images/4_9a06cf84-7792-43df-bbcf-72fabc59d898.webp",
             "quote": "Their cases are incredibly protective without sacrificing style, which is a rare combination to find.",
             "author": "",
             "size": "large",
@@ -529,7 +529,7 @@
         "review_5": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/image_5b183bae-67ee-46d8-abfe-4ebd7cee097a.png",
+            "image": "shopify://shop_images/5_5c29b531-ff0d-4152-a459-eb53906c732d.webp",
             "quote": "Placeholder review for photo 5 — replace this text with a real customer review in the theme editor.",
             "author": "Placeholder (photo 5)",
             "size": "large",
