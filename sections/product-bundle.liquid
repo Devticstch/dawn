@@ -45,10 +45,6 @@
               <p class="pb__subtitle">{{ section.settings.box_subtitle | escape }}</p>
             {%- endif -%}
           </div>
-          <button type="button" class="pb__toggle" data-bundle-toggle aria-expanded="false" aria-label="{{ section.settings.box_title | escape }}">
-            <span class="svg-wrapper">{{- 'icon-cart-empty.svg' | inline_asset_content -}}</span>
-            <span class="pb__count" data-bundle-count>0</span>
-          </button>
         </div>
 
         <div class="pb__body">
@@ -103,14 +99,7 @@
     connectedCallback() {
       this.items = new Map();
       this.addEventListener('click', this.onClick.bind(this));
-      // Mobile: the picks bar shows only while the section is on screen.
-      this.observer = new IntersectionObserver(([entry]) => this.classList.toggle('is-in-view', entry.isIntersecting));
-      this.observer.observe(this);
       this.render();
-    }
-
-    disconnectedCallback() {
-      this.observer.disconnect();
     }
 
     onClick(event) {
@@ -125,10 +114,6 @@
       } else if (remove) {
         this.items.delete(remove.dataset.variantId);
         this.render();
-      } else if (event.target.closest('[data-bundle-toggle]')) {
-        const open = !this.hasAttribute('open');
-        this.toggleAttribute('open', open);
-        this.querySelector('[data-bundle-toggle]').setAttribute('aria-expanded', open);
       } else if (event.target.closest('[data-bundle-submit]')) {
         this.submit(event.target.closest('[data-bundle-submit]'));
       }

@@ -49,6 +49,33 @@ product-info.product-panel-section {
 }
 
 /* ---------- Gallery ---------- */
+/* Small screens: one full-width photo per slide inside the card. Dawn's slider shifts the list into the side
+   gutter and makes each slide 3rem narrower so the next photo peeks in; inside this card that showed as a strip of
+   the neighbouring photo at the card's edge */
+@media screen and (max-width: 749px) {
+  .product--panel .product__media-wrapper slider-component:not(.thumbnail-slider--no-slide) {
+    margin-inline: 0;
+  }
+
+  .product--panel .product__media-list.slider {
+    width: 100%;
+    margin-left: 0;
+    scroll-padding-left: 0;
+  }
+
+  .product--panel .product__media-list .product__media-item {
+    width: 100%;
+  }
+
+  .product--panel .product__media-list.grid--peek .product__media-item:first-of-type {
+    margin-left: 0;
+  }
+
+  .product--panel .product__media-list::after {
+    content: none;
+  }
+}
+
 .product--panel .thumbnail {
   border: 0;
   border-radius: 0.8rem;

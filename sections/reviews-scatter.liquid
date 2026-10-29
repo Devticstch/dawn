@@ -115,6 +115,55 @@
             <p class="rs__author" data-rs-author></p>
           </div>
         </div>
+
+        {%- comment -%}
+          Small screens: one review card at a time (photo, quote, name) in a swipe carousel; the arrows above and the
+          dots below move it. The scattered photos and the card above are for larger screens
+        {%- endcomment -%}
+        <ul class="rs__carousel" role="list" data-rs-carousel>
+          {%- assign entry_index = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.settings.quote != blank -%}
+              {%- assign entry_index = entry_index | plus: 1 -%}
+              <li class="rs__entry" aria-label="{{ entry_index }} / {{ review_count }}">
+                <figure class="rs__entry-card">
+                  <span class="rs__entry-photo">
+                    {%- if block.settings.image != blank -%}
+                      {{
+                        block.settings.image
+                        | image_url: width: 200
+                        | image_tag: loading: 'lazy', widths: '100, 200', sizes: '64px', alt: ''
+                      }}
+                    {%- else -%}
+                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {%- endif -%}
+                  </span>
+                  <blockquote class="rs__entry-quote">
+                    <p>{{ block.settings.quote | escape }}</p>
+                  </blockquote>
+                  {%- if block.settings.author != blank -%}
+                    <figcaption class="rs__entry-author">{{ block.settings.author | escape }}</figcaption>
+                  {%- endif -%}
+                </figure>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+        {%- if review_count > 1 -%}
+          <div class="rs__dots">
+            {%- for i in (1..review_count) -%}
+              <button
+                type="button"
+                class="rs__dot"
+                data-rs-dot="{{ forloop.index0 }}"
+                aria-label="{{ 'sections.slideshow.load_slide' | t }} {{ i }} {{ 'general.slider.of' | t }} {{ review_count }}"
+                {% if forloop.first %}
+                  aria-current="true"
+                {% endif %}
+              ></button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
       {%- endif -%}
     </reviews-scatter>
   </div>
@@ -132,12 +181,24 @@
       this.cardMedia = window.matchMedia('(min-width: 768px)');
       this.motionMedia = window.matchMedia('(min-width: 992px) and (hover: hover) and (prefers-reduced-motion: no-preference)');
 
+      // Small screens: the review carousel (the arrows step it, the dots jump to a card)
+      this.carousel = this.querySelector('[data-rs-carousel]');
+      this.entries = [...this.carousel.children];
+      this.dots = [...this.querySelectorAll('[data-rs-dot]')];
+      this.entryIndex = 0;
+
       this.addEventListener('click', (event) => {
         const item = event.target.closest('[data-review]');
+        const dot = event.target.closest('[data-rs-dot]');
+        const step = event.target.closest('[data-rs-prev]') ? -1 : event.target.closest('[data-rs-next]') ? 1 : 0;
         if (item) this.show(this.reviews.indexOf(item));
-        else if (event.target.closest('[data-rs-prev]')) this.show(this.index - 1);
-        else if (event.target.closest('[data-rs-next]')) this.show(this.index + 1);
+        else if (dot) this.slideTo(Number(dot.dataset.rsDot));
+        else if (step && this.cardMedia.matches) this.show(this.index + step);
+        else if (step) this.slideTo(this.entryIndex + step);
       });
+
+      this.onSlide = this.onSlide.bind(this);
+      this.carousel.addEventListener('scroll', this.onSlide, { passive: true });
 
       this.place = this.place.bind(this);
       this.onScroll = this.onScroll.bind(this);
@@ -193,6 +254,33 @@
         }, 310);
       }
       this.place();
+    }
+
+    // Carousel: wraps around at either end
+    slideTo(index) {
+      const count = this.entries.length;
+      this.entryIndex = ((index % count) + count) % count;
+      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
+      this.carousel.scrollTo({ left: this.entries[this.entryIndex].offsetLeft - this.entries[0].offsetLeft, behavior });
+      this.markDot();
+    }
+
+    // Once a swipe settles, the card in view sets the active dot
+    onSlide() {
+      clearTimeout(this.slideTimer);
+      this.slideTimer = setTimeout(() => {
+        if (this.entries.length < 2) return;
+        const step = this.entries[1].offsetLeft - this.entries[0].offsetLeft;
+        this.entryIndex = Math.min(Math.max(Math.round(this.carousel.scrollLeft / step), 0), this.entries.length - 1);
+        this.markDot();
+      }, 80);
+    }
+
+    markDot() {
+      this.dots.forEach((dot, i) => {
+        if (i === this.entryIndex) dot.setAttribute('aria-current', 'true');
+        else dot.removeAttribute('aria-current');
+      });
     }
 
     // Card corner meets the photo: to the right if it fits in the window, else left; above if there is room, else below
