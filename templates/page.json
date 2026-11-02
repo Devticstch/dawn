@@ -86,8 +86,8 @@
           "type": "feature",
           "settings": {
             "icon": "truck",
-            "title": "Shipping options",
-            "text": "<p>Delivery options and costs for your address are shown at checkout, before you pay.</p>"
+            "title": "Shipping option",
+            "text": "<p>Reliable shipping across Pakistan, with delivery in 3–5 working days.</p>"
           }
         },
         "feature_3": {
@@ -126,61 +126,77 @@
         "question_1": {
           "type": "question",
           "settings": {
-            "question": "What does Tech2C sell?",
-            "answer": "<p>Tech2C brings together phone cases and accessories for iPhone and Samsung, chosen to balance everyday protection with clean, modern design, so your phone stays safe and still looks like yours.</p>"
+            "question": "Is it safe to order from Tech2C?",
+            "answer": "<p>Yes. Tech2C is an official brand, and our store runs on Shopify. If you’re not comfortable paying online, choose cash on delivery and pay when your case arrives.</p>"
           }
         },
         "question_2": {
           "type": "question",
           "settings": {
-            "question": "Which phones are your cases made for?",
-            "answer": "<p>We focus on iPhone and Samsung. Check the description and options on each product page to confirm a case is made for your model. Not sure? Contact us before you order and we'll help you choose.</p>"
+            "question": "Which phone brands and models do you cover?",
+            "answer": "<p>We cover iPhone only for now, and only the Pro and Pro Max series, from iPhone 12 up to iPhone 18. We plan to add Samsung models and phone accessories in the future.</p>"
           }
         },
-        "question_3": {
+        "question_4GQ9qD": {
           "type": "question",
           "settings": {
-            "question": "How do I find a case for my phone?",
-            "answer": "<p>Open <strong>Shop by Devices</strong> in the menu to browse by model, or visit the iPhone or Samsung collection to see everything made for that brand.</p>"
+            "question": "How do I place an order?",
+            "answer": "<p>Choose your case, select your iPhone model, add it to your cart and check out. Please enter an active phone number, because our team will call you to confirm the order.</p>"
           }
         },
-        "question_4": {
+        "question_tkAf4z": {
           "type": "question",
           "settings": {
-            "question": "How much is shipping and how long does it take?",
-            "answer": "<p>Shipping options and costs depend on your address, and you'll see them at checkout before you pay. Our <a href=\"/policies/shipping-policy\" title=\"Shipping policy\">shipping policy</a> has the details.</p>"
+            "question": "Will someone call me to confirm my order?",
+            "answer": "<p>Yes. After you order, a team member will call the number on your order to confirm it. If we don’t hear back from you, we can’t dispatch your order, so please keep your phone nearby.</p>"
           }
         },
-        "question_5": {
+        "question_HedLXd": {
           "type": "question",
           "settings": {
-            "question": "Can I return or exchange an item?",
-            "answer": "<p>Returns and exchanges are covered by our <a href=\"/policies/refund-policy\" title=\"Refund policy\">refund policy</a>, which explains the time limits and conditions.</p>"
+            "question": "Do you deliver all over Pakistan?",
+            "answer": "<p>Yes. We deliver across Pakistan.</p>"
           }
         },
-        "question_6": {
+        "question_jWAwEU": {
           "type": "question",
           "settings": {
-            "question": "How can I track my order?",
-            "answer": "<p>After you order, we'll email you an order confirmation, followed by a shipping confirmation with tracking details where available.</p>"
+            "question": "How long does delivery take?",
+            "answer": "<p>Delivery takes 3 to 5 working days.</p>"
           }
         },
-        "question_7": {
+        "question_yR6zkN": {
           "type": "question",
           "settings": {
-            "question": "Is checkout secure?",
-            "answer": "<p>Yes. Checkout runs on Shopify's secure checkout, so your payment details are processed by Shopify rather than stored by us.</p>"
+            "question": "How much is delivery?",
+            "answer": "<p>Delivery is Rs. 249 across Pakistan on cash on delivery. If you pay online or in advance, delivery is free, and you also get 5% off.</p>"
+          }
+        },
+        "question_KqFqDV": {
+          "type": "question",
+          "settings": {
+            "question": "What payment methods do you accept?",
+            "answer": "<p>We accept all of these:</p><ul><li>Cash on delivery</li><li>Card payment</li><li>Online payment</li><li>Bank transfer</li><li>JazzCash and Easypaisa</li></ul>"
+          }
+        },
+        "question_nU33EX": {
+          "type": "question",
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
           }
         }
       },
       "block_order": [
         "question_1",
         "question_2",
-        "question_3",
-        "question_4",
-        "question_5",
-        "question_6",
-        "question_7"
+        "question_4GQ9qD",
+        "question_tkAf4z",
+        "question_HedLXd",
+        "question_jWAwEU",
+        "question_yR6zkN",
+        "question_KqFqDV",
+        "question_nU33EX"
       ],
       "settings": {
         "heading": "Frequently asked questions",
