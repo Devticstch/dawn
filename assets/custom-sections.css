@@ -2337,6 +2337,20 @@ button.rs__item {
   opacity: 0.8;
 }
 
+/* Five gold stars above each review's quote (shared .cs-stars, defined later in this file; slightly larger here) */
+.cs-stars.rs__stars {
+  gap: 0.2rem;
+}
+
+.cs-stars.rs__stars svg {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.rs__slide .rs__stars {
+  margin-bottom: 1.2rem;
+}
+
 @keyframes rs-slide {
   to {
     transform: translateX(-100%);

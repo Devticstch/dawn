@@ -105,12 +105,23 @@
       {%- endfor -%}
 
       {%- if review_count > 0 -%}
+        {%- comment -%} Five gold stars on every review (card and carousel) {%- endcomment -%}
+        {%- capture stars -%}
+          <span class="cs-stars rs__stars">
+            <span class="visually-hidden">{{ 'accessibility.star_reviews_info' | t: rating_value: 5, rating_max: 5 }}</span>
+            {%- for i in (1..5) -%}
+              {% render 'cs-icon', icon: 'star' %}
+            {%- endfor -%}
+          </span>
+        {%- endcapture -%}
         <div class="rs__card" aria-live="polite">
           <div class="rs__slide">
+            {{ stars }}
             <p class="rs__text" data-rs-text></p>
             <p class="rs__author" data-rs-author></p>
           </div>
           <div class="rs__slide" aria-hidden="true">
+            {{ stars }}
             <p class="rs__text" data-rs-text></p>
             <p class="rs__author" data-rs-author></p>
           </div>
@@ -138,6 +149,7 @@
                       {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                     {%- endif -%}
                   </span>
+                  {{ stars }}
                   <blockquote class="rs__entry-quote">
                     <p>{{ block.settings.quote | escape }}</p>
                   </blockquote>
