@@ -182,8 +182,50 @@
         "question_nU33EX": {
           "type": "question",
           "settings": {
-            "question": "Question",
-            "answer": "<p>Answer</p>"
+            "question": "Can I change or cancel my order?",
+            "answer": "<p>Yes, before your order is dispatched and within one day of placing it. To cancel, message us on WhatsApp or send your details through our Contact Us page. To change your order, cancel it first and place a new one with the case you prefer. If you paid in advance, your payment comes back in 1 to 2 days.</p>"
+          }
+        },
+        "question_Nw3mwp": {
+          "type": "question",
+          "settings": {
+            "question": "Can I change my delivery address?",
+            "answer": "<p>Yes, before your order is dispatched. Message us on WhatsApp with your order number and the new address.</p>"
+          }
+        },
+        "question_GYnWfc": {
+          "type": "question",
+          "settings": {
+            "question": "What is the return window?",
+            "answer": "<p>You have 7 days. If your case is damaged, faulty, or not the one you ordered, contact our team and we’ll arrange a return and refund. Refunds take about 2 days. If the case is fine but you don’t like it, contact our team and we’ll help you with a return or refund.</p>"
+          }
+        },
+        "question_Ct4pYx": {
+          "type": "question",
+          "settings": {
+            "question": "Do you sell anything besides phone cases?",
+            "answer": "<p>Not right now. We plan to add phone accessories in the future.</p>"
+          }
+        },
+        "question_McebR7": {
+          "type": "question",
+          "settings": {
+            "question": "Can I get a custom or personalised case?",
+            "answer": "<p>Not right now, but we may offer it in the future.</p>"
+          }
+        },
+        "question_WFVbDB": {
+          "type": "question",
+          "settings": {
+            "question": "Do you have a shop I can visit?",
+            "answer": "<p>We don’t have a physical shop right now. You can order from our website and we deliver to your door.</p>"
+          }
+        },
+        "question_EDX8Af": {
+          "type": "question",
+          "settings": {
+            "question": "How can I reach you?",
+            "answer": "<p>Message us on WhatsApp at 0326-4931730, or send your question through the Contact Us page. Our support team is available from 11 AM to 9 PM, and we reply as soon as we can. You can also email <a href=\"mailto:tech2cofficial@gmail.com\" title=\"mailto:tech2cofficial@gmail.com\">tech2cofficial@gmail.com</a>.</p>"
           }
         }
       },
@@ -196,7 +238,13 @@
         "question_jWAwEU",
         "question_yR6zkN",
         "question_KqFqDV",
-        "question_nU33EX"
+        "question_nU33EX",
+        "question_Nw3mwp",
+        "question_GYnWfc",
+        "question_Ct4pYx",
+        "question_McebR7",
+        "question_WFVbDB",
+        "question_EDX8Af"
       ],
       "settings": {
         "heading": "Frequently asked questions",
