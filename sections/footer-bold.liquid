@@ -174,13 +174,16 @@
         <p class="cs-footer__copyright">
           &copy; {{ 'now' | date: '%Y' }} - {{ shop.name | link_to: routes.root_url, class: 'cs-footer__link' }} - {{ powered_by_link }}
         </p>
-        {%- if shop.terms_of_service != blank or shop.shipping_policy != blank -%}
+        {%- if shop.terms_of_service != blank or shop.shipping_policy != blank or shop.refund_policy != blank -%}
           <ul class="cs-footer__policies" role="list">
             {%- if shop.terms_of_service != blank -%}
               <li><a href="{{ shop.terms_of_service.url }}" class="cs-footer__link">{{ shop.terms_of_service.title | escape }}</a></li>
             {%- endif -%}
             {%- if shop.shipping_policy != blank -%}
               <li><a href="{{ shop.shipping_policy.url }}" class="cs-footer__link">{{ shop.shipping_policy.title | escape }}</a></li>
+            {%- endif -%}
+            {%- if shop.refund_policy != blank -%}
+              <li><a href="{{ shop.refund_policy.url }}" class="cs-footer__link">{{ shop.refund_policy.title | escape }}</a></li>
             {%- endif -%}
           </ul>
         {%- endif -%}
