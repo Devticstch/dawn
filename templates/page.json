@@ -34,7 +34,7 @@
         "image": "shopify://shop_images/ABout_Us_Page_image_Chosen_for_everyday_life.webp",
         "icon": "shield",
         "heading": "Chosen for everyday life",
-        "text": "<p>Our range brings together cases and accessories with two jobs in mind: helping protect your phone day to day, and suiting the way it looks. Browse the iPhone and Samsung collections to find the right one for your model.</p>",
+        "text": "<p>At Tech2C, we believe your phone is more than a device. It holds your memories, connects you with loved ones, and goes everywhere with you.</p><p>That’s why we bring you stylish, high-quality phone cases at affordable prices, so you can express your personality without compromise. With fast delivery across Pakistan and a little extra love in every order, we make protecting your phone feel personal.<br/><br/></p>",
         "heading_font": "instrument_sans_n6",
         "background": "#f6f6f6",
         "panel_background": "#ffffff",
@@ -48,13 +48,13 @@
         "heading": "Our product DNA",
         "card_1_image": "shopify://shop_images/Everyday_protection.webp",
         "card_1_title": "Everyday protection",
-        "card_1_text": "<p>Cases designed with daily life in mind, to help keep your phone safe from the bumps and scrapes of the day.</p>",
+        "card_1_text": "<p>Designed for everyday life, our cases help protect your phone from daily bumps, scratches, and unexpected drops.</p>",
         "card_2_image": "shopify://shop_images/clean_Modern_design.webp",
-        "card_2_title": "Clean, modern design",
-        "card_2_text": "<p>Simple lines and considered details that suit your phone, so it stays protected and still looks like yours.</p>",
+        "card_2_title": "Stylish, Modern Design",
+        "card_2_text": "<p>Modern designs made to match your style, with trendy styles and details that make your phone stand out every day.</p>",
         "card_3_image": "shopify://shop_images/Made_for_iPhone.webp",
         "card_3_title": "Made for iPhone",
-        "card_3_text": "<p>Cases and accessories chosen for iPhone models, so finding the right one for your phone is simple.</p>",
+        "card_3_text": "<p>Cases designed for different iPhone models, making it easy to find the perfect fit for your device and style.</p>",
         "heading_font": "instrument_sans_n6",
         "background": "#f6f6f6",
         "padding_top": 16,
@@ -86,8 +86,8 @@
           "type": "feature",
           "settings": {
             "icon": "truck",
-            "title": "Shipping options",
-            "text": "<p>Delivery options and costs for your address are shown at checkout, before you pay.</p>"
+            "title": "Shipping option",
+            "text": "<p>Reliable shipping across Pakistan, with delivery in 3–5 working days.</p>"
           }
         },
         "feature_3": {
@@ -126,61 +126,125 @@
         "question_1": {
           "type": "question",
           "settings": {
-            "question": "What does Tech2C sell?",
-            "answer": "<p>Tech2C brings together phone cases and accessories for iPhone and Samsung, chosen to balance everyday protection with clean, modern design, so your phone stays safe and still looks like yours.</p>"
+            "question": "Is it safe to order from Tech2C?",
+            "answer": "<p>Yes. Tech2C is an official brand, and our store runs on Shopify. If you’re not comfortable paying online, choose cash on delivery and pay when your case arrives.</p>"
           }
         },
         "question_2": {
           "type": "question",
           "settings": {
-            "question": "Which phones are your cases made for?",
-            "answer": "<p>We focus on iPhone and Samsung. Check the description and options on each product page to confirm a case is made for your model. Not sure? Contact us before you order and we'll help you choose.</p>"
+            "question": "Which phone brands and models do you cover?",
+            "answer": "<p>We cover iPhone only for now, and only the Pro and Pro Max series, from iPhone 12 up to iPhone 18. We plan to add Samsung models and phone accessories in the future.</p>"
           }
         },
-        "question_3": {
+        "question_4GQ9qD": {
           "type": "question",
           "settings": {
-            "question": "How do I find a case for my phone?",
-            "answer": "<p>Open <strong>Shop by Devices</strong> in the menu to browse by model, or visit the iPhone or Samsung collection to see everything made for that brand.</p>"
+            "question": "How do I place an order?",
+            "answer": "<p>Choose your case, select your iPhone model, add it to your cart and check out. Please enter an active phone number, because our team will call you to confirm the order.</p>"
           }
         },
-        "question_4": {
+        "question_tkAf4z": {
           "type": "question",
           "settings": {
-            "question": "How much is shipping and how long does it take?",
-            "answer": "<p>Shipping options and costs depend on your address, and you'll see them at checkout before you pay. Our <a href=\"/policies/shipping-policy\" title=\"Shipping policy\">shipping policy</a> has the details.</p>"
+            "question": "Will someone call me to confirm my order?",
+            "answer": "<p>Yes. After you order, a team member will call the number on your order to confirm it. If we don’t hear back from you, we can’t dispatch your order, so please keep your phone nearby.</p>"
           }
         },
-        "question_5": {
+        "question_HedLXd": {
           "type": "question",
           "settings": {
-            "question": "Can I return or exchange an item?",
-            "answer": "<p>Returns and exchanges are covered by our <a href=\"/policies/refund-policy\" title=\"Refund policy\">refund policy</a>, which explains the time limits and conditions.</p>"
+            "question": "Do you deliver all over Pakistan?",
+            "answer": "<p>Yes. We deliver across Pakistan.</p>"
           }
         },
-        "question_6": {
+        "question_jWAwEU": {
           "type": "question",
           "settings": {
-            "question": "How can I track my order?",
-            "answer": "<p>After you order, we'll email you an order confirmation, followed by a shipping confirmation with tracking details where available.</p>"
+            "question": "How long does delivery take?",
+            "answer": "<p>Delivery takes 3 to 5 working days.</p>"
           }
         },
-        "question_7": {
+        "question_yR6zkN": {
           "type": "question",
           "settings": {
-            "question": "Is checkout secure?",
-            "answer": "<p>Yes. Checkout runs on Shopify's secure checkout, so your payment details are processed by Shopify rather than stored by us.</p>"
+            "question": "How much is delivery?",
+            "answer": "<p>Delivery is Rs. 249 across Pakistan on cash on delivery. If you pay online or in advance, delivery is free, and you also get 5% off.</p>"
+          }
+        },
+        "question_KqFqDV": {
+          "type": "question",
+          "settings": {
+            "question": "What payment methods do you accept?",
+            "answer": "<p>We accept all of these:</p><ul><li>Cash on delivery</li><li>Card payment</li><li>Online payment</li><li>Bank transfer</li><li>JazzCash and Easypaisa</li></ul>"
+          }
+        },
+        "question_nU33EX": {
+          "type": "question",
+          "settings": {
+            "question": "Can I change or cancel my order?",
+            "answer": "<p>Yes, before your order is dispatched and within one day of placing it. To cancel, message us on WhatsApp or send your details through our Contact Us page. To change your order, cancel it first and place a new one with the case you prefer. If you paid in advance, your payment comes back in 1 to 2 days.</p>"
+          }
+        },
+        "question_Nw3mwp": {
+          "type": "question",
+          "settings": {
+            "question": "Can I change my delivery address?",
+            "answer": "<p>Yes, before your order is dispatched. Message us on WhatsApp with your order number and the new address.</p>"
+          }
+        },
+        "question_GYnWfc": {
+          "type": "question",
+          "settings": {
+            "question": "What is the return window?",
+            "answer": "<p>You have 7 days. If your case is damaged, faulty, or not the one you ordered, contact our team and we’ll arrange a return and refund. Refunds take about 2 days. If the case is fine but you don’t like it, contact our team and we’ll help you with a return or refund.</p>"
+          }
+        },
+        "question_Ct4pYx": {
+          "type": "question",
+          "settings": {
+            "question": "Do you sell anything besides phone cases?",
+            "answer": "<p>Not right now. We plan to add phone accessories in the future.</p>"
+          }
+        },
+        "question_McebR7": {
+          "type": "question",
+          "settings": {
+            "question": "Can I get a custom or personalised case?",
+            "answer": "<p>Not right now, but we may offer it in the future.</p>"
+          }
+        },
+        "question_WFVbDB": {
+          "type": "question",
+          "settings": {
+            "question": "Do you have a shop I can visit?",
+            "answer": "<p>We don’t have a physical shop right now. You can order from our website and we deliver to your door.</p>"
+          }
+        },
+        "question_EDX8Af": {
+          "type": "question",
+          "settings": {
+            "question": "How can I reach you?",
+            "answer": "<p>Message us on WhatsApp at 0326-4931730, or send your question through the Contact Us page. Our support team is available from 11 AM to 9 PM, and we reply as soon as we can. You can also email <a href=\"mailto:tech2cofficial@gmail.com\" title=\"mailto:tech2cofficial@gmail.com\">tech2cofficial@gmail.com</a>.</p>"
           }
         }
       },
       "block_order": [
         "question_1",
         "question_2",
-        "question_3",
-        "question_4",
-        "question_5",
-        "question_6",
-        "question_7"
+        "question_4GQ9qD",
+        "question_tkAf4z",
+        "question_HedLXd",
+        "question_jWAwEU",
+        "question_yR6zkN",
+        "question_KqFqDV",
+        "question_nU33EX",
+        "question_Nw3mwp",
+        "question_GYnWfc",
+        "question_Ct4pYx",
+        "question_McebR7",
+        "question_WFVbDB",
+        "question_EDX8Af"
       ],
       "settings": {
         "heading": "Frequently asked questions",
