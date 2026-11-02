@@ -74,26 +74,44 @@
     "about_features": {
       "type": "about-features",
       "blocks": {
-        "feature_2": {
-          "type": "feature",
-          "settings": {
-            "icon": "truck",
-            "title": "Shipping option",
-            "text": "<p>Reliable shipping across Pakistan, with delivery in 3–5 working days.</p>"
-          }
-        },
         "feature_1": {
           "type": "feature",
           "settings": {
             "icon": "shield",
-            "title": "Return & Exchange (Everyday Protection)",
-            "text": "<p>Received a damaged or wrong item? Contact us within 7 days for a replacement or refund.</p>"
+            "title": "Everyday protection",
+            "text": "<p>Cases designed to help keep your phone safe from the bumps and scrapes of daily life.</p>"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck",
+            "title": "Shipping options",
+            "text": "<p>Reliable shipping across Pakistan, with delivery in 3–4 working days.</p>"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "chat",
+            "title": "Support",
+            "text": "<p>Questions about a product or an order? <a href=\"/pages/contact\" title=\"Contact\">Contact us</a> and we'll help.</p>"
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "secure",
+            "title": "Secure payment",
+            "text": "<p>Payments are processed through Shopify's secure checkout.</p>"
           }
         }
       },
       "block_order": [
+        "feature_1",
         "feature_2",
-        "feature_1"
+        "feature_3",
+        "feature_4"
       ],
       "settings": {
         "heading_font": "instrument_sans_n6",
