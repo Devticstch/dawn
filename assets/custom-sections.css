@@ -4508,6 +4508,18 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   min-width: 0;
 }
 
+/* Product page: "You may also like" and the reviews leave out .cs-section there, but still take the section spacing:
+   one 40px spacing on small screens like the homepage, their padding settings from 750px */
+main[data-template='product'] :is(.ymal > div, .rs) {
+  padding-block: 4rem;
+}
+
+@media screen and (min-width: 750px) {
+  main[data-template='product'] :is(.ymal > div, .rs) {
+    padding-block: var(--cs-pad-top, 3.6rem) var(--cs-pad-bottom, 3.6rem);
+  }
+}
+
 @media screen and (min-width: 750px) {
   .ymal__grid {
     gap: 2rem;
