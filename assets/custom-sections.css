@@ -6024,12 +6024,42 @@ main[data-template='product'] :is(.ymal > div, .rs) {
   margin: 0 0 1rem;
 }
 
-.shopify-policy__container :is(ul, ol) {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+/* Lists: bullets and numbers outside the text with a 25px hanging indent, items 4px apart. Dawn's .rte puts the
+   markers inside, which split items whose text the policy editor wraps in a <p> (marker on one line, text on the
+   next) and ran wrapped lines back under the marker */
+.content-for-layout .shopify-policy__container :is(ul, ol) {
   margin: 0 0 1rem;
   padding-left: 2.5rem;
+  list-style-position: outside;
+}
+
+.shopify-policy__container ul {
+  list-style-type: disc;
+}
+
+.shopify-policy__container ol {
+  list-style-type: decimal;
+}
+
+.shopify-policy__container li + li {
+  margin-top: 0.4rem;
+}
+
+.shopify-policy__container li > p {
+  margin: 0;
+}
+
+.content-for-layout .shopify-policy__container li > :is(ul, ol) {
+  margin: 0.4rem 0 0;
+}
+
+.shopify-policy__container ul ul {
+  list-style-type: circle;
+}
+
+/* Long emails and links wrap instead of widening the page on phones */
+.shopify-policy__body {
+  overflow-wrap: break-word;
 }
 
 .shopify-policy__container a {
