@@ -78,16 +78,16 @@
           "type": "feature",
           "settings": {
             "icon": "shield",
-            "title": "Everyday protection",
-            "text": "<p>Cases designed to help keep your phone safe from the bumps and scrapes of daily life.</p>"
+            "title": "Return & Exchange",
+            "text": "<p>Received a damaged or wrong item? Contact us within 7 days for a replacement or refund.</p>"
           }
         },
         "feature_2": {
           "type": "feature",
           "settings": {
             "icon": "truck",
-            "title": "Shipping options",
-            "text": "<p>Reliable shipping across Pakistan, with delivery in 3–4 working days.</p>"
+            "title": "Shipping Option",
+            "text": "<p>Reliable shipping across Pakistan, with delivery in 3–5 working days.</p>"
           }
         },
         "feature_3": {
