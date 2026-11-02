@@ -5413,8 +5413,8 @@ main[data-template='product'] :is(.ymal > div, .rs) {
 }
 
 /* ---------- About page features ---------- */
-/* Icon, title and short text per item, left aligned: 1 column on phones, 2 from 750px, 4 from 990px; 28px gaps
-   (DESIGN-SYSTEM.md 2.2) in the content width */
+/* Icon, title and short text per item, left aligned: 1 column on phones, up to 2 from 750px, up to 4 from 990px (one
+   per item, set by the section, so fewer items fill the width); 28px gaps (DESIGN-SYSTEM.md 2.2) in the content width */
 .about-features__grid {
   --cs-gutter: clamp(2.2rem, 12.909vw - 8.127rem, 16.4rem);
   display: grid;
@@ -5467,7 +5467,7 @@ main[data-template='product'] :is(.ymal > div, .rs) {
 
 @media screen and (min-width: 750px) {
   .about-features__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--about-features-columns-tablet, 2), minmax(0, 1fr));
     gap: 4rem 2.8rem;
   }
 
@@ -5478,7 +5478,7 @@ main[data-template='product'] :is(.ymal > div, .rs) {
 
 @media screen and (min-width: 990px) {
   .about-features__grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--about-features-columns, 4), minmax(0, 1fr));
   }
 }
 

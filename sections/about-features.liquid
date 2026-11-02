@@ -16,7 +16,12 @@
   class="about-features cs-section"
   style="--cs-bg: {{ section.settings.background }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px;"
 >
-  <ul class="about-features__grid" role="list">
+  {%- comment -%} One column per item up to the layout's maximum, so fewer items fill the width instead of leaving empty columns {%- endcomment -%}
+  <ul
+    class="about-features__grid"
+    role="list"
+    style="--about-features-columns: {{ section.blocks.size | at_most: 4 | at_least: 1 }}; --about-features-columns-tablet: {{ section.blocks.size | at_most: 2 | at_least: 1 }};"
+  >
     {%- for block in section.blocks -%}
       <li
         class="about-features__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
