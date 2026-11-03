@@ -1,0 +1,23 @@
+{
+  "sections": {
+    "main": {
+      "type": "html-sitemap",
+      "settings": {
+        "heading": "Sitemap",
+        "text": "",
+        "heading_font": "instrument_sans_n6",
+        "pages_heading": "Pages",
+        "pages": "Home | /\nShop | /collections/all\nCollections | /collections\nAbout us | /pages/about\nContact | /pages/contact",
+        "policies_heading": "Policies",
+        "collections_heading": "Collections",
+        "show_products": true,
+        "products_heading": "Products",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

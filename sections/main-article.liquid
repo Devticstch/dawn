@@ -1,6 +1,9 @@
 {{ 'section-blog-post.css' | asset_url | stylesheet_tag }}
 
 <article class="article-template">
+  <div class="page-width page-width--narrow article-template__breadcrumbs">
+    {%- render 'breadcrumbs', current: article.title, parent_title: blog.title, parent_url: blog.url, class: 'breadcrumbs--center' -%}
+  </div>
   {%- for block in section.blocks -%}
     {%- case block.type -%}
       {%- when '@app' -%}

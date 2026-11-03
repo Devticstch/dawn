@@ -1,0 +1,29 @@
+{%- comment -%}
+  Breadcrumb trail: Home, an optional parent link and the current page (styles: .breadcrumbs in custom-sections.css).
+  Marked up as a schema.org BreadcrumbList (microdata), so search engines read the same trail visitors see.
+  Accepts:
+  - current: {String} the current page's title
+  - parent_title: {String} optional middle link text
+  - parent_url: {String} optional middle link URL
+  - class: {String} optional extra classes: breadcrumbs--light (white, over images), breadcrumbs--center
+{%- endcomment -%}
+<nav class="breadcrumbs{% if class != blank %} {{ class }}{% endif %}" aria-label="Breadcrumb">
+  <ol class="breadcrumbs__list" role="list" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a class="breadcrumbs__link" href="{{ routes.root_url }}" itemprop="item"><span itemprop="name">Home</span></a>
+      <meta itemprop="position" content="1">
+    </li>
+    {%- assign position = 2 -%}
+    {%- if parent_title != blank and parent_url != blank -%}
+      <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a class="breadcrumbs__link" href="{{ parent_url }}" itemprop="item"><span itemprop="name">{{ parent_title | escape }}</span></a>
+        <meta itemprop="position" content="2">
+      </li>
+      {%- assign position = 3 -%}
+    {%- endif -%}
+    <li class="breadcrumbs__item" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <span itemprop="name">{{ current | escape }}</span>
+      <meta itemprop="position" content="{{ position }}">
+    </li>
+  </ol>
+</nav>

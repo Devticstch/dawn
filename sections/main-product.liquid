@@ -74,6 +74,8 @@
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <product-component view-event-payload="{{ product | standard_event_data: 'view', context: 'page' | escape }}">
     <div class="page-width">
+      {%- comment -%} Home, the collection the product was opened from (when there is one), the product {%- endcomment -%}
+      {%- render 'breadcrumbs', current: product.title, parent_title: collection.title, parent_url: collection.url -%}
       <div class="product{% if section.settings.info_style == 'cards' %} product--bold{% elsif section.settings.info_style == 'panel' %} product--bold product--panel{% endif %} product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
         <div class="grid__item product__media-wrapper">
           {%- comment -%} Product page images never open full screen (no lightbox or hover zoom) {%- endcomment -%}

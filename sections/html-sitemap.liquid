@@ -1,0 +1,127 @@
+{%- render 'section-padding', id: section.id, top: section.settings.padding_top, bottom: section.settings.padding_bottom -%}
+
+{%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} :is(.html-sitemap__title, .html-sitemap__heading) {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+    font-weight: {{ section.settings.heading_font.weight }};
+  }
+{%- endstyle -%}
+
+{%- comment -%}
+  HTML sitemap for visitors (page.sitemap template; Shopify's own /sitemap.xml stays the one for search engines):
+  the main pages, policies and blog posts side by side, then every collection with products and every product in
+  columns. Collections and products come from the store, so the page stays current.
+  # ponytail: outside paginate Liquid sees the first 50 products and collections; paginate them if the store grows past that
+{%- endcomment -%}
+{%- assign title = page.title | default: section.settings.heading -%}
+<div class="html-sitemap section-{{ section.id }}-padding">
+  <div class="html-sitemap__container">
+    {%- render 'breadcrumbs', current: title -%}
+    <h1 class="html-sitemap__title">{{ title | escape }}</h1>
+    {%- if section.settings.text != blank -%}
+      <div class="html-sitemap__text rte">{{ section.settings.text }}</div>
+    {%- endif -%}
+
+    <div class="html-sitemap__groups">
+      {%- if section.settings.pages != blank -%}
+        <nav class="html-sitemap__group" aria-labelledby="HtmlSitemapPages-{{ section.id }}">
+          <h2 class="html-sitemap__heading" id="HtmlSitemapPages-{{ section.id }}">{{ section.settings.pages_heading | escape }}</h2>
+          <ul class="html-sitemap__links" role="list">
+            {%- assign lines = section.settings.pages | newline_to_br | split: '<br />' -%}
+            {%- for line in lines -%}
+              {%- assign parts = line | split: '|' -%}
+              {%- assign link_title = parts.first | strip -%}
+              {%- if link_title == blank -%}{%- continue -%}{%- endif -%}
+              {%- assign link_url = parts[1] | strip -%}
+              {%- capture href -%}{%- render 'header-nav-url', title: link_title, url: link_url -%}{%- endcapture -%}
+              {%- if href == blank -%}{%- continue -%}{%- endif -%}
+              <li><a class="html-sitemap__link" href="{{ href }}">{{ link_title | escape }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+
+      {%- if shop.policies.size > 0 -%}
+        <nav class="html-sitemap__group" aria-labelledby="HtmlSitemapPolicies-{{ section.id }}">
+          <h2 class="html-sitemap__heading" id="HtmlSitemapPolicies-{{ section.id }}">{{ section.settings.policies_heading | escape }}</h2>
+          <ul class="html-sitemap__links" role="list">
+            {%- for policy in shop.policies -%}
+              <li><a class="html-sitemap__link" href="{{ policy.url }}">{{ policy.title | escape }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+
+      {%- assign blog = section.settings.blog -%}
+      {%- if blog != blank and blog.articles_count > 0 -%}
+        <nav class="html-sitemap__group" aria-labelledby="HtmlSitemapBlog-{{ section.id }}">
+          <h2 class="html-sitemap__heading" id="HtmlSitemapBlog-{{ section.id }}">
+            <a class="html-sitemap__heading-link" href="{{ blog.url }}">{{ blog.title | escape }}</a>
+          </h2>
+          <ul class="html-sitemap__links" role="list">
+            {%- for article in blog.articles limit: 50 -%}
+              <li><a class="html-sitemap__link" href="{{ article.url }}">{{ article.title | escape }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+
+      <nav class="html-sitemap__group html-sitemap__group--wide" aria-labelledby="HtmlSitemapCollections-{{ section.id }}">
+        <h2 class="html-sitemap__heading" id="HtmlSitemapCollections-{{ section.id }}">{{ section.settings.collections_heading | escape }}</h2>
+        <ul class="html-sitemap__links" role="list">
+          {%- for item in collections -%}
+            {%- if item.all_products_count == 0 -%}{%- continue -%}{%- endif -%}
+            <li><a class="html-sitemap__link" href="{{ item.url }}">{{ item.title | escape }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+
+      {%- if section.settings.show_products -%}
+        <nav class="html-sitemap__group html-sitemap__group--wide" aria-labelledby="HtmlSitemapProducts-{{ section.id }}">
+          <h2 class="html-sitemap__heading" id="HtmlSitemapProducts-{{ section.id }}">{{ section.settings.products_heading | escape }}</h2>
+          <ul class="html-sitemap__links" role="list">
+            {%- assign products = collections.all.products | sort_natural: 'title' -%}
+            {%- for item in products -%}
+              <li><a class="html-sitemap__link" href="{{ item.url }}">{{ item.title | escape }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "HTML sitemap",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Sitemap", "info": "Used when the page has no title" },
+    { "type": "richtext", "id": "text", "label": "Intro text" },
+    { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "instrument_sans_n6" },
+    { "type": "header", "content": "Groups" },
+    { "type": "text", "id": "pages_heading", "label": "Pages heading", "default": "Pages" },
+    {
+      "type": "textarea",
+      "id": "pages",
+      "label": "Pages",
+      "info": "One per line, with a link after |, e.g. About us | /pages/about. Links to missing pages are hidden."
+    },
+    { "type": "text", "id": "policies_heading", "label": "Policies heading", "default": "Policies" },
+    { "type": "blog", "id": "blog", "label": "Blog", "info": "Its posts are listed under the blog's name" },
+    { "type": "text", "id": "collections_heading", "label": "Collections heading", "default": "Collections" },
+    { "type": "checkbox", "id": "show_products", "label": "List all products", "default": true },
+    { "type": "text", "id": "products_heading", "label": "Products heading", "default": "Products" },
+    { "type": "header", "content": "t:sections.all.padding.section_padding_heading" },
+    { "type": "range", "id": "padding_top", "label": "t:sections.all.padding.padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "t:sections.all.padding.padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 80 }
+  ],
+  "presets": [{ "name": "HTML sitemap" }]
+}
+{% endschema %}

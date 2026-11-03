@@ -46,6 +46,7 @@
     {%- endif -%}
   </div>
   <div class="cb__content">
+    {%- render 'breadcrumbs', current: title, class: 'breadcrumbs--light' -%}
     <h1 class="cb__title">
       {{- title | escape -}}
       {%- if section.settings.show_count and product_count > 0 -%}
