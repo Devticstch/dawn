@@ -422,7 +422,7 @@
         "box_background": "#ffffff",
         "accent_color": "#8825e4",
         "padding_top": 80,
-        "padding_bottom": 80
+        "padding_bottom": 0
       }
     },
     "info_cards": {
