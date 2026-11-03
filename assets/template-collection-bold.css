@@ -17,10 +17,11 @@
 }
 
 /* ---------- Toolbar ---------- */
-/* Above the grid, so the open filter panels overlap the cards */
+/* No z-index at rest: a permanent stacking context at the header's level (3) made the toolbar scroll over the sticky
+   header and trapped Dawn's full-screen mobile filter drawer (z-index 100). Only while a filter panel is open is the
+   toolbar raised, to 2: above the product cards, still below the header */
 .collection-bold .facets-wrapper {
   position: relative;
-  z-index: 3;
   display: flex;
   align-items: center;
   gap: 1.2rem;
@@ -70,6 +71,10 @@
   font-weight: 500;
   line-height: 2rem;
   letter-spacing: 0;
+}
+
+.collection-bold .facets-wrapper:has(.facets__disclosure[open]) {
+  z-index: 2;
 }
 
 .collection-bold .facets__display {

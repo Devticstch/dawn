@@ -2118,8 +2118,11 @@ a.category-panel__category-link:hover {
 /* Reference "Customers say about us" (testimonial 9), measured 2026-10-16: 564px stage (full viewport height
    on mobile), photos 30/44/96px on mobile and 64/82/123px from 992px, grey card 263/480/412/512px wide.
    Hover scale 1.1, active glow, 36px arrows whose icon slides through on hover */
+/* isolation: the photos (10), quote card (11) and heading (12) layer among themselves inside the section, instead of
+   competing with the sticky header (z-index 3) and scrolling over it */
 .rs__inner {
   position: relative;
+  isolation: isolate;
   display: block;
   height: 100vh;
   height: 100svh;
