@@ -11,9 +11,10 @@
   Coming soon, in the thank-you page's design, shown by the layout (theme.liquid) instead of a collection's sections
   for collections that are not open yet. The header stays over it, so there is no logo
 {%- endcomment -%}
+{%- assign image = section.settings.image | default: images['Website_Background_Image_2.webp'] -%}
 {%- assign button_url = section.settings.button_link | default: collections.iphone.url | default: routes.all_products_collection_url -%}
 {%- render 'message-screen',
-  image: section.settings.image,
+  image: image,
   theme_image: section.settings.theme_image,
   show_logo: false,
   mark: 'clock',
@@ -30,7 +31,7 @@
   "class": "section",
   "settings": [
     { "type": "paragraph", "content": "Shown instead of the Samsung collection's products until the theme stops showing it." },
-    { "type": "image_picker", "id": "image", "label": "Background image", "info": "Shown full screen under a dark overlay" },
+    { "type": "image_picker", "id": "image", "label": "Background image", "info": "Shown full screen under a dark overlay. Blank: Website_Background_Image_2.webp from Content > Files" },
     { "type": "text", "id": "theme_image", "label": "Theme image", "info": "File name from the theme assets, used when no image is selected", "default": "banner-ribbed-cases.jpg" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Coming Soon" },
     { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Samsung cases are on their way. In the meantime, explore our iPhone collection.</p>" },

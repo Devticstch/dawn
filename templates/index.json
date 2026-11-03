@@ -418,9 +418,10 @@
         "type_label": "",
         "weight_label": "",
         "title_font": "instrument_sans_n6",
-        "box_background": "#f6f6f6",
+        "background": "#f6f6f6",
+        "box_background": "#ffffff",
         "accent_color": "#8825e4",
-        "padding_top": 0,
+        "padding_top": 80,
         "padding_bottom": 80
       }
     },
@@ -555,7 +556,7 @@
         "heading": "Loved by Our Customers",
         "heading_font": "instrument_sans_n6",
         "accent_color": "#8825e4",
-        "padding_top": 0,
+        "padding_top": 80,
         "padding_bottom": 80
       }
     },

@@ -1,12 +1,12 @@
 {%- comment -%}
   Full-screen message (styles: .contact-thanks in custom-sections.css): a background image under a dark overlay, the
-  store logo (pages without header), a round mark, the heading, the text and a button. Used by the contact thank-you
+  store logo (pages without header), a round mark or large display text, the heading, the text and a button. Used by the contact thank-you
   page, the 404 page and the collection coming-soon page.
   Accepts:
   - image: {Object} background image (optional)
   - theme_image: {String} theme asset file name, used when there is no image (optional)
   - show_logo: {Boolean} the store logo above the message, for pages without the header
-  - mark: {String} 'check', 'clock' or a short text such as 404
+  - mark: {String} 'check' or 'clock' (an icon in a round mark), or a short text such as 404 (shown large)
   - heading: {String}
   - text: {String} rich text HTML (optional)
   - button_label: {String}
@@ -53,16 +53,17 @@
   {%- endif -%}
 
   <div class="contact-thanks__content{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-    <span class="contact-thanks__mark" aria-hidden="true">
-      {%- case mark -%}
-        {%- when 'check' -%}
+    {%- if mark == 'check' or mark == 'clock' -%}
+      <span class="contact-thanks__mark" aria-hidden="true">
+        {%- if mark == 'check' -%}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
-        {%- when 'clock' -%}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
         {%- else -%}
-          <span class="contact-thanks__mark-text">{{ mark | escape }}</span>
-      {%- endcase -%}
-    </span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
+        {%- endif -%}
+      </span>
+    {%- elsif mark != blank -%}
+      <p class="contact-thanks__display" aria-hidden="true">{{ mark | escape }}</p>
+    {%- endif -%}
     {%- if heading != blank -%}
       <h1 class="contact-thanks__title">{{ heading | escape }}</h1>
     {%- endif -%}

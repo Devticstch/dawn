@@ -124,18 +124,6 @@
     transition: top 0.5s cubic-bezier(0.31, 0.41, 0.38, 0.96);
   }
 
-  {%- liquid
-    assign nav_font_regular = settings.type_nav_font | font_modify: 'weight', '400'
-  -%}
-  {{ settings.type_nav_font | font_face: font_display: 'swap' }}
-  {{ nav_font_regular | font_face: font_display: 'swap' }}
-
-  /* Shared with the announcement bar section */
-  :root {
-    --font-nav-family: {{ settings.type_nav_font.family }}, {{ settings.type_nav_font.fallback_families }};
-    --font-nav-weight: {{ settings.type_nav_font.weight }};
-  }
-
   .section-header {
     --header-accent: {{ section.settings.accent_color }};
     --header-accent-rgb: {{ section.settings.accent_color.red }}, {{ section.settings.accent_color.green }}, {{ section.settings.accent_color.blue }};

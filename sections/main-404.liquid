@@ -1,14 +1,14 @@
 {%- style -%}
   {{ section.settings.heading_font | font_face: font_display: 'swap' }}
 
-  #shopify-section-{{ section.id }} .contact-thanks__title {
+  #shopify-section-{{ section.id }} :is(.contact-thanks__display, .contact-thanks__title) {
     font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
     font-weight: {{ section.settings.heading_font.weight }};
   }
 {%- endstyle -%}
 
 {%- comment -%}
-  404 page in the thank-you page's design (the layout leaves out the header and footer): the store logo, a 404 mark,
+  404 page in the thank-you page's design (the layout leaves out the header and footer): the store logo, a large 404,
   the page-not-found title and a button to all products
 {%- endcomment -%}
 {%- assign heading = 'templates.404.title' | t -%}
