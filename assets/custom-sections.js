@@ -466,6 +466,62 @@ document.addEventListener('click', (event) => {
   );
 })();
 
+// About page FAQ "View all": the questions after the first few (.about-faq__more) start collapsed, and the button
+// opens and closes them with the accordion's height and fade (400ms), switching its label between the "show more"
+// and "show less" text. Closing brings the button back into view if it ended up above the screen. Without JavaScript
+// every question stays visible and the button stays hidden; reduced motion opens and closes without animation.
+(() => {
+  const DURATION = 400;
+  const EASING = 'cubic-bezier(0.31, 0.41, 0.38, 0.96)';
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  const init = (root) => {
+    root.querySelectorAll('[data-faq-toggle]').forEach((button) => {
+      const more = document.getElementById(button.getAttribute('aria-controls'));
+      if (!more || button.dataset.faqReady) return;
+      button.dataset.faqReady = 'true';
+      const label = button.querySelector('.about-faq__toggle-label');
+      const set = (expanded) => {
+        button.setAttribute('aria-expanded', String(expanded));
+        label.textContent = expanded ? button.dataset.labelLess : button.dataset.labelMore;
+      };
+      more.hidden = true;
+      set(false);
+      button.hidden = false;
+
+      button.addEventListener('click', () => {
+        const opening = button.getAttribute('aria-expanded') !== 'true';
+        more._faqAnimation?.cancel();
+        const from = more.hidden ? 0 : more.getBoundingClientRect().height;
+        more.hidden = false;
+        set(opening);
+        if (reduceMotion.matches) {
+          more.hidden = !opening;
+          return;
+        }
+        const to = opening ? more.scrollHeight : 0;
+        // Clipped only while it animates, so the questions' focus rings are not cut off afterwards
+        more.style.overflow = 'hidden';
+        const animation = more.animate(
+          { height: [`${from}px`, `${to}px`], opacity: opening ? [0, 1] : [1, 0] },
+          { duration: DURATION, easing: EASING }
+        );
+        more._faqAnimation = animation;
+        animation.onfinish = () => {
+          more._faqAnimation = null;
+          more.style.removeProperty('overflow');
+          if (opening) return;
+          more.hidden = true;
+          if (button.getBoundingClientRect().top < 0) button.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        };
+      });
+    });
+  };
+
+  init(document);
+  document.addEventListener('shopify:section:load', (event) => init(event.target));
+})();
+
 // Product quick view (reference: xo-futurer). A product card's eye link ([data-quick-view]) fetches the quick-view
 // section for that product (Section Rendering API) and shows it in one shared modal: scale-in open, scale-out close,
 // focus trapped, Escape / overlay / close button to close. Thumbnails and option pills switch the image, price,

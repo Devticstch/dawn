@@ -5444,6 +5444,72 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   overflow: hidden;
 }
 
+/* "View all" below the questions (custom-sections.js): label and a chevron in the question icon's grey circle, which
+   turns over when the list is open; at least 44px tall */
+.about-faq__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2rem;
+  min-height: 4.4rem;
+  margin-top: 1.6rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: rgb(30, 30, 30);
+  font-family: var(--font-nav-family, inherit);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: color 0.3s var(--faq-ease);
+}
+
+.about-faq__toggle[hidden] {
+  display: none;
+}
+
+.about-faq__toggle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  background: #f6f6f6;
+  transition: background-color 0.3s var(--faq-ease), color 0.3s var(--faq-ease), transform 0.3s var(--faq-ease);
+}
+
+.about-faq__toggle-icon svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.about-faq__toggle:hover {
+  color: var(--btn-accent, #8825e4);
+}
+
+.about-faq__toggle:hover .about-faq__toggle-icon {
+  background: var(--btn-accent, #8825e4);
+  color: #fff;
+}
+
+.about-faq__toggle[aria-expanded='true'] .about-faq__toggle-icon {
+  transform: rotate(180deg);
+}
+
+.about-faq__toggle:focus-visible {
+  outline: 0.2rem solid var(--btn-accent, #8825e4);
+  outline-offset: 0.4rem;
+  border-radius: 0.6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-faq__toggle,
+  .about-faq__toggle-icon {
+    transition: none;
+  }
+}
+
 .about-faq__answer-inner {
   max-width: 68rem;
   padding: 0 4.8rem 2.4rem 0;

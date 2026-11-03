@@ -36,20 +36,62 @@
       {%- endif -%}
     </div>
 
+    {%- comment -%}
+      The first questions show; the rest sit in .about-faq__more, which custom-sections.js collapses behind the
+      "View all" button (without JavaScript every question stays visible)
+    {%- endcomment -%}
+    {%- liquid
+      assign visible_count = section.settings.visible_count
+      assign index = 0
+      assign first_items = ''
+      assign more_items = ''
+    -%}
+    {%- for block in section.blocks -%}
+      {%- if block.settings.question == blank -%}{%- continue -%}{%- endif -%}
+      {%- assign index = index | plus: 1 -%}
+      {%- capture item -%}
+        <details class="about-faq__item" {{ block.shopify_attributes }}>
+          <summary class="about-faq__question">
+            <span class="about-faq__question-text">{{ block.settings.question | escape }}</span>
+            <span class="about-faq__icon" aria-hidden="true"></span>
+          </summary>
+          <div class="about-faq__answer">
+            <div class="about-faq__answer-inner rte">{{ block.settings.answer }}</div>
+          </div>
+        </details>
+      {%- endcapture -%}
+      {%- if index > visible_count -%}
+        {%- assign more_items = more_items | append: item -%}
+      {%- else -%}
+        {%- assign first_items = first_items | append: item -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- assign has_more = false -%}
+    {%- if more_items != blank -%}{%- assign has_more = true -%}{%- endif -%}
+    <div class="about-faq__questions">
     <div class="about-faq__list">
-      {%- for block in section.blocks -%}
-        {%- if block.settings.question != blank -%}
-          <details class="about-faq__item" {{ block.shopify_attributes }}>
-            <summary class="about-faq__question">
-              <span class="about-faq__question-text">{{ block.settings.question | escape }}</span>
-              <span class="about-faq__icon" aria-hidden="true"></span>
-            </summary>
-            <div class="about-faq__answer">
-              <div class="about-faq__answer-inner rte">{{ block.settings.answer }}</div>
-            </div>
-          </details>
-        {%- endif -%}
-      {%- endfor -%}
+      {{- first_items -}}
+      {%- if has_more -%}
+        <div class="about-faq__more" id="AboutFaqMore-{{ section.id }}" data-faq-more>{{ more_items }}</div>
+      {%- endif -%}
+    </div>
+    {%- if has_more -%}
+      <button
+        type="button"
+        class="about-faq__toggle"
+        aria-expanded="true"
+        aria-controls="AboutFaqMore-{{ section.id }}"
+        data-faq-toggle
+        data-label-more="{{ section.settings.more_label | escape }}"
+        data-label-less="{{ section.settings.less_label | escape }}"
+        hidden
+      >
+        <span class="about-faq__toggle-label">{{ section.settings.less_label | escape }}</span>
+        <span class="about-faq__toggle-icon" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m4 6 4 4 4-4"/></svg>
+        </span>
+      </button>
+    {%- endif -%}
     </div>
   </div>
 </div>
@@ -77,6 +119,18 @@
     },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Contact us" },
     { "type": "url", "id": "button_link", "label": "Button link", "info": "Leave empty to link to the contact page" },
+    {
+      "type": "range",
+      "id": "visible_count",
+      "label": "Questions shown at first",
+      "info": "The rest open with the button below the questions",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 7
+    },
+    { "type": "text", "id": "more_label", "label": "Show more button label", "default": "View All FAQs" },
+    { "type": "text", "id": "less_label", "label": "Show less button label", "default": "Show Less" },
     { "type": "font_picker", "id": "heading_font", "label": "Heading and question font", "default": "instrument_sans_n6" },
     { "type": "color", "id": "background", "label": "Background", "default": "#FFFFFF" },
     { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 80 },
