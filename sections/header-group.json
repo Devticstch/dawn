@@ -71,6 +71,14 @@
             "theme_image": "menu-iphone.png"
           }
         },
+        "card_new_2": {
+          "type": "menu_card",
+          "settings": {
+            "title": "Samsung",
+            "link": "",
+            "theme_image": "menu-samsung.png"
+          }
+        },
         "col_new_iphone": {
           "type": "menu_column",
           "settings": {
@@ -202,6 +210,7 @@
       "block_order": [
         "nav_new",
         "card_new_1",
+        "card_new_2",
         "col_new_iphone",
         "col_new_feature",
         "nav_best",

@@ -437,6 +437,30 @@
       filter: brightness(0) invert(1);
     }
 
+    /* Menu labels stay white on hover and while their panel is open (the accent purple blends into dark or purple
+       photos); a thin brand gradient line under the label marks them instead. Once scrolled past, the accent returns */
+    .section-header:not(.scrolled-past-header) .header-nav .list-menu--inline > li > .header__menu-item:hover,
+    .section-header:not(.scrolled-past-header) .header-nav .list-menu--inline > li > header-menu > details > .header__menu-item:hover,
+    .section-header:not(.scrolled-past-header) .header-nav .list-menu--inline > li > header-menu > details[open]:not(.is-closing) > .header__menu-item {
+      color: rgb(var(--color-foreground));
+    }
+
+    .section-header:not(.scrolled-past-header) .header-nav .list-menu--inline > li .header__menu-item > span {
+      background: var(--t2c-gradient) no-repeat 0 100% / 0 0.2rem;
+      transition: background-size 0.3s ease;
+    }
+
+    .section-header:not(.scrolled-past-header) .header-nav .list-menu--inline > li .header__menu-item:hover > span,
+    .section-header:not(.scrolled-past-header) .header-nav details[open]:not(.is-closing) > .header__menu-item > span {
+      background-size: 100% 0.2rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .section-header:not(.scrolled-past-header) .header-nav .list-menu--inline > li .header__menu-item > span {
+        transition: none;
+      }
+    }
+
     /* Overlays opened from the bar without a colour scheme of their own keep the scheme text colour */
     .header-wrapper :is(.search-modal, .disclosure__list-wrapper) {
       --color-foreground: {{ scheme_text.red }}, {{ scheme_text.green }}, {{ scheme_text.blue }};
