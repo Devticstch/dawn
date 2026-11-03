@@ -384,42 +384,27 @@ document.addEventListener('click', (event) => {
 })();
 
 // Image banner background (reference: Futurer featured product, DESIGN-SYSTEM.md 7.1). The image is fixed to the
-// viewport (CSS); while the banner crosses the screen it also drifts from 200px down to 200px up, linear in the
-// scroll, and eases toward that point (200ms time constant), so it glides on briefly after the scroll stops, in both
-// directions. The drift is held where the viewport-sized image still fills the banner's visible part, now and two
-// frames on at the current scroll speed (the browser scrolls the page ahead of this script by a frame, plus one
-// dropped frame), so lagging behind a fast scroll never uncovers it. Reduced motion keeps the still, fixed image.
+// viewport (CSS); while the banner crosses the screen it also drifts from 200px down to 200px up, set directly by the
+// scroll position, so it moves steadily with the scroll in both directions: no easing that falls behind a fast
+// scroll and then snaps back. The drift stays where the viewport-sized image fills the banner's visible part (always
+// true for a banner shorter than the window). Reduced motion keeps the still, fixed image.
 (() => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const RANGE = 200;
-  const SMOOTHING = 200;
-  const states = new WeakMap();
   let frame = 0;
-  let last = 0;
 
-  const update = (now) => {
-    const step = 1 - Math.exp(-(last ? now - last : 1000 / 60) / SMOOTHING);
+  const update = () => {
+    frame = 0;
     const viewport = window.innerHeight;
-    let moving = false;
     document.querySelectorAll('.image-button__media').forEach((media) => {
       const rect = media.getBoundingClientRect();
-      const previous = states.get(media);
-      const ahead = previous && last ? 2 * (previous.top - rect.top) : 0;
       const progress = Math.min(Math.max((viewport - rect.top) / (viewport + rect.height), 0), 1);
-      const min = Math.max(Math.min(rect.bottom, viewport), Math.min(rect.bottom - ahead, viewport)) - viewport;
-      const max = Math.min(Math.max(rect.top, 0), Math.max(rect.top - ahead, 0));
-      const clamp = (value) => Math.min(Math.max(value, min), max);
-      const target = clamp(RANGE - 2 * RANGE * progress);
-      const visible = rect.bottom > 0 && rect.top < viewport;
-      let drift = visible && previous ? clamp(previous.drift + (target - previous.drift) * step) : target;
-      if (Math.abs(target - drift) < 0.1) drift = target;
-      else moving = true;
-      states.set(media, { drift, top: rect.top });
+      const min = Math.min(rect.bottom, viewport) - viewport;
+      const max = Math.max(rect.top, 0);
+      const drift = Math.min(Math.max(RANGE - 2 * RANGE * progress, min), max);
       media.style.setProperty('--drift', `${drift.toFixed(2)}px`);
     });
-    last = moving ? now : 0;
-    frame = moving ? requestAnimationFrame(update) : 0;
   };
 
   const schedule = () => {
