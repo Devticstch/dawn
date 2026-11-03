@@ -1,7 +1,8 @@
 // Product page "panel" style: previous/next buttons over the main image (desktop).
 // They drive Dawn's own thumbnail buttons, so MediaGallery keeps the active image and thumbnails in sync.
-// Every image change (these buttons or a thumbnail) is animated (section-product-panel.css): the outgoing image is
-// kept on top as .is-leaving while it fades out, and data-media-direction tells which side the new one comes from.
+// Every image change (these buttons or a thumbnail) cross-fades (section-product-panel.css): the outgoing image stays
+// on top (.is-leaving) over the new one until the new photo is decoded, then fades out (.is-fading), so the new image
+// is never shown half-loaded. The other gallery photos load once the page is idle, so they are ready before a click.
 if (!customElements.get('product-gallery-nav')) {
   customElements.define(
     'product-gallery-nav',
@@ -11,6 +12,13 @@ if (!customElements.get('product-gallery-nav')) {
         this.addEventListener('click', this.onClick);
         // Capture: runs before the thumbnail's own handler switches the image
         this.gallery.addEventListener('click', this.onThumbnailClick, true);
+
+        const preload = () =>
+          this.gallery.querySelectorAll('.product__media-list img[loading="lazy"]').forEach((img) => {
+            img.loading = 'eager';
+          });
+        if ('requestIdleCallback' in window) requestIdleCallback(preload, { timeout: 3000 });
+        else setTimeout(preload, 2000);
       }
 
       disconnectedCallback() {
@@ -33,26 +41,35 @@ if (!customElements.get('product-gallery-nav')) {
         const step = button.dataset.gallery === 'next' ? 1 : -1;
         const target = items[(current + step + items.length) % items.length];
         target.querySelector('button').click();
-        // Wrapping round from the last image to the first still moves in the button's direction
-        this.gallery.dataset.mediaDirection = step > 0 ? 'next' : 'prev';
       };
 
       onThumbnailClick = (event) => {
         const thumbnail = event.target.closest('.thumbnail-list__item');
-        if (!thumbnail) return;
-        const items = this.visibleThumbnails();
-        const current = items.findIndex((item) => item.querySelector('[aria-current]'));
-        const next = items.indexOf(thumbnail);
-        if (current < 0 || next < 0 || next === current) return;
+        if (!thumbnail || thumbnail.querySelector('[aria-current]')) return;
 
-        this.gallery.dataset.mediaDirection = next > current ? 'next' : 'prev';
-        this.gallery.querySelectorAll('.product__media-item.is-leaving').forEach((item) => item.classList.remove('is-leaving'));
+        // A click during a fade ends it at once
+        this.gallery.querySelectorAll('.product__media-item.is-leaving').forEach(this.endFade);
         const leaving = this.gallery.querySelector('.product__media-list .product__media-item.is-active');
         if (!leaving) return;
+        // Pinned exactly where it is now, which is where the new image appears
+        leaving.style.setProperty('--pp-leave-x', `${leaving.offsetLeft}px`);
+        leaving.style.setProperty('--pp-leave-y', `${leaving.offsetTop}px`);
+        leaving.style.setProperty('--pp-leave-width', `${leaving.offsetWidth}px`);
         leaving.classList.add('is-leaving');
-        leaving.addEventListener('animationend', () => leaving.classList.remove('is-leaving'), { once: true });
-        // Fallback when no animation runs (reduced motion, small screens)
-        setTimeout(() => leaving.classList.remove('is-leaving'), 600);
+
+        // Fades once the new photo is ready to show (at most 1.2s on a slow connection, the old one staying meanwhile)
+        const image = this.gallery.querySelector(`[data-media-id="${thumbnail.dataset.target}"] img`);
+        const decoded = image ? image.decode().catch(() => {}) : Promise.resolve();
+        Promise.race([decoded, new Promise((resolve) => setTimeout(resolve, 1200))]).then(() => {
+          if (!leaving.classList.contains('is-leaving')) return;
+          leaving.classList.add('is-fading');
+          setTimeout(() => this.endFade(leaving), 450);
+        });
+      };
+
+      endFade = (item) => {
+        item.classList.remove('is-leaving', 'is-fading');
+        ['--pp-leave-x', '--pp-leave-y', '--pp-leave-width'].forEach((name) => item.style.removeProperty(name));
       };
     }
   );
