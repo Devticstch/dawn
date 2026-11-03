@@ -647,11 +647,16 @@ a.category-panel__category-link:hover {
   margin: 0;
 }
 
-/* Adding to cart: Dawn's spinner replaces the plus icon */
+/* Adding to cart or opening the quick view: Dawn's spinner replaces the icon, centred in the circle. Its wrapper fills
+   the button as a flex box, since as Dawn's inline-block the spinner sat on a text line, off centre */
 .bs-card__action .loading__spinner {
   position: absolute;
-  width: 1.6rem;
-  height: 1.6rem;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
 }
 
 .bs-card__action.loading > svg {
@@ -6160,11 +6165,13 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   font-size: 1.4rem;
 }
 
+/* Compact, like the product page's quantity pill: three 44px touch targets (minus, number, plus) in 134 x 46px */
 .quick-view__quantity {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 5.4rem;
+  width: 13.4rem;
+  height: 4.6rem;
   border: 0.1rem solid rgba(136, 37, 228, 0.4);
   border-radius: 10rem;
   color: #8825e4;
@@ -6175,7 +6182,7 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   flex: none;
   align-items: center;
   justify-content: center;
-  width: 5.4rem;
+  width: 4.4rem;
   height: 100%;
   padding: 0;
   border: 0;
@@ -6185,8 +6192,8 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
 }
 
 .quick-view__quantity .quantity__button svg {
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 1.4rem;
+  height: 1.4rem;
   pointer-events: none;
 }
 
@@ -6203,7 +6210,7 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   background: none;
   color: inherit;
   font-family: var(--font-nav-family, inherit);
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 500;
   text-align: center;
   -moz-appearance: textfield;
