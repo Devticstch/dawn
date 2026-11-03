@@ -27,7 +27,7 @@
           "settings": {
             "heading": "Collections",
             "menu": "footer",
-            "links": "iPhone\nSamsung\nNew Arrivals | /collections/all?sort_by=created-descending\nBest Sellers | /collections/all?sort_by=best-selling"
+            "links": "iPhone\nNew Arrivals | /collections/all?sort_by=created-descending\nBest Sellers | /collections/all?sort_by=best-selling"
           }
         },
         "contact": {
