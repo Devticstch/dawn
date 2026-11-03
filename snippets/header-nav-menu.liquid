@@ -107,7 +107,7 @@
                         {%- if child.settings.heading != blank -%}
                           <p class="header-nav__column-heading">{{ child.settings.heading | escape }}</p>
                         {%- endif -%}
-                        <ul class="header-nav__links" role="list">
+                        <ul class="header-nav__links{% if child.settings.sale_percent > 0 %} header-nav__links--sale{% endif %}" role="list">
                           {%- for line in lines -%}
                             {%- assign parts = line | split: '|' -%}
                             {%- assign link_title = parts.first | strip -%}
