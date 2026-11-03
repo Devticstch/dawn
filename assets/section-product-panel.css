@@ -152,6 +152,55 @@ product-info.product-panel-section {
   }
 }
 
+/* Main image height: Dawn caps it at the window height minus 170px, which with the header, the section's top padding,
+   the card's padding and the thumbnail row ran the card past the bottom of the screen. Here the cap leaves room for
+   all of them, so the whole card fits in the window below the header (36rem at the least on short windows) */
+@media screen and (min-width: 990px) {
+  .product--panel .product-media-container.constrain-height {
+    --viewport-offset: calc(var(--header-height, 7.4rem) + 8rem + 8rem + 8.8rem + 2.4rem);
+    --constrained-min-height: 36rem;
+  }
+}
+
+/* Image change (product-panel.js): the new image fades in while sliding 32px from the side it comes from (Next: the
+   right, Previous: the left), and the outgoing one stays on top fading out, so the photos cross-fade instead of
+   switching at once. Phones keep the swipe slider; reduced motion keeps the instant change */
+@media screen and (min-width: 750px) and (prefers-reduced-motion: no-preference) {
+  .product--panel .product__media-list {
+    position: relative;
+  }
+
+  .product--panel.product--thumbnail .product__media-list .product__media-item.is-leaving {
+    display: block;
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 1;
+    pointer-events: none;
+    animation: pp-media-out 0.35s ease both;
+  }
+
+  .product--panel media-gallery[data-media-direction] .product__media-item.is-active {
+    animation: pp-media-in 0.5s cubic-bezier(0.25, 0.74, 0.22, 0.99) both;
+  }
+
+  .product--panel media-gallery[data-media-direction='prev'] {
+    --pp-media-from: -3.2rem;
+  }
+}
+
+@keyframes pp-media-in {
+  from {
+    opacity: 0;
+    transform: translateX(var(--pp-media-from, 3.2rem));
+  }
+}
+
+@keyframes pp-media-out {
+  to {
+    opacity: 0;
+  }
+}
+
 .product-gallery-nav {
   display: none;
 }
