@@ -9,7 +9,7 @@
 
 <div
   class="category-strip cs-section"
-  style="--cs-bg: {{ section.settings.background }}; --cs-text: {{ section.settings.text_color }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px;"
+  style="--cs-bg: {{ section.settings.background }}; --cs-text: {{ section.settings.text_color }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px;"
 >
   <div class="cs-container category-panels">
     {%- assign category_groups = 'phone_case,accessories' | split: ',' -%}
@@ -158,7 +158,7 @@
       "step": 2,
       "unit": "px",
       "label": "Top padding",
-      "default": 12
+      "default": 80
     },
     {
       "type": "range",
@@ -168,7 +168,7 @@
       "step": 2,
       "unit": "px",
       "label": "Bottom padding",
-      "default": 16
+      "default": 80
     }
   ],
   "blocks": [

@@ -10,7 +10,7 @@
 
 <div
   class="feature-showcase cs-section"
-  style="--cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px; --fs-panel-bg: {{ section.settings.panel_background }}; --fs-accent: {{ section.settings.accent_color }};"
+  style="--cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --fs-panel-bg: {{ section.settings.panel_background }}; --fs-accent: {{ section.settings.accent_color }};"
 >
   <div class="cs-container feature-showcase__grid">
     <div class="feature-showcase__card feature-showcase__card--tall{% if settings.animations_reveal_on_scroll %} scroll-trigger cs-reveal{% endif %}" data-cascade>
@@ -119,7 +119,7 @@
     { "type": "color", "id": "panel_background", "label": "Panel background", "default": "#F6F6F6" },
     { "type": "color", "id": "accent_color", "label": "Button color", "default": "#8825E4" },
     { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 0 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 56 }
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 80 }
   ],
   "blocks": [
     {

@@ -1,6 +1,6 @@
 <div
   class="news-carousel cs-section"
-  style="--cs-bg: {{ section.settings.background }}; --cs-text: {{ section.settings.text_color }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px;"
+  style="--cs-bg: {{ section.settings.background }}; --cs-text: {{ section.settings.text_color }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px;"
 >
   <div class="cs-container">
     {%- if section.settings.heading != blank -%}
@@ -112,7 +112,7 @@
       "step": 4,
       "unit": "px",
       "label": "Top padding",
-      "default": 36
+      "default": 80
     },
     {
       "type": "range",
@@ -122,7 +122,7 @@
       "step": 4,
       "unit": "px",
       "label": "Bottom padding",
-      "default": 20
+      "default": 80
     }
   ],
   "blocks": [

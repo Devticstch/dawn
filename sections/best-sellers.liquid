@@ -19,7 +19,7 @@
 
 <div
   class="best-sellers cs-section"
-  style="--cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px; --bs-card-bg: {{ section.settings.card_background }}; --bs-badge: {{ section.settings.badge_color }}; --bs-accent: {{ section.settings.accent_color }};"
+  style="--cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --bs-card-bg: {{ section.settings.card_background }}; --bs-badge: {{ section.settings.badge_color }}; --bs-accent: {{ section.settings.accent_color }};"
 >
   <div class="cs-container">
     {%- if section.settings.title != blank -%}
@@ -130,8 +130,8 @@
     { "type": "color", "id": "card_background", "label": "Card background", "default": "#F6F6F6" },
     { "type": "color", "id": "badge_color", "label": "Sale badge color", "default": "#DA1E28" },
     { "type": "color", "id": "accent_color", "label": "Buttons and progress bar color", "default": "#8825E4" },
-    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 48 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 44 }
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 80 }
   ],
   "presets": [{ "name": "Best sellers" }]
 }

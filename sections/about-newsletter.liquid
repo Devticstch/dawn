@@ -15,7 +15,7 @@
 
 <div
   class="about-newsletter cs-section"
-  style="--cs-bg: {{ section.settings.background }}; --about-newsletter-accent: {{ section.settings.panel_color }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px;"
+  style="--cs-bg: {{ section.settings.background }}; --about-newsletter-accent: {{ section.settings.panel_color }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px;"
 >
   <div class="about-newsletter__container">
     <div class="about-newsletter__card{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
@@ -144,7 +144,7 @@
     { "type": "color", "id": "panel_color", "label": "Panel color", "default": "#1E1E1E" },
     { "type": "color", "id": "background", "label": "Section background", "default": "#F6F6F6" },
     { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 80 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 40 }
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 80 }
   ],
   "presets": [{ "name": "About newsletter" }]
 }

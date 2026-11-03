@@ -1,18 +1,6 @@
 {{ 'section-main-page.css' | asset_url | stylesheet_tag }}
 
-{%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
-
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-{%- endstyle -%}
+{%- render 'section-padding', id: section.id, top: section.settings.padding_top, bottom: section.settings.padding_bottom -%}
 
 {%- comment -%}
   On the About page this section is the About story intro: the store logo over the page content, in the grey band
@@ -23,7 +11,7 @@
 {%- if page.handle == 'about' or page.handle == 'about-us' -%}
   <div
     class="about-story cs-section"
-    style="--cs-bg: #f6f6f6; --cs-pad-top: 80px; --cs-pad-bottom: 0px; --cs-pad-top-mobile: 60px; --cs-pad-bottom-mobile: 0px;"
+    style="--cs-bg: #f6f6f6; --cs-pad-top: 80px; --cs-pad-bottom: 0px;"
   >
     <div class="about-story__container">
       <div class="about-story__intro{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
@@ -79,7 +67,7 @@
       "step": 4,
       "unit": "px",
       "label": "t:sections.all.padding.padding_top",
-      "default": 36
+      "default": 80
     },
     {
       "type": "range",
@@ -89,7 +77,7 @@
       "step": 4,
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
-      "default": 36
+      "default": 80
     }
   ]
 }

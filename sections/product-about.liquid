@@ -47,7 +47,7 @@
 {%- if product and section.settings.heading != blank or text != blank or rows != blank -%}
   <div
     class="pa{% unless template.name == 'product' %} cs-section{% endunless %}"
-    style="--cs-bg: {{ section.settings.background }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px;"
+    style="--cs-bg: {{ section.settings.background }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px;"
   >
     <div class="pa__container">
       <div class="pa__intro">
@@ -105,7 +105,7 @@
     },
     { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "instrument_sans_n6" },
     { "type": "color", "id": "background", "label": "Background", "default": "#F6F6F6" },
-    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 80 },
     { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 80 }
   ],
   "blocks": [

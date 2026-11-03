@@ -450,14 +450,21 @@
 }
 
 /* ---------- Collections list (/collections) ---------- */
-/* The same grid under the banner, without a toolbar: the collection grid's 56px above and below (0.75 on phones) */
+/* The same grid under the banner, without a toolbar: the section spacing above and below (40 / 60 / 80px,
+   DESIGN-SYSTEM.md 2.3) */
 .collections-list {
-  padding: 4.2rem 0;
+  padding: 4rem 0;
 }
 
 @media screen and (min-width: 750px) {
   .collections-list {
-    padding: 5.6rem 0;
+    padding: 6rem 0;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .collections-list {
+    padding: 8rem 0;
   }
 }
 

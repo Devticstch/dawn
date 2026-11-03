@@ -1,0 +1,28 @@
+{%- comment -%}
+  Section spacing from a section's Top/Bottom padding sliders: the full value from 990px, 75% on tablets and 50% on
+  phones, so the 80px default gives 80 / 60 / 40px. Same scale as .cs-section (custom-sections.css).
+  Accepts:
+  - id: {String} the section id, for its .section-<id>-padding element
+  - top: {Number} the Top padding setting in px
+  - bottom: {Number} the Bottom padding setting in px
+{%- endcomment -%}
+{%- style -%}
+  .section-{{ id }}-padding {
+    padding-top: {{ top | times: 0.5 | round }}px;
+    padding-bottom: {{ bottom | times: 0.5 | round }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ id }}-padding {
+      padding-top: {{ top | times: 0.75 | round }}px;
+      padding-bottom: {{ bottom | times: 0.75 | round }}px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .section-{{ id }}-padding {
+      padding-top: {{ top }}px;
+      padding-bottom: {{ bottom }}px;
+    }
+  }
+{%- endstyle -%}

@@ -298,8 +298,8 @@
         "heading_font": "instrument_sans_n6",
         "background": "#ffffff",
         "text_color": "#000000",
-        "padding_top": 72,
-        "padding_bottom": 64
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "featured_best": {
@@ -313,7 +313,7 @@
         "card_background": "#f6f6f6",
         "badge_color": "#da1e28",
         "accent_color": "#8825e4",
-        "padding_top": 56,
+        "padding_top": 0,
         "padding_bottom": 40
       }
     },
@@ -364,7 +364,7 @@
         "panel_background": "#f6f6f6",
         "accent_color": "#8825e4",
         "padding_top": 0,
-        "padding_bottom": 100
+        "padding_bottom": 80
       }
     },
     "image_banner_cases": {
@@ -396,8 +396,8 @@
         "card_background": "#f6f6f6",
         "badge_color": "#da1e28",
         "accent_color": "#8825e4",
-        "padding_top": 50,
-        "padding_bottom": 50
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "featured_tabs": {
@@ -420,8 +420,8 @@
         "title_font": "instrument_sans_n6",
         "box_background": "#f6f6f6",
         "accent_color": "#8825e4",
-        "padding_top": 76,
-        "padding_bottom": 12
+        "padding_top": 0,
+        "padding_bottom": 80
       }
     },
     "info_cards": {
@@ -464,10 +464,10 @@
       "settings": {
         "heading_font": "instrument_sans_n6",
         "accent_color": "#8825e4",
-        "padding_top": 92,
-        "padding_bottom": 63,
-        "padding_top_mobile": 62,
-        "padding_bottom_mobile": 43
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40
       }
     },
     "reviews_scatter": {
@@ -556,7 +556,7 @@
         "heading_font": "instrument_sans_n6",
         "accent_color": "#8825e4",
         "padding_top": 0,
-        "padding_bottom": 50
+        "padding_bottom": 80
       }
     },
     "reviews_highlight": {
@@ -608,8 +608,8 @@
         "background": "#f2f2f2",
         "text_color": "#000000",
         "star_color": "#f6c131",
-        "padding_top": 56,
-        "padding_bottom": 56
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "logo_list": {
@@ -657,8 +657,8 @@
         "grayscale": false,
         "background": "#ffffff",
         "text_color": "#000000",
-        "padding_top": 32,
-        "padding_bottom": 32
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     }
   },

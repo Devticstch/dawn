@@ -228,6 +228,13 @@ multi-column 83 / 88; cart page heading 120 / 24; breadcrumb 100 / 0.
 
 Recurring small gaps (flex/grid `gap`) [M]: 4, 5, 7, 10, 12, 18, 28px (desktop) and 14px (mobile grid).
 
+**This store (owner decision, 2026-11-03):** one section spacing instead of the reference's per-section values.
+Each section's Top/Bottom padding slider (default 80px) applies in full from 990px, at 75% on tablets
+(750–989px) and 50% on phones, so 80px gives 80 / 60 / 40px (`.cs-section` in `custom-sections.css`,
+`snippets/section-padding.liquid` for Dawn sections). Where two sections share a background, the second
+has 0 top padding, so every gap is one 80 / 60 / 40px space; full-bleed banners and sections that
+continue the previous one keep 0.
+
 ### 2.4 Breakpoints [M]
 
 From the theme stylesheets (number of rules) and confirmed by resizing:
@@ -429,6 +436,7 @@ Two columns, 28px gap.
 | Page | Desktop (1440) | Mobile (390) |
 | --- | --- | --- |
 | Home | 15 sections, 15,228px tall; hero = full viewport height (900 at 1440×900, 1080 at 1920×1080, 844 at 390×844) | 13,745px |
+| Home hero, this store (owner decision, 2026-11-03) | ≥ 992px as the reference | ≤ 991px: hero max 680px (760px at 768–991px); description, button and heading together at the bottom (32 / 40px apart); heading 11vw, 36–56px (8vw, 56–72px on tablets); description 16px (18px on tablets) |
 | Product | main block 1625px: title Instrument Sans 75 / 97.5 −3.75px; price Inter 20 weight 500; gallery images 377 × 377 (contain) in a row; add-to-cart 304 × 58; then specification, multi-column, gallery strip (1191 × 720 images) and recommendations (293px cards) | title 36 / 46.8; images 261 × 261; add-to-cart 346 × 50 |
 | Collection list (`/collections`) | 560px banner, then cards 601 × 401 | 420px banner; cards 346 × 461 |
 | Collection grid | page heading 75 / 90; 4 columns of 287px cards; category strip of 48px icons | heading 36 / 43.2; 2 columns of 166px cards |

@@ -17,29 +17,30 @@
 .cs-section {
   background: var(--cs-bg, transparent);
   color: var(--cs-text, rgb(var(--color-foreground)));
-  padding-block: var(--cs-pad-top-mobile, 2.4rem) var(--cs-pad-bottom-mobile, 2.4rem);
+}
+
+/* Section spacing from each section's Top/Bottom padding sliders: the full value from 990px, 75% on tablets and 50%
+   on phones, so the 80px default gives 80 / 60 / 40px. Same scale as the Dawn sections (snippets/section-padding).
+   A section with its own phone sliders sets --cs-pad-top-mobile / --cs-pad-bottom-mobile. On the product page "You
+   may also like" and the reviews leave out .cs-section but take the same spacing */
+.cs-section,
+main[data-template='product'] :is(.ymal > div, .rs) {
+  padding-block:
+    var(--cs-pad-top-mobile, calc(var(--cs-pad-top, 8rem) * 0.5))
+    var(--cs-pad-bottom-mobile, calc(var(--cs-pad-bottom, 8rem) * 0.5));
 }
 
 @media screen and (min-width: 750px) {
-  .cs-section {
-    padding-block: var(--cs-pad-top, 3.6rem) var(--cs-pad-bottom, 3.6rem);
+  .cs-section,
+  main[data-template='product'] :is(.ymal > div, .rs) {
+    padding-block: calc(var(--cs-pad-top, 8rem) * 0.75) calc(var(--cs-pad-bottom, 8rem) * 0.75);
   }
 }
 
-/* Homepage on small screens: one vertical spacing for every section (40px top and bottom), so the gaps between
-   sections are equal; the padding settings apply from 750px. The feature showcase continues Best Sellers (no top
-   padding) and the full-bleed image banner has none */
-@media screen and (max-width: 749px) {
-  main[data-template='index'] .cs-section {
-    padding-block: 4rem;
-  }
-
-  main[data-template='index'] .feature-showcase.cs-section {
-    padding-top: 0;
-  }
-
-  main[data-template='index'] .image-button.cs-section {
-    padding-block: 0;
+@media screen and (min-width: 990px) {
+  .cs-section,
+  main[data-template='product'] :is(.ymal > div, .rs) {
+    padding-block: var(--cs-pad-top, 8rem) var(--cs-pad-bottom, 8rem);
   }
 }
 
@@ -1500,13 +1501,13 @@ a.category-panel__category-link:hover {
     grid-template-rows: auto calc(var(--fpt-count, 1) * 50vh);
   }
 
-  /* Top padding clears the sticky header (it slides back in on scroll up) with 32px to spare, never less
-     than the section's own top padding */
+  /* While stuck, the content clears the sticky header (it slides back in on scroll up) with 32px to spare; the
+     offset sits in the sticky top, so before sticking the section keeps only its own top padding */
   .fpt__scene .fpt__inner {
     width: 100%;
     position: sticky;
-    top: 0;
-    padding-top: max(var(--cs-pad-top, 0px), calc(var(--header-height, 7.4rem) + 3.2rem));
+    top: calc(var(--header-height, 7.4rem) + 3.2rem - var(--cs-pad-top, 0px));
+    padding-top: var(--cs-pad-top, 0px);
   }
 
   .fpt__panels {
@@ -4248,8 +4249,9 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
 
 /* ---------- Collection categories ---------- */
 /* Reference "Shop by Category": heading, short intro and small grey tiles; two columns on small screens */
+/* Section spacing (40 / 60 / 80px) above; half of it below, since the product grid continues the section */
 .ccat {
-  padding: 3.2rem 0;
+  padding: 4rem 0 2rem;
 }
 
 .ccat__container {
@@ -4331,7 +4333,7 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
 
 @media screen and (min-width: 750px) {
   .ccat {
-    padding: 3.7rem 0 4.9rem;
+    padding: 6rem 0 3rem;
   }
 
   .ccat__head {
@@ -4359,6 +4361,12 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
 
   .ccat__item {
     min-height: 8.4rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .ccat {
+    padding: 8rem 0 4rem;
   }
 }
 
@@ -4506,18 +4514,6 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
 
 .ymal__item {
   min-width: 0;
-}
-
-/* Product page: "You may also like" and the reviews leave out .cs-section there, but still take the section spacing:
-   one 40px spacing on small screens like the homepage, their padding settings from 750px */
-main[data-template='product'] :is(.ymal > div, .rs) {
-  padding-block: 4rem;
-}
-
-@media screen and (min-width: 750px) {
-  main[data-template='product'] :is(.ymal > div, .rs) {
-    padding-block: var(--cs-pad-top, 3.6rem) var(--cs-pad-bottom, 3.6rem);
-  }
 }
 
 @media screen and (min-width: 750px) {

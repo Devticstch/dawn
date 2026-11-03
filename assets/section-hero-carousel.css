@@ -231,6 +231,61 @@
   }
 }
 
+/* Phones and tablets (up to 991px): a shorter hero with the description, button and heading together at the bottom,
+   so no empty band splits them, and type sized to the screen; desktop keeps the reference layout above */
+@media screen and (max-width: 991px) {
+  .hero-carousel {
+    height: min(calc(100vh - 5rem), 68rem);
+    height: min(calc(100svh - 5rem), 68rem);
+    min-height: 48rem;
+  }
+
+  /* The right padding keeps text clear of the slide dots */
+  .hero-carousel__content {
+    justify-content: flex-end;
+    gap: 3.2rem;
+    padding: 0 4.6rem 4.8rem 2.3rem;
+  }
+
+  .hero-carousel__box {
+    gap: 2rem;
+  }
+
+  .hero-carousel__heading {
+    font-size: clamp(3.6rem, 11vw, 5.6rem);
+    line-height: 1.04;
+    letter-spacing: -0.04em;
+  }
+
+  .hero-carousel__text {
+    width: 100%;
+    max-width: 34rem;
+    font-size: 1.6rem;
+    line-height: 1.5;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .hero-carousel {
+    height: min(calc(100vh - 5rem), 76rem);
+    height: min(calc(100svh - 5rem), 76rem);
+  }
+
+  .hero-carousel__content {
+    gap: 4rem;
+    padding-bottom: 5.6rem;
+  }
+
+  .hero-carousel__heading {
+    font-size: clamp(5.6rem, 8vw, 7.2rem);
+  }
+
+  .hero-carousel__text {
+    max-width: 46rem;
+    font-size: 1.8rem;
+  }
+}
+
 /* Per-slide theme editor setting: description and button each on the left (default) or right */
 .hero-carousel__text--right {
   align-self: flex-end;

@@ -114,8 +114,8 @@
         "image_zoom": "none",
         "hide_variants": true,
         "enable_video_looping": false,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "you_may_also_like": {
@@ -128,8 +128,8 @@
         "card_background": "#f6f6f6",
         "badge_color": "#da1e28",
         "accent_color": "#8825e4",
-        "padding_top": 48,
-        "padding_bottom": 44
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "reviews": {
@@ -217,8 +217,8 @@
         "heading": "Loved by Our Customers",
         "heading_font": "instrument_sans_n6",
         "accent_color": "#8825e4",
-        "padding_top": 50,
-        "padding_bottom": 50
+        "padding_top": 0,
+        "padding_bottom": 80
       }
     },
     "disclosures": {
@@ -228,8 +228,8 @@
         "heading_size": "h2",
         "open_by_default": false,
         "color_scheme": "",
-        "padding_top": 36,
-        "padding_bottom": 0
+        "padding_top": 0,
+        "padding_bottom": 80
       }
     }
   },

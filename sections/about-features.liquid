@@ -14,7 +14,7 @@
 
 <div
   class="about-features cs-section"
-  style="--cs-bg: {{ section.settings.background }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px; --cs-pad-top-mobile: {{ section.settings.padding_top | times: 0.75 | round }}px; --cs-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round }}px;"
+  style="--cs-bg: {{ section.settings.background }}; --cs-pad-top: {{ section.settings.padding_top }}px; --cs-pad-bottom: {{ section.settings.padding_bottom }}px;"
 >
   <ul class="about-features__grid" role="list">
     {%- for block in section.blocks -%}
@@ -55,7 +55,7 @@
     },
     { "type": "font_picker", "id": "heading_font", "label": "Title font", "default": "instrument_sans_n6" },
     { "type": "color", "id": "background", "label": "Background", "default": "#F6F6F6" },
-    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 80 },
     { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 80 }
   ],
   "blocks": [
