@@ -29,11 +29,19 @@
             "menu": "footer",
             "links": "iPhone\nSamsung\nNew Arrivals | /collections/all?sort_by=created-descending\nBest Sellers | /collections/all?sort_by=best-selling"
           }
+        },
+        "contact": {
+          "type": "contact",
+          "settings": {
+            "heading": "Contact",
+            "details": "Email | tech2cofficial@gmail.com | mailto:tech2cofficial@gmail.com\nWhatsApp | 0326-4931730 | https://wa.me/923264931730\nEmail | store@devticstech.com | mailto:store@devticstech.com"
+          }
         }
       },
       "block_order": [
         "menu_1",
-        "menu_2"
+        "menu_2",
+        "contact"
       ],
       "settings": {
         "brand_text": "<p><strong>Tech2c</strong><br/>Protect your phone in style. Tech2c brings together phone cases and accessories for iPhone and Samsung that balance everyday protection with clean, modern design, so your phone stays safe and still looks like yours.</p>",

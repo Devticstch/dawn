@@ -1,7 +1,13 @@
 {
   "sections": {
     "main": {
-      "type": "main-404"
+      "type": "main-404",
+      "settings": {
+        "image": "shopify://shop_images/Website_Background_Image_2.webp",
+        "theme_image": "banner-ribbed-cases.jpg",
+        "text": "",
+        "heading_font": "instrument_sans_n6"
+      }
     }
   },
   "order": [

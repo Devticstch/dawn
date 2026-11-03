@@ -71,28 +71,10 @@
             "theme_image": "menu-iphone.png"
           }
         },
-        "card_new_2": {
-          "type": "menu_card",
-          "settings": {
-            "title": "Samsung",
-            "link": "",
-            "theme_image": "menu-samsung.png"
-          }
-        },
         "col_new_iphone": {
           "type": "menu_column",
           "settings": {
             "heading": "iPhone",
-            "link": "",
-            "links": "",
-            "product_limit": 4,
-            "show_view_all": true
-          }
-        },
-        "col_new_samsung": {
-          "type": "menu_column",
-          "settings": {
-            "heading": "Samsung",
             "link": "",
             "links": "",
             "product_limit": 4,
@@ -104,7 +86,7 @@
           "settings": {
             "heading": "Feature",
             "link": "",
-            "links": "iPhone\nSamsung",
+            "links": "iPhone",
             "product_limit": 9,
             "show_view_all": false
           }
@@ -138,6 +120,17 @@
             "title": "Samsung",
             "link": "",
             "theme_image": "menu-samsung.png"
+          }
+        },
+        "col_best_sale": {
+          "type": "menu_column",
+          "settings": {
+            "heading": "50% OFF",
+            "link": "",
+            "links": "",
+            "product_limit": 9,
+            "sale_percent": 50,
+            "show_view_all": false
           }
         },
         "nav_devices": {
@@ -209,13 +202,12 @@
       "block_order": [
         "nav_new",
         "card_new_1",
-        "card_new_2",
         "col_new_iphone",
-        "col_new_samsung",
         "col_new_feature",
         "nav_best",
         "card_best_1",
         "card_best_2",
+        "col_best_sale",
         "nav_devices",
         "col_dev_iphone",
         "col_dev_samsung",

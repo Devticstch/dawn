@@ -3326,6 +3326,32 @@ main[data-template='index'] .perks__grid {
   background-size: 100% 0.1rem;
 }
 
+/* Contact column: a small muted label above each detail; full width on phones, and a long email address wraps
+   rather than overflowing a narrow column */
+.cs-footer__col--contact {
+  grid-column: 1 / -1;
+}
+
+.cs-footer__contact {
+  gap: 1.4rem;
+}
+
+.cs-footer__contact li {
+  display: grid;
+  justify-items: start;
+  gap: 0.2rem;
+}
+
+.cs-footer__contact-label {
+  font-size: 1.3rem;
+  font-weight: 400;
+  opacity: 0.65;
+}
+
+.cs-footer__contact a {
+  overflow-wrap: anywhere;
+}
+
 .cs-footer__social {
   margin-top: 2.4rem;
 }
@@ -3558,6 +3584,10 @@ main[data-template='index'] .perks__grid {
     gap: 2.8rem;
   }
 
+  .cs-footer__col--contact {
+    grid-column: auto;
+  }
+
   .cs-footer__bottom,
   .cs-footer__bottom-left,
   .cs-footer__bottom-right {
@@ -3613,6 +3643,13 @@ main[data-template='index'] .perks__grid {
     grid-column: 7 / -1;
     grid-template-columns: repeat(var(--footer-cols, 4), minmax(0, 1fr));
     margin-top: 0;
+  }
+
+  /* With contact details, columns take their content's width, spread across the half, so the email addresses
+     fit on one line */
+  .cs-footer__nav:has(.cs-footer__col--contact) {
+    grid-template-columns: repeat(var(--footer-cols, 4), auto);
+    justify-content: space-between;
   }
 
   .cs-footer__links {
@@ -4514,6 +4551,24 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
 
 .ymal__item {
   min-width: 0;
+}
+
+/* Narrow phones (below 450px): one product per row in every product grid that shows two (collection and search
+   grids, You may also like, the bundle and the Best Sellers slider); wider screens keep their columns */
+@media screen and (max-width: 449px) {
+  .ymal__grid,
+  .pb__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .best-sellers__track {
+    grid-auto-columns: 100%;
+  }
+
+  .product-grid.grid--2-col-tablet-down > .grid__item {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 @media screen and (min-width: 750px) {
@@ -6477,5 +6532,26 @@ main[data-template='index'] #collection-featured_best .product-grid .badge {
   .contact-thanks__title {
     font-size: 7.5rem;
     letter-spacing: -0.375rem;
+  }
+}
+
+/* Same message on pages that keep the header (snippets/message-screen, e.g. coming soon): no logo row, and the top
+   padding clears the transparent header over it */
+.contact-thanks.contact-thanks--no-logo {
+  grid-template-rows: 1fr;
+  padding-top: calc(var(--transparent-header-height, 7.4rem) + 3.2rem);
+}
+
+/* A short text in the mark instead of an icon, e.g. 404 */
+.contact-thanks__mark-text {
+  font-family: var(--font-nav-family, inherit);
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+@media screen and (min-width: 768px) {
+  .contact-thanks__mark-text {
+    font-size: 1.8rem;
   }
 }

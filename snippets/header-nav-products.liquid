@@ -2,7 +2,8 @@
   Product links for a header "Link column" block whose Links box is empty: one "Title | URL" line
   per product, newest first, in the same format as typed links. Products come from the collection
   the heading links to or is named like; without one, from all products whose title, type or tags
-  mention the heading.
+  mention the heading. With a sale percentage set, only products at exactly that percentage off (rounded
+  like the product card badge, snippets/bs-card), from that collection or else all products.
   Accepts:
   - column: {Object} the menu_column block
 {%- endcomment -%}
@@ -16,11 +17,15 @@
     assign handle = path | split: '/collections/' | last | split: '/' | first
   endif
 
+  assign sale_percent = column.settings.sale_percent | default: 0
+
   assign source = collections[handle]
   assign term = ''
   if source.id == blank
     assign source = collections.all
-    assign term = column.settings.heading | downcase | strip
+    if sale_percent == 0
+      assign term = column.settings.heading | downcase | strip
+    endif
   endif
 
   # ponytail: outside paginate Liquid sees the first 50 products of a collection; give the column a collection if the store grows past that
@@ -29,6 +34,15 @@
   for product in products
     if count >= limit
       break
+    endif
+    if sale_percent > 0
+      assign percent_off = 0
+      if product.compare_at_price > product.price
+        assign percent_off = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round
+      endif
+      if percent_off != sale_percent
+        continue
+      endif
     endif
     if term != blank
       assign tags = product.tags | join: ' '

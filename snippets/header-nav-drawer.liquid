@@ -49,6 +49,7 @@
                   {%- assign links = child.settings.links -%}
                   {%- if links == blank -%}
                     {%- capture links -%}{%- render 'header-nav-products', column: child -%}{%- endcapture -%}
+                    {%- if links == blank and child.settings.sale_percent > 0 -%}{%- continue -%}{%- endif -%}
                   {%- endif -%}
                   {%- assign lines = links | newline_to_br | split: '<br />' -%}
                   <li {{ child.shopify_attributes }}>

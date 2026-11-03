@@ -1,0 +1,42 @@
+{%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .contact-thanks__title {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+    font-weight: {{ section.settings.heading_font.weight }};
+  }
+{%- endstyle -%}
+
+{%- comment -%}
+  Coming soon, in the thank-you page's design, shown by the layout (theme.liquid) instead of a collection's sections
+  for collections that are not open yet. The header stays over it, so there is no logo
+{%- endcomment -%}
+{%- assign button_url = section.settings.button_link | default: collections.iphone.url | default: routes.all_products_collection_url -%}
+{%- render 'message-screen',
+  image: section.settings.image,
+  theme_image: section.settings.theme_image,
+  show_logo: false,
+  mark: 'clock',
+  heading: section.settings.heading,
+  text: section.settings.text,
+  button_label: section.settings.button_label,
+  button_url: button_url
+-%}
+
+{% schema %}
+{
+  "name": "Collection coming soon",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Shown instead of the Samsung collection's products until the theme stops showing it." },
+    { "type": "image_picker", "id": "image", "label": "Background image", "info": "Shown full screen under a dark overlay" },
+    { "type": "text", "id": "theme_image", "label": "Theme image", "info": "File name from the theme assets, used when no image is selected", "default": "banner-ribbed-cases.jpg" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Coming Soon" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Samsung cases are on their way. In the meantime, explore our iPhone collection.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop iPhone Cases" },
+    { "type": "url", "id": "button_link", "label": "Button link", "info": "Leave blank for the iPhone collection" },
+    { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "instrument_sans_n6" }
+  ]
+}
+{% endschema %}

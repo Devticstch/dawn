@@ -557,6 +557,13 @@
   }
 }
 
+/* Below 450px every product grid shows one product per row (custom-sections.css), so the toggle has nothing to change */
+@media screen and (max-width: 449px) {
+  .grid-view-toggle {
+    display: none;
+  }
+}
+
 @media screen and (min-width: 990px) {
   .collection-bold[data-grid-view='large'] .product-grid > .grid__item:not(.collection-promo) {
     width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);

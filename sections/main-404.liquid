@@ -1,23 +1,39 @@
-<style type="text/css">
-  .template-404 .title + * {
-    margin-top: 1rem;
-  }
+{%- style -%}
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
 
-  @media screen and (min-width: 750px) {
-    .template-404 .title + * {
-      margin-top: 2rem;
-    }
+  #shopify-section-{{ section.id }} .contact-thanks__title {
+    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+    font-weight: {{ section.settings.heading_font.weight }};
   }
-</style>
+{%- endstyle -%}
 
-<div class="template-404 page-width page-margin center">
-  <p>
-    {{ 'templates.404.subtext' | t }}
-  </p>
-  <h1 class="title">
-    {{ 'templates.404.title' | t }}
-  </h1>
-  <a href="{{ routes.all_products_collection_url }}" class="button">
-    {{ 'general.continue_shopping' | t }}
-  </a>
-</div>
+{%- comment -%}
+  404 page in the thank-you page's design (the layout leaves out the header and footer): the store logo, a 404 mark,
+  the page-not-found title and a button to all products
+{%- endcomment -%}
+{%- assign heading = 'templates.404.title' | t -%}
+{%- assign mark = 'templates.404.subtext' | t -%}
+{%- assign button_label = 'general.continue_shopping' | t -%}
+{%- render 'message-screen',
+  image: section.settings.image,
+  theme_image: section.settings.theme_image,
+  show_logo: true,
+  mark: mark,
+  heading: heading,
+  text: section.settings.text,
+  button_label: button_label,
+  button_url: routes.all_products_collection_url
+-%}
+
+{% schema %}
+{
+  "name": "404 page",
+  "class": "section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Background image", "info": "Shown full screen under a dark overlay" },
+    { "type": "text", "id": "theme_image", "label": "Theme image", "info": "File name from the theme assets, used when no image is selected" },
+    { "type": "richtext", "id": "text", "label": "Text", "info": "Optional, below the title" },
+    { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "instrument_sans_n6" }
+  ]
+}
+{% endschema %}

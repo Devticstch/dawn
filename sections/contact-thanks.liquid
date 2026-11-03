@@ -8,11 +8,11 @@
 {%- endstyle -%}
 
 {%- liquid
-  assign image = section.settings.image
   assign button_label = section.settings.button_label
   if button_label == blank
     assign button_label = 'general.continue_shopping' | t
   endif
+  assign button_url = section.settings.button_link | default: routes.root_url
 -%}
 
 {%- comment -%}
@@ -20,59 +20,16 @@
   layout leaves out the header and footer): a full-screen image under a dark overlay, the store logo, a confirmation
   mark, the message and a button back to the homepage
 {%- endcomment -%}
-<div class="contact-thanks">
-  <div class="contact-thanks__media">
-    {%- if image != blank -%}
-      {%- assign image_sizes = image.aspect_ratio | times: 100 | round: 2 | prepend: 'max(100vw, ' | append: 'vh)' -%}
-      {{
-        image
-        | image_url: width: 2400
-        | image_tag:
-          class: 'contact-thanks__image',
-          widths: '750, 1100, 1500, 1920, 2400',
-          sizes: image_sizes,
-          fetchpriority: 'high',
-          alt: ''
-      }}
-    {%- elsif section.settings.theme_image != blank -%}
-      <img
-        class="contact-thanks__image"
-        src="{{ section.settings.theme_image | asset_url }}"
-        alt=""
-        width="1920"
-        height="1080"
-        fetchpriority="high"
-      >
-    {%- endif -%}
-  </div>
-
-  <a href="{{ routes.root_url }}" class="contact-thanks__logo">
-    {%- if settings.logo != blank -%}
-      {{
-        settings.logo
-        | image_url: width: 600
-        | image_tag: widths: '200, 300, 400, 600', sizes: '(min-width: 992px) 14rem, 9rem', alt: shop.name
-      }}
-    {%- else -%}
-      {{ shop.name | escape }}
-    {%- endif -%}
-  </a>
-
-  <div class="contact-thanks__content{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-    <span class="contact-thanks__mark" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
-    </span>
-    {%- if section.settings.heading != blank -%}
-      <h1 class="contact-thanks__title">{{ section.settings.heading | escape }}</h1>
-    {%- endif -%}
-    {%- if section.settings.text != blank -%}
-      <div class="contact-thanks__text rte">{{ section.settings.text }}</div>
-    {%- endif -%}
-    <a href="{{ section.settings.button_link | default: routes.root_url }}" class="button contact-thanks__button">
-      {{- button_label | escape -}}
-    </a>
-  </div>
-</div>
+{%- render 'message-screen',
+  image: section.settings.image,
+  theme_image: section.settings.theme_image,
+  show_logo: true,
+  mark: 'check',
+  heading: section.settings.heading,
+  text: section.settings.text,
+  button_label: button_label,
+  button_url: button_url
+-%}
 
 {% schema %}
 {

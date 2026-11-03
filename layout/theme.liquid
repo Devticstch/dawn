@@ -343,11 +343,20 @@
       {%- render 'cart-drawer' -%}
     {%- endif -%}
 
-    {%- comment -%} The contact form's thank-you page (page.thanks) is a full-screen page without header or footer {%- endcomment -%}
+    {%- comment -%}
+      The contact form's thank-you page (page.thanks) and the 404 page are full-screen pages without header or footer.
+      The Samsung collection shows Coming soon instead of its sections until it opens (remove it from this check then)
+    {%- endcomment -%}
     {%- liquid
       assign full_screen_page = false
       if request.page_type == 'page' and template.suffix == 'thanks'
         assign full_screen_page = true
+      elsif request.page_type == '404'
+        assign full_screen_page = true
+      endif
+      assign coming_soon = false
+      if request.page_type == 'collection' and collection.handle == 'samsung'
+        assign coming_soon = true
       endif
     -%}
     {%- unless full_screen_page -%}
@@ -361,7 +370,11 @@
       tabindex="-1"
       data-template="{{ template.name }}"
     >
-      {{ content_for_layout }}
+      {%- if coming_soon -%}
+        {% section 'collection-coming-soon' %}
+      {%- else -%}
+        {{ content_for_layout }}
+      {%- endif -%}
     </main>
 
     {%- unless full_screen_page -%}

@@ -49,6 +49,32 @@
       {%- if section.blocks.size > 0 -%}
         <div class="cs-footer__nav">
           {%- for block in section.blocks -%}
+            {%- if block.type == 'contact' -%}
+              {%- comment -%} Contact details: "Label | Text | Link" per line, the label small above the linked text {%- endcomment -%}
+              <div class="cs-footer__col cs-footer__col--contact" {{ block.shopify_attributes }}>
+                {%- if block.settings.heading != blank -%}
+                  <h2 class="cs-footer__heading">{{ block.settings.heading | escape }}</h2>
+                {%- endif -%}
+                {%- assign lines = block.settings.details | newline_to_br | split: '<br />' -%}
+                <ul class="cs-footer__links cs-footer__contact" role="list">
+                  {%- for line in lines -%}
+                    {%- assign parts = line | split: '|' -%}
+                    {%- assign contact_text = parts[1] | strip -%}
+                    {%- if contact_text == blank -%}{%- continue -%}{%- endif -%}
+                    {%- assign contact_url = parts[2] | strip -%}
+                    <li>
+                      <span class="cs-footer__contact-label">{{ parts.first | strip | escape }}</span>
+                      {%- if contact_url != blank -%}
+                        <a href="{{ contact_url | escape }}" class="cs-footer__link">{{ contact_text | escape }}</a>
+                      {%- else -%}
+                        <span>{{ contact_text | escape }}</span>
+                      {%- endif -%}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+              {%- continue -%}
+            {%- endif -%}
             {%- assign menu = block.settings.menu -%}
             <nav
               class="cs-footer__col"
@@ -382,6 +408,25 @@
           "id": "links",
           "label": "Links",
           "info": "Used instead of the menu when filled. One per line, with a link after |, e.g. Shop | /collections/all. Without one: the collection named like the title, otherwise a product search. Links to missing pages are hidden."
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact column",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Contact"
+        },
+        {
+          "type": "textarea",
+          "id": "details",
+          "label": "Details",
+          "info": "One per line: label | text | link. Link an email address with mailto: before it, and WhatsApp with https://wa.me/ followed by the number in international format. Without a link the text is not clickable."
         }
       ]
     }

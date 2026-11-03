@@ -1,0 +1,76 @@
+{%- comment -%}
+  Full-screen message (styles: .contact-thanks in custom-sections.css): a background image under a dark overlay, the
+  store logo (pages without header), a round mark, the heading, the text and a button. Used by the contact thank-you
+  page, the 404 page and the collection coming-soon page.
+  Accepts:
+  - image: {Object} background image (optional)
+  - theme_image: {String} theme asset file name, used when there is no image (optional)
+  - show_logo: {Boolean} the store logo above the message, for pages without the header
+  - mark: {String} 'check', 'clock' or a short text such as 404
+  - heading: {String}
+  - text: {String} rich text HTML (optional)
+  - button_label: {String}
+  - button_url: {String}
+{%- endcomment -%}
+<div class="contact-thanks{% unless show_logo %} contact-thanks--no-logo{% endunless %}">
+  <div class="contact-thanks__media">
+    {%- if image != blank -%}
+      {%- assign image_sizes = image.aspect_ratio | times: 100 | round: 2 | prepend: 'max(100vw, ' | append: 'vh)' -%}
+      {{
+        image
+        | image_url: width: 2400
+        | image_tag:
+          class: 'contact-thanks__image',
+          widths: '750, 1100, 1500, 1920, 2400',
+          sizes: image_sizes,
+          fetchpriority: 'high',
+          alt: ''
+      }}
+    {%- elsif theme_image != blank -%}
+      <img
+        class="contact-thanks__image"
+        src="{{ theme_image | asset_url }}"
+        alt=""
+        width="1920"
+        height="1080"
+        fetchpriority="high"
+      >
+    {%- endif -%}
+  </div>
+
+  {%- if show_logo -%}
+    <a href="{{ routes.root_url }}" class="contact-thanks__logo">
+      {%- if settings.logo != blank -%}
+        {{
+          settings.logo
+          | image_url: width: 600
+          | image_tag: widths: '200, 300, 400, 600', sizes: '(min-width: 992px) 14rem, 9rem', alt: shop.name
+        }}
+      {%- else -%}
+        {{ shop.name | escape }}
+      {%- endif -%}
+    </a>
+  {%- endif -%}
+
+  <div class="contact-thanks__content{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <span class="contact-thanks__mark" aria-hidden="true">
+      {%- case mark -%}
+        {%- when 'check' -%}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+        {%- when 'clock' -%}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
+        {%- else -%}
+          <span class="contact-thanks__mark-text">{{ mark | escape }}</span>
+      {%- endcase -%}
+    </span>
+    {%- if heading != blank -%}
+      <h1 class="contact-thanks__title">{{ heading | escape }}</h1>
+    {%- endif -%}
+    {%- if text != blank -%}
+      <div class="contact-thanks__text rte">{{ text }}</div>
+    {%- endif -%}
+    <a href="{{ button_url }}" class="button contact-thanks__button">
+      {{- button_label | escape -}}
+    </a>
+  </div>
+</div>
