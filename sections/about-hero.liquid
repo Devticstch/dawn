@@ -50,6 +50,7 @@
         {%- endif -%}
       </div>
       <div class="about-hero__content">
+        {%- render 'breadcrumbs', current: page.title, class: 'breadcrumbs--light breadcrumbs--center' -%}
         {%- if section.settings.eyebrow != blank -%}
           <p class="about-hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>
         {%- endif -%}

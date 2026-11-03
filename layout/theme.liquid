@@ -383,6 +383,10 @@
       {%- if coming_soon -%}
         {% section 'collection-coming-soon' %}
       {%- else -%}
+        {%- comment -%} Policy pages come from Shopify without theme sections, so their breadcrumbs are added here {%- endcomment -%}
+        {%- if request.page_type == 'policy' -%}
+          <div class="policy-breadcrumbs">{% render 'breadcrumbs', current: page_title %}</div>
+        {%- endif -%}
         {{ content_for_layout }}
       {%- endif -%}
     </main>

@@ -3776,6 +3776,24 @@ main[data-template='index'] .perks__grid {
   color: rgba(30, 30, 30, 0.65);
 }
 
+/* Over image banners: white text on a frosted dark pill (#1E1E1E at 70%), so the trail stays readable whatever the
+   photo behind it (about 6:1 for links and 5:1 for the current page even over pure white) */
+.breadcrumbs--light {
+  display: flex;
+}
+
+.breadcrumbs--light .breadcrumbs__list {
+  padding: 0.3rem 1.4rem;
+  border-radius: 10rem;
+  background: rgba(30, 30, 30, 0.7);
+  -webkit-backdrop-filter: blur(0.8rem);
+  backdrop-filter: blur(0.8rem);
+}
+
+.breadcrumbs--light.breadcrumbs--center {
+  justify-content: center;
+}
+
 .breadcrumbs--light,
 .breadcrumbs--light .breadcrumbs__link:hover {
   color: #fff;
@@ -3787,12 +3805,29 @@ main[data-template='index'] .perks__grid {
 }
 
 .breadcrumbs--light .breadcrumbs__item[aria-current='page'] {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
 }
 
-/* Over the collection banner: just above the title */
-.cb__content .breadcrumbs {
-  margin-bottom: 1.2rem;
+/* Over the collection banner and the About hero: just above the title or eyebrow */
+:is(.cb__content, .about-hero__content) .breadcrumbs {
+  margin-bottom: 1.6rem;
+}
+
+/* Policy pages (theme.liquid): in the policy text's column, the policy keeping its own spacing below */
+.policy-breadcrumbs {
+  --cs-gutter: clamp(2.2rem, 12.909vw - 8.127rem, 16.4rem);
+  width: 100%;
+  max-width: 192rem;
+  margin-inline: auto;
+  padding: 2.6rem var(--cs-gutter) 0;
+}
+
+.policy-breadcrumbs .breadcrumbs {
+  margin-bottom: 0;
+}
+
+.content-for-layout .policy-breadcrumbs + .shopify-policy__container {
+  padding-top: 2.4rem;
 }
 
 /* Articles start right under the header: the reference's 26px above the trail */
