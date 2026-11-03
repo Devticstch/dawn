@@ -14,7 +14,7 @@
       "settings": {
         "image": "shopify://shop_images/Main_Cover_image_for_about_us_Page.webp",
         "eyebrow": "",
-        "heading": "",
+        "heading": "About Us",
         "heading_font": "instrument_sans_n6",
         "overlay_opacity": 30,
         "background": "#f6f6f6",
