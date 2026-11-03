@@ -27,14 +27,14 @@
           "settings": {
             "heading": "Collections",
             "menu": "footer",
-            "links": "iPhone\nSamsung\nNew Arrivals | /collections/all?sort_by=created-descending\nBest Sellers | /collections/all?sort_by=best-selling"
+            "links": "iPhone\nNew Arrivals | /collections/all?sort_by=created-descending\nBest Sellers | /collections/all?sort_by=best-selling"
           }
         },
         "contact": {
           "type": "contact",
           "settings": {
             "heading": "Contact",
-            "details": "Email | tech2cofficial@gmail.com | mailto:tech2cofficial@gmail.com\nWhatsApp | 0326-4931730 | https://wa.me/923264931730\nEmail | store@devticstech.com | mailto:store@devticstech.com"
+            "details": "Email | tech2cofficial@gmail.com | mailto:tech2cofficial@gmail.com\nEmail | store@devticstech.com | mailto:store@devticstech.com\nWhatsApp | 0326-4931730 | https://wa.me/923264931730"
           }
         }
       },
