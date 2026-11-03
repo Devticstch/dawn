@@ -1,0 +1,26 @@
+{%- comment -%}
+  Contact details from a textarea setting: "Label | Text | Link" per line, the label small above the text, which is
+  linked when the line has a link. Used by the footer's Contact column and the contact form section.
+  Accepts:
+  - details: {String} the lines
+  - list_class: {String} class names for the list
+  - label_class: {String} class name for each label
+  - link_class: {String} class name for each link
+{%- endcomment -%}
+{%- assign lines = details | newline_to_br | split: '<br />' -%}
+<ul class="{{ list_class }}" role="list">
+  {%- for line in lines -%}
+    {%- assign parts = line | split: '|' -%}
+    {%- assign contact_text = parts[1] | strip -%}
+    {%- if contact_text == blank -%}{%- continue -%}{%- endif -%}
+    {%- assign contact_url = parts[2] | strip -%}
+    <li>
+      <span class="{{ label_class }}">{{ parts.first | strip | escape }}</span>
+      {%- if contact_url != blank -%}
+        <a href="{{ contact_url | escape }}" class="{{ link_class }}">{{ contact_text | escape }}</a>
+      {%- else -%}
+        <span>{{ contact_text | escape }}</span>
+      {%- endif -%}
+    </li>
+  {%- endfor -%}
+</ul>

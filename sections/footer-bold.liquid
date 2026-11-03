@@ -50,28 +50,16 @@
         <div class="cs-footer__nav">
           {%- for block in section.blocks -%}
             {%- if block.type == 'contact' -%}
-              {%- comment -%} Contact details: "Label | Text | Link" per line, the label small above the linked text {%- endcomment -%}
               <div class="cs-footer__col cs-footer__col--contact" {{ block.shopify_attributes }}>
                 {%- if block.settings.heading != blank -%}
                   <h2 class="cs-footer__heading">{{ block.settings.heading | escape }}</h2>
                 {%- endif -%}
-                {%- assign lines = block.settings.details | newline_to_br | split: '<br />' -%}
-                <ul class="cs-footer__links cs-footer__contact" role="list">
-                  {%- for line in lines -%}
-                    {%- assign parts = line | split: '|' -%}
-                    {%- assign contact_text = parts[1] | strip -%}
-                    {%- if contact_text == blank -%}{%- continue -%}{%- endif -%}
-                    {%- assign contact_url = parts[2] | strip -%}
-                    <li>
-                      <span class="cs-footer__contact-label">{{ parts.first | strip | escape }}</span>
-                      {%- if contact_url != blank -%}
-                        <a href="{{ contact_url | escape }}" class="cs-footer__link">{{ contact_text | escape }}</a>
-                      {%- else -%}
-                        <span>{{ contact_text | escape }}</span>
-                      {%- endif -%}
-                    </li>
-                  {%- endfor -%}
-                </ul>
+                {%- render 'contact-details',
+                  details: block.settings.details,
+                  list_class: 'cs-footer__links cs-footer__contact',
+                  label_class: 'cs-footer__contact-label',
+                  link_class: 'cs-footer__link'
+                -%}
               </div>
               {%- continue -%}
             {%- endif -%}
