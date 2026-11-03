@@ -1397,7 +1397,10 @@ a.category-panel__category-link:hover {
 
   /* Products side by side in a native scroll-snap slider that follows the finger; full-bleed like the titles, one
      gutter apart so the next product never peeks in. The titles follow the product in view (featured-product-tabs) */
+  /* position: relative: the slider is the containing block of its absolutely positioned children (the prices'
+     screen-reader text), so it clips them; otherwise the panels off to the right widened the page */
   .fpt__inner.is-slider .fpt__panels {
+    position: relative;
     display: flex;
     align-items: flex-start;
     gap: var(--cs-gutter, 1.6rem);
@@ -2368,7 +2371,11 @@ button.rs__item {
 /* Small screens: a swipe carousel of review cards (photo, quote, name), one card at a time, full-bleed like the
    section's container and one gutter apart so the next card never peeks in; dots under it. The scattered photos and
    the shared card take over from 768px */
+/* position: relative makes the carousel the containing block of its absolutely positioned children (the star
+   ratings' screen-reader text), so it clips them too; otherwise the last card's text sat beyond the screen and
+   widened the whole page */
 .rs__carousel {
+  position: relative;
   display: flex;
   align-items: stretch;
   gap: var(--cs-gutter, 1.6rem);
