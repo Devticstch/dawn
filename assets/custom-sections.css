@@ -3384,22 +3384,38 @@ main[data-template='index'] .perks__grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  gap: 1rem;
+  gap: 1.2rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+/* 44px outlined circles in faint white with white 18px icons; on hover they fill with the brand purple-to-cyan blend
+   (as the filled buttons) and lift 2px with a soft purple glow. Cyan focus ring for keyboard users */
 .cs-footer__social .list-social__link {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3.6rem;
-  height: 3.6rem;
-  padding: 0.9rem;
+  width: 4.4rem;
+  height: 4.4rem;
+  padding: 0;
+  border: 0.1rem solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-  background: #fff;
-  color: var(--cs-bg, #1e1e1e);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.cs-footer__social .list-social__link:hover {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--t2c-purple) 0%, color-mix(in srgb, var(--t2c-purple) 73%, var(--t2c-cyan)) 100%);
+  box-shadow: 0 0.6rem 1.6rem rgba(var(--t2c-purple-rgb), 0.35);
+  transform: translateY(-0.2rem);
+}
+
+.cs-footer__social .list-social__link:focus-visible {
+  outline: 0.2rem solid var(--t2c-cyan);
+  outline-offset: 0.3rem;
 }
 
 .cs-footer__social .svg-wrapper,
@@ -3408,8 +3424,29 @@ main[data-template='index'] .perks__grid {
   height: 1.8rem;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .cs-footer__social .list-social__link {
+    transition: none;
+  }
+
+  .cs-footer__social .list-social__link:hover {
+    transform: none;
+  }
+}
+
 .cs-footer__signup {
   padding-bottom: 2.8rem;
+}
+
+/* With the newsletter field below, a tighter gap between the social icons and the field: 32px, 48px from 992px */
+.cs-footer__top:has(+ .cs-footer__signup) {
+  padding-bottom: 3.2rem;
+}
+
+@media screen and (min-width: 992px) {
+  .cs-footer__top:has(+ .cs-footer__signup) {
+    padding-bottom: 4.8rem;
+  }
 }
 
 .cs-footer__field {
