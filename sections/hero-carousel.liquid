@@ -29,11 +29,9 @@
       {%- liquid
         assign desktop_image = block.settings.image
         assign mobile_image = block.settings.mobile_image | default: desktop_image
-        assign heading_tag = 'h2'
         assign loading = 'lazy'
         assign priority = 'auto'
         if forloop.first
-          assign heading_tag = 'h1'
           assign loading = 'eager'
           assign priority = 'high'
         endif
@@ -122,7 +120,7 @@
             {%- endif -%}
           </div>
           {%- if block.settings.heading != blank -%}
-            <{{ heading_tag }} class="hero-carousel__heading">{{ block.settings.heading | escape }}</{{ heading_tag }}>
+            <h1 class="hero-carousel__heading">{{ block.settings.heading | escape }}</h1>
           {%- endif -%}
         </div>
       </li>
