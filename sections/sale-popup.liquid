@@ -5,6 +5,7 @@
 {%- endcomment -%}
 <sale-popup data-delay="{{ section.settings.delay }}" data-key="sale-popup-{{ section.id }}">
   <dialog class="sale-popup" tabindex="-1" aria-labelledby="SalePopupHeading-{{ section.id }}">
+    <canvas class="sale-popup__confetti" aria-hidden="true"></canvas>
     <div class="sale-popup__inner">
       <button type="button" class="sale-popup__close" aria-label="{{ 'accessibility.close' | t }}">
         <span class="svg-wrapper" aria-hidden="true">{{- 'icon-close.svg' | inline_asset_content -}}</span>
@@ -80,7 +81,20 @@
     background:
       var(--t2c-gradient, linear-gradient(90deg, #8825e4 0%, #00ffff 100%)) top / 100% 0.4rem no-repeat,
       radial-gradient(70% 55% at 0% 0%, rgba(var(--t2c-purple-rgb, 136, 37, 228), 0.1) 0%, transparent 100%),
-      radial-gradient(70% 55% at 100% 100%, rgba(var(--t2c-cyan-rgb, 0, 255, 255), 0.14) 0%, transparent 100%);
+      radial-gradient(70% 55% at 100% 100%, rgba(var(--t2c-cyan-rgb, 0, 255, 255), 0.14) 0%, transparent 100%),
+      #fff;
+  }
+
+  /* Confetti layer: covers the viewport (fixed; the open dialog has no transform, so the viewport is its containing
+     block) and sits under the card's opaque content (z-index -1 inside the dialog's top-layer stacking context), so
+     particles burst out from behind the card over the dimmed page. It never takes clicks */
+  .sale-popup__confetti {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
   }
 
   .sale-popup__close {
@@ -204,7 +218,10 @@
           this.dialog.addEventListener('click', (event) => {
             if (event.target === this.dialog) this.dialog.close();
           });
-          this.dialog.addEventListener('close', () => this.remember());
+          this.dialog.addEventListener('close', () => {
+            this.remember();
+            this.stopConfetti();
+          });
           this.querySelector('.sale-popup__button')?.addEventListener('click', () => this.remember());
 
           if (window.Shopify && Shopify.designMode) {
@@ -248,6 +265,92 @@
           if (this.dialog.open) return;
           this.dialog.showModal();
           this.dialog.focus();
+          // After the 0.25s rise: while the dialog is still transformed it would clip the fixed canvas to the card
+          setTimeout(() => this.confetti(), 250);
+        }
+
+        // One burst of ~100 particles (60 on phones) from behind the card, then drift down; about 4s, then stops
+        confetti() {
+          if (!this.dialog.open || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          const canvas = this.querySelector('.sale-popup__confetti');
+          const ctx = canvas.getContext('2d');
+          if (!ctx) return;
+
+          const width = window.innerWidth;
+          const height = window.innerHeight;
+          const ratio = Math.min(window.devicePixelRatio || 1, 2);
+          canvas.width = width * ratio;
+          canvas.height = height * ratio;
+          ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+          const small = width < 750;
+          const card = this.dialog.getBoundingClientRect();
+          // Purple and cyan lead; gold is the subtle third
+          const colors = ['#8825e4', '#8825e4', '#a45cf0', '#6360eb', '#00e5ff', '#00ffff', '#7df9ff', '#e8b931'];
+          const particles = Array.from({ length: small ? 60 : 100 }, () => {
+            const angle = Math.random() * Math.PI * 2;
+            const speed = (small ? 7 : 14) * (0.6 + Math.random());
+            return {
+              x: card.left + card.width * (0.2 + Math.random() * 0.6),
+              y: card.top + card.height * (0.3 + Math.random() * 0.4),
+              vx: Math.cos(angle) * speed,
+              vy: Math.sin(angle) * speed - 4,
+              size: (small ? 6 : 8) + Math.random() * 6,
+              color: colors[Math.floor(Math.random() * colors.length)],
+              round: Math.random() < 0.25,
+              rotation: Math.random() * Math.PI * 2,
+              spin: (Math.random() - 0.5) * 0.2,
+              flip: Math.random() * Math.PI * 2,
+              flipSpeed: 0.05 + Math.random() * 0.08,
+            };
+          });
+
+          const duration = 4000;
+          const start = performance.now();
+          let last = start;
+          const frame = (now) => {
+            const step = Math.min((now - last) / 16.7, 3);
+            const elapsed = now - start;
+            last = now;
+            ctx.clearRect(0, 0, width, height);
+            ctx.globalAlpha = Math.max(0, Math.min(1, (duration - elapsed) / 1000));
+            for (const p of particles) {
+              // Air drag slows the burst, gravity pulls down to a gentle falling speed, and a sway makes it float
+              p.vx *= Math.pow(0.96, step);
+              p.vy = Math.min(p.vy * Math.pow(0.96, step) + 0.22 * step, 3.2);
+              p.flip += p.flipSpeed * step;
+              p.rotation += p.spin * step;
+              p.x += (p.vx + Math.sin(p.flip) * 0.8) * step;
+              p.y += p.vy * step;
+              if (p.y > height + 20) continue;
+              ctx.save();
+              ctx.translate(p.x, p.y);
+              ctx.rotate(p.rotation);
+              ctx.scale(1, Math.cos(p.flip));
+              ctx.fillStyle = p.color;
+              if (p.round) {
+                ctx.beginPath();
+                ctx.arc(0, 0, p.size / 2.6, 0, Math.PI * 2);
+                ctx.fill();
+              } else {
+                ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+              }
+              ctx.restore();
+            }
+            if (elapsed < duration) {
+              this.confettiFrame = requestAnimationFrame(frame);
+            } else {
+              this.stopConfetti();
+            }
+          };
+          this.stopConfetti();
+          this.confettiFrame = requestAnimationFrame(frame);
+        }
+
+        stopConfetti() {
+          cancelAnimationFrame(this.confettiFrame);
+          const canvas = this.querySelector('.sale-popup__confetti');
+          canvas.getContext('2d')?.clearRect(0, 0, canvas.width, canvas.height);
         }
       }
     );
