@@ -22,27 +22,11 @@
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
-    {%- liquid
-      # Browser title: an SEO title ending in " | <store name>" (any capitalisation, e.g. " | Tech2C") drops that ending,
-      # so the store name appears once, as the automatic " – <store name>" below. The saved SEO title is not changed
-      assign browser_title = page_title
-      assign brand_suffix = ' | ' | append: shop.name | downcase
-      assign brand_suffix_size = brand_suffix.size
-      assign ending_start = 0 | minus: brand_suffix_size
-      assign title_ending = page_title | slice: ending_start, brand_suffix_size | downcase
-      if page_title.size > brand_suffix_size and title_ending == brand_suffix
-        assign browser_title_size = page_title.size | minus: brand_suffix_size
-        assign browser_title = page_title | slice: 0, browser_title_size
-      endif
-      # Titles that still name the brand elsewhere (e.g. "About Tech2C | ...") get no second one
-      assign title_lowercase = browser_title | downcase
-      assign store_name_lowercase = shop.name | downcase
-    -%}
     <title>
-      {{ browser_title }}
+      {{ page_title }}
       {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
       {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-      {%- unless title_lowercase contains store_name_lowercase %} &ndash; {{ shop.name }}{% endunless -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
     </title>
 
     {% if page_description %}
