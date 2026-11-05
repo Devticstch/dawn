@@ -3378,9 +3378,12 @@ main[data-template='index'] .perks__grid {
   margin-top: 2.4rem;
 }
 
+/* Left aligned under the heading, like the rest of the brand column (Dawn's list-social aligns right, or centre on
+   phones) */
 .cs-footer__social .list-social {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-start;
   gap: 1rem;
   margin: 0;
   padding: 0;
