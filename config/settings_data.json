@@ -151,7 +151,7 @@
           "textSelector": "Proceed to checkout",
           "textSelector2": "Check out, checkout, check-out",
           "selector": ":is(button,input)[name=\"checkout\"]",
-          "message": "Checkout with discount",
+          "message": "Pay with Transfer 10% OFF",
           "position": "before",
           "customliquid": "{% comment %}\n<style>\nbutton { \n background: #000000;\n}\n</style>\n{% endcomment %}\n\n{% # delete the comment to apply, styles here apply to the app button only %}"
         }
