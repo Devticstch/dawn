@@ -7,8 +7,22 @@
   if section.settings.enable_language_selector and localization.available_languages.size > 1
     assign language_selector = true
   endif
+  # Social icons: each network's link from this section (Theme settings > Social media when empty), left out when
+  # its switch is off
+  assign facebook_url = section.settings.facebook_link | default: settings.social_facebook_link
+  assign instagram_url = section.settings.instagram_link | default: settings.social_instagram_link
+  assign youtube_url = section.settings.youtube_link | default: settings.social_youtube_link
+  unless section.settings.show_facebook
+    assign facebook_url = ''
+  endunless
+  unless section.settings.show_instagram
+    assign instagram_url = ''
+  endunless
+  unless section.settings.show_youtube
+    assign youtube_url = ''
+  endunless
   assign social_links = false
-  if settings.social_twitter_link != blank or settings.social_facebook_link != blank or settings.social_pinterest_link != blank or settings.social_instagram_link != blank or settings.social_youtube_link != blank or settings.social_vimeo_link != blank or settings.social_tiktok_link != blank or settings.social_tumblr_link != blank or settings.social_snapchat_link != blank
+  if facebook_url != blank or instagram_url != blank or youtube_url != blank
     assign social_links = true
   endif
   assign logo = section.settings.brand_image | default: settings.logo
@@ -41,7 +55,41 @@
             {%- if section.settings.social_heading != blank -%}
               <h2 class="cs-footer__heading">{{ section.settings.social_heading | escape }}</h2>
             {%- endif -%}
-            {%- render 'social-icons' -%}
+            {%- comment -%} Same markup and classes as snippets/social-icons, so the design and hover effects carry over {%- endcomment -%}
+            {%- assign networks = 'facebook,instagram,youtube' | split: ',' -%}
+            <ul class="list-unstyled list-social" role="list">
+              {%- for network in networks -%}
+                {%- case network -%}
+                  {%- when 'facebook' -%}
+                    {%- assign social_url = facebook_url -%}
+                    {%- assign social_label = 'general.social.links.facebook' | t -%}
+                  {%- when 'instagram' -%}
+                    {%- assign social_url = instagram_url -%}
+                    {%- assign social_label = 'general.social.links.instagram' | t -%}
+                  {%- when 'youtube' -%}
+                    {%- assign social_url = youtube_url -%}
+                    {%- assign social_label = 'general.social.links.youtube' | t -%}
+                {%- endcase -%}
+                {%- if social_url == blank -%}{%- continue -%}{%- endif -%}
+                <li class="list-social__item">
+                  <a
+                    href="{{ social_url }}"
+                    class="link list-social__link"
+                    {% if section.settings.social_new_tab %}
+                      target="_blank" rel="noopener"
+                    {% endif %}
+                  >
+                    <span class="svg-wrapper">
+                      {{- 'icon-' | append: network | append: '.svg' | inline_asset_content -}}
+                    </span>
+                    <span class="visually-hidden">
+                      {{- social_label -}}
+                      {%- if section.settings.social_new_tab %} ({{ 'accessibility.link_messages.new_window' | t }}){% endif -%}
+                    </span>
+                  </a>
+                </li>
+              {%- endfor -%}
+            </ul>
           </div>
         {%- endif -%}
       </div>
@@ -325,13 +373,57 @@
       "id": "show_social",
       "label": "Show social icons",
       "default": true,
-      "info": "Add your social links in Theme settings > Social media"
+      "info": "Turns the whole social row on or off"
     },
     {
       "type": "text",
       "id": "social_heading",
       "label": "Social heading",
       "default": "Let's be friends"
+    },
+    {
+      "type": "checkbox",
+      "id": "social_new_tab",
+      "label": "Open social links in a new tab",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Social media links",
+      "info": "A link left empty uses the one in Theme settings > Social media"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_facebook",
+      "label": "Show Facebook",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "facebook_link",
+      "label": "Facebook link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_instagram",
+      "label": "Show Instagram",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "instagram_link",
+      "label": "Instagram link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_youtube",
+      "label": "Show YouTube",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "youtube_link",
+      "label": "YouTube link"
     },
     {
       "type": "header",
