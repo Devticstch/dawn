@@ -102,12 +102,20 @@
                         {%- capture links -%}{%- render 'header-nav-products', column: child -%}{%- endcapture -%}
                         {%- if links == blank and child.settings.sale_percent > 0 -%}{%- continue -%}{%- endif -%}
                       {%- endif -%}
-                      {%- assign lines = links | newline_to_br | split: '<br />' -%}
+                      {%- liquid
+                        assign lines = links | strip | newline_to_br | split: '<br />'
+                        # Up to 6 links in one column; more split evenly into columns of at most 6 (8 links: 4 + 4)
+                        assign links_per_column = lines.size | at_least: 1
+                        if lines.size > 6
+                          assign column_total = lines.size | plus: 5 | divided_by: 6
+                          assign links_per_column = lines.size | plus: column_total | minus: 1 | divided_by: column_total
+                        endif
+                      -%}
                       <div class="header-nav__column" {{ child.shopify_attributes }}>
                         {%- if child.settings.heading != blank -%}
                           <p class="header-nav__column-heading">{{ child.settings.heading | escape }}</p>
                         {%- endif -%}
-                        <ul class="header-nav__links" role="list" style="--links-per-column: {{ child.settings.links_per_column | default: 9 }};">
+                        <ul class="header-nav__links" role="list" style="--links-per-column: {{ links_per_column }};">
                           {%- for line in lines -%}
                             {%- assign parts = line | split: '|' -%}
                             {%- assign link_title = parts.first | strip -%}

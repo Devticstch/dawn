@@ -130,8 +130,7 @@
             "links": "Silq Mag | /collections/silq-mag\nSpigen | /collections/spigen\nTransmag | /collections/transmag\nKevlar | /collections/kevlar\nLeather Textured | /collections/leather-textured\nLip Print | /collections/lip-print\nSuctionGrip | /collections/suctiongrip\nWoven | /collections/woven",
             "product_limit": 8,
             "sale_percent": 0,
-            "show_view_all": false,
-            "links_per_column": 4
+            "show_view_all": false
           }
         },
         "nav_devices": {

@@ -212,7 +212,8 @@
   color: rgb(var(--color-foreground));
 }
 
-/* Long columns continue in a second column after the column's "Links per column" setting (nine by default) */
+/* Long lists continue in further columns: --links-per-column comes from the link count (snippets/header-nav-menu:
+   up to 6 in one column, more split evenly) */
 .header-nav__links {
   display: grid;
   grid-auto-flow: column;
