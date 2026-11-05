@@ -31,16 +31,18 @@
 </sale-popup>
 
 {% stylesheet %}
-  /* Compact dark card like the store's other brand surfaces (charcoal, soft purple glow, purple-cyan line on top).
-     The heading takes the menu's 11.11 SALE badge gradient; contrast on #1e1e1e: #ff512f 5.4:1, #f09819 8.2:1 */
+  /* Light card with the brand accents: purple-cyan line on top, faint purple and cyan glows in opposite corners.
+     Cyan stays decorative (unreadable on white); text uses charcoal and purple. The heading runs from purple to the
+     buttons' 73/27 purple-cyan blend (#6360eb, 4.8:1 on white) */
   .sale-popup {
-    width: min(42rem, 100% - 3.2rem);
+    width: min(44rem, 100% - 3.2rem);
     max-height: calc(100% - 3.2rem);
     padding: 0;
-    border: 0;
+    border: 0.1rem solid rgba(var(--t2c-purple-rgb, 136, 37, 228), 0.12);
     border-radius: var(--modal-corner-radius, 2rem);
-    background: #1e1e1e;
-    color: #fff;
+    background: #fff;
+    color: #1e1e1e;
+    box-shadow: 0 2.4rem 6.4rem rgba(30, 30, 30, 0.18);
     overflow: auto;
     opacity: 0;
     transform: translateY(1.6rem);
@@ -62,48 +64,52 @@
   /* Focus starts on the dialog box itself (see open()), so no ring shows until the visitor tabs to a control */
   .sale-popup:focus-visible {
     outline: none;
-    box-shadow: none;
+    box-shadow: 0 2.4rem 6.4rem rgba(30, 30, 30, 0.18);
   }
 
   .sale-popup::backdrop {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(30, 30, 30, 0.5);
+    -webkit-backdrop-filter: blur(0.3rem);
+    backdrop-filter: blur(0.3rem);
   }
 
   .sale-popup__inner {
     position: relative;
-    padding: 4.8rem 3.2rem 3.2rem;
+    padding: 5.2rem 3.6rem 3.6rem;
     text-align: center;
     background:
       var(--t2c-gradient, linear-gradient(90deg, #8825e4 0%, #00ffff 100%)) top / 100% 0.4rem no-repeat,
-      radial-gradient(120% 70% at 50% 0%, rgba(var(--t2c-purple-rgb, 136, 37, 228), 0.35) 0%, transparent 70%);
+      radial-gradient(70% 55% at 0% 0%, rgba(var(--t2c-purple-rgb, 136, 37, 228), 0.1) 0%, transparent 100%),
+      radial-gradient(70% 55% at 100% 100%, rgba(var(--t2c-cyan-rgb, 0, 255, 255), 0.14) 0%, transparent 100%);
   }
 
   .sale-popup__close {
     position: absolute;
-    top: 1.2rem;
-    right: 1.2rem;
+    top: 1.4rem;
+    right: 1.4rem;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 4.4rem;
     height: 4.4rem;
     padding: 0;
-    border: 0.1rem solid rgba(255, 255, 255, 0.24);
+    border: 0;
     border-radius: 50%;
-    background: transparent;
-    color: #fff;
+    background: #f6f6f6;
+    color: #1e1e1e;
     cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   .sale-popup__close:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(var(--t2c-purple-rgb, 136, 37, 228), 0.1);
+    color: var(--t2c-purple, #8825e4);
   }
 
   .sale-popup__close:focus-visible {
-    outline: 0.2rem solid var(--t2c-cyan, #00ffff);
+    outline: 0.2rem solid var(--t2c-purple, #8825e4);
     outline-offset: 0.2rem;
+    box-shadow: none;
   }
 
   .sale-popup__close .svg-wrapper {
@@ -113,12 +119,12 @@
 
   .sale-popup__heading {
     margin: 0;
-    font-size: 4.4rem;
+    font-size: 5.2rem;
     font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: 0;
-    color: #ff512f;
-    background: linear-gradient(90deg, #ff512f, #f09819);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--t2c-purple, #8825e4);
+    background: linear-gradient(90deg, #8825e4 0%, #6360eb 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -129,27 +135,34 @@
     font-size: 2rem;
     font-weight: 600;
     line-height: 1.4;
-    color: #fff;
+    color: #1e1e1e;
   }
 
   .sale-popup__text-2 {
-    margin: 0.8rem 0 0;
-    font-size: 1.6rem;
-    font-weight: 500;
+    display: inline-block;
+    margin: 1.2rem 0 0;
+    padding: 0.6rem 1.6rem;
+    border-radius: 10rem;
+    background: rgba(var(--t2c-purple-rgb, 136, 37, 228), 0.08);
+    font-size: 1.5rem;
+    font-weight: 600;
     line-height: 1.5;
-    color: var(--t2c-cyan, #00ffff);
+    color: var(--t2c-purple, #8825e4);
   }
 
   .sale-popup__small {
     margin: 1.6rem 0 0;
     font-size: 1.3rem;
     line-height: 1.5;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(30, 30, 30, 0.65);
   }
 
   .sale-popup__button.button {
     width: 100%;
+    min-height: 5.2rem;
     margin-top: 2.4rem;
+    font-size: 1.6rem;
+    box-shadow: 0 0.8rem 2.4rem rgba(var(--t2c-purple-rgb, 136, 37, 228), 0.28);
   }
 
   @media screen and (max-width: 749px) {
@@ -158,11 +171,15 @@
     }
 
     .sale-popup__heading {
-      font-size: 3.6rem;
+      font-size: 4.2rem;
     }
 
     .sale-popup__text {
       font-size: 1.8rem;
+    }
+
+    .sale-popup__text-2 {
+      font-size: 1.4rem;
     }
   }
 
