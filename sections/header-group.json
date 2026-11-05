@@ -17,21 +17,13 @@
         "announcement-1": {
           "type": "announcement",
           "settings": {
-            "text": "11/11 Sale",
-            "link": ""
-          }
-        },
-        "announcement-2": {
-          "type": "announcement",
-          "settings": {
-            "text": "Up to 50% OFF",
+            "text": "11.11 SALE | Up to 50% OFF | EXTRA 5% OFF on Online Payments",
             "link": ""
           }
         }
       },
       "block_order": [
-        "announcement-1",
-        "announcement-2"
+        "announcement-1"
       ],
       "settings": {
         "marquee": true,
@@ -51,10 +43,10 @@
         "nav_new": {
           "type": "menu_item",
           "settings": {
-            "title": "New & Featured",
+            "title": "New In",
             "link": "/collections/all?sort_by=created-descending",
             "badge": "",
-            "intro_heading": "Category",
+            "intro_heading": "Select Device",
             "intro_text": "",
             "promo_theme_image": "menu-promo.jpg",
             "promo_heading": "New Arrivals",
@@ -84,7 +76,7 @@
           "settings": {
             "heading": "iPhone",
             "link": "",
-            "links": "",
+            "links": "Rhode | /collections/rhode\nRhinestone | /collections/rhinestone\nCrystal Luxe | /collections/crystal-luxe\nAura Magnetic | /products/aura",
             "product_limit": 4,
             "show_view_all": true
           }
@@ -92,9 +84,9 @@
         "col_new_feature": {
           "type": "menu_column",
           "settings": {
-            "heading": "Feature",
+            "heading": "Shop by Style",
             "link": "",
-            "links": "iPhone",
+            "links": "Slim Cases | /collections/slim-cases\nClear Cases | /collections/clear-cases\nStylish Cases | /collections/cute-cases\nWallet Cases | /collections/wallet-cases",
             "product_limit": 9,
             "show_view_all": false
           }
@@ -104,8 +96,8 @@
           "settings": {
             "title": "Best sellers",
             "link": "/collections/all?sort_by=best-selling",
-            "badge": "50% OFF",
-            "intro_heading": "Category",
+            "badge": "",
+            "intro_heading": "Select Device",
             "intro_text": "",
             "promo_theme_image": "menu-promo.jpg",
             "promo_heading": "New Arrivals",
@@ -133,12 +125,13 @@
         "col_best_sale": {
           "type": "menu_column",
           "settings": {
-            "heading": "50% OFF",
+            "heading": "Top Picks",
             "link": "",
-            "links": "",
+            "links": "Silq Mag | /collections/silq-mag\nSpigen | /collections/spigen\nTransmag | /collections/transmag\nKevlar | /collections/kevlar\nLeather Textured | /collections/leather-textured\nLip Print | /collections/lip-print\nSuctionGrip | /collections/suctiongrip\nWoven | /collections/woven",
             "product_limit": 8,
-            "sale_percent": 50,
-            "show_view_all": false
+            "sale_percent": 0,
+            "show_view_all": false,
+            "links_per_column": 4
           }
         },
         "nav_devices": {
@@ -148,7 +141,7 @@
             "link": "/collections",
             "badge": "",
             "intro_heading": "Devices",
-            "intro_text": "Protect your phone in style. From minimalist to drop-proof cases, we have your back.",
+            "intro_text": "Find the right case for your phone. Explore stylish designs, from cute and trendy to premium everyday protection.",
             "promo_theme_image": "menu-promo.jpg",
             "promo_heading": "New Arrivals",
             "promo_button_label": "Explore more",
@@ -205,9 +198,25 @@
             "promo_link": "",
             "promo_caption": ""
           }
+        },
+        "nav_sale": {
+          "type": "menu_item",
+          "settings": {
+            "title": "11.11 SALE",
+            "link": "/collections/11-11-sale",
+            "badge": "50% OFF",
+            "intro_heading": "",
+            "intro_text": "",
+            "promo_theme_image": "",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": "",
+            "promo_caption": ""
+          }
         }
       },
       "block_order": [
+        "nav_sale",
         "nav_new",
         "card_new_1",
         "card_new_2",

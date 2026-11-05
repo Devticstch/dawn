@@ -28,12 +28,20 @@
             {%- render 'header-nav-url', title: block.settings.label, url: block.settings.link -%}
           {%- endcapture -%}
           {%- assign url = url | strip -%}
+          {%- liquid
+            # Without an image or theme image: the linked collection's featured image (its own image or first product's)
+            assign tile_image = block.settings.image
+            if tile_image == blank and block.settings.theme_image == blank and url contains '/collections/'
+              assign tile_handle = url | split: '?' | first | split: '/collections/' | last | split: '/' | first
+              assign tile_image = collections[tile_handle].featured_image
+            endif
+          -%}
           {%- if block.settings.label != blank and url != blank -%}
             <li {{ block.shopify_attributes }}>
               <a href="{{ url }}" class="ccat__item">
                 <span class="ccat__image">
-                  {%- if block.settings.image != blank -%}
-                    {{ block.settings.image | image_url: width: 192 | image_tag: loading: 'lazy', widths: '96, 192', sizes: '48px', alt: '' }}
+                  {%- if tile_image != blank -%}
+                    {{ tile_image | image_url: width: 192 | image_tag: loading: 'lazy', widths: '96, 192', sizes: '48px', alt: '' }}
                   {%- elsif block.settings.theme_image != blank -%}
                     <img src="{{ block.settings.theme_image | asset_url }}" alt="" width="400" height="400" loading="lazy">
                   {%- endif -%}
@@ -65,7 +73,7 @@
       "name": "Category",
       "settings": [
         { "type": "text", "id": "label", "label": "Label", "default": "Category" },
-        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Leave empty (and no theme image) to use the linked collection's image" },
         { "type": "text", "id": "theme_image", "label": "Theme image", "info": "File name from the theme assets, used when no image is selected" },
         { "type": "url", "id": "link", "label": "Link", "info": "Leave empty to use the collection named like the label, or a product search for it" }
       ]

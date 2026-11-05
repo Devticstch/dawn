@@ -212,18 +212,13 @@
   color: rgb(var(--color-foreground));
 }
 
-/* Long columns continue in a second column after nine links */
+/* Long columns continue in a second column after the column's "Links per column" setting (nine by default) */
 .header-nav__links {
   display: grid;
   grid-auto-flow: column;
-  grid-template-rows: repeat(9, auto);
+  grid-template-rows: repeat(var(--links-per-column, 9), auto);
   justify-content: start;
   column-gap: 3.2rem;
-}
-
-/* Sale product columns (e.g. 50% OFF): two balanced columns of up to four products */
-.header-nav__links--sale {
-  grid-template-rows: repeat(4, auto);
 }
 
 .header-nav__link {

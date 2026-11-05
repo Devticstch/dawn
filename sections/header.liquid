@@ -228,11 +228,14 @@
     position: relative;
   }
 
+  /* Sale gradient (client's colours); dark text, since white on these oranges stays under 4.5:1 */
   .header-nav .header__menu-item > span > .mega-drawer__badge {
     position: absolute;
     bottom: 100%;
     left: 50%;
     margin: 0 0 0.2rem;
+    background: linear-gradient(90deg, #ff512f, #f09819);
+    color: #1e1e1e;
     white-space: nowrap;
     transform: translateX(-50%);
   }
@@ -1159,6 +1162,16 @@
           "step": 5,
           "unit": "%",
           "default": 0
+        },
+        {
+          "type": "range",
+          "id": "links_per_column",
+          "label": "Links per column",
+          "info": "More links continue in a second column beside it",
+          "min": 2,
+          "max": 12,
+          "step": 1,
+          "default": 9
         },
         { "type": "checkbox", "id": "show_view_all", "label": "Show \"View all\" link", "default": true }
       ]

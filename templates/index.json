@@ -104,7 +104,7 @@
           "settings": {
             "collection": "cute-cases",
             "image": "{{ block.settings.collection.image }}",
-            "label": "Cute Cases",
+            "label": "Stylish Cases",
             "group": "phone_case",
             "link": ""
           }

@@ -22,30 +22,66 @@
     "categories": {
       "type": "collection-categories",
       "blocks": {
-        "category_iphone": {
+        "category_slim_cases": {
           "type": "category",
           "settings": {
-            "label": "iPhone",
-            "theme_image": "menu-iphone.png",
-            "link": ""
+            "label": "Slim Cases",
+            "theme_image": "",
+            "link": "/collections/slim-cases"
           }
         },
-        "category_samsung": {
+        "category_clear_cases": {
           "type": "category",
           "settings": {
-            "label": "Samsung",
-            "theme_image": "menu-samsung.png",
-            "link": ""
+            "label": "Clear Cases",
+            "theme_image": "",
+            "link": "/collections/clear-cases"
+          }
+        },
+        "category_wallet_cases": {
+          "type": "category",
+          "settings": {
+            "label": "Wallet Cases",
+            "theme_image": "",
+            "link": "/collections/wallet-cases"
+          }
+        },
+        "category_stylish_cases": {
+          "type": "category",
+          "settings": {
+            "label": "Stylish Cases",
+            "theme_image": "",
+            "link": "/collections/cute-cases"
+          }
+        },
+        "category_standard_cases": {
+          "type": "category",
+          "settings": {
+            "label": "Standard Cases",
+            "theme_image": "",
+            "link": "/collections/standard-cases"
+          }
+        },
+        "category_tempered_glass": {
+          "type": "category",
+          "settings": {
+            "label": "Tempered Glass",
+            "theme_image": "",
+            "link": "/collections/tempered-glass"
           }
         }
       },
       "block_order": [
-        "category_iphone",
-        "category_samsung"
+        "category_slim_cases",
+        "category_clear_cases",
+        "category_wallet_cases",
+        "category_stylish_cases",
+        "category_standard_cases",
+        "category_tempered_glass"
       ],
       "settings": {
-        "heading": "Shop by Category",
-        "text": "<p>Protect your phone in style. From minimalist to drop-proof cases, we have your back.</p>",
+        "heading": "Shop by Case Categories",
+        "text": "<p>From cute and trendy to luxe and classic, find a case that matches your style.</p>",
         "heading_font": "instrument_sans_n6"
       }
     },
