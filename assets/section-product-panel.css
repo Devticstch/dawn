@@ -694,12 +694,12 @@ media-gallery:focus-within .product-gallery-nav__button--next {
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 8.2l2.3 2.3 4.7-4.9'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
-/* ---------- Buy buttons: primary blue + dark, side by side ---------- */
-/* Equal columns: a flex basis of 0 would still count each button's padding */
+/* ---------- Buy buttons: primary + secondary, side by side when both labels fit on one line ---------- */
+/* Equal columns of at least 17rem (the wider label plus the 28px side padding); a narrower info column, as at
+   990-1100px, stacks them instead of wrapping the labels */
 .product--panel .product-form__buttons {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(0, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
   gap: 1.4rem;
   max-width: none;
 }
@@ -732,18 +732,27 @@ media-gallery:focus-within .product-gallery-nav__button--next {
   --btn-hover-border: var(--btn-bg);
 }
 
-.product--panel .shopify-payment-button {
-  --btn-accent: #1e1e1e;
-}
-
+/* Buy it now: the store's secondary button (white, purple label and border, purple fill on hover). Shopify renders
+   it as a padded block, which pushed a wrapped label below centre; it is centred like the shared .button */
 .product--panel .shopify-payment-button__button--unbranded {
+  --btn-bg: #fff;
+  --btn-fg: var(--btn-accent, #8825e4);
+  --btn-border: rgba(136, 37, 228, 0.4);
   --btn-gradient: none;
-  --btn-border: var(--btn-bg);
+  --btn-fill: var(--btn-accent, #8825e4);
+  --btn-fill-fg: #fff;
+  --btn-hover-border: var(--btn-accent, #8825e4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2.8rem;
+  line-height: 1.42;
+  text-align: center;
 }
 
 @media screen and (max-width: 749px) {
   .product--panel .product-form__buttons {
-    grid-auto-flow: row;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
