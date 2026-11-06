@@ -732,16 +732,15 @@ media-gallery:focus-within .product-gallery-nav__button--next {
   --btn-hover-border: var(--btn-bg);
 }
 
-/* Buy it now: the store's secondary button (white, purple label and border, purple fill on hover). Shopify renders
-   it as a padded block, which pushed a wrapped label below centre; it is centred like the shared .button */
+.product--panel .shopify-payment-button {
+  --btn-accent: #1e1e1e;
+}
+
+/* Buy it now: dark button. Shopify renders it as a padded block, which pushed a wrapped label below centre; it is
+   centred like the shared .button */
 .product--panel .shopify-payment-button__button--unbranded {
-  --btn-bg: #fff;
-  --btn-fg: var(--btn-accent, #8825e4);
-  --btn-border: rgba(136, 37, 228, 0.4);
   --btn-gradient: none;
-  --btn-fill: var(--btn-accent, #8825e4);
-  --btn-fill-fg: #fff;
-  --btn-hover-border: var(--btn-accent, #8825e4);
+  --btn-border: var(--btn-bg);
   display: flex;
   align-items: center;
   justify-content: center;
