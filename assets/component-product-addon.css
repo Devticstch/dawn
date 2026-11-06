@@ -137,8 +137,15 @@
   display: none;
 }
 
-/* Narrow phones: the Add pill moves under the title and prices, full width */
-@media screen and (max-width: 374px) {
+/* The card's width follows the product info column, not the screen (about 250-360px on desktop and tablet, 300px on
+   phones), so the layout keys off the card itself */
+.product-addon {
+  container-type: inline-size;
+}
+
+/* Narrow card: the Add / Choose options pill moves under the title and prices, full width. Beside them it left the
+   details under 110px (none at all near 1000px); 44rem keeps the details at least about 250px when side by side */
+@container (max-width: 44rem) {
   .product-addon__card {
     grid-template-columns: 6.4rem minmax(0, 1fr);
   }
