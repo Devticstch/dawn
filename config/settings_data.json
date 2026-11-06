@@ -155,6 +155,18 @@
           "position": "before",
           "customliquid": "{% comment %}\n<style>\nbutton { \n background: #000000;\n}\n</style>\n{% endcomment %}\n\n{% # delete the comment to apply, styles here apply to the app button only %}"
         }
+      },
+      "18134076062609995742": {
+        "type": "shopify://apps/codless-prepaid-discounts/blocks/prepaid_embed/01a1394f-cb74-712e-9627-78e22ab5195a",
+        "disabled": false,
+        "settings": {
+          "text_match": "Checkout",
+          "other_text": "Check out, checkout, check-out",
+          "selector": ":is(button,input)[name=\"checkout\"]",
+          "position": "before",
+          "accent": "#5B4BF0",
+          "radius": 10
+        }
       }
     },
     "color_schemes": {
