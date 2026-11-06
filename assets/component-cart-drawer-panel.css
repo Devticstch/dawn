@@ -388,6 +388,14 @@ cart-drawer .cart-drawer .cart__ctas .button {
   font-size: 1.6rem;
 }
 
+/* Scala's "Pay with Transfer" button is inserted between the two; it gets its own full-width row above them, as on
+   the cart page, so View cart and Check out stay paired. Its own top margin is dropped for the grid gap */
+cart-drawer .cart-drawer .cart__ctas > scala-cart-button {
+  grid-column: 1 / -1;
+  order: -1;
+  margin: 0;
+}
+
 /* ---------- Empty cart ---------- */
 cart-drawer .cart-drawer .drawer__inner-empty .button {
   min-height: 5.3rem;
