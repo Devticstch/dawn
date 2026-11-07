@@ -234,7 +234,7 @@
     <div class="cs-footer__bottom">
       <div class="cs-footer__bottom-left">
         <p class="cs-footer__copyright">
-          &copy; {{ 'now' | date: '%Y' }} - {{ shop.name | link_to: routes.root_url, class: 'cs-footer__link' }} - {{ powered_by_link }}
+          &copy; {{ 'now' | date: '%Y' }} - {{ shop.name | link_to: routes.root_url, class: 'cs-footer__link' }}
         </p>
         {%- if shop.terms_of_service != blank or shop.shipping_policy != blank or shop.refund_policy != blank -%}
           <ul class="cs-footer__policies" role="list">
