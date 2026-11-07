@@ -396,6 +396,12 @@ cart-drawer .cart-drawer .cart__ctas > scala-cart-button {
   margin: 0;
 }
 
+/* Codless Prepaid Discounts puts its "Pay online" button in its own row (.pb-btn-row) just above .cart__ctas, so it
+   sat flush under the tax note; it gets the same 14px gap .cart__ctas has */
+cart-drawer .cart-drawer .pb-btn-row {
+  margin-top: 1.4rem;
+}
+
 /* ---------- Empty cart ---------- */
 cart-drawer .cart-drawer .drawer__inner-empty .button {
   min-height: 5.3rem;
