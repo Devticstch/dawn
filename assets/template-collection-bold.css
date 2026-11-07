@@ -211,6 +211,22 @@
   border-radius: 10rem;
 }
 
+/* Active filter pills are the store's secondary pill (.button--tertiary): purple label and border, purple fill rising
+   on hover. Dawn's grey ring doubled the border, and Dawn hides the fill layer (::before), which left the white hover
+   label on a white pill. The keyboard focus ring (a.active-facets__button:focus-visible) is kept */
+.collection-bold span.active-facets__button-inner {
+  color: var(--btn-fg);
+}
+
+.collection-bold .active-facets__button .active-facets__button-inner,
+.collection-bold .active-facets__button:hover .active-facets__button-inner {
+  box-shadow: none;
+}
+
+.collection-bold span.active-facets__button-inner::before {
+  display: block;
+}
+
 /* Mobile "Filter" button below a thin divider */
 .collection-bold .mobile-facets__wrapper {
   flex: 1;
