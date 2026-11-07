@@ -97,14 +97,13 @@
   border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
 }
 
-/* Compact panel: centred under the header and sized to its content, at least 1100px so the menus look alike,
-   wider only when long link titles need it, never past the screen. Centred with auto margins, since transform is
-   used by the open/close animation. It sits 12px below the header's bottom border, with the brand radius
+/* Compact panel: centred under the header and sized to its content (about 900-930px for the current menus), so the
+   middle area has no empty space before the promo; never past the screen. Centred with auto margins, since transform
+   is used by the open/close animation. It sits 12px below the header's bottom border, with the brand radius
    (--mega-menu-radius, 20px; DESIGN-SYSTEM.md 1.3) and the same faint line all round. */
 .header-nav .mega-menu__content.header-nav__panel {
   top: calc(100% + 1.2rem);
   width: fit-content;
-  min-width: min(110rem, 100%);
   max-width: 100%;
   margin-inline: auto;
   border: 0.1rem solid rgba(var(--color-foreground), 0.08);
