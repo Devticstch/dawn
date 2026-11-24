@@ -1,0 +1,22 @@
+{%- comment -%}
+  Header logo: the full-colour Tech2C logo from the theme files (assets/full-color-logo.png, 600 x 136, transparent),
+  shown at the "Logo width" theme setting. The global Logo setting is left for the other pages that use it (password
+  page, message screens). The header's white logo over the first section comes from the header__heading-logo filter.
+
+  Accepts:
+  - class: {String} classes for the image
+
+  Usage:
+  {% render 'header-logo', class: 'header__heading-logo' %}
+{%- endcomment -%}
+{%- assign logo_height = settings.logo_width | times: 136 | divided_by: 600 -%}
+<div class="header__heading-logo-wrapper">
+  <img
+    src="{{ 'full-color-logo.png' | asset_url }}"
+    alt="{{ shop.name | escape }}"
+    width="{{ settings.logo_width }}"
+    height="{{ logo_height }}"
+    class="{{ class }}"
+    fetchpriority="high"
+  >
+</div>

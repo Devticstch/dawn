@@ -25,7 +25,7 @@
   if facebook_url != blank or instagram_url != blank or youtube_url != blank
     assign social_links = true
   endif
-  assign logo = section.settings.brand_image | default: settings.logo
+  assign logo = section.settings.brand_image
 -%}
 
 {%- comment -%} Reference footer (DESIGN-SYSTEM.md 7.4): blue band, logo and intro, link columns, a large email field, bottom bar {%- endcomment -%}
@@ -44,7 +44,15 @@
               | image_tag: loading: 'lazy', widths: '170, 340', sizes: '170px', alt: shop.name, class: 'cs-footer__logo-image'
             }}
           {%- else -%}
-            <span class="cs-footer__logo-text">{{ shop.name | escape }}</span>
+            {%- comment -%} The white Tech2C logo from the theme files (600 x 136, transparent) {%- endcomment -%}
+            <img
+              src="{{ 'full-white-logo.png' | asset_url }}"
+              alt="{{ shop.name | escape }}"
+              width="600"
+              height="136"
+              loading="lazy"
+              class="cs-footer__logo-image"
+            >
           {%- endif -%}
         </a>
         {%- if section.settings.brand_text != blank -%}
@@ -322,7 +330,7 @@
       "type": "image_picker",
       "id": "brand_image",
       "label": "Logo",
-      "info": "Shown in white. Uses the store logo when empty"
+      "info": "Shown in white. Uses the white Tech2C logo from the theme files when empty"
     },
     {
       "type": "richtext",
