@@ -460,6 +460,7 @@
         "review_1": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/1.webp",
             "quote": "Been seeing these cases everywhere and finally got one! The quality is actually so good for the price!",
             "author": "Fatima Zunair",
             "size": "small",
@@ -473,6 +474,7 @@
         "review_2": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/2.webp",
             "quote": "The quality is actually so good, didn’t expect it to look this premium tbh!❤️",
             "author": "Haris",
             "size": "medium",
@@ -486,6 +488,7 @@
         "review_3": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/3.webp",
             "quote": "Been using it for a while and the quality is solid. Definitely worth ordering from Tech2C.",
             "author": "Iffat Khan",
             "size": "medium",
@@ -499,6 +502,7 @@
         "review_4": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/4.webp",
             "quote": "This Aura case really increases my aura 😂 Love it! Definitely recommend it.",
             "author": "Hamza",
             "size": "large",
@@ -512,6 +516,7 @@
         "review_5": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/5.webp",
             "quote": "Love this case! The pink color and Hello Kitty charms are adorable.",
             "author": "Ayesha",
             "size": "large",
