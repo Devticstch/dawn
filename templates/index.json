@@ -275,8 +275,10 @@
       ],
       "settings": {
         "phone_case_heading": "Case Categories",
+        "phone_case_image": "shopify://shop_images/case_cetagory_section_Image.webp",
         "phone_case_link": "/collections/all",
         "accessories_heading": "Phone Model",
+        "accessories_image": "shopify://shop_images/Phone_Model_section_Image_1.webp",
         "accessories_link": "/collections/all",
         "heading_font": "instrument_sans_n6",
         "background": "#ffffff",
