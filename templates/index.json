@@ -42,7 +42,6 @@
           "type": "slide",
           "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/banner-33.png",
             "mobile_focus": "center",
             "heading": "MAKE iT YOURS",
             "subheading": "Design a case that's all you. Pick the look you love and carry a phone that feels as personal as everything else you own.",
@@ -74,7 +73,6 @@
           "type": "category",
           "settings": {
             "collection": "slim-cases",
-            "image": "shopify://shop_images/slim.webp",
             "label": "Slim Cases",
             "group": "phone_case",
             "link": ""
@@ -84,7 +82,6 @@
           "type": "category",
           "settings": {
             "collection": "clear-cases",
-            "image": "shopify://shop_images/clear_case_b4ad6778-2083-444d-9887-8630ec79848a.webp",
             "label": "Clear Cases",
             "group": "phone_case",
             "link": ""
@@ -149,7 +146,6 @@
           "type": "category",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/image.png",
             "label": "Hard Cases",
             "group": "phone_case",
             "link": ""
@@ -159,7 +155,6 @@
           "type": "category",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/image_0339e776-b094-4429-97ac-3c41b5c254fe.png",
             "label": "Soft Cases",
             "group": "phone_case",
             "link": ""
@@ -169,7 +164,6 @@
           "type": "category",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/image_c307ba03-f2b0-45f2-93f8-484c3b2e9c25.png",
             "label": "Transparent Cases",
             "group": "phone_case",
             "link": ""
@@ -179,7 +173,6 @@
           "type": "category",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/image_d00a21b2-121c-47d1-a73e-317d5c687a0c.png",
             "label": "Leather Cases",
             "group": "phone_case",
             "link": ""
@@ -189,7 +182,6 @@
           "type": "category",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/image_f405e1bd-00b3-4673-8cc7-7f0302d95557.png",
             "label": "Travel",
             "group": "accessories",
             "link": ""
@@ -199,7 +191,6 @@
           "type": "category",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/image_325dca79-f7cd-4c1f-b5bd-489ba87426a9.png",
             "label": "Screen Protector",
             "group": "accessories",
             "link": ""
@@ -209,7 +200,6 @@
           "type": "category",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/image_1511f965-72fe-4089-af73-c6db95156855.png",
             "label": "Earbuds Cases",
             "group": "accessories",
             "link": ""
@@ -219,7 +209,6 @@
           "type": "category",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/image_a171d354-2ace-47d1-a934-87b717b161c4.png",
             "label": "Watch Bands & Cases",
             "group": "accessories",
             "link": ""
@@ -229,7 +218,6 @@
           "type": "category",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/image_b0c74b96-3539-4b9c-981a-270d0e30ae0e.png",
             "label": "Tablet Cases",
             "group": "accessories",
             "link": ""
@@ -239,7 +227,6 @@
           "type": "category",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/image_cec00ebe-81b5-4e64-9023-bbd39ec6165a.png",
             "label": "Laptop Cases",
             "group": "accessories",
             "link": ""
@@ -249,7 +236,6 @@
           "type": "category",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/image_5cf08b37-8d04-4243-82b6-5fb606a8049a.png",
             "label": "Accessories",
             "group": "accessories",
             "link": ""
@@ -259,7 +245,6 @@
           "type": "category",
           "settings": {
             "collection": "",
-            "image": "shopify://shop_images/image_36d35520-c09f-40a6-8518-3d75b2b11521.png",
             "label": "Collectibles",
             "group": "accessories",
             "link": ""
@@ -290,10 +275,8 @@
       ],
       "settings": {
         "phone_case_heading": "Case Categories",
-        "phone_case_image": "shopify://shop_images/case_cetagory_section_Image.webp",
         "phone_case_link": "/collections/all",
         "accessories_heading": "Phone Model",
-        "accessories_image": "shopify://shop_images/Phone_Model_section_Image_1.webp",
         "accessories_link": "/collections/all",
         "heading_font": "instrument_sans_n6",
         "background": "#ffffff",
@@ -477,7 +460,6 @@
         "review_1": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/1_7d06f52f-6972-4ef2-98cc-1c144f3d5c47.webp",
             "quote": "Been seeing these cases everywhere and finally got one! The quality is actually so good for the price!",
             "author": "Fatima Zunair",
             "size": "small",
@@ -491,7 +473,6 @@
         "review_2": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/2_839b3463-33c4-4793-b75d-78372faf51e8.webp",
             "quote": "The quality is actually so good, didn’t expect it to look this premium tbh!❤️",
             "author": "Haris",
             "size": "medium",
@@ -505,7 +486,6 @@
         "review_3": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/3_256c5b53-e89e-4236-8beb-c0b912f2b941.webp",
             "quote": "Been using it for a while and the quality is solid. Definitely worth ordering from Tech2C.",
             "author": "Iffat Khan",
             "size": "medium",
@@ -519,7 +499,6 @@
         "review_4": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/4_9a06cf84-7792-43df-bbcf-72fabc59d898.webp",
             "quote": "This Aura case really increases my aura 😂 Love it! Definitely recommend it.",
             "author": "Hamza",
             "size": "large",
@@ -533,7 +512,6 @@
         "review_5": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/5_5c29b531-ff0d-4152-a459-eb53906c732d.webp",
             "quote": "Love this case! The pink color and Hello Kitty charms are adorable.",
             "author": "Ayesha",
             "size": "large",
@@ -565,33 +543,23 @@
       "blocks": {
         "avatar_1": {
           "type": "avatar",
-          "settings": {
-            "image": "shopify://shop_images/image_ce8212bc-c887-413c-a951-dde5ef7fe729.png"
-          }
+          "settings": {}
         },
         "avatar_2": {
           "type": "avatar",
-          "settings": {
-            "image": "shopify://shop_images/image_262b5b0c-d73d-4fa1-9452-62d8da7019b5.png"
-          }
+          "settings": {}
         },
         "avatar_3": {
           "type": "avatar",
-          "settings": {
-            "image": "shopify://shop_images/image_8f3c5492-ff6c-4e60-a768-19f9de6cebe8.png"
-          }
+          "settings": {}
         },
         "avatar_4": {
           "type": "avatar",
-          "settings": {
-            "image": "shopify://shop_images/image_7d28fae9-1e6c-4fb1-b59a-ffb9007922e7.png"
-          }
+          "settings": {}
         },
         "avatar_5": {
           "type": "avatar",
-          "settings": {
-            "image": "shopify://shop_images/image_5b183bae-67ee-46d8-abfe-4ebd7cee097a.png"
-          }
+          "settings": {}
         }
       },
       "block_order": [
