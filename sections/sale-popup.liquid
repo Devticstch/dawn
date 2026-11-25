@@ -87,14 +87,21 @@
 
   /* Confetti layer: covers the viewport (fixed; the open dialog has no transform, so the viewport is its containing
      block) and sits under the card's opaque content (z-index -1 inside the dialog's top-layer stacking context), so
-     particles burst out from behind the card over the dimmed page. It never takes clicks */
+     particles burst out from behind the card over the dimmed page. It never takes clicks. It shows only while the
+     confetti plays: during the open and close slides the dialog is transformed, which makes this canvas part of the
+     card's scrollable area and flashes a scrollbar */
   .sale-popup__confetti {
+    display: none;
     position: fixed;
     inset: 0;
     z-index: -1;
     width: 100vw;
     height: 100vh;
     pointer-events: none;
+  }
+
+  .sale-popup__confetti.is-playing {
+    display: block;
   }
 
   .sale-popup__close {
@@ -272,6 +279,11 @@
         // One burst of ~100 particles (60 on phones) from behind the card, then drift down; about 4s, then stops
         confetti() {
           if (!this.dialog.open || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          // The timer can land a frame before the rise ends; wait until the dialog is no longer transformed
+          if (getComputedStyle(this.dialog).transform !== 'none') {
+            requestAnimationFrame(() => this.confetti());
+            return;
+          }
           const canvas = this.querySelector('.sale-popup__confetti');
           const ctx = canvas.getContext('2d');
           if (!ctx) return;
@@ -344,12 +356,14 @@
             }
           };
           this.stopConfetti();
+          canvas.classList.add('is-playing');
           this.confettiFrame = requestAnimationFrame(frame);
         }
 
         stopConfetti() {
           cancelAnimationFrame(this.confettiFrame);
           const canvas = this.querySelector('.sale-popup__confetti');
+          canvas.classList.remove('is-playing');
           canvas.getContext('2d')?.clearRect(0, 0, canvas.width, canvas.height);
         }
       }
