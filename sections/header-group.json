@@ -17,8 +17,8 @@
         "announcement-1": {
           "type": "announcement",
           "settings": {
-            "text": "BLESSED FRIDAY SALE | Up to 50% OFF | EXTRA 5% OFF on Online Payments",
-            "link": ""
+            "text": "BLESSED FRIDAY SALE | FLAT 50% OFF | EXTRA 5% OFF on Online Payments",
+            "link": "shopify://collections/blessed-friday"
           }
         }
       },
