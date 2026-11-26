@@ -14,13 +14,6 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
-        "announcement_jQEzCa": {
-          "type": "announcement",
-          "settings": {
-            "text": "Welcome to our store",
-            "link": ""
-          }
-        },
         "announcement-1": {
           "type": "announcement",
           "settings": {
@@ -30,7 +23,6 @@
         }
       },
       "block_order": [
-        "announcement_jQEzCa",
         "announcement-1"
       ],
       "settings": {
