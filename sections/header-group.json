@@ -46,12 +46,13 @@
             "title": "BLESSED FRIDAY SALE",
             "link": "shopify://collections/blessed-friday",
             "badge": "50% OFF",
-            "intro_heading": "",
+            "intro_heading": "Visit the page",
             "intro_text": "",
+            "promo_image": "shopify://shop_images/Hero_Section_Mobile_Version.jpg",
             "promo_theme_image": "",
             "promo_heading": "",
-            "promo_button_label": "",
-            "promo_link": "",
+            "promo_button_label": "Shop Now",
+            "promo_link": "shopify://collections/blessed-friday",
             "promo_caption": ""
           }
         },
