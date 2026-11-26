@@ -34,8 +34,8 @@
             "heading": "AURA Magnetic",
             "subheading": "Sleek, minimal, and made for everyday style. Experience a clean, refined look with a premium finish and MagSafe-ready design.",
             "text_position": "left",
-            "button_label": "",
-            "link": "",
+            "button_label": "Shop Now",
+            "link": "shopify://products/aura-magnetic-case",
             "button_position": "left"
           }
         },
