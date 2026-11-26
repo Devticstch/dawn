@@ -40,6 +40,21 @@
     "header": {
       "type": "header",
       "blocks": {
+        "nav_sale": {
+          "type": "menu_item",
+          "settings": {
+            "title": "Black Friday Sale",
+            "link": "/collections/all/11-11-sale",
+            "badge": "50% OFF",
+            "intro_heading": "",
+            "intro_text": "",
+            "promo_theme_image": "",
+            "promo_heading": "",
+            "promo_button_label": "",
+            "promo_link": "",
+            "promo_caption": ""
+          }
+        },
         "nav_new": {
           "type": "menu_item",
           "settings": {
@@ -78,6 +93,7 @@
             "link": "/collections/all/iphone",
             "links": "Rhode | /collections/rhode\nRhinestone | /collections/all/rhinestone\nCrystal Luxe | /collections/crystal-luxe\nAura Magnetic | /products/aura-magnetic-case",
             "product_limit": 4,
+            "sale_percent": 0,
             "show_view_all": true
           }
         },
@@ -88,6 +104,7 @@
             "link": "",
             "links": "Slim Cases | /collections/all/slim-cases\nClear Cases | /collections/all/clear-cases\nStylish Cases | /collections/all/stylish-cases\nWallet Cases | /collections/wallet-cases",
             "product_limit": 9,
+            "sale_percent": 0,
             "show_view_all": false
           }
         },
@@ -155,6 +172,7 @@
             "link": "/collections/all/iphone",
             "links": "iPhone 18 Pro Max | /collections/all/iphone-18-pro-max\niPhone 18 Pro | /collections/all/iphone-18-pro\niPhone 17 Pro Max | /collections/all/iphone-17-pro-max\niPhone 17 Pro | /collections/all/iphone-17-pro\niPhone 16 Pro Max | /collections/all/iphone-16-pro-max",
             "product_limit": 5,
+            "sale_percent": 0,
             "show_view_all": true
           }
         },
@@ -165,6 +183,7 @@
             "link": "",
             "links": "",
             "product_limit": 5,
+            "sale_percent": 0,
             "show_view_all": true
           }
         },
@@ -189,21 +208,6 @@
             "title": "Contact Us",
             "link": "/pages/contact",
             "badge": "",
-            "intro_heading": "",
-            "intro_text": "",
-            "promo_theme_image": "",
-            "promo_heading": "",
-            "promo_button_label": "",
-            "promo_link": "",
-            "promo_caption": ""
-          }
-        },
-        "nav_sale": {
-          "type": "menu_item",
-          "settings": {
-            "title": "11.11 SALE",
-            "link": "/collections/all/11-11-sale",
-            "badge": "50% OFF",
             "intro_heading": "",
             "intro_text": "",
             "promo_theme_image": "",
