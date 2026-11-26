@@ -76,7 +76,7 @@
           "settings": {
             "heading": "iPhone",
             "link": "/collections/all/iphone",
-            "links": "Rhode | /collections/all/rhode\nRhinestone | /collections/all/rhinestone\nCrystal Luxe | /collections/all/crystal-luxe\nAura Magnetic | /products/aura",
+            "links": "Rhode | /collections/rhode\nRhinestone | /collections/all/rhinestone\nCrystal Luxe | /collections/crystal-luxe\nAura Magnetic | /products/aura-magnetic-case",
             "product_limit": 4,
             "show_view_all": true
           }
@@ -86,7 +86,7 @@
           "settings": {
             "heading": "Shop by Style",
             "link": "",
-            "links": "Slim Cases | /collections/all/slim-cases\nClear Cases | /collections/all/clear-cases\nStylish Cases | /collections/all/stylish-cases\nWallet Cases | /collections/all/wallet-cases",
+            "links": "Slim Cases | /collections/all/slim-cases\nClear Cases | /collections/all/clear-cases\nStylish Cases | /collections/all/stylish-cases\nWallet Cases | /collections/wallet-cases",
             "product_limit": 9,
             "show_view_all": false
           }
@@ -127,7 +127,7 @@
           "settings": {
             "heading": "Top Picks",
             "link": "",
-            "links": "Silq Mag | /collections/silq-mag\nSpigen | /collections/all/spigen\nTransmag | /collections/all/transmag\nKevlar | /collections/all/kevlar\nLeather Textured | /collections/all/leather-textured\nLip Print | /collections/all/lip-print\nSuctionGrip | /collections/all/suctiongrip\nWoven | /collections/all/woven",
+            "links": "Silq Mag | /collections/sliq-mag\nSpigen | /collections/spigen\nTransmag | /collections/transmag\nKevlar | /collections/kevlar\nLeather Textured | /collections/leather-textured\nLip Print | /collections/lip-print\nSuctionGrip | /collections/suctiongrip\nWoven | /collections/woven",
             "product_limit": 8,
             "sale_percent": 0,
             "show_view_all": false

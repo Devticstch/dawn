@@ -75,7 +75,7 @@
             "collection": "slim-cases",
             "label": "Slim Cases",
             "group": "phone_case",
-            "link": ""
+            "link": "/collections/all/slim-cases"
           }
         },
         "category_15": {
@@ -84,7 +84,7 @@
             "collection": "clear-cases",
             "label": "Clear Cases",
             "group": "phone_case",
-            "link": ""
+            "link": "/collections/all/clear-cases"
           }
         },
         "category_5": {
@@ -103,7 +103,7 @@
             "image": "{{ block.settings.collection.image }}",
             "label": "Stylish Cases",
             "group": "phone_case",
-            "link": ""
+            "link": "/collections/all/stylish-cases"
           }
         },
         "category_17": {
@@ -112,7 +112,7 @@
             "collection": "iphone-18-pro-max",
             "label": "iPhone 18 Pro Max",
             "group": "accessories",
-            "link": ""
+            "link": "/collections/all/iphone-18-pro-max"
           }
         },
         "category_18": {
@@ -121,7 +121,7 @@
             "collection": "iphone-18-pro",
             "label": "iPhone 18 Pro",
             "group": "accessories",
-            "link": ""
+            "link": "/collections/all/iphone-18-pro"
           }
         },
         "category_19": {
@@ -130,7 +130,7 @@
             "collection": "iphone-17-pro-max",
             "label": "iPhone 17 Pro Max",
             "group": "accessories",
-            "link": ""
+            "link": "/collections/all/iphone-17-pro-max"
           }
         },
         "category_20": {
@@ -139,7 +139,7 @@
             "collection": "iphone-17-pro",
             "label": "iPhone 17 Pro",
             "group": "accessories",
-            "link": ""
+            "link": "/collections/all/iphone-17-pro"
           }
         },
         "category_1": {
@@ -428,7 +428,7 @@
             "theme_image": "info-store.jpg",
             "heading": "Our Store",
             "button_label": "View now",
-            "link": "/pages/about-us"
+            "link": "/pages/about"
           }
         },
         "card_warranty": {

@@ -43,7 +43,7 @@
           "settings": {
             "label": "Wallet Cases",
             "theme_image": "",
-            "link": "/collections/all/wallet-cases"
+            "link": "/collections/wallet-cases"
           }
         },
         "category_stylish_cases": {
@@ -67,7 +67,7 @@
           "settings": {
             "label": "Tempered Glass",
             "theme_image": "",
-            "link": "/collections/all/tempered-glass"
+            "link": "/collections/tempered-glass"
           }
         }
       },
