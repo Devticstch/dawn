@@ -14,15 +14,23 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
+        "announcement_jQEzCa": {
+          "type": "announcement",
+          "settings": {
+            "text": "Welcome to our store",
+            "link": ""
+          }
+        },
         "announcement-1": {
           "type": "announcement",
           "settings": {
-            "text": "11.11 SALE | Up to 50% OFF | EXTRA 5% OFF on Online Payments",
+            "text": "Blessed Friday SALE | Up to 50% OFF | EXTRA 5% OFF on Online Payments",
             "link": ""
           }
         }
       },
       "block_order": [
+        "announcement_jQEzCa",
         "announcement-1"
       ],
       "settings": {
