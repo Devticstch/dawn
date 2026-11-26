@@ -67,22 +67,6 @@
         "accent_color": "#8825e4"
       }
     },
-    "image_banner_button_PTXPRn": {
-      "type": "image-banner-button",
-      "custom_css": [
-        "selector {padding: 0px;}"
-      ],
-      "name": "Image banner with button",
-      "settings": {
-        "theme_image": "",
-        "text": "",
-        "button_label": "Shop now",
-        "button_link": "shopify://collections/blessed-friday",
-        "accent_color": "#8825E4",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "category_strip": {
       "type": "category-strip",
       "blocks": {
@@ -669,7 +653,6 @@
   },
   "order": [
     "hero_carousel",
-    "image_banner_button_PTXPRn",
     "category_strip",
     "featured_best",
     "editorial_protection",
