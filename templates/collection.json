@@ -27,7 +27,7 @@
           "settings": {
             "label": "Slim Cases",
             "theme_image": "",
-            "link": "/collections/slim-cases"
+            "link": "/collections/all/slim-cases"
           }
         },
         "category_clear_cases": {
@@ -35,7 +35,7 @@
           "settings": {
             "label": "Clear Cases",
             "theme_image": "",
-            "link": "/collections/clear-cases"
+            "link": "/collections/all/clear-cases"
           }
         },
         "category_wallet_cases": {
@@ -43,7 +43,7 @@
           "settings": {
             "label": "Wallet Cases",
             "theme_image": "",
-            "link": "/collections/wallet-cases"
+            "link": "/collections/all/wallet-cases"
           }
         },
         "category_stylish_cases": {
@@ -51,7 +51,7 @@
           "settings": {
             "label": "Stylish Cases",
             "theme_image": "",
-            "link": "/collections/cute-cases"
+            "link": "/collections/all/stylish-cases"
           }
         },
         "category_standard_cases": {
@@ -59,7 +59,7 @@
           "settings": {
             "label": "Standard Cases",
             "theme_image": "",
-            "link": "/collections/standard-cases"
+            "link": "/collections/all/standard-cases"
           }
         },
         "category_tempered_glass": {
@@ -67,7 +67,7 @@
           "settings": {
             "label": "Tempered Glass",
             "theme_image": "",
-            "link": "/collections/tempered-glass"
+            "link": "/collections/all/tempered-glass"
           }
         }
       },

@@ -59,7 +59,7 @@
           "type": "menu_card",
           "settings": {
             "title": "iPhone",
-            "link": "",
+            "link": "/collections/all/iphone",
             "theme_image": "menu-iphone.png"
           }
         },
@@ -75,8 +75,8 @@
           "type": "menu_column",
           "settings": {
             "heading": "iPhone",
-            "link": "",
-            "links": "Rhode | /collections/rhode\nRhinestone | /collections/rhinestone\nCrystal Luxe | /collections/crystal-luxe\nAura Magnetic | /products/aura",
+            "link": "/collections/all/iphone",
+            "links": "Rhode | /collections/all/rhode\nRhinestone | /collections/all/rhinestone\nCrystal Luxe | /collections/all/crystal-luxe\nAura Magnetic | /products/aura",
             "product_limit": 4,
             "show_view_all": true
           }
@@ -86,7 +86,7 @@
           "settings": {
             "heading": "Shop by Style",
             "link": "",
-            "links": "Slim Cases | /collections/slim-cases\nClear Cases | /collections/clear-cases\nStylish Cases | /collections/cute-cases\nWallet Cases | /collections/wallet-cases",
+            "links": "Slim Cases | /collections/all/slim-cases\nClear Cases | /collections/all/clear-cases\nStylish Cases | /collections/all/stylish-cases\nWallet Cases | /collections/all/wallet-cases",
             "product_limit": 9,
             "show_view_all": false
           }
@@ -110,7 +110,7 @@
           "type": "menu_card",
           "settings": {
             "title": "iPhone",
-            "link": "",
+            "link": "/collections/all/iphone",
             "theme_image": "menu-iphone.png"
           }
         },
@@ -127,7 +127,7 @@
           "settings": {
             "heading": "Top Picks",
             "link": "",
-            "links": "Silq Mag | /collections/silq-mag\nSpigen | /collections/spigen\nTransmag | /collections/transmag\nKevlar | /collections/kevlar\nLeather Textured | /collections/leather-textured\nLip Print | /collections/lip-print\nSuctionGrip | /collections/suctiongrip\nWoven | /collections/woven",
+            "links": "Silq Mag | /collections/silq-mag\nSpigen | /collections/all/spigen\nTransmag | /collections/all/transmag\nKevlar | /collections/all/kevlar\nLeather Textured | /collections/all/leather-textured\nLip Print | /collections/all/lip-print\nSuctionGrip | /collections/all/suctiongrip\nWoven | /collections/all/woven",
             "product_limit": 8,
             "sale_percent": 0,
             "show_view_all": false
@@ -152,8 +152,8 @@
           "type": "menu_column",
           "settings": {
             "heading": "iPhone",
-            "link": "",
-            "links": "iPhone 18 Pro Max | /collections/iphone-18-pro-max\niPhone 18 Pro | /collections/iphone-18-pro\niPhone 17 Pro Max | /collections/iphone-17-pro-max\niPhone 17 Pro | /collections/iphone-17-pro\niPhone 16 Pro Max | /collections/iphone-16-pro-max",
+            "link": "/collections/all/iphone",
+            "links": "iPhone 18 Pro Max | /collections/all/iphone-18-pro-max\niPhone 18 Pro | /collections/all/iphone-18-pro\niPhone 17 Pro Max | /collections/all/iphone-17-pro-max\niPhone 17 Pro | /collections/all/iphone-17-pro\niPhone 16 Pro Max | /collections/all/iphone-16-pro-max",
             "product_limit": 5,
             "show_view_all": true
           }
@@ -202,7 +202,7 @@
           "type": "menu_item",
           "settings": {
             "title": "11.11 SALE",
-            "link": "/collections/11-11-sale",
+            "link": "/collections/all/11-11-sale",
             "badge": "50% OFF",
             "intro_heading": "",
             "intro_text": "",

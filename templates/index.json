@@ -645,7 +645,7 @@
         "text_2": "Plus EXTRA 5% OFF on online payments",
         "small_text": "Sale runs from 05/11 to 25/11.",
         "button_label": "Shop the Sale",
-        "button_link": "shopify://collections/11-11-sale",
+        "button_link": "/collections/all/11-11-sale",
         "delay": 3
       }
     }
