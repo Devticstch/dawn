@@ -12,30 +12,16 @@
     "hero_carousel": {
       "type": "hero-carousel",
       "blocks": {
-        "slide_yM3JCw": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/Hero_Image.jpg",
-            "mobile_image": "shopify://shop_images/Hero_Section_Mobile_Version.jpg",
-            "mobile_focus": "center",
-            "heading": "BLESSED FRIDAY",
-            "subheading": "",
-            "text_position": "left",
-            "button_label": "Shop now",
-            "link": "",
-            "button_position": "left"
-          }
-        },
         "slide_pcxHQh": {
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/Hero_Image.jpg",
             "mobile_image": "shopify://shop_images/Hero_Section_Mobile_Version.jpg",
             "mobile_focus": "center",
-            "heading": "Blessed Friday",
+            "heading": "",
             "subheading": "",
             "text_position": "right",
-            "button_label": "Explore",
+            "button_label": "",
             "link": "shopify://collections/blessed-friday",
             "button_position": "left"
           }
@@ -68,7 +54,6 @@
         }
       },
       "block_order": [
-        "slide_yM3JCw",
         "slide_pcxHQh",
         "slide_1",
         "slide_2"
