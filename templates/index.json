@@ -640,12 +640,12 @@
     "sale_popup": {
       "type": "sale-popup",
       "settings": {
-        "heading": "11.11 SALE",
+        "heading": "BLESSED FRIDAY SALE",
         "text": "Up to 50% OFF on stylish phone cases",
         "text_2": "Plus EXTRA 5% OFF on online payments",
-        "small_text": "Sale runs from 05/11 to 25/11.",
+        "small_text": "Sale runs from 27/11 to 5/12.",
         "button_label": "Shop the Sale",
-        "button_link": "/collections/all/11-11-sale",
+        "button_link": "shopify://collections/blessed-friday",
         "delay": 3
       }
     }
