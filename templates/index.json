@@ -291,7 +291,7 @@
     "featured_best": {
       "type": "best-sellers",
       "settings": {
-        "title": "Best Sellers",
+        "title": "BLESSED FRIDAY SALE",
         "collection": "all",
         "products_to_show": 8,
         "show_swatches": true,
@@ -358,8 +358,8 @@
       "settings": {
         "image": "shopify://shop_images/Website_Background_Image_2.webp",
         "theme_image": "banner-ribbed-cases.jpg",
-        "text": "",
-        "button_label": "Shop now",
+        "text": "Premium Covers at Affordable Price",
+        "button_label": "Shop All",
         "button_link": "/collections/all",
         "accent_color": "#8825e4",
         "padding_top": 0,
@@ -392,12 +392,12 @@
         "eyebrow": "FEATURED",
         "products": [
           "brown-kevlar-case",
-          "rhode",
-          "navy-woven-case",
-          "orange-woven-case"
+          "red-rhode-case",
+          "black-rhinestone-case",
+          "icy-silver-crystal-luxe-case"
         ],
         "collection": "all",
-        "products_to_show": 4,
+        "products_to_show": 3,
         "category_label": "Category",
         "show_options": true,
         "vendor_label": "",
