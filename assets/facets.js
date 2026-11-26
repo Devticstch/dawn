@@ -47,8 +47,9 @@ class FacetFiltersForm extends HTMLElement {
       countContainerDesktop.classList.add('loading');
     }
 
+    const { path, query } = FacetFiltersForm.tagUrl(searchParams);
     sections.forEach((section) => {
-      const url = `${window.location.pathname}?section_id=${section.section}&${searchParams}`;
+      const url = `${path}?section_id=${section.section}&${query}`;
       const filterDataUrl = (element) => element.url === url;
 
       FacetFiltersForm.filterData.some(filterDataUrl)
@@ -316,7 +317,39 @@ class FacetFiltersForm extends HTMLElement {
   }
 
   static updateURLHash(searchParams) {
-    history.pushState({ searchParams }, '', `${window.location.pathname}${searchParams && '?'.concat(searchParams)}`);
+    const { path, query } = FacetFiltersForm.tagUrl(searchParams);
+    history.pushState({ searchParams }, '', `${path}${query && '?'.concat(query)}`);
+  }
+
+  // Tag filter (snippets/facets-tags): Shopify filters a collection by tag through the URL path,
+  // /collections/<handle>/<tag>+<tag>, so the form's filter.tag values go into the path and the other filters stay in
+  // the query. Without the tag filter on the page (search results) the URL is left as it was.
+  static tagBase() {
+    return document.querySelector('[data-tag-filter-base]')?.dataset.tagFilterBase;
+  }
+
+  static tagUrl(searchParams) {
+    const base = FacetFiltersForm.tagBase();
+    if (!base) return { path: window.location.pathname, query: searchParams };
+    const params = new URLSearchParams(searchParams);
+    const tags = params.getAll('filter.tag');
+    params.delete('filter.tag');
+    return { path: tags.length ? `${base}/${tags.join('+')}` : base, query: params.toString() };
+  }
+
+  // The reverse: a URL's query plus its path tags as filter.tag values
+  static paramsFromUrl(href) {
+    const url = new URL(href, window.location.origin);
+    const params = new URLSearchParams(url.search);
+    const base = FacetFiltersForm.tagBase();
+    if (base && url.pathname.startsWith(`${base}/`)) {
+      url.pathname
+        .slice(base.length + 1)
+        .split('+')
+        .filter(Boolean)
+        .forEach((tag) => params.append('filter.tag', decodeURIComponent(tag)));
+    }
+    return params.toString();
   }
 
   static getSections() {
@@ -362,17 +395,31 @@ class FacetFiltersForm extends HTMLElement {
   onActiveFilterClick(event) {
     event.preventDefault();
     FacetFiltersForm.toggleActiveFacets();
-    const url =
-      event.currentTarget.href.indexOf('?') == -1
-        ? ''
-        : event.currentTarget.href.slice(event.currentTarget.href.indexOf('?') + 1);
-    FacetFiltersForm.renderPage(url);
+    const link = event.currentTarget;
+    const current = new URLSearchParams(FacetFiltersForm.searchParamsPrev);
+    const currentTags = current.getAll('filter.tag');
+    let params;
+    if (link.dataset.tagRemove !== undefined || link.dataset.tagClear !== undefined) {
+      // A tag pill or the Tags filter's own clear link: the current filters without that tag (or without all tags)
+      params = current;
+      params.delete('filter.tag');
+      if (link.dataset.tagRemove !== undefined) {
+        currentTags.filter((tag) => tag !== link.dataset.tagRemove).forEach((tag) => params.append('filter.tag', tag));
+      }
+    } else {
+      // Shopify's own remove links; they keep the selected tags unless they carry tags of their own or clear everything
+      params = new URLSearchParams(FacetFiltersForm.paramsFromUrl(link.href));
+      if (!params.has('filter.tag') && !link.classList.contains('active-facets__button-remove')) {
+        currentTags.forEach((tag) => params.append('filter.tag', tag));
+      }
+    }
+    FacetFiltersForm.renderPage(params.toString());
   }
 }
 
 FacetFiltersForm.filterData = [];
-FacetFiltersForm.searchParamsInitial = window.location.search.slice(1);
-FacetFiltersForm.searchParamsPrev = window.location.search.slice(1);
+FacetFiltersForm.searchParamsInitial = FacetFiltersForm.paramsFromUrl(window.location.href);
+FacetFiltersForm.searchParamsPrev = FacetFiltersForm.searchParamsInitial;
 customElements.define('facet-filters-form', FacetFiltersForm);
 FacetFiltersForm.setListeners();
 

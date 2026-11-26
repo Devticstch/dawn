@@ -187,6 +187,7 @@
     },
     "facets": {
       "filter_and_operator_subtitle": "Match all",
+      "tag_label": "Tags",
       "apply": "Apply",
       "clear": "Clear",
       "clear_all": "Remove all",

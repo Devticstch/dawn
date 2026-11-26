@@ -1,0 +1,229 @@
+{%- comment -%}
+  Tag filter for collection pages, built like the list filters in snippets/facets so it looks and behaves the same.
+  Shopify filters a collection by tag through the URL path, /collections/<handle>/<tag>+<tag> (products with all the
+  tags), not a query parameter. The checkboxes are named filter.tag and assets/facets.js moves the selected values into
+  the path (and a path's tags back into filter.tag), so the other filters stay query parameters and combine with it.
+  Options are the tags of the collection's products (collection.all_tags). Search results can't be filtered by tag
+  this way, so nothing renders there.
+
+  Accepts:
+  - mode: {String} 'desktop' (horizontal or vertical filters), 'mobile' (filter drawer) or 'pills' (active filters)
+  - filter_type: {String} the facets filter type: 'horizontal', 'vertical' or 'drawer'
+
+  Usage:
+  {% render 'facets-tags', mode: 'desktop', filter_type: filter_type %}
+{%- endcomment -%}
+{%- if request.page_type == 'collection' and collection.all_tags.size > 0 -%}
+  {%- liquid
+    assign base_url = collection.url
+    assign label = 'products.facets.tag_label' | t
+    assign active_tags = ','
+    assign active_count = 0
+    for tag in current_tags
+      assign tag_handle = tag | handleize
+      assign active_tags = active_tags | append: tag_handle | append: ','
+      assign active_count = active_count | plus: 1
+    endfor
+  -%}
+
+  {%- case mode -%}
+    {%- when 'desktop' -%}
+      <details
+        id="Details-filter.tag-{{ section.id }}"
+        class="{% if filter_type == 'horizontal' %}disclosure-has-popup facets__disclosure{% else %} facets__disclosure-vertical{% endif %} js-filter"
+        data-index="tags"
+        data-tag-filter-base="{{ base_url }}"
+      >
+        <summary
+          class="facets__summary caption-large focus-offset"
+          aria-label="{{ label | escape }} ({{ 'products.facets.filters_selected.one' | t: count: active_count }})"
+        >
+          <div>
+            <span class="facets__summary-label">
+              {{- label | escape }}
+              {%- if filter_type == 'vertical' -%}
+                <span class="facets__selected{% if active_count == 0 %} hidden{% endif %}"> ({{ active_count }})</span>
+              {%- endif -%}
+            </span>
+            {%- if filter_type == 'vertical' -%}
+              <span class="facets__and-helptext">{{ 'products.facets.filter_and_operator_subtitle' | t }}</span>
+            {%- endif -%}
+            {{- 'icon-caret.svg' | inline_asset_content -}}
+          </div>
+        </summary>
+        <div
+          id="Facet-tags-{{ section.id }}"
+          class="parent-display {% if filter_type == 'horizontal' %}facets__display{% else %}facets__display-vertical{% endif %}"
+        >
+          {%- if filter_type != 'vertical' -%}
+            <div class="facets__header">
+              <div>
+                <span class="facets__selected">{{- 'products.facets.filters_selected' | t: count: active_count -}}</span>
+                <span class="facets__and-helptext">{{ 'products.facets.filter_and_operator_subtitle' | t }}</span>
+              </div>
+              <facet-remove>
+                <a href="{{ base_url }}" class="facets__reset link underlined-link" data-tag-clear>
+                  {{ 'products.facets.reset' | t }}
+                </a>
+              </facet-remove>
+            </div>
+          {%- endif -%}
+          <fieldset class="facets-wrap parent-wrap {% if filter_type == 'vertical' %} facets-wrap-vertical{% endif %}">
+            <legend class="visually-hidden">{{ label | escape }}</legend>
+            <ul
+              class="facets-layout facets-layout-list facets-layout-list--text{% if filter_type == 'vertical' %} facets__list--vertical{% else %} facets__list{% endif %} list-unstyled"
+              role="list"
+            >
+              {%- for tag in collection.all_tags -%}
+                {%- liquid
+                  assign tag_handle = tag | handleize
+                  assign tag_key = ',' | append: tag_handle | append: ','
+                  assign input_id = 'Filter-filter.tag-' | append: forloop.index
+                -%}
+                <li class="list-menu__item facets__item{% if forloop.index > 10 and filter_type == 'vertical' %} show-more-item hidden{% endif %}">
+                  <label
+                    for="{{ input_id }}"
+                    class="facets__label facet-checkbox{% if active_tags contains tag_key %} active{% endif %}"
+                  >
+                    <input
+                      type="checkbox"
+                      name="filter.tag"
+                      value="{{ tag_handle }}"
+                      id="{{ input_id }}"
+                      {% if active_tags contains tag_key %}
+                        checked
+                      {% endif %}
+                    >
+                    {{- 'square.svg' | inline_asset_content -}}
+                    <div class="svg-wrapper">
+                      {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                    </div>
+                    <span class="facet-checkbox__text">
+                      <span class="facet-checkbox__text-label">{{- tag | escape -}}</span>
+                    </span>
+                  </label>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </fieldset>
+          {%- if collection.all_tags.size > 10 and filter_type == 'vertical' -%}
+            <show-more-button>
+              <button class="button-show-more link underlined-link" id="Show-More-tags-{{ section.id }}" type="button">
+                <span class="label-show-more label-text"
+                  ><span aria-hidden="true">+ </span>{{ 'products.facets.show_more' | t -}}
+                </span>
+                <span class="label-show-less label-text hidden"
+                  ><span aria-hidden="true">- </span>{{ 'products.facets.show_less' | t -}}
+                </span>
+              </button>
+            </show-more-button>
+          {%- endif %}
+        </div>
+      </details>
+
+    {%- when 'mobile' -%}
+      <details
+        id="Details-Mobile-filter.tag-{{ section.id }}"
+        class="mobile-facets__details js-filter"
+        data-index="mobile-tags"
+        data-tag-filter-base="{{ base_url }}"
+      >
+        <summary class="mobile-facets__summary focus-inset">
+          <div>
+            <span>{{ label | escape }}</span>
+            <span class="mobile-facets__arrow">
+              {{- 'icon-arrow.svg' | inline_asset_content -}}
+            </span>
+          </div>
+        </summary>
+        <div id="FacetMobile-tags-{{ section.id }}" class="mobile-facets__submenu gradient">
+          <button class="mobile-facets__close-button link link--text focus-inset" aria-expanded="true" type="button">
+            {{- 'icon-arrow.svg' | inline_asset_content -}}
+            <span>{{ label | escape }}</span>
+            <span class="facets__and-helptext">{{ 'products.facets.filter_and_operator_subtitle' | t }}</span>
+          </button>
+          <ul class="facets-layout facets-layout-list facets-layout-list--text mobile-facets__list list-unstyled" role="list">
+            {%- for tag in collection.all_tags -%}
+              {%- liquid
+                assign tag_handle = tag | handleize
+                assign tag_key = ',' | append: tag_handle | append: ','
+                assign input_id = 'Filter-filter.tag-mobile-' | append: forloop.index
+              -%}
+              <li class="mobile-facets__item list-menu__item">
+                <label
+                  for="{{ input_id }}"
+                  class="facets__label mobile-facets__label{% if active_tags contains tag_key %} active{% endif %}"
+                >
+                  <input
+                    class="mobile-facets__checkbox"
+                    type="checkbox"
+                    name="filter.tag"
+                    value="{{ tag_handle }}"
+                    id="{{ input_id }}"
+                    {% if active_tags contains tag_key %}
+                      checked
+                    {% endif %}
+                  >
+                  <span class="mobile-facets__highlight"></span>
+                  {{- 'square.svg' | inline_asset_content -}}
+                  {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                  <span class="facet-checkbox__text">
+                    <span class="facet-checkbox__text-label">{{- tag | escape -}}</span>
+                  </span>
+                </label>
+              </li>
+            {%- endfor -%}
+          </ul>
+
+          <div class="mobile-facets__footer gradient">
+            <facet-remove class="mobile-facets__clear-wrapper">
+              <a href="{{ base_url }}" class="mobile-facets__clear underlined-link" data-tag-clear>
+                {{- 'products.facets.clear' | t -}}
+              </a>
+            </facet-remove>
+            <button
+              type="button"
+              class="button button--primary"
+              onclick="this.closest('.mobile-facets__wrapper').querySelector('summary').click()"
+            >
+              {{ 'products.facets.apply' | t }}
+            </button>
+          </div>
+        </div>
+      </details>
+
+    {%- when 'pills' -%}
+      {%- for tag in collection.all_tags -%}
+        {%- liquid
+          assign tag_handle = tag | handleize
+          assign tag_key = ',' | append: tag_handle | append: ','
+          unless active_tags contains tag_key
+            continue
+          endunless
+          assign remaining = ''
+          for current in current_tags
+            assign current_handle = current | handleize
+            if current_handle != tag_handle
+              assign remaining = remaining | append: '+' | append: current_handle
+            endif
+          endfor
+          assign remaining = remaining | remove_first: '+'
+          assign remove_url = base_url
+          if remaining != ''
+            assign remove_url = base_url | append: '/' | append: remaining
+          endif
+        -%}
+        <facet-remove>
+          <a href="{{ remove_url }}" class="active-facets__button active-facets__button--light" data-tag-remove="{{ tag_handle }}">
+            <span class="active-facets__button-inner button button--tertiary">
+              {{ label | escape }}: {{ tag | escape }}
+              <span class="svg-wrapper">
+                {{- 'icon-close-small.svg' | inline_asset_content -}}
+              </span>
+              <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+            </span>
+          </a>
+        </facet-remove>
+      {%- endfor -%}
+  {%- endcase -%}
+{%- endif -%}

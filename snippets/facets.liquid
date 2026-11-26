@@ -114,6 +114,7 @@
                     {%- endif -%}
                   {% endif %}
                 {%- endfor -%}
+                {%- render 'facets-tags', mode: 'pills' -%}
               </div>
             {%- endif -%}
 
@@ -344,6 +345,7 @@
                   </details>
               {% endcase %}
             {%- endfor -%}
+            {%- render 'facets-tags', mode: 'desktop', filter_type: filter_type -%}
           </div>
           {% comment %} Pills after filtes on filter type horizontal {% endcomment %}
           {%- if filter_type == 'horizontal' -%}
@@ -380,6 +382,7 @@
                   {%- endif -%}
                 {% endif %}
               {%- endfor -%}
+              {%- render 'facets-tags', mode: 'pills' -%}
               <facet-remove class="active-facets__button-wrapper">
                 <a href="{{ results_url }}" class="active-facets__button-remove underlined-link">
                   <span>{{ 'products.facets.clear_all' | t }}</span>
@@ -724,6 +727,7 @@
                       </details>
                   {% endcase %}
                 {%- endfor -%}
+                {%- render 'facets-tags', mode: 'mobile' -%}
               {%- endif -%}
 
               {%- if enable_sorting -%}
@@ -827,6 +831,7 @@
         {%- endif -%}
       {%- endif -%}
     {%- endfor -%}
+    {%- render 'facets-tags', mode: 'pills' -%}
     <facet-remove class="active-facets__button-wrapper">
       <a href="{{ results_url }}" class="active-facets__button-remove underlined-link">
         <span>{{ 'products.facets.clear_all' | t }}</span>
@@ -941,6 +946,7 @@
               {%- endif -%}
             {%- endif -%}
           {%- endfor -%}
+          {%- render 'facets-tags', mode: 'pills' -%}
           <facet-remove class="active-facets__button-wrapper">
             <a href="{{ results_url }}" class="active-facets__button-remove underlined-link">
               <span>{{ 'products.facets.clear_all' | t }}</span>
