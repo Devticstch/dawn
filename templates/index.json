@@ -120,6 +120,7 @@
           "type": "category",
           "settings": {
             "collection": "iphone-18-pro",
+            "image": "shopify://shop_images/iPhone_18_P.webp",
             "label": "iPhone 18 Pro",
             "group": "accessories",
             "link": "/collections/all/iphone-18-pro"
@@ -138,6 +139,7 @@
           "type": "category",
           "settings": {
             "collection": "iphone-17-pro",
+            "image": "shopify://shop_images/iPhone_17_P.webp",
             "label": "iPhone 17 Pro",
             "group": "accessories",
             "link": "/collections/all/iphone-17-pro"
